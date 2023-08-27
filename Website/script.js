@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function() {
     // Side bar
     const bar = document.getElementById('bar');
     const nav = document.getElementById('navbar');
     const close = document.getElementById('close');
+=======
+const cartItemContainer = document.getElementById('cart-items');
+
+// Side bar
+const bar = document.getElementById('bar');
+const nav = document.getElementById('navbar');
+const close = document.getElementById('close');
+>>>>>>> ce96235c9eaa43629648039a383b04f5c068ea91
 
     if (bar){
         bar.addEventListener('click', () => {
@@ -16,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+<<<<<<< HEAD
     var removeCartItemButtons = document.getElementsByClassName('fa-trash-can');
     for(let i = 0; i < removeCartItemButtons.length; i++){
         var button = removeCartItemButtons[i];
@@ -42,6 +52,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function updateCartTotal() {
     var cartItemContainer = document.getElementById('cart-items');
+=======
+var removeCartItemButtons = document.getElementsByClassName('fa-trash-can');
+for(let i = 0; i < removeCartItemButtons.length; i++){
+    var button = removeCartItemButtons[i];
+    button.addEventListener('click', function(event){
+        var buttonClicked = event.target;
+        buttonClicked.parentElement.parentElement.parentElement.remove();
+        updateCartTotal();
+    });
+}
+
+function updateCartTotal() {
+>>>>>>> ce96235c9eaa43629648039a383b04f5c068ea91
     var cartRows = cartItemContainer.querySelectorAll('.cart-row');
     var total = 0;
 
@@ -57,6 +80,7 @@ function updateCartTotal() {
         subtotalElement.innerText = 'R ' + subtotal.toFixed(2);
         total += subtotal;
     });
+<<<<<<< HEAD
 
     var shippingCost = parseFloat(document.getElementById('shipping').innerText.replace('R ', ''));
     var cartSubtotal = total;
@@ -64,4 +88,13 @@ function updateCartTotal() {
 
     document.getElementById('cart-sub').innerText = 'R ' + cartSubTotal.toFixed(2);
     document.getElementById('total').innerText = 'R ' + grandTotal.toFixed(2);
+=======
+
+    document.getElementById('cart-sub').innerText = 'R ' + total.toFixed(2);
+}
+
+var quantityInputs = document.querySelectorAll('.qtn input');
+for (let i = 0; i < quantityInputs.length; i++) {
+    quantityInputs[i].addEventListener('change', updateCartTotal);
+>>>>>>> ce96235c9eaa43629648039a383b04f5c068ea91
 }
