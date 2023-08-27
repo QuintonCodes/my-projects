@@ -1,4 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var cartRows = document.querySelectorAll('.cart-row');
+    var initialCartSubtotal = 0;
+
+    cartRows.forEach(function(cartRow) {
+        var priceElement = cartRow.querySelector('.price');
+        var quantityInput = cartRow.querySelector('.qtn input');
+
+        var price = parseFloat(priceElement.innerText.replace('R ', ''));
+        var quantity = Math.max(parseInt(quantityInput.value), 1);
+        var subtotal = price * quantity;
+
+        initialCartSubtotal += subtotal;
+
+        //Remove items
+        var removeButton = document.getElementsByClassName('fa-trash-can');
+        removeButton.addEventListener('click', function() {
+            cartRow.remove();
+            updateCartTotal();
+        });
+
+        // Quantity Input
+        quantityInput.addEventListener('input', function() {
+            var newQuantity = parseInt(this.value);
+            if (isNaN(newQuantity) || newQuantity <= 0) {
+                this.value = 1;
+            }
+            updateCartTotal();
+        });
+    });
+
+    document.getElementById('cart-sub').innerText = 'R ' + initialCartSubtotal.toFixed(2);
+    updateCartTotal();
+
     // Side bar
     const bar = document.getElementById('bar');
     const nav = document.getElementById('navbar');
@@ -16,17 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    var removeCartItemButtons = document.getElementsByClassName('fa-trash-can');
-    for(let i = 0; i < removeCartItemButtons.length; i++){
-        var button = removeCartItemButtons[i];
-        button.addEventListener('click', function(event){
-            var buttonClicked = event.target;
-            buttonClicked.parentElement.parentElement.parentElement.remove();
-            updateCartTotal();
-        });
-    }
-
-    var quantityInputs = document.querySelectorAll('.qtn input');
+    /*var quantityInputs = document.querySelectorAll('.qtn input');
     for (let i = 0; i < quantityInputs.length; i++) {
         quantityInputs[i].addEventListener('input', function() {
             var quantity = parseInt(this.value);
@@ -37,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    updateCartTotal();
+    updateCartTotal();*/
 });
 
 function updateCartTotal() {
@@ -47,11 +70,11 @@ function updateCartTotal() {
 
     cartRows.forEach(function(cartRow) {
         var priceElement = cartRow.querySelector('.price');
-        var quantityElement = cartRow.querySelector('.qtn input');
+        var quantityInput = cartRow.querySelector('.qtn input');
         var subtotalElement = cartRow.querySelector('.sub');
 
         var price = parseFloat(priceElement.innerText.replace('R ', ''));
-        var quantity = parseInt(quantityElement.value);
+        var quantity = Math.max(parseInt(quantityInput.value), 1);
         var subtotal = price * quantity;
 
         subtotalElement.innerText = 'R ' + subtotal.toFixed(2);
@@ -62,6 +85,6 @@ function updateCartTotal() {
     var cartSubtotal = total;
     var grandTotal = cartSubtotal + shippingCost;
 
-    document.getElementById('cart-sub').innerText = 'R ' + cartSubTotal.toFixed(2);
+    document.getElementById('cart-sub').innerText = 'R ' + cartSubtotal.toFixed(2);
     document.getElementById('total').innerText = 'R ' + grandTotal.toFixed(2);
 }
