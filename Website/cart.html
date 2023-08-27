@@ -63,14 +63,22 @@
                     <td>SubTotal</td>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td><a href = "#"><i class = "fa-solid fa-trash-can" style = "color: #000000;"></i></a></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input type = "number" value = "1"></td>
-                    <td></td>
+            <tbody id = "cart-items">
+                <tr class = "cart-row">
+                    <td class = "remove"><a href = "#"><i class = "fa-solid fa-trash-can" style = "color: #000000;"></i></a></td>
+                    <td class = "img">Images</td>
+                    <td class = "pd">Apples</td>
+                    <td class = "price">R 300</td>
+                    <td class = "qtn"><input type = "number" value = "1"></td>
+                    <td class = "sub"></td>
+                </tr>
+                <tr class = "cart-row">
+                    <td class = "remove"><a href = "#"><i class = "fa-solid fa-trash-can" style = "color: #000000;"></i></a></td>
+                    <td class = "img">Image</td>
+                    <td class = "pd">Orange</td>
+                    <td class = "price">R 350</td>
+                    <td class = "qtn"><input type = "number" value = "1"></td>
+                    <td class = "sub"></td>
                 </tr>
             </tbody>
         </table>  
@@ -82,7 +90,7 @@
             <table>
                 <tr>
                     <td>Cart Subtotals</td>
-                    <td>R 600</td>
+                    <td id = "cart-sub">R 600</td>
                 </tr>
                 <tr>
                     <td>Shipping</td>
