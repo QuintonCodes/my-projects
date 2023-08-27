@@ -5,7 +5,7 @@
     <meta charset = "UTF-8">
     <meta http-equiv = "X-UA-Compatible" content = "ie = edge">
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
-    <title>KickFlip Culture</title>
+    <title>KickFlip Store</title>
     <link rel = "stylesheet" href = "styles.css">
     <link rel = "stylesheet" href = "icons/fontawesome.css">
     <link rel = "stylesheet" href = "icons/solid.css">
@@ -65,9 +65,9 @@
         </div>
         
         <div class = "pro-details">
-            <h4>KickFlip Hoodie</h4>
-            <h3>R 300.00</h3>
-            <select id = "options" autocomplete = "Select size">
+            <h4 class = "item">KickFlip Hoodie 1</h4>
+            <h3 class = "priceItem">R 300.00</h3>
+            <select id = "options" autocomplete = "Select size" class = "size">
                 <option>Select size</option>
                 <option>Small</option>
                 <option>Medium</option>
@@ -75,7 +75,8 @@
                 <option>XL</option>
             </select>
             <input type = "number" value = "1" id = "noOfStock" autocomplete = "1">
-            <a href = "#">
+
+            <a href = "cart.html">
                 <div class = "pro-buy">
                     <div class = "button2">
                         <div class = "button-wrapper2">
@@ -89,16 +90,18 @@
                     </div>
                 </div>
             </a>
-            <h4>Product Details</h4>
-            <p>
-                Stay effortlessly stylish and comfortable with our classic Black Hoodie. 
-                Crafted with care and attention to detail, this versatile wardrobe essential is designed to keep you cozy while exuding an air of understated elegance.
-            </p>
-            <p>
-                Made from a premium blend of high-quality cotton and soft polyester, the hoodie offers a luxuriously smooth feel against your skin.
-                Its deep black hue is both timeless and adaptable, seamlessly integrating into any occasion. 
-            </p>
 
+            <div class = "details">
+                <h4>Product Details</h4>
+                <p>
+                    Stay effortlessly stylish and comfortable with our classic Black Hoodie. 
+                    Crafted with care and attention to detail, this versatile wardrobe essential is designed to keep you cozy while exuding an air of understated elegance.
+                </p>
+                <p>
+                    Made from a premium blend of high-quality cotton and soft polyester, the hoodie offers a luxuriously smooth feel against your skin.
+                    Its deep black hue is both timeless and adaptable, seamlessly integrating into any occasion. 
+                </p>
+            </div>
         </div>
     </section>
     
@@ -110,14 +113,17 @@
         
         <div class = "product-row2">
             <div class = "pro-container2">
-                <div class = "pro2">
-                    <img src = "clothes/mock-ups/mockup2-front.jpeg" alt = "Front side of White hoodie">
-                    <div class = "dsp2">
-                        <h5>KickFlip Hoodie</h5>
-                        <span>White</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro2" >
+                    <div class = "cart-item" id = "prod2">
+                        <img src = "clothes/mock-ups/mockup2-front.jpeg" alt = "Front side of White hoodie">
+                        <div class = "dsp2">
+                            <h5 class = "item">KickFlip Hoodie 2</h5>
+                            <span class = "colour">White</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -134,13 +140,16 @@
     
             <div class = "pro-container2">
                 <div class = "pro2">
-                    <img src = "clothes/mock-ups/mockup3-front.jpeg" alt = "Front side of Green hoodie">
-                    <div class = "dsp2">
-                        <h5>KickFlip Hoodie</h5>
-                        <span>Green</span>
-                        <h4>R 300.00</h4>
+                    <div class = "cart-item" id = "prod3">
+                        <img src = "clothes/mock-ups/mockup3-front.jpeg" alt = "Front side of Green hoodie">
+                        <div class = "dsp2">
+                            <h5 class = "item">KickFlip Hoodie 3</h5>
+                            <span class = "colour">Green</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -157,13 +166,16 @@
     
             <div class = "pro-container2">
                 <div class = "pro2">
-                    <img src = "clothes/mock-ups/mockup4-front.jpeg" alt = "Front side of Military Brown hoodie">
-                    <div class = "dsp2">
-                        <h5>KickFlip Hoodie</h5>
-                        <span>Military Brown</span>
-                        <h4>R 300.00</h4>
+                    <div class = "cart-item" id = "prod4">
+                        <img src = "clothes/mock-ups/mockup4-front.jpeg" alt = "Front side of Military Brown hoodie">
+                        <div class = "dsp2">
+                            <h5 class = "item">KickFlip Hoodie 4</h5>
+                            <span class = "colour">Military Brown</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>

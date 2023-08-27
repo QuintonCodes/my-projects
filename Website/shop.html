@@ -5,7 +5,7 @@
     <meta charset = "UTF-8">
     <meta http-equiv = "X-UA-Compatible" content = "ie = edge">
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
-    <title>KickFlip Culture</title>
+    <title>KickFlip Store</title>
     <link rel = "stylesheet" href = "styles.css">
     <link rel = "stylesheet" href = "icons/fontawesome.css">
     <link rel = "stylesheet" href = "icons/solid.css">
@@ -27,7 +27,7 @@
                     <a href = "cart.html">
                         <button data-quantity = "0" class = "btn-cart">
                             <svg class = "icon-cart" viewBox = "0 0 24.38 30.52" height = "30.52" width = "24.38" xmlns = "http://www.w3.org/2000/svg">
-                            <path transform = "translate(-3.62 -0.85)" d="M28,27.3,26.24,7.51a.75.75,0,0,0-.76-.69h-3.7a6,6,0,0,0-12,0H6.13a.76.76,0,0,0-.76.69L3.62,27.3v.07a4.29,4.29,0,0,0,4.52,4H23.48a4.29,4.29,0,0,0,4.52-4ZM15.81,2.37a4.47,4.47,0,0,1,4.46,4.45H11.35a4.47,4.47,0,0,1,4.46-4.45Zm7.67,27.48H8.13a2.79,2.79,0,0,1-3-2.45L6.83,8.34h3V11a.76.76,0,0,0,1.52,0V8.34h8.92V11a.76.76,0,0,0,1.52,0V8.34h3L26.48,27.4a2.79,2.79,0,0,1-3,2.44Zm0,0"></path>
+                            <path transform = "translate(-3.62 -0.85)" d = "M28,27.3,26.24,7.51a.75.75,0,0,0-.76-.69h-3.7a6,6,0,0,0-12,0H6.13a.76.76,0,0,0-.76.69L3.62,27.3v.07a4.29,4.29,0,0,0,4.52,4H23.48a4.29,4.29,0,0,0,4.52-4ZM15.81,2.37a4.47,4.47,0,0,1,4.46,4.45H11.35a4.47,4.47,0,0,1,4.46-4.45Zm7.67,27.48H8.13a2.79,2.79,0,0,1-3-2.45L6.83,8.34h3V11a.76.76,0,0,0,1.52,0V8.34h8.92V11a.76.76,0,0,0,1.52,0V8.34h3L26.48,27.4a2.79,2.79,0,0,1-3,2.44Zm0,0"></path>
                             </svg>
                             <span class = "quantity"></span>
                         </button>
@@ -54,14 +54,17 @@
     <section id = "product1" class = "section-p1">
         <div class = "product-row">
             <div class = "pro-container">
-                <div class = "pro" id = "prod1">
-                    <img src = "clothes/mock-ups/mockup1-front.jpeg" alt = "Front side of a Black hoodie">
-                    <div class = "dsp">
-                        <h5>KickFlip Hoodie</h5>
-                        <span>Black</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro" onclick = "window.location.href = 'sproduct.html'">
+                    <div class = "cart-item" id = "prod1">
+                        <img class = "img" src = "clothes/mock-ups/mockup1-front.jpeg" alt = "Front side of a Black hoodie">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip Hoodie 1</h5>
+                            <span class = "colour">Black</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -77,14 +80,17 @@
             </div>
     
             <div class = "pro-container">
-                <div class = "pro" id = "prod2">
-                    <img src = "clothes/mock-ups/mockup2-front.jpeg" alt = "Front side of White hoodie">
-                    <div class = "dsp">
-                        <h5>KickFlip Hoodie</h5>
-                        <span>White</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro">
+                    <div class = "cart-item" id = "prod2">
+                        <img src = "clothes/mock-ups/mockup2-front.jpeg" alt = "Front side of White hoodie">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip Hoodie 2</h5>
+                            <span class = "colour">White</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -100,14 +106,17 @@
             </div>
     
             <div class = "pro-container">
-                <div class = "pro" id = "prod3">
-                    <img src = "clothes/mock-ups/mockup3-front.jpeg" alt = "Front side of Green hoodie">
-                    <div class = "dsp">
-                        <h5>KickFlip Hoodie</h5>
-                        <span>Green</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro">
+                    <div class = "cart-item" id = "prod3">
+                        <img src = "clothes/mock-ups/mockup3-front.jpeg" alt = "Front side of Green hoodie">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip Hoodie 3</h5>
+                            <span class = "colour">Green</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -123,14 +132,17 @@
             </div>
     
             <div class = "pro-container">
-                <div class = "pro" id = "prod4">
-                    <img src = "clothes/mock-ups/mockup4-front.jpeg" alt = "Front side of Military Brown hoodie">
-                    <div class = "dsp">
-                        <h5>KickFlip Hoodie</h5>
-                        <span>Military Brown</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro">
+                    <div class = "cart-item" id = "prod4">
+                        <img src = "clothes/mock-ups/mockup4-front.jpeg" alt = "Front side of Military Brown hoodie">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip Hoodie 4</h5>
+                            <span class = "colour">Military Brown</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -148,14 +160,17 @@
         
         <div class = "product-row"> 
             <div class = "pro-container">
-                <div class = "pro" id = "prod5">
-                    <img src = "clothes/mock-ups/mockup5-front.jpeg" alt = "Front side of Black T-Shirt">
-                    <div class = "dsp">
-                        <h5>KickFlip T-Shirt</h5>
-                        <span>Black</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro">
+                    <div class = "cart-item" id = "prod5">
+                        <img src = "clothes/mock-ups/mockup5-front.jpeg" alt = "Front side of Black T-Shirt">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip T-Shirt 1</h5>
+                            <span class = "colour">Black</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -171,14 +186,17 @@
             </div>
 
             <div class = "pro-container">
-                <div class = "pro" id = "prod6">
-                    <img src = "clothes/mock-ups/mockup6-front.jpeg" alt = "Front side of Grey T-Shirt">
-                    <div class = "dsp">
-                        <h5>KickFlip T-Shirt</h5>
-                        <span>Grey</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro">
+                    <div class = "cart-item" id = "prod6">
+                        <img src = "clothes/mock-ups/mockup6-front.jpeg" alt = "Front side of Grey T-Shirt">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip T-Shirt 2</h5>
+                            <span class = "colour">Grey</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -194,14 +212,17 @@
             </div>
 
             <div class = "pro-container">
-                <div class = "pro" id = "prod7">
-                    <img src = "clothes/mock-ups/mockup7-front.jpeg" alt = "Front side of White T-Shirt">
-                    <div class = "dsp">
-                        <h5>KickFlip T-Shirt</h5>
-                        <span>White</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro">
+                    <div class = "cart-item" id = "prod7">
+                        <img src = "clothes/mock-ups/mockup7-front.jpeg" alt = "Front side of White T-Shirt">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip T-Shirt 3</h5>
+                            <span class = "colour">White</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -217,14 +238,17 @@
             </div>
 
             <div class = "pro-container">
-                <div class = "pro" id = "prod8">
-                    <img src = "clothes/mock-ups/mockup8-front.jpeg" alt = "Front side of Beige T-Shirt">
-                    <div class = "dsp">
-                        <h5>KickFlip T-Shirt</h5>
-                        <span>Beige</span>
-                        <h4>R 300.00</h4>
+                <div class = "pro">
+                    <div class = "cart-item" id = "prod8">
+                        <img src = "clothes/mock-ups/mockup8-front.jpeg" alt = "Front side of Beige T-Shirt">
+                        <div class = "dsp">
+                            <h5 class = "item">KickFlip T-Shirt 4</h5>
+                            <span class = "colour">Beige</span>
+                            <h4 class = "priceItem">R 300.00</h4>
+                        </div>
                     </div>
-                    <a href = "#">
+                    
+                    <a href = "cart.html">
                         <div class = "button">
                             <div class = "button-wrapper">
                                 <div class = "text">Buy Now</div>
@@ -244,13 +268,16 @@
             <div class = row>
                 <div class = "pro-container">
                     <div class = "pro" onclick = "window.location.href = 'sproduct.html'">
-                        <img src = "clothes/mock-ups/mockup1-front.jpeg" alt = "Front side of a Black hoodie">
-                        <div class = "dsp">
-                            <h5>KickFlip Hoodie</h5>
-                            <span>Black</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod1">
+                            <img src = "clothes/mock-ups/mockup1-front.jpeg" alt = "Front side of a Black hoodie">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip Hoodie</h5>
+                                <span class = "colour">Black</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -267,13 +294,16 @@
         
                 <div class = "pro-container">
                     <div class = "pro">
-                        <img src = "clothes/mock-ups/mockup2-front.jpeg" alt = "Front side of White hoodie">
-                        <div class = "dsp">
-                            <h5>KickFlip Hoodie</h5>
-                            <span>White</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod2">
+                            <img src = "clothes/mock-ups/mockup2-front.jpeg" alt = "Front side of White hoodie">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip Hoodie</h5>
+                                <span class = "colour">White</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -292,13 +322,16 @@
             <div class = row>
                 <div class = "pro-container">
                     <div class = "pro">
-                        <img src = "clothes/mock-ups/mockup3-front.jpeg" alt = "Front side of Green hoodie">
-                        <div class = "dsp">
-                            <h5>KickFlip Hoodie</h5>
-                            <span>Green</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod3">
+                            <img src = "clothes/mock-ups/mockup3-front.jpeg" alt = "Front side of Green hoodie">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip Hoodie</h5>
+                                <span class = "colour">Green</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -315,13 +348,16 @@
         
                 <div class = "pro-container">
                     <div class = "pro">
-                        <img src = "clothes/mock-ups/mockup4-front.jpeg" alt = "Front side of Military Brown hoodie">
-                        <div class = "dsp">
-                            <h5>KickFlip Hoodie</h5>
-                            <span>Military Brown</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod4">
+                            <img src = "clothes/mock-ups/mockup4-front.jpeg" alt = "Front side of Military Brown hoodie">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip Hoodie</h5>
+                                <span class = "colour">Military Brown</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -342,13 +378,16 @@
             <div class = row>
                 <div class = "pro-container">
                     <div class = "pro">
-                        <img src = "clothes/mock-ups/mockup5-front.jpeg" alt = "Front side of Black T-Shirt">
-                        <div class = "dsp">
-                            <h5>KickFlip T-Shirt</h5>
-                            <span>Black</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod5">
+                            <img src = "clothes/mock-ups/mockup5-front.jpeg" alt = "Front side of Black T-Shirt">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip T-Shirt</h5>
+                                <span class = "colour">Black</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -365,13 +404,16 @@
     
                 <div class = "pro-container">
                     <div class = "pro">
-                        <img src = "clothes/mock-ups/mockup6-front.jpeg" alt = "Front side of Grey T-Shirt">
-                        <div class = "dsp">
-                            <h5>KickFlip T-Shirt</h5>
-                            <span>Grey</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod6">
+                            <img src = "clothes/mock-ups/mockup6-front.jpeg" alt = "Front side of Grey T-Shirt">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip T-Shirt</h5>
+                                <span class = "colour">Grey</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -390,13 +432,16 @@
             <div class = row>
                 <div class = "pro-container">
                     <div class = "pro">
-                        <img src = "clothes/mock-ups/mockup7-front.jpeg" alt = "Front side of White T-Shirt">
-                        <div class = "dsp">
-                            <h5>KickFlip T-Shirt</h5>
-                            <span>White</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod7">
+                            <img src = "clothes/mock-ups/mockup7-front.jpeg" alt = "Front side of White T-Shirt">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip T-Shirt</h5>
+                                <span class = "colour">White</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -413,13 +458,16 @@
     
                 <div class = "pro-container">
                     <div class = "pro">
-                        <img src = "clothes/mock-ups/mockup8-front.jpeg" alt = "Front side of Beige T-Shirt">
-                        <div class = "dsp">
-                            <h5>KickFlip T-Shirt</h5>
-                            <span>Beige</span>
-                            <h4>R 300.00</h4>
+                        <div class = "cart-item" id = "prod8">
+                            <img src = "clothes/mock-ups/mockup8-front.jpeg" alt = "Front side of Beige T-Shirt">
+                            <div class = "dsp">
+                                <h5 class = "item">KickFlip T-Shirt</h5>
+                                <span class = "colour">Beige</span>
+                                <h4 class = "priceItem">R 300.00</h4>
+                            </div>
                         </div>
-                        <a href = "#">
+                        
+                        <a href = "cart.html">
                             <div class = "button">
                                 <div class = "button-wrapper">
                                     <div class = "text">Buy Now</div>
@@ -449,7 +497,6 @@
             Colours may vary from our inclusive selection to match any style of your choice.
         </p>
         </div>
-        
     </section>
 
     <!-- Footer Section -->
