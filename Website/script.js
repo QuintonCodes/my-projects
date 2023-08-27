@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    /*var quantityInputs = document.querySelectorAll('.qtn input');
     var quantityInputs = document.querySelectorAll('.qtn input');
     for (let i = 0; i < quantityInputs.length; i++) {
         quantityInputs[i].addEventListener('input', function() {
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    updateCartTotal();
+    updateCartTotal();*/
 });
 
 function updateCartTotal() {
