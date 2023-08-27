@@ -74,7 +74,7 @@ function updateCartTotal() {
         var subtotalElement = cartRow.querySelector('.sub');
 
         var price = parseFloat(priceElement.innerText.replace('R ', ''));
-        var quantity = Math.max(parseInt(quantityInput.value), 1);
+        var quantity = MathparseInt(quantityInput.value);
         var subtotal = price * quantity;
 
         subtotalElement.innerText = 'R ' + subtotal.toFixed(2);
@@ -85,6 +85,6 @@ function updateCartTotal() {
     var cartSubtotal = total;
     var grandTotal = cartSubtotal + shippingCost;
 
-    document.getElementById('cart-sub').innerText = 'R ' + cartSubtotal.toFixed(2);
+    document.getElementById('cart-sub').innerText = 'R ' + cartSubTotal.toFixed(2);
     document.getElementById('total').innerText = 'R ' + grandTotal.toFixed(2);
 }
