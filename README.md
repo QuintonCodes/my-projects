@@ -1,36 +1,28 @@
-# Website-project
+# My-Projects
 
 # Table of Contents
 
-- [About](#about)
+- [Projects](#projects)
 - [Features](#features)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
+- [Getting Started](#getting-started)
 
-# About
-My e-commerce website is for my clothing brand called "KickFlip". It's a store that sells hoodies and t-shirts embedded with the KickFlip design. The aim is to reach out into the fashion world with technology.
+# Projects
+1. **E-Commerce Store**
+    - Description: An e-commerce store called KickFlip store that sells hoodies and t-shirts with skate-wear aesthetic.
+    - Technologies: HTML, CSS, Javascript
 
-# Features
-- Home page with an overview of the website such as the hero, features and learn more section.
-- A shop page with the products and a coming new section where new products are advertised for future purposes.
-- A single product page that displays whenever a product is clicked on it. Displays a product details and a functionality for the images.
-- An about page that gives a description about KickFlip and displays a feature section of the website
-- Contact page with contact details and a form section
-- A cart page that will display products added to the cart and subtotals of the products
-
-# Usage
-Start from Home page and navigate through that page until you are done with the page and proceed to the next page.
-The logos on the website are clickable
+2. **Calculator**
+    - Description: A simple calculator that has normal calculator functionality but with a percentage feature added.
+    - Technologies: HTML, CSS, Javascript
 
 # Contributing
-Please contribute to the Javascript "script.js" file for functionality to the website.
+Please do contribute to the "script.js" file for more functionality in the website 
 
 # Getting Started
 ```bash
 # Clone the repository
-git clone https://github.com/CodeQ09/Website-project.git
+git clone https://github.com/CodeQ09/My-Projects.git
 
 # Navigate to the project directory
 cd Website-project
