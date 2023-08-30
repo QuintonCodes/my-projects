@@ -5,6 +5,36 @@ if (document.readyState == "loading") {
 }
 
 function ready() {
+  var quantityInputs = document.querySelectorAll(".qtn input");
+  for (let i = 0; i < quantityInputs.length; i++) {
+    quantityInputs[i].addEventListener(
+      "change",
+      updateCartTotal,
+      quantityChanged,
+      updateGrandTotal
+    );
+  }
+
+  function updateCartQuantity() {
+    const cartItems = document.querySelectorAll(".cart-row");
+    const cartQuantity = cartItems.length;
+
+    // * Update data-quantity attribute and the content of the span element
+    cartButton.setAttribute("data-quantity", cartQuantity);
+    quantitySpan.textContent = cartQuantity;
+  }
+
+  updateCartQuantity();
+
+  var addToCartButtons = document.getElementsByClassName("button");
+  for (let i = 0; i < addToCartButtons.length; i++) {
+    addToCartButtons[i].addEventListener("click", addToCartClicked);
+  }
+
+  document
+    .getElementsByClassName("Btn")[0]
+    .addEventListener("click", payClicked);
+
   // ! Remove Items - Do not change it works.
   var removeCartItemButtons = document.getElementsByClassName("fa-trash-can");
   for (let i = 0; i < removeCartItemButtons.length; i++) {
@@ -17,24 +47,7 @@ function ready() {
     });
   }
 
-  var quantityInputs = document.querySelectorAll(".qtn input");
-  for (let i = 0; i < quantityInputs.length; i++) {
-    quantityInputs[i].addEventListener(
-      "change",
-      updateCartTotal,
-      quantityChanged,
-      updateGrandTotal
-    );
-  }
-
-  var addToCartButtons = document.getElementsByClassName("button");
-  for (let i = 0; i < addToCartButtons.length; i++) {
-    addToCartButtons[i].addEventListener("click", addToCartClicked);
-  }
-
-  document
-    .getElementsByClassName("Btn")[0]
-    .addEventListener("click", payClicked);
+  updateCartQuantity();
 }
 
 // Side bar
