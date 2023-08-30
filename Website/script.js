@@ -1,62 +1,58 @@
-if (document.readyState == "loading") {
-  document.addEventListener("DOMContentLoaded", ready);
-} else {
+document.addEventListener("DOMContentLoaded", function () {
+  function ready() {
+    var quantityInputs = document.querySelectorAll(".qtn input");
+    for (let i = 0; i < quantityInputs.length; i++) {
+      quantityInputs[i].addEventListener("change", function () {
+        updateCartTotal();
+        updateGrandTotal();
+      });
+    }
+
+    function updateCartQuantity() {
+      const cartItems = document.querySelectorAll(".cart-row");
+      const cartQuantity = cartItems.length;
+
+      const cartButton = document.querySelector(".btn-cart");
+      const quantitySpan = cartButton.querySelector(".quantity");
+
+      // * Update data-quantity attribute and the content of the span element
+      cartButton.setAttribute("data-quantity", cartQuantity);
+      quantitySpan.textContent = cartQuantity;
+    }
+
+    var addToCartButtons = document.getElementsByClassName("button");
+    for (let i = 0; i < addToCartButtons.length; i++) {
+      addToCartButtons[i].addEventListener("click", addToCartClicked);
+    }
+
+    document
+      .getElementsByClassName("Btn")[0]
+      .addEventListener("click", payClicked);
+
+    // ! Remove Items - Do not change it works.
+    var removeCartItemButtons = document.getElementsByClassName("fa-trash-can");
+    for (let i = 0; i < removeCartItemButtons.length; i++) {
+      var button = removeCartItemButtons[i];
+      button.addEventListener("click", function (event) {
+        var buttonClicked = event.target;
+        buttonClicked.parentElement.parentElement.parentElement.remove();
+        updateCartTotal();
+        updateGrandTotal();
+      });
+    }
+
+    var quantityInputs = document.querySelectorAll(".qtn input");
+    for (let i = 0; i < quantityInputs.length; i++) {
+      quantityInputs[i].addEventListener("change", quantityChanged);
+    }
+
+    updateCartQuantity();
+    updateCartTotal();
+    updateGrandTotal();
+  }
+
   ready();
-}
-
-function ready() {
-  var quantityInputs = document.querySelectorAll(".qtn input");
-  for (let i = 0; i < quantityInputs.length; i++) {
-    quantityInputs[i].addEventListener("change", function () {
-      updateCartTotal();
-      updateGrandTotal();
-    });
-  }
-
-  function updateCartQuantity() {
-    const cartItems = document.querySelectorAll(".cart-row");
-    const cartQuantity = cartItems.length;
-
-    const cartButton = document.querySelector(".btn-cart");
-    const quantitySpan = cartButton.querySelector(".quantity");
-
-    // * Update data-quantity attribute and the content of the span element
-    cartButton.setAttribute("data-quantity", cartQuantity);
-    quantitySpan.textContent = cartQuantity;
-  }
-
-  var addToCartButtons = document.getElementsByClassName("button");
-  for (let i = 0; i < addToCartButtons.length; i++) {
-    addToCartButtons[i].addEventListener("click", addToCartClicked);
-  }
-
-  document
-    .getElementsByClassName("Btn")[0]
-    .addEventListener("click", payClicked);
-
-  // ! Remove Items - Do not change it works.
-  var removeCartItemButtons = document.getElementsByClassName("fa-trash-can");
-  for (let i = 0; i < removeCartItemButtons.length; i++) {
-    var button = removeCartItemButtons[i];
-    button.addEventListener("click", function (event) {
-      var buttonClicked = event.target;
-      buttonClicked.parentElement.parentElement.parentElement.remove();
-      updateCartTotal();
-      updateGrandTotal();
-    });
-  }
-
-  var quantityInputs = document.querySelectorAll(".qtn input");
-  for (let i = 0; i < quantityInputs.length; i++) {
-    quantityInputs[i].addEventListener("change", quantityChanged);
-  }
-
-  updateCartQuantity();
-  updateCartTotal();
-  updateGrandTotal();
-}
-
-ready();
+});
 
 // Side bar
 const bar = document.getElementById("bar");
@@ -102,15 +98,22 @@ function updateGrandTotal() {
 
   cartRows2.forEach(function (cartRow2) {
     var cartSubElement = cartRow2.querySelector(".cart-sub");
-    var shippingCost = cartRow2.querySelector(".shipping");
+    var shippingCostElement = cartRow2.querySelector(".shipping");
     var gTotalElement = cartRow2.querySelector(".total");
 
-    var cartSub = parseFloat(cartSubElement.innerText.replace("R ", ""));
-    var shipping = parseFloat(shippingCost.innerText.replace("R ", ""));
-    var grandTotal = cartSub + shipping;
+    console.log("cartSubElement:", cartSubElement);
+    console.log("shippingCost:", shippingCostElement);
 
-    gTotalElement.innerText = "R " + grandTotal.toFixed(2);
-    gtotal += grandTotal;
+    if (cartSubElement !== null) {
+      var cartSub = parseFloat(cartSubElement.innerText.replace("R ", ""));
+      var shipping = parseFloat(
+        shippingCostElement.innerText.replace("R ", "")
+      );
+      var grandTotal = cartSub + shipping;
+
+      gTotalElement.innerText = "R " + grandTotal.toFixed(2);
+      gtotal += grandTotal;
+    }
   });
 
   gtotal = Math.round(gtotal * 100) / 100;

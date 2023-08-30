@@ -113,24 +113,42 @@
       <form class="form">
         <div class="flex">
           <label>
-            <input required type="text" class="input" />
+            <input
+              required
+              type="text"
+              class="input"
+              id="name"
+              autocomplete="name"
+            />
             <span>Name</span>
           </label>
           <label>
-            <input required type="text" class="input" />
+            <input required type="text" class="input" id="surname" />
             <span>Surname</span>
           </label>
         </div>
         <label>
-          <input required type="email" class="input" />
+          <input
+            required
+            type="email"
+            class="input"
+            id="email"
+            autocomplete="email"
+          />
           <span>Email</span>
         </label>
         <label>
-          <input required type="tel" class="input" />
+          <input required type="tel" class="input" id="contactNo" />
           <span>Contact Number</span>
         </label>
         <label>
-          <textarea required cols="30" rows="10" class="input01"></textarea>
+          <textarea
+            required
+            cols="30"
+            rows="10"
+            class="input01"
+            id="textarea"
+          ></textarea>
           <span>Message</span>
         </label>
 
@@ -200,6 +218,7 @@
               type="email"
               name="email"
               id="email-address"
+              autocomplete="email"
             />
             <button type="submit">Subscribe</button>
           </div>
