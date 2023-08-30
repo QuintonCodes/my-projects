@@ -98,13 +98,13 @@ function updateGrandTotal() {
 
   cartRows2.forEach(function (cartRow2) {
     var cartSubElement = cartRow2.querySelector(".cart-sub");
-    var shippingCostElement = cartRow2.querySelector(".shipping");
+    var shippingCostElement = cartRow2.querySelector(".delivery");
     var gTotalElement = cartRow2.querySelector(".total");
 
     console.log("cartSubElement:", cartSubElement);
     console.log("shippingCost:", shippingCostElement);
 
-    if (cartSubElement !== null) {
+    if (cartSubElement !== null && shippingCostElement !== null) {
       var cartSub = parseFloat(cartSubElement.innerText.replace("R ", ""));
       var shipping = parseFloat(
         shippingCostElement.innerText.replace("R ", "")
