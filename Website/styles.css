@@ -1194,9 +1194,7 @@ footer .copyright {
   body {
     overflow-x: hidden;
   }
-  *,
-  *::before,
-  *::after {
+  * {
     box-sizing: border-box;
   }
   #navbar {
