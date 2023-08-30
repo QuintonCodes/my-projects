@@ -1194,6 +1194,11 @@ footer .copyright {
   body {
     overflow-x: hidden;
   }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
   #navbar {
     display: flex;
     flex-direction: column;
@@ -1266,9 +1271,6 @@ footer .copyright {
 }
 
 @media (max-width: 477px) {
-  body {
-    overflow-x: hidden;
-  }
   #header {
     padding: 5px 30px;
   }
