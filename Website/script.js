@@ -139,41 +139,6 @@ function addToCartClicked(event) {
   updateCartTotal();
 }
 
-function addItemToCart(img, item, price) {
-  var cartItemNames = document.querySelectorAll(".pd");
-  var cartItems = document.querySelectorAll("pro")[0];
-
-  // Create a new table row for the cart
-  var cartRow = document.createElement("td");
-  cartRow.classList.add("cart-row");
-
-  // Check if item is already in cart
-  for (let i = 0; i < cartItemNames.length; i++) {
-    if (cartItemNames[i].innerText == item) {
-      alert("This item is already added to the cart");
-      return;
-    }
-  }
-
-  var cartRowItems = `
-        <td class = "remove"><a href = "#"><i class = "fa-solid fa-trash-can" style = "color: #000000;"></i></a></td>
-        <td class = "img"><img src = "${img}" alt=""></td>
-        <td class = "pd">${item}</td>
-        <td class = "price">${price}</td>
-        <td class = "qtn"><input type = "number" value = "1"></td>
-        <td class = "sub">R 0.00</td>`;
-
-  cartRow.innerHTML = cartRowItems;
-  cartItems.append(cartRow);
-
-  cartRow
-    .getElementsByClassName("button")[0]
-    .addEventListener("click", removeCartItemButtons);
-  cartRow
-    .getElementsByClassName("qtn")[0]
-    .addEventListener("change", quantityChanged);
-}
-
 function payClicked() {
   alert("Thank you for your purchase.");
   var cartItems = document.getElementsByClassName("cart-items")[0];
@@ -183,7 +148,7 @@ function payClicked() {
 
   // Reset cart totals
   document.querySelector(".cart-sub").innerText = "R 0.00";
-  document.querySelector(".shipping").innerText = "R 0.00";
+  document.querySelector(".delivery").innerText = "R 0.00";
   document.querySelector(".total").innerText = "R 0.00";
 
   updateCartQuantity();
