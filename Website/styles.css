@@ -98,12 +98,13 @@ body {
 #navbar li a.active::after,
 #navbar li a:hover::after {
   content: "";
-  width: 50%;
-  height: 2px;
+  width: 53%;
+  height: 3px;
   background-color: antiquewhite;
   position: absolute;
-  bottom: -5px;
-  left: 20px;
+  bottom: -7px;
+  left: 19px;
+  align-content: center;
 }
 
 /* Header Section - This is for Media Queries */
@@ -119,7 +120,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 50px;
-  height: 50px;
+  height: 45px;
   border-radius: 10px;
   border: none;
   background-color: transparent;
@@ -1194,9 +1195,6 @@ footer .copyright {
   body {
     overflow-x: hidden;
   }
-  * {
-    box-sizing: border-box;
-  }
   #navbar {
     display: flex;
     flex-direction: column;
@@ -1204,9 +1202,9 @@ footer .copyright {
     justify-content: flex-start;
     position: fixed;
     top: 0;
-    right: -300px;
+    right: -250px;
     height: 100vh;
-    width: 300px;
+    width: 250px;
     background-color: #ddd8d0;
     box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
     padding: 80px 0 0 10px;
@@ -1227,12 +1225,18 @@ footer .copyright {
     font-size: 24px;
     padding-left: 20px;
   }
+  #mobile .fa-user {
+    padding: 15px;
+  }
   #close {
     display: initial;
     position: absolute;
     top: 30px;
     left: 30px;
     font-size: 24px;
+  }
+  #user {
+    display: none;
   }
   #atc {
     display: none;
@@ -1269,6 +1273,9 @@ footer .copyright {
 }
 
 @media (max-width: 477px) {
+  body {
+    overflow-x: hidden;
+  }
   #header {
     padding: 5px 30px;
   }
