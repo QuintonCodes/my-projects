@@ -55,9 +55,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function calculateShipping(cartSubtotal) {
-    const shippingPercentage = 0.25; // 25% of the cart subtotal
-    const shippingCost = cartSubtotal * shippingPercentage;
-    return shippingCost;
+    const freeShippingThreshold = 301;
+    const shippingPercentage = 0.2; // 20% of the cart subtotal
+
+    if (cartSubtotal >= freeShippingThreshold) {
+      return 0;
+    } else {
+      const shippingCost = cartSubtotal * shippingPercentage;
+      return shippingCost;
+    }
   }
 
   function updateCartTotals() {
