@@ -1,8 +1,10 @@
 /* General Formatting */
 @font-face {
   font-family: "firaSans";
-  src: url("fonts/firasanscondensed-regular-webfont.woff2") format("woff2"),
-    url("fonts/firasanscondensed-regular-webfont.woff") format("woff");
+  src: url("/Website/src/styles/fonts/firasanscondensed-regular-webfont.woff2")
+      format("woff2"),
+    url("/Website/src/styles/fonts/firasanscondensed-regular-webfont.woff")
+      format("woff");
   color: black;
 }
 
@@ -173,7 +175,7 @@ body {
 
 /* Hero Section */
 #hero {
-  background-image: url("clothes/heros/hero-1.png");
+  background-image: url("/Website/imgs/clothes/heros/hero-1.png");
   height: 90vh;
   width: 100%;
   background-size: contain;
@@ -754,7 +756,7 @@ footer .copyright {
   padding-top: 10px;
 }
 #coming-soon .coming-info {
-  background-image: url("clothes/heros/hero-3.png");
+  background-image: url("/Website/imgs/clothes/heros/hero-3.png");
   height: 90vh;
   width: 100%;
   background-size: contain;
