@@ -1,4 +1,5 @@
 (function () {
+  // Declare function variables
   let screen = document.querySelector(".screen");
   let buttons = document.querySelectorAll(".btn");
   let allClear = document.querySelector("#allcancel");
