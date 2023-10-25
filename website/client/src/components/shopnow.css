@@ -1,0 +1,50 @@
+.show-now {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.show-now span {
+  font-size: 14px;
+  letter-spacing: 4px;
+  padding-bottom: 7px;
+  padding-right: 15px;
+  text-transform: uppercase;
+}
+
+.hover-underline-animation {
+  color: black;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.hover-underline-animation:after {
+  background-color: black;
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+  width: 100%;
+}
+
+.show-now:hover .hover-underline-animation:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.show-now svg {
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+}
+
+.show-now:active svg {
+  transform: scale(0.9);
+}
+
+.show-now:hover svg {
+  transform: translateX(0);
+}
