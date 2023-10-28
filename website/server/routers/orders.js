@@ -3,7 +3,7 @@ const express = require("express");
 const { OrderItem } = require("../models/order-item");
 const router = express.Router();
 
-router.get(`/`, async (req, res) => {
+router.get(`/`, async (res) => {
   const orderList = await Order.find()
     .populate("user", "name")
     .sort({ dateOrdered: -1 });
@@ -113,7 +113,7 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.get("/get/totalsales", async (req, res) => {
+router.get("/get/totalsales", async (res) => {
   const totalSales = await Order.aggregate([
     { $group: { _id: null, totalsales: { $sum: "$totalPrice" } } },
   ]);
@@ -125,7 +125,7 @@ router.get("/get/totalsales", async (req, res) => {
   res.send({ totalsales: totalSales.pop().totalsales });
 });
 
-router.get(`/get/count`, async (req, res) => {
+router.get(`/get/count`, async (res) => {
   const orderCount = await Order.countDocuments((count) => count);
 
   if (!orderCount) {

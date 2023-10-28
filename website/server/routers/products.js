@@ -12,7 +12,7 @@ const FILE_TYPE_MAP = {
 };
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: function (file, cb) {
     const isValid = FILE_TYPE_MAP[file.mimetype];
     let uploadError = new Error("invalid image type");
 
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     }
     cb(uploadError, "public/uploads");
   },
-  filename: function (req, file, cb) {
+  filename: function (file, cb) {
     const fileName = file.originalname.split(" ").join("-");
     const extension = FILE_TYPE_MAP[file.mimetype];
     cb(null, `${fileName}-${Date.now()}.${extension}`);
@@ -131,7 +131,7 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-router.get(`/get/count`, async (req, res) => {
+router.get(`/get/count`, async (res) => {
   const productCount = await Product.countDocuments((count) => count);
 
   if (!productCount) {
