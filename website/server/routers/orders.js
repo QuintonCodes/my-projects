@@ -1,6 +1,6 @@
 const { Order } = require("../models/order");
-const { OrderItem } = require("../models/order-item");
 const express = require("express");
+const { OrderItem } = require("../models/order-item");
 const router = express.Router();
 
 router.get(`/`, async (req, res) => {
@@ -19,7 +19,10 @@ router.get(`/:id`, async (req, res) => {
     .populate("user", "name")
     .populate({
       path: "orderItems",
-      populate: { path: "product", populate: "category" },
+      populate: {
+        path: "product",
+        populate: "category",
+      },
     });
 
   if (!order) {
@@ -28,7 +31,7 @@ router.get(`/:id`, async (req, res) => {
   res.send(order);
 });
 
-router.post(`/`, async (req, res) => {
+router.post("/", async (req, res) => {
   const orderItemsIds = Promise.all(
     req.body.orderItems.map(async (orderItem) => {
       let newOrderItem = new OrderItem({
@@ -41,11 +44,10 @@ router.post(`/`, async (req, res) => {
       return newOrderItem._id;
     })
   );
-
-  const orderItemIdsResolved = await orderItemsIds;
+  const orderItemsIdsResolved = await orderItemsIds;
 
   const totalPrices = await Promise.all(
-    orderItemIdsResolved.map(async (orderItemId) => {
+    orderItemsIdsResolved.map(async (orderItemId) => {
       const orderItem = await OrderItem.findById(orderItemId).populate(
         "product",
         "price"
@@ -55,12 +57,10 @@ router.post(`/`, async (req, res) => {
     })
   );
 
-  const totalPrice = totalPrices.reduce((a, b) => {
-    a + b, 0;
-  });
+  const totalPrice = totalPrices.reduce((a, b) => a + b, 0);
 
   let order = new Order({
-    orderItems: orderItemIdsResolved,
+    orderItems: orderItemsIdsResolved,
     shippingAddress1: req.body.shippingAddress1,
     shippingAddress2: req.body.shippingAddress2,
     city: req.body.city,
@@ -73,32 +73,26 @@ router.post(`/`, async (req, res) => {
   });
   order = await order.save();
 
-  if (!order) {
-    return res.status(404).send("the order cannot be created!");
-  }
+  if (!order) return res.status(400).send("the order cannot be created!");
 
   res.send(order);
 });
 
-router.put(`/:id`, async (req, res) => {
+router.put("/:id", async (req, res) => {
   const order = await Order.findByIdAndUpdate(
     req.params.id,
     {
       status: req.body.status,
     },
-    {
-      new: true,
-    }
+    { new: true }
   );
 
-  if (!order) {
-    return res.status(404).send("the order cannot be created!");
-  }
+  if (!order) return res.status(400).send("the order cannot be update!");
 
   res.send(order);
 });
 
-router.delete("./id", (req, res) => {
+router.delete("/:id", (req, res) => {
   Order.findByIdAndRemove(req.params.id)
     .then(async (order) => {
       if (order) {
@@ -107,7 +101,7 @@ router.delete("./id", (req, res) => {
         });
         return res
           .status(200)
-          .json({ success: true, message: "the order was deleted!" });
+          .json({ success: true, message: "the order is deleted!" });
       } else {
         return res
           .status(404)
@@ -143,17 +137,20 @@ router.get(`/get/count`, async (req, res) => {
 });
 
 router.get(`/get/userorders/:userid`, async (req, res) => {
-  const userorderList = await Order.find({ user: req.params.id })
+  const userOrderList = await Order.find({ user: req.params.userid })
     .populate({
       path: "orderItems",
-      populate: { path: "product", populate: "category" },
+      populate: {
+        path: "product",
+        populate: "category",
+      },
     })
     .sort({ dateOrdered: -1 });
 
-  if (!userorderList) {
+  if (!userOrderList) {
     res.status(500).json({ success: false });
   }
-  res.send(userorderList);
+  res.send(userOrderList);
 });
 
 module.exports = router;
