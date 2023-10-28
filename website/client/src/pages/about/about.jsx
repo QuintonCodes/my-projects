@@ -69,7 +69,6 @@ function About() {
         <h2>Features</h2>
       </section>
       <Features />
-      <div>hello</div>
     </>
   );
 }
