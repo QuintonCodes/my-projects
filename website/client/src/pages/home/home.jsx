@@ -47,7 +47,6 @@ function Home() {
           </Link>
         </div>
       </section>
-      <div>Hello</div>
     </>
   );
 }
