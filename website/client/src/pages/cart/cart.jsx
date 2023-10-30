@@ -140,7 +140,6 @@ function Cart() {
           <ShopNow text="Back To Shop" />
         </Link>
       </section>
-      <div>Hello</div>
     </>
   );
 }
