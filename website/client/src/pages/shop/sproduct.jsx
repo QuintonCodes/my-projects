@@ -18,7 +18,7 @@ function SProduct() {
     return <div>Product not found</div>;
   }
 
-  const { color, price, productImage, productName } = product;
+  const { color, price, frontImg, productName } = product;
 
   const existingCartItem = cartItems.find((item) => item.id === product.id);
   const initialQuantity = existingCartItem ? existingCartItem.quantity : 1;
@@ -67,7 +67,7 @@ function SProduct() {
     <section className="spro-section section-p1">
       <div className="spro">
         <div className="spro-img">
-          <img src={productImage} alt={productName} />
+          <img src={frontImg} alt={productName} />
         </div>
 
         <div className="spro-details">
@@ -81,10 +81,10 @@ function SProduct() {
             value={size}
             onChange={(e) => setSize(e.target.value)}
           >
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
+            <option value="S">Small</option>
+            <option value="M">Medium</option>
+            <option value="L">Large</option>
+            <option value="XL">X Large</option>
           </select>
 
           <div className="qtn-buttons">
