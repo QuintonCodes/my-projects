@@ -83,7 +83,7 @@ function Cart() {
                   </button>
                 </td>
                 <td className="img">
-                  <img src={product.productImage} alt={product.productName} />
+                  <img src={product.frontImg} alt={product.productName} />
                 </td>
                 <td className="pd">
                   {product.productName} - {product.color} ({product.size})

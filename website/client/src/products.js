@@ -1,82 +1,74 @@
-import product1 from "./assets/mock-ups/mockup1-front.jpeg";
-import product2 from "./assets/mock-ups/mockup2-front.jpeg";
-import product3 from "./assets/mock-ups/mockup3-front.jpeg";
-import product4 from "./assets/mock-ups/mockup4-front.jpeg";
-import product5 from "./assets/mock-ups/mockup5-front.jpeg";
-import product6 from "./assets/mock-ups/mockup6-front.jpeg";
-import product7 from "./assets/mock-ups/mockup7-front.jpeg";
-import product8 from "./assets/mock-ups/mockup8-front.jpeg";
+import image1 from "./assets/mock-ups/Black-Hoodie-Front.png";
+import image2 from "./assets/mock-ups/Black-Hoodie-Back.png";
+import image3 from "./assets/mock-ups/Grey-Hoodie-Front.png";
+import image4 from "./assets/mock-ups/Grey-Hoodie-Back.png";
+import image5 from "./assets/mock-ups/White-Hoodie-Front.png";
+import image6 from "./assets/mock-ups/White-Hoodie-Back.png";
+import image7 from "./assets/mock-ups/Black-T-Shirt-Front.png";
+import image8 from "./assets/mock-ups/Black-T-Shirt-Back.png";
+import image9 from "./assets/mock-ups/Grey-T-Shirt-Front.png";
+import image10 from "./assets/mock-ups/Grey-T-Shirt-Back.png";
+import image11 from "./assets/mock-ups/White-T-Shirt-Front.png";
+import image12 from "./assets/mock-ups/White-T-Shirt-Back.png";
 
 export const PRODUCTS = [
   {
     id: 1,
-    productName: "KickFlip Hoodie",
+    productName: "Brutalist Hoodie",
     price: 300.0,
     color: "Black",
-    productImage: product1,
+    frontImg: image1,
+    backImg: image2,
     quantity: 0,
     size: "",
   },
   {
     id: 2,
-    productName: "KickFlip Hoodie",
+    productName: "Brutalist Hoodie",
     price: 300.0,
-    color: "White",
-    productImage: product2,
+    color: "Grey",
+    frontImg: image3,
+    backImg: image4,
     quantity: 0,
     size: "",
   },
   {
     id: 3,
-    productName: "KickFlip Hoodie",
+    productName: "Brutalist Hoodie",
     price: 300.0,
-    color: "Green",
-    productImage: product3,
+    color: "White",
+    frontImg: image5,
+    backImg: image6,
     quantity: 0,
     size: "",
   },
   {
     id: 4,
-    productName: "KickFlip Hoodie",
+    productName: "Brutalist T-Shirt",
     price: 300.0,
-    color: "Military Brown",
-    productImage: product4,
+    color: "Black",
+    frontImg: image7,
+    backImg: image8,
     quantity: 0,
     size: "",
   },
   {
     id: 5,
-    productName: "KickFlip T-Shirt",
+    productName: "Brutalist T-Shirt",
     price: 300.0,
-    color: "Black",
-    productImage: product5,
+    color: "Grey",
+    frontImg: image9,
+    backImg: image10,
     quantity: 0,
     size: "",
   },
   {
     id: 6,
-    productName: "KickFlip T-Shirt",
-    price: 300.0,
-    color: "Grey",
-    productImage: product6,
-    quantity: 0,
-    size: "",
-  },
-  {
-    id: 7,
-    productName: "KickFlip T-Shirt",
+    productName: "Brutalist T-Shirt",
     price: 300.0,
     color: "White",
-    productImage: product7,
-    quantity: 0,
-    size: "",
-  },
-  {
-    id: 8,
-    productName: "KickFlip T-Shirt",
-    price: 300.0,
-    color: "Beige",
-    productImage: product8,
+    frontImg: image11,
+    backImg: image12,
     quantity: 0,
     size: "",
   },

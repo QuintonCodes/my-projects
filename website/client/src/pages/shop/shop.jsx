@@ -6,8 +6,8 @@ import "./shop.css";
 
 function Shop() {
   const rows = [];
-  for (let i = 0; i < PRODUCTS.length; i += 4) {
-    rows.push(PRODUCTS.slice(i, i + 4));
+  for (let i = 0; i < PRODUCTS.length; i += 3) {
+    rows.push(PRODUCTS.slice(i, i + 3));
   }
 
   return (
