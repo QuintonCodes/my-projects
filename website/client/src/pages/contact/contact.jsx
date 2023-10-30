@@ -100,6 +100,7 @@ function Contact() {
           </button>
         </form>
       </section>
+      <div>Hello</div>
     </>
   );
 }
