@@ -1,7 +1,6 @@
 .hero {
   align-items: flex-start;
   background-color: #ddd8d0;
-  background-image: url("/src/assets/hero-1.png");
   background-size: contain;
   background-position: top 25% right 0;
   background-repeat: no-repeat;
