@@ -22,7 +22,7 @@ function Home() {
 
       <Features />
 
-      <section className="blog section-p1">
+      <section className="blog">
         <div className="blog-content">
           <article>
             <h2>What is KickFlip?</h2>

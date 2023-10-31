@@ -10,6 +10,12 @@
   top: 0;
   width: 100%;
   z-index: 999;
+  border-bottom: 1px solid black;
+  transition: background 0.5s;
+}
+
+.scrolled {
+  background: black;
 }
 
 .logo img {

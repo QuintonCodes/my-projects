@@ -7,6 +7,7 @@
   padding: 0 50px;
   height: 100%;
   width: 100%;
+  border-bottom: 1px solid black;
 }
 
 .hero h2 {
@@ -23,6 +24,7 @@
 
 .blog {
   text-align: center;
+  border-top: 1px solid black;
 }
 
 .blog-content {

@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "../components/navbar.css";
 
+const [scrolled, setScrolled] = useState(false);
+
+useEffect(() => {
+  const onScroll = () => {
+    if (window.scrollY > 50) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll);
+
+  return window.removeEventListener("scroll", onScroll);
+}, []);
+
 function Navbar() {
   return (
-    <header className="header">
+    <header className={scrolled ? "scrolled" : "header"}>
       <NavLink exact="true" to="/" activeclassname="active" className="logo">
         <img src={logo} alt="KickFlip Logo" />
       </NavLink>
