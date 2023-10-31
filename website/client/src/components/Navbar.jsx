@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../assets/logo.png";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -8,13 +9,8 @@ function Navbar() {
   return (
     <header className="header">
       <ul className="navbar">
-        <NavLink exact="true" to="/" activeclassname="active">
-          <img
-            src="/src/assets/logo.png"
-            className="logo"
-            height="130px"
-            alt="Logo of KickFlip"
-          />
+        <NavLink exact="true" to="/" activeclassname="active" className="logo">
+          <img src={logo} alt="KickFlip Logo" />
         </NavLink>
         <li className="nav-link">
           <NavLink exact="true" to="/" activeclassname="active">

@@ -20,6 +20,11 @@
   justify-content: center;
 }
 
+.logo img {
+  height: 130px;
+  width: 130px;
+}
+
 .nav-link {
   list-style: none;
   padding: 0 20px;
