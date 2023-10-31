@@ -5,23 +5,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "../components/navbar.css";
 
-const [scrolled, setScrolled] = useState(false);
-
-useEffect(() => {
-  const onScroll = () => {
-    if (window.scrollY > 50) {
-      setScrolled(true);
-    } else {
-      setScrolled(false);
-    }
-  };
-
-  window.addEventListener("scroll", onScroll);
-
-  return window.removeEventListener("scroll", onScroll);
-}, []);
-
 function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header className={scrolled ? "scrolled" : "header"}>
       <NavLink exact="true" to="/" activeclassname="active" className="logo">
