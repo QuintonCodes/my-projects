@@ -42,6 +42,8 @@ function Shop() {
           </p>
         </div>
       </section>
+
+      <div>Hello</div>
     </>
   );
 }
