@@ -1,14 +1,11 @@
 .hero {
   align-items: flex-start;
-  background-color: #ddd8d0;
-  background-size: contain;
-  background-position: top 25% right 0;
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  min-height: 100vh;
   justify-content: center;
   padding: 0 50px;
+  height: 100%;
   width: 100%;
 }
 
