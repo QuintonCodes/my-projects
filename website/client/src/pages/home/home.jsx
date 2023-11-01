@@ -14,6 +14,18 @@ function Home() {
         <Link to="/shop">
           <ShopNow text="Shop Now" />
         </Link>
+
+        <div className="slideshow-container">
+          <div className="mySlides fade">
+            <img src="" alt="" />
+          </div>
+          <div className="mySlides fade">
+            <img src="" alt="" />
+          </div>
+          <div className="mySlides fade">
+            <img src="" alt="" />
+          </div>
+        </div>
       </section>
 
       <section className="features-head">
