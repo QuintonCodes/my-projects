@@ -31,7 +31,7 @@ function Footer() {
           </form>
         </div>
 
-        <div className="col">
+        <div className="col account">
           <h4>My Account</h4>
           <Link to="/login">Sign in</Link>
           <Link to="/cart">View Cart</Link>

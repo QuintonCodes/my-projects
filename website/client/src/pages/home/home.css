@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  min-height: 100vh;
+  min-height: 90vh;
   justify-content: space-between;
   padding: 0 50px;
   height: 100%;
@@ -14,12 +14,9 @@
   align-items: flex-start;
 }
 
-.hero-info h2 {
-  color: #626293;
-}
-
+.hero-info h2,
 .hero-info p {
-  color: antiquewhite;
+  color: #f5f5dc;
 }
 
 .slideshow-container {
@@ -49,6 +46,7 @@
 
 .features-head {
   text-align: center;
+  color: #ebebeb;
 }
 
 .blog {
@@ -64,22 +62,26 @@
   margin-bottom: 20px;
 }
 
+.blog-content h2 {
+  color: #ebebeb;
+}
+
 .blog button {
   align-items: center;
-  background: #675b5c;
+  background: #1b1b1b;
   border: none;
   border-radius: 5px;
   box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   display: flex;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Farro", sans-serif;
   justify-content: center;
   overflow: hidden;
   position: relative;
 }
 
 .blog button:after {
-  background: #ddd8d0;
+  background: #f5f5dc;
   content: " ";
   height: 100%;
   position: absolute;
@@ -95,7 +97,7 @@
 }
 
 .blog button span {
-  color: #fff;
+  color: #f5f5dc;
   font-size: 1.125em;
   font-weight: 700;
   letter-spacing: 0.3em;
@@ -109,7 +111,7 @@
 
 .blog button:hover span {
   animation: scaleUp 0.3s ease-in-out;
-  color: #183153;
+  color: #1b1b1b;
 }
 
 @keyframes scaleUp {
