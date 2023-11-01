@@ -5,6 +5,9 @@ import ShopNow from "../../components/ShopNow";
 import hero1 from "../../assets/hero1.png";
 import hero2 from "../../assets/hero2.png";
 import hero3 from "../../assets/hero3.png";
+import hero4 from "../../assets/hero4.png";
+import hero5 from "../../assets/hero5.png";
+import hero6 from "../../assets/hero6.png";
 import "./home.css";
 
 function Home() {
@@ -15,7 +18,6 @@ function Home() {
     function showSlides() {
       let i;
       let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("dot");
       for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
       }
@@ -23,11 +25,7 @@ function Home() {
       if (slideIndex > slides.length) {
         slideIndex = 1;
       }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active-img", "");
-      }
       slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].className += " active-img";
       setTimeout(showSlides, 2000);
     }
   }, []);
@@ -35,12 +33,14 @@ function Home() {
   return (
     <>
       <section className="hero">
-        <h4>Get it now!</h4>
-        <h2>Our New KickFlip hoodie</h2>
-        <p>Save 10% when you preorder our new range!</p>
-        <Link to="/shop">
-          <ShopNow text="Shop Now" />
-        </Link>
+        <div className="hero-info">
+          <h4>Get it now!</h4>
+          <h2>Our New KickFlip hoodie</h2>
+          <p>Save 10% when you preorder our new range!</p>
+          <Link to="/shop">
+            <ShopNow text="Shop Now" />
+          </Link>
+        </div>
 
         <div className="slideshow-container">
           <div className="mySlides fade">
@@ -52,12 +52,15 @@ function Home() {
           <div className="mySlides fade">
             <img src={hero3} alt="hero3" />
           </div>
-        </div>
-
-        <div style={{ textAlign: "center" }}>
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
+          <div className="mySlides fade">
+            <img src={hero4} alt="hero4" />
+          </div>
+          <div className="mySlides fade">
+            <img src={hero5} alt="hero5" />
+          </div>
+          <div className="mySlides fade">
+            <img src={hero6} alt="hero6" />
+          </div>
         </div>
       </section>
 

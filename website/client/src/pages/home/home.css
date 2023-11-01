@@ -1,13 +1,17 @@
 .hero {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   min-height: 100vh;
-  justify-content: center;
+  justify-content: space-between;
   padding: 0 50px;
   height: 100%;
   width: 100%;
   border-bottom: 1px solid black;
+}
+
+.hero-info {
+  align-items: flex-start;
 }
 
 .hero h2 {
@@ -19,19 +23,10 @@
 }
 
 .slideshow-container {
+  margin-right: 80px;
   max-width: 400px;
-  position: relative;
-  margin: auto;
-}
-
-.dot {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
+  width: 100%;
+  float: right;
 }
 
 .active-img {
