@@ -13,21 +13,23 @@ import "./home.css";
 function Home() {
   useEffect(() => {
     let slideIndex = 0;
-    showSlides();
 
     function showSlides() {
       let i;
       let slides = document.getElementsByClassName("mySlides");
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+      if (slides.length > 0) {
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 2000);
       }
-      slideIndex++;
-      if (slideIndex > slides.length) {
-        slideIndex = 1;
-      }
-      slides[slideIndex - 1].style.display = "block";
-      setTimeout(showSlides, 2000);
     }
+    showSlides();
   }, []);
 
   return (
@@ -35,7 +37,7 @@ function Home() {
       <section className="hero">
         <div className="hero-info">
           <h4>Get it now!</h4>
-          <h2>Our New KickFlip hoodie</h2>
+          <h2>Our New Brutalist Hoodies</h2>
           <p>Save 10% when you preorder our new range!</p>
           <Link to="/shop">
             <ShopNow text="Shop Now" />
