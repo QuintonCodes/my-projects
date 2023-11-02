@@ -23,6 +23,32 @@ footer p {
   height: 130px;
 }
 
+.socials {
+  margin-left: 10px;
+}
+
+.socials svg {
+  transition: 0.3s ease;
+  color: #ebebeb;
+}
+
+.socials svg:hover:nth-child(1) {
+  color: #ff0000;
+}
+
+.socials svg:hover:nth-child(2) {
+  color: #00ff00;
+}
+
+.socials svg:hover:nth-child(3) {
+  color: #d65cff;
+}
+
+.socials svg:hover {
+  transform: translateY(-15%);
+  color: antiquewhite;
+}
+
 .newsletter {
   padding: 20px 20px;
 }

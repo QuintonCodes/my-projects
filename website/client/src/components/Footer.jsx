@@ -1,4 +1,10 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faInstagram,
+  faWhatsapp,
+  faTiktok,
+} from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import "../components/footer.css";
 
@@ -10,6 +16,12 @@ function Footer() {
           <Link to="/">
             <img src="/src/assets/logo.png" alt="Logo of KickFlip" />
           </Link>
+
+          <div className="socials">
+            <FontAwesomeIcon icon={faInstagram} id="icon" size="xl" />
+            <FontAwesomeIcon icon={faWhatsapp} id="icon" size="xl" />
+            <FontAwesomeIcon icon={faTiktok} size="xl" />
+          </div>
         </div>
 
         <div className="col newsletter">
