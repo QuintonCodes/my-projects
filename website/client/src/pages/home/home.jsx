@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Features from "../../components/Features";
 import ShopNow from "../../components/ShopNow";
-import hero1 from "../../assets/hero1.png";
-import hero2 from "../../assets/hero2.png";
-import hero3 from "../../assets/hero3.png";
-import hero4 from "../../assets/hero4.png";
-import hero5 from "../../assets/hero5.png";
-import hero6 from "../../assets/hero6.png";
+import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.png";
+import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.png";
+import hero3 from "../../assets/mock-ups/Grey-Hoodie-Front.png";
+import hero4 from "../../assets/mock-ups/Grey-Hoodie-Back.png";
+import hero5 from "../../assets/mock-ups/White-Hoodie-Front.png";
+import hero6 from "../../assets/mock-ups/White-Hoodie-Back.png";
 import "./home.css";
 
 function Home() {
@@ -46,22 +46,22 @@ function Home() {
 
         <div className="slideshow-container">
           <div className="mySlides fade">
-            <img src={hero1} alt="hero1" />
+            <img src={hero1} alt="Front Black Hoodie" />
           </div>
           <div className="mySlides fade">
-            <img src={hero2} alt="hero2" />
+            <img src={hero2} alt="Back Black Hoodie" />
           </div>
           <div className="mySlides fade">
-            <img src={hero3} alt="hero3" />
+            <img src={hero3} alt="Front Grey Hoodie" />
           </div>
           <div className="mySlides fade">
-            <img src={hero4} alt="hero4" />
+            <img src={hero4} alt="Back Grey Hoodie" />
           </div>
           <div className="mySlides fade">
-            <img src={hero5} alt="hero5" />
+            <img src={hero5} alt="Front White Hoodie" />
           </div>
           <div className="mySlides fade">
-            <img src={hero6} alt="hero6" />
+            <img src={hero6} alt="Back White Hoodie" />
           </div>
         </div>
       </section>

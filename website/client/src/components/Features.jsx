@@ -1,8 +1,8 @@
 import React from "react";
-import img1 from "../assets/shipping.png";
-import img2 from "../assets/online_ordering.png";
-import img3 from "../assets/promotion.png";
-import img4 from "../assets/quality.png";
+import img1 from "../assets/features/shipping.png";
+import img2 from "../assets/features/online_ordering.png";
+import img3 from "../assets/features/promotion.png";
+import img4 from "../assets/features/quality.png";
 import "./features.css";
 
 function Features() {
