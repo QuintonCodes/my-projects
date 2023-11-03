@@ -5,6 +5,7 @@ import {
   faWhatsapp,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
+import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "../components/footer.css";
 
@@ -52,7 +53,14 @@ function Footer() {
         </div>
 
         <div className="copyright">
-          <p>2023, KickFlip</p>
+          <p>
+            <FontAwesomeIcon
+              icon={faCopyright}
+              size="lg"
+              style={{ color: "#000000" }}
+            />
+            2023, KickFlip
+          </p>
         </div>
       </footer>
     </>

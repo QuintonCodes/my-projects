@@ -145,3 +145,7 @@ footer p {
   text-align: center;
   width: 100%;
 }
+
+.copyright svg {
+  padding-right: 5px;
+}
