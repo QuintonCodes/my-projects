@@ -7,27 +7,29 @@ import "./contact.css";
 function Contact() {
   return (
     <>
-      <section className="contact-details section-p1">
+      <section className="contact-details ">
         <div className="details">
-          <span>Get In Touch</span>
           <h3>Contact Us Today</h3>
           <div className="details-section">
-            <li>
-              <FontAwesomeIcon icon={faInstagram} id="icon" size="lg" />
-            </li>
-            <p>Instagram Account</p>
-            <li>
-              <FontAwesomeIcon icon={faWhatsapp} id="icon" size="lg" />
-            </li>
-            <p>Whatsapp Number</p>
-            <li>
-              <FontAwesomeIcon icon={faEnvelope} id="icon" size="lg" />
-            </li>
-            <p>contact@gmail.com</p>
-            <li>
-              <FontAwesomeIcon icon={faBusinessTime} id="icon" size="lg" />
-            </li>
-            <p>Monday to Friday: 09:00 to 16:00</p>
+            <div className="contact-info">
+              <FontAwesomeIcon icon={faInstagram} size="xl" />
+              <p>Instagram Account</p>
+            </div>
+
+            <div className="contact-info">
+              <FontAwesomeIcon icon={faWhatsapp} size="xl" />
+              <p>Whatsapp Number</p>
+            </div>
+
+            <div className="contact-info">
+              <FontAwesomeIcon icon={faEnvelope} size="xl" />
+              <p>contact@gmail.com</p>
+            </div>
+
+            <div className="contact-info">
+              <FontAwesomeIcon icon={faBusinessTime} size="xl" />
+              <p>Monday to Friday: 09:00 to 16:00</p>
+            </div>
           </div>
         </div>
       </section>

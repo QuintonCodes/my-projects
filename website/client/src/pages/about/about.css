@@ -2,11 +2,11 @@
   text-align: center;
 }
 
+.article h2 {
+  color: #ebebeb;
+}
+
 .article p {
   font-size: large;
   line-height: 25px;
-}
-
-.features-head {
-  text-align: center;
 }

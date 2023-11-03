@@ -2,31 +2,57 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px solid black;
 }
 
-.details li {
+.details {
+  margin: 20px 40px;
+}
+
+.details h3,
+.contact-info p {
+  color: #ebebeb;
+}
+
+.details svg {
+  transition: 0.3s ease;
+  color: #ebebeb;
+  padding: 14px 10px;
+  /*padding-left: 10px;*/
+}
+
+.contact-info {
   display: flex;
-  list-style: none;
-  padding: 10px 0;
-  padding-left: 10px;
 }
 
-#icon {
-  padding-right: 22px;
+.contact-info:nth-child(1) svg:hover {
+  color: #ff0000;
+}
+.contact-info:nth-child(2) svg:hover {
+  color: #00ff00;
+}
+.contact-info:nth-child(3) svg:hover {
+  color: #338bff;
+}
+.contact-info:nth-child(4) svg:hover {
+  color: #000;
 }
 
 .form-head {
   text-align: center;
+  color: #ebebeb;
 }
 
 .form-details {
   align-items: center;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .form {
-  background-color: #fff;
+  background-color: transparent;
+  border: 2px solid black;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -38,6 +64,7 @@
 
 .message {
   color: rgba(88, 87, 87, 0.822);
+
   font-size: 14px;
 }
 
@@ -53,17 +80,18 @@
 
 .form label .input,
 .form label .input01 {
-  border: 1px solid rgba(105, 105, 105, 0.397);
+  background-color: transparent;
+  border: 2px solid black;
   border-radius: 5px;
-  font-family: "firaSans";
   outline: 0;
   padding: 10px 10px 20px 10px;
   width: 100%;
+  font-family: "Farro", sans-serif;
 }
 
 .form label .input + span,
 .form label .input01 + span {
-  color: grey;
+  color: #ebebeb;
   cursor: text;
   font-size: 0.9em;
   left: 10px;
@@ -100,10 +128,10 @@
 
 .fancy {
   background-color: transparent;
-  border: 2px solid #cacaca;
+  border: 2px solid black;
   border-radius: 0px;
   box-sizing: border-box;
-  color: #fff;
+  color: #ebebeb;
   cursor: pointer;
   display: inline-block;
   font-size: 13px;
@@ -136,7 +164,7 @@
 }
 
 .fancy .text {
-  color: #818181;
+  color: #ebebeb;
   display: block;
   font-size: 1.125em;
   line-height: 1.33333em;
@@ -178,7 +206,7 @@
 }
 
 .fancy:hover {
-  background: #cacaca;
+  background: #1b1b1b;
   color: white;
 }
 
