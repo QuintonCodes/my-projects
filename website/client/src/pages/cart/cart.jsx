@@ -79,6 +79,7 @@ function Cart() {
                     <FontAwesomeIcon
                       icon={faTrash}
                       style={{ color: "#000000" }}
+                      size="lg"
                     />
                   </button>
                 </td>

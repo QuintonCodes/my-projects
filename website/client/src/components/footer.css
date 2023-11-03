@@ -24,12 +24,13 @@ footer p {
 }
 
 .socials {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .socials svg {
   transition: 0.3s ease;
   color: #ebebeb;
+  padding: 0px 13px;
 }
 
 .socials svg:hover:nth-child(1) {
