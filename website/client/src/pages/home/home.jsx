@@ -36,9 +36,11 @@ function Home() {
     <>
       <section className="hero">
         <div className="hero-info">
-          <h4>Get it now!</h4>
           <h2>Our New Brutalist Hoodies</h2>
-          <p>Save 10% when you preorder our new range!</p>
+          <h4>
+            Delivered with comfort and style, <br />
+            you're guaranteed taking the streets by a storm.
+          </h4>
           <Link to="/shop">
             <ShopNow text="Shop Now" />
           </Link>

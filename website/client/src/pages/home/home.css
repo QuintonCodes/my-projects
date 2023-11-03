@@ -7,15 +7,19 @@
   padding: 0 50px;
   height: 100%;
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
 }
 
 .hero-info {
   align-items: flex-start;
 }
 
+.hero-info h2 {
+  font-size: 60px;
+}
+
 .hero-info h2,
-.hero-info p {
+.hero-info h4 {
   color: #f5f5dc;
 }
 
@@ -51,7 +55,7 @@
 
 .blog {
   text-align: center;
-  border-top: 1px solid black;
+  border-top: 2px solid black;
 }
 
 .blog-content {
