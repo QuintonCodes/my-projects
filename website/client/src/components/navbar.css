@@ -14,10 +14,10 @@
   transition: background 0.5s;
 }
 
-.logo img {
+/*.logo img {
   height: 130px;
   width: 130px;
-}
+}*/
 
 .navbar-links {
   align-items: center;

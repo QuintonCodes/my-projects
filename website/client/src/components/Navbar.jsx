@@ -23,7 +23,7 @@ function Navbar() {
   return (
     <header className={scrolled ? "scrolled" : "header"}>
       <NavLink exact="true" to="/" activeclassname="active" className="logo">
-        <img src={logo} alt="KickFlip Logo" />
+        <img src={logo} alt="KickFlip Logo" height="130px" width="130px" />
       </NavLink>
 
       <ul className="navbar-links">
