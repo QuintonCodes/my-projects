@@ -27,21 +27,6 @@ function Shop() {
           </div>
         ))}
       </section>
-
-      <section className="coming-soon">
-        <div className="coming-soon-head">
-          <h2>Coming Soon!</h2>
-        </div>
-        <div className="coming-soon-info">
-          <h2>The Flip It Jacket</h2>
-          <p>
-            Flip the world around with our upcoming KickFlip jacket range.
-            <br />
-            Colours may vary from our inclusive selection to match any style of
-            your choice.
-          </p>
-        </div>
-      </section>
     </>
   );
 }

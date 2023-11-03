@@ -10,7 +10,7 @@ function Product(props) {
         <div className="cart-item">
           <img src={frontImg} alt={productName} />
           <div className="dsp">
-            <h5>{productName}</h5>
+            <h4>{productName}</h4>
             <span>{color}</span>
             <h4>R {price}.00</h4>
           </div>

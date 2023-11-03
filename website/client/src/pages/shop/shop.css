@@ -34,7 +34,7 @@
 }
 
 .product-container:hover {
-  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
 }
 
 .cart-item img {
@@ -51,127 +51,15 @@
   text-align: start;
 }
 
-.dsp span {
-  font-size: 12px;
-}
-
 .dsp h4 {
   font-weight: 700;
 }
 
-.coming-soon {
-  background-color: #918981;
+.dsp span {
+  font-size: 14px;
 }
 
-.coming-soon-head {
-  padding-top: 10px;
-  text-align: center;
-}
-
-.coming-soon-info {
-  align-items: flex-start;
-  background-position: top 25% right 0;
-  background-repeat: no-repeat;
-  background-size: contain;
-  display: flex;
-  flex-direction: column;
-  height: 90vh;
-  justify-content: center;
-  padding: 0px 50px;
-  width: 100%;
-}
-
-.coming-soon-info p {
-  font-size: 18px;
-}
-
-.button {
-  --button-color: #222;
-  --gap-between-tooltip-to-button: 18px;
-  --height: 35px;
-  --tooltip-color: #fff;
-  --tooltip-height: 35px;
-  --tooltip-width: 90px;
-  --width: 100px;
-  background: var(--button-color);
-  border-radius: 0.45em;
-  bottom: 30px;
-  font-family: "Arial";
-  height: var(--height);
-  position: absolute;
-  right: 10px;
-  text-align: center;
-  transition: background 0.3s;
-  width: var(--width);
-}
-
-.button::before,
-.button::after {
-  background-color: #555;
-  border: 10px solid transparent;
-  border-top-color: #555;
-  border-radius: 0.25em;
-  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) + 10px);
-  color: #fff;
-  font-size: 0.9rem;
-  height: 0;
-  height: var(--tooltip-height);
-  left: calc(50% - var(--tooltip-width) / 2);
-  line-height: var(--tooltip-height);
-  opacity: 0;
-  position: absolute;
-  transition: all 0.5s;
-  visibility: hidden;
-  width: 0;
-  width: var(--tooltip-width);
-}
-
-.button:hover .text {
-  top: -100%;
-}
-
-.button:hover .icon {
-  top: 0;
-}
-
-.button:hover:before {
-  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button));
-}
-
-.button:hover:after {
-  bottom: calc(var(--height) + var(--gap-between-tooltip-to-button) - 20px);
-}
-
-.text {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  top: 0;
-  transition: top 0.5s;
-}
-
-.button-wrapper,
-.text,
-.icon {
-  color: #fff;
-  height: 100%;
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
-}
-
-.icon {
-  align-items: center;
-  bottom: 20px;
-  display: flex;
-  justify-content: center;
-  top: 100%;
-  transition: top 0.5s;
-  right: 10px;
-}
-
-.icon svg {
-  height: 24px;
-  width: 24px;
+.dsp h4,
+.dsp span {
+  color: #ebebeb;
 }
