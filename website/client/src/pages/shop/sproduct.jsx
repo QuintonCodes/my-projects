@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import BuyNowBtn from "../../components/BuyNowBtn";
 import ShopNow from "../../components/ShopNow";
 import { ShopContext } from "../../context/shop-context";
@@ -18,7 +20,7 @@ function SProduct() {
     return <div>Product not found</div>;
   }
 
-  const { color, price, frontImg, productName } = product;
+  const { color, price, frontImg, backImg, productName } = product;
 
   const existingCartItem = cartItems.find((item) => item.id === product.id);
   const initialQuantity = existingCartItem ? existingCartItem.quantity : 1;
@@ -63,11 +65,53 @@ function SProduct() {
     }
   };
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentImageIndex((currentImageIndex + 1) % 2);
+  };
+
+  const prevSlide = () => {
+    setCurrentImageIndex((currentImageIndex - 1 + 2) % 2);
+  };
+
   return (
     <section className="spro-section section-p1">
       <div className="spro">
         <div className="spro-img">
-          <img src={frontImg} alt={productName} />
+          <div className="slide-container">
+            <div className="slides">
+              {product && product.frontImg && product.backImg && (
+                <>
+                  <img
+                    src={product.frontImg}
+                    alt={productName}
+                    className={currentImageIndex === 0 ? "active" : ""}
+                  />
+                  <img
+                    src={product.backImg}
+                    alt={productName}
+                    className={currentImageIndex === 1 ? "active" : ""}
+                  />
+                </>
+              )}
+            </div>
+
+            <div className="slider-controls">
+              <FontAwesomeIcon
+                icon={faAngleLeft}
+                size="lg"
+                style={{ color: "#000000" }}
+                onClick={prevSlide}
+              />
+              <FontAwesomeIcon
+                icon={faAngleRight}
+                size="lg"
+                style={{ color: "#000000" }}
+                onClick={nextSlide}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="spro-details">
