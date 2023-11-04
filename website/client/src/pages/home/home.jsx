@@ -59,7 +59,7 @@ function Home() {
           </article>
           <Link to="/about">
             <button>
-              <span>Learn more</span>
+              <span>Find Out!</span>
             </button>
           </Link>
         </div>

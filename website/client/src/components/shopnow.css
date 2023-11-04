@@ -19,7 +19,7 @@
 }
 
 .hover-underline-animation:after {
-  background-color: black;
+  background-color: #000;
   bottom: 0;
   content: "";
   height: 2px;
