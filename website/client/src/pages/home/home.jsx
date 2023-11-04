@@ -1,37 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Features from "../../components/Features";
 import ShopNow from "../../components/ShopNow";
 import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
-import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
-import hero3 from "../../assets/mock-ups/Grey-Hoodie-Front.webp";
-import hero4 from "../../assets/mock-ups/Grey-Hoodie-Back.webp";
-import hero5 from "../../assets/mock-ups/White-Hoodie-Front.webp";
-import hero6 from "../../assets/mock-ups/White-Hoodie-Back.webp";
+
 import "./home.css";
 
 function Home() {
-  useEffect(() => {
-    let slideIndex = 0;
-
-    function showSlides() {
-      let i;
-      let slides = document.getElementsByClassName("mySlides");
-      if (slides.length > 0) {
-        for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-          slideIndex = 1;
-        }
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 2000);
-      }
-    }
-    showSlides();
-  }, []);
-
   return (
     <>
       <section className="hero">
@@ -47,23 +22,13 @@ function Home() {
         </div>
 
         <div className="slideshow-container">
-          <div className="mySlides fade">
-            <img src={hero1} alt="Front Black Hoodie" />
-          </div>
-          <div className="mySlides fade">
-            <img src={hero2} alt="Back Black Hoodie" />
-          </div>
-          <div className="mySlides fade">
-            <img src={hero3} alt="Front Grey Hoodie" />
-          </div>
-          <div className="mySlides fade">
-            <img src={hero4} alt="Back Grey Hoodie" />
-          </div>
-          <div className="mySlides fade">
-            <img src={hero5} alt="Front White Hoodie" />
-          </div>
-          <div className="mySlides fade">
-            <img src={hero6} alt="Back White Hoodie" />
+          <div className="mySlides">
+            <img
+              src={hero1}
+              alt="Front Black Hoodie"
+              height="500"
+              width="500"
+            />
           </div>
         </div>
       </section>

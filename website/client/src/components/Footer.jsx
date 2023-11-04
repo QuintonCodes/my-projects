@@ -16,7 +16,12 @@ function Footer() {
       <footer>
         <div className="col">
           <Link to="/">
-            <img src={logo} alt="Logo of KickFlip" />
+            <img
+              src={logo}
+              alt="Logo of KickFlip"
+              height="130px"
+              width="130px"
+            />
           </Link>
 
           <div className="socials">
