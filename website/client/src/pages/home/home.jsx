@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Features from "../../components/Features";
 import ShopNow from "../../components/ShopNow";
-import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.png";
-import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.png";
-import hero3 from "../../assets/mock-ups/Grey-Hoodie-Front.png";
-import hero4 from "../../assets/mock-ups/Grey-Hoodie-Back.png";
-import hero5 from "../../assets/mock-ups/White-Hoodie-Front.png";
-import hero6 from "../../assets/mock-ups/White-Hoodie-Back.png";
+import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
+import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
+import hero3 from "../../assets/mock-ups/Grey-Hoodie-Front.webp";
+import hero4 from "../../assets/mock-ups/Grey-Hoodie-Back.webp";
+import hero5 from "../../assets/mock-ups/White-Hoodie-Front.webp";
+import hero6 from "../../assets/mock-ups/White-Hoodie-Back.webp";
 import "./home.css";
 
 function Home() {
