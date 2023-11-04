@@ -6,6 +6,7 @@ import {
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
+import logo from "../assets/logo.webp";
 import { Link } from "react-router-dom";
 import "../components/footer.css";
 
@@ -15,7 +16,7 @@ function Footer() {
       <footer>
         <div className="col">
           <Link to="/">
-            <img src="/src/assets/logo.png" alt="Logo of KickFlip" />
+            <img src={logo} alt="Logo of KickFlip" />
           </Link>
 
           <div className="socials">
