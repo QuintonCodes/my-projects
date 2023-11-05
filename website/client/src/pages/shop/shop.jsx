@@ -11,23 +11,21 @@ function Shop() {
   }
 
   return (
-    <>
-      <section className="shop-container">
-        {rows.map((row, index) => (
-          <div className="product-row" key={index}>
-            {row.map((product) => (
-              <Link
-                to={`/shop/${product.id}`}
-                key={product.id}
-                className="shop-item-link"
-              >
-                <Product data={product} />
-              </Link>
-            ))}
-          </div>
-        ))}
-      </section>
-    </>
+    <section className="shop-container">
+      {rows.map((row, index) => (
+        <div className="product-row" key={index}>
+          {row.map((product) => (
+            <Link
+              to={`/shop/${product.id}`}
+              key={product.id}
+              className="shop-item-link"
+            >
+              <Product data={product} />
+            </Link>
+          ))}
+        </div>
+      ))}
+    </section>
   );
 }
 
