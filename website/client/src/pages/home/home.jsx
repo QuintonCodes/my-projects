@@ -1,9 +1,10 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import Features from "../../components/Features";
 import ShopNow from "../../components/ShopNow";
-import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
 import "./home.css";
+
+const Slideshow = lazy(() => import("./slideshow"));
 
 function Home() {
   return (
@@ -20,16 +21,9 @@ function Home() {
           </Link>
         </div>
 
-        <div className="slideshow-container">
-          <div className="mySlides">
-            <img
-              src={hero1}
-              alt="Front Black Hoodie"
-              height="500"
-              width="500"
-            />
-          </div>
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Slideshow />
+        </Suspense>
       </section>
 
       <section className="features-head">
