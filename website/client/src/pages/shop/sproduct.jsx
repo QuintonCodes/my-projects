@@ -9,15 +9,10 @@ import { PRODUCTS } from "../../products";
 import "./sproduct.css";
 
 function SProduct() {
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [size, setSize] = useState(initialSize);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { productId } = useParams();
   const product = PRODUCTS.find(
     (product) => product.id === parseInt(productId)
   );
-
-  const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
 
   if (!product) {
     return <div>Product not found</div>;
@@ -25,9 +20,13 @@ function SProduct() {
 
   const { color, price, productName } = product;
 
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState("S");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
+
   const existingCartItem = cartItems.find((item) => item.id === product.id);
-  const initialQuantity = existingCartItem ? existingCartItem.quantity : 1;
-  const initialSize = existingCartItem ? existingCartItem.size : "S";
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);

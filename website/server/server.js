@@ -1,18 +1,18 @@
 const express = require("express");
 const path = require("path");
+const compression = require("compression");
 
 const app = express();
-const port = 5174;
+const port = process.env.PORT || 3000;
 
-const clientDirectory = path.resolve(__dirname, "..", "client");
+app.use(compression());
 
-app.use(express.static(clientDirectory));
+app.use(express.static(path.join(__dirname, "src")));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(clientDirectory, "index.html"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "src", "index.html"));
 });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-  console.log(clientDirectory);
 });
