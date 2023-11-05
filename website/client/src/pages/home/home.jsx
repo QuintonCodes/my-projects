@@ -17,21 +17,22 @@ function Home() {
             Delivered with comfort and style, <br />
             you're guaranteed taking the streets by a storm.
           </h4>
+
           <Link to="/shop">
             <ShopNow text="Shop Now" />
           </Link>
         </div>
 
-        <Suspense fallback={<Loader />}>
-          <Slideshow />
-        </Suspense>
+        <Slideshow />
       </section>
 
-      <section className="features-head">
-        <h2>Features</h2>
-      </section>
-
-      <Suspense fallback={<Loader />}>
+      <Suspense
+        fallback={
+          <div className="loading">
+            <Loader />
+          </div>
+        }
+      >
         <Features />
       </Suspense>
 

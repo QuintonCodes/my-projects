@@ -65,9 +65,7 @@ function About() {
           </div>
         </div>
       </section>
-      <section className="features-head">
-        <h2>Features</h2>
-      </section>
+
       <Features />
     </>
   );

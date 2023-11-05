@@ -1,5 +1,8 @@
 .spinner {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
   width: 9px;
   height: 9px;
 }

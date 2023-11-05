@@ -22,7 +22,13 @@ export default function App() {
             <Route
               path="/about"
               element={
-                <Suspense fallback={<Loader />}>
+                <Suspense
+                  fallback={
+                    <div className="loading-app">
+                      <Loader />
+                    </div>
+                  }
+                >
                   <About />
                 </Suspense>
               }
@@ -30,7 +36,13 @@ export default function App() {
             <Route
               path="/cart"
               element={
-                <Suspense fallback={<Loader />}>
+                <Suspense
+                  fallback={
+                    <div className="loading-app">
+                      <Loader />
+                    </div>
+                  }
+                >
                   <Cart />
                 </Suspense>
               }
@@ -38,7 +50,13 @@ export default function App() {
             <Route
               path="/contact"
               element={
-                <Suspense fallback={<Loader />}>
+                <Suspense
+                  fallback={
+                    <div className="loading-app">
+                      <Loader />
+                    </div>
+                  }
+                >
                   <Contact />
                 </Suspense>
               }
@@ -46,7 +64,13 @@ export default function App() {
             <Route
               path="/"
               element={
-                <Suspense fallback={<Loader />}>
+                <Suspense
+                  fallback={
+                    <div className="loading-app">
+                      <Loader />
+                    </div>
+                  }
+                >
                   <Home />
                 </Suspense>
               }
@@ -54,7 +78,13 @@ export default function App() {
             <Route
               path="/shop"
               element={
-                <Suspense fallback={<Loader />}>
+                <Suspense
+                  fallback={
+                    <div className="loading-app">
+                      <Loader />
+                    </div>
+                  }
+                >
                   <Shop />
                 </Suspense>
               }
@@ -62,7 +92,13 @@ export default function App() {
             <Route
               path="/shop/:productId"
               element={
-                <Suspense fallback={<Loader />}>
+                <Suspense
+                  fallback={
+                    <div className="loading-app">
+                      <Loader />
+                    </div>
+                  }
+                >
                   <SProduct />
                 </Suspense>
               }
