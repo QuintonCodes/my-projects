@@ -1,13 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faInstagram,
   faWhatsapp,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
-import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/logo.webp";
-import { Link } from "react-router-dom";
 import "../components/footer.css";
 
 function Footer() {
@@ -59,14 +58,7 @@ function Footer() {
         </div>
 
         <div className="copyright">
-          <p>
-            <FontAwesomeIcon
-              icon={faCopyright}
-              size="lg"
-              style={{ color: "#000000" }}
-            />
-            2023, KickFlip
-          </p>
+          <p>2023, KickFlip</p>
         </div>
       </footer>
     </>
