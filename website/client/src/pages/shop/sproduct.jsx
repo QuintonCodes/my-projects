@@ -9,6 +9,9 @@ import { PRODUCTS } from "../../products";
 import "./sproduct.css";
 
 function SProduct() {
+  const [quantity, setQuantity] = useState(initialQuantity);
+  const [size, setSize] = useState(initialSize);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { productId } = useParams();
   const product = PRODUCTS.find(
     (product) => product.id === parseInt(productId)
@@ -20,14 +23,11 @@ function SProduct() {
     return <div>Product not found</div>;
   }
 
-  const { color, price, frontImg, backImg, productName } = product;
+  const { color, price, productName } = product;
 
   const existingCartItem = cartItems.find((item) => item.id === product.id);
   const initialQuantity = existingCartItem ? existingCartItem.quantity : 1;
   const initialSize = existingCartItem ? existingCartItem.size : "S";
-
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const [size, setSize] = useState(initialSize);
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -64,8 +64,6 @@ function SProduct() {
       setCartItems(cartItems.filter((item) => item.id !== product.id));
     }
   };
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextSlide = () => {
     setCurrentImageIndex((currentImageIndex + 1) % 2);

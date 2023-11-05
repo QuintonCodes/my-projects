@@ -8,6 +8,10 @@ import { ShopContext } from "../../context/shop-context";
 import "./cart.css";
 
 function Cart() {
+  const [cartSubTotal, setCartSubTotal] = useState(0);
+  const [totalShipping, setTotalShipping] = useState(0);
+  const [totalCost, setTotalCost] = useState(0);
+
   const { addToCart, cartItems, removeFromCart, setCartItems } =
     useContext(ShopContext);
 
@@ -36,10 +40,6 @@ function Cart() {
       return product.price * 0.25 * product.quantity;
     }
   };
-
-  const [cartSubTotal, setCartSubTotal] = useState(0);
-  const [totalShipping, setTotalShipping] = useState(0);
-  const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
     const subtotal = cartItems.reduce(

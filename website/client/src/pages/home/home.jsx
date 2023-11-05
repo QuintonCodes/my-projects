@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Features from "../../components/Features";
 import ShopNow from "../../components/ShopNow";
 import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
-
 import "./home.css";
 
 function Home() {
