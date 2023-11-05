@@ -17,7 +17,7 @@ function Shop() {
           <div className="product-row" key={index}>
             {row.map((product) => (
               <Link
-                to={`/product/${product.id}`}
+                to={`/shop/${product.id}`}
                 key={product.id}
                 className="shop-item-link"
               >
