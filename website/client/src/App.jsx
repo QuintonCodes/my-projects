@@ -1,13 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import About from "./pages/about/about";
-import Cart from "./pages/cart/cart";
-import Contact from "./pages/contact/contact";
-import Footer from "./components/Footer";
-import Home from "./pages/home/home";
+import { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
-import Shop from "./pages/shop/shop";
+import Footer from "./components/Footer";
+import Loader from "./components/Loader";
 import ShopContextProvider from "./context/shop-context";
-import SProduct from "./pages/shop/sproduct";
+
+const About = lazy(() => import("./pages/about/about"));
+const Cart = lazy(() => import("./pages/cart/cart"));
+const Contact = lazy(() => import("./pages/contact/contact"));
+const Home = lazy(() => import("./pages/home/home"));
+const Shop = lazy(() => import("./pages/shop/shop"));
+const SProduct = lazy(() => import("./pages/shop/sproduct"));
 
 export default function App() {
   return (
@@ -16,12 +19,54 @@ export default function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/about" element={<About />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/shop/:productId" element={<SProduct />} />
+            <Route
+              path="/about"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <About />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Cart />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Contact />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Home />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/shop"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Shop />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/shop/:productId"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <SProduct />
+                </Suspense>
+              }
+            />
           </Routes>
           <Footer />
         </Router>

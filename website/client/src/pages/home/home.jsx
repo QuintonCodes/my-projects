@@ -1,10 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import Features from "../../components/Features";
+import Loader from "../../components/Loader";
 import ShopNow from "../../components/ShopNow";
 import "./home.css";
 
 const Slideshow = lazy(() => import("./slideshow"));
+const Features = lazy(() => import("../../components/Features"));
 
 function Home() {
   return (
@@ -21,7 +22,7 @@ function Home() {
           </Link>
         </div>
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader />}>
           <Slideshow />
         </Suspense>
       </section>
@@ -30,7 +31,9 @@ function Home() {
         <h2>Features</h2>
       </section>
 
-      <Features />
+      <Suspense fallback={<Loader />}>
+        <Features />
+      </Suspense>
 
       <section className="blog">
         <div className="blog-content">

@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Discover your new go-to essentials that seamlessly blend comfort and style. Explore our latest hoodies and t-shirts that make a statement, whether you're hitting the skatepark or stepping out on the town. Embrace the spirit of KickFlip and embrace the streets with confidence."
+    />
     <link
       rel="icon"
       type="image/svg+xml"
@@ -10,18 +15,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Farro:wght@500&display=swap"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Farro:wght@500&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Discover your new go-to essentials that seamlessly blend comfort and style. Explore our latest hoodies and t-shirts that make a statement, whether you're hitting the skatepark or stepping out on the town. Embrace the spirit of KickFlip and embrace the streets with confidence."
-    />
+
     <title>KickFlip Store</title>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.jsx" defer></script>
   </body>
 </html>
