@@ -1,7 +1,4 @@
 .contact-details {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
   border-bottom: 2px solid black;
 }
 
@@ -47,6 +44,11 @@
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+  flex-direction: column;
+}
+
+.form-details h2 {
+  text-align: center;
 }
 
 .form {

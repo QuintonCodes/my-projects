@@ -1,8 +1,3 @@
-.shop-item-link {
-  text-decoration: none;
-  color: inherit;
-}
-
 .product-row {
   display: flex;
   justify-content: space-between;
@@ -38,7 +33,6 @@
 }
 
 .cart-item img {
-  border-radius: 20px;
   width: 100%;
   height: auto;
   transition: 0.3s ease;
@@ -46,10 +40,6 @@
 
 .cart-item img:hover {
   transform: translateY(-10%);
-}
-
-.dsp {
-  text-align: start;
 }
 
 .dsp h4 {

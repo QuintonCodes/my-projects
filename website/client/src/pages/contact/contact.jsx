@@ -34,13 +34,8 @@ function Contact() {
         </div>
       </section>
 
-      <section className="form-head">
-        <div className="form-header">
-          <h2>Leave Us A Message</h2>
-        </div>
-      </section>
-
       <section className="form-details">
+        <h2>Leave Us A Message</h2>
         <form className="form">
           <div className="flex">
             <label htmlFor="firstname">
