@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.webp";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faCartShopping,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import "../components/navbar.css";
 
 function Navbar() {
@@ -22,29 +26,39 @@ function Navbar() {
 
   return (
     <header className={scrolled ? "scrolled" : "header"}>
-      <NavLink exact="true" to="/" activeclassname="active" className="logo">
-        <img src={logo} alt="KickFlip Logo" height="130px" width="130px" />
-      </NavLink>
+      <div className="header-left">
+        <NavLink exact="true" to="/" activeclassname="active" className="logo">
+          <img src={logo} alt="KickFlip Logo" height="130px" width="130px" />
+        </NavLink>
+
+        <ul className="navbar-links">
+          <li>
+            <NavLink exact="true" to="/" activeclassname="active">
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/shop" activeclassname="active">
+              Shop
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" activeclassname="active">
+              About
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact" activeclassname="active">
+              Contact
+            </NavLink>
+          </li>
+        </ul>
+      </div>
 
       <ul className="navbar-links">
         <li>
-          <NavLink exact="true" to="/" activeclassname="active">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/shop" activeclassname="active">
-            Shop
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/about" activeclassname="active">
-            About
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/contact" activeclassname="active">
-            Contact
+          <NavLink to="/login" activeclassname="active">
+            <FontAwesomeIcon icon={faUser} size="lg" />
           </NavLink>
         </li>
         <li>
@@ -53,10 +67,6 @@ function Navbar() {
           </NavLink>
         </li>
       </ul>
-
-      <div className="menu">
-        <FontAwesomeIcon icon={faBars} size="lg" />
-      </div>
     </header>
   );
 }

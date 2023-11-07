@@ -5,7 +5,7 @@
   height: 80px;
   justify-content: space-between;
   left: 0;
-  padding: 30px 9%;
+  padding: 30px 3%;
   position: sticky;
   top: 0;
   width: 100%;
@@ -14,10 +14,11 @@
   transition: background 0.5s;
 }
 
-/*.logo img {
-  height: 130px;
-  width: 130px;
-}*/
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .navbar-links {
   align-items: center;
@@ -66,14 +67,10 @@
   height: 80px;
   justify-content: space-between;
   left: 0;
-  padding: 30px 9%;
+  padding: 30px 3%;
   position: sticky;
   top: 0;
   width: 100%;
   z-index: 999;
   border-bottom: 1px solid black;
-}
-
-.menu {
-  display: none;
 }
