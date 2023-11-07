@@ -2,9 +2,9 @@ import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import ShopNow from "../../components/ShopNow";
+import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
 import "./home.css";
 
-const Slideshow = lazy(() => import("./slideshow"));
 const Features = lazy(() => import("../../components/Features"));
 
 function Home() {
@@ -23,7 +23,16 @@ function Home() {
           </Link>
         </div>
 
-        <Slideshow />
+        <div className="slideshow-container">
+          <div className="mySlides">
+            <img
+              src={hero1}
+              alt="Front Black Hoodie"
+              height="500"
+              width="500"
+            />
+          </div>
+        </div>
       </section>
 
       <Suspense

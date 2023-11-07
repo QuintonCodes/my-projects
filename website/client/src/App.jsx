@@ -11,6 +11,7 @@ const Contact = lazy(() => import("./pages/contact/contact"));
 const Home = lazy(() => import("./pages/home/home"));
 const Shop = lazy(() => import("./pages/shop/shop"));
 const SProduct = lazy(() => import("./pages/shop/sproduct"));
+const Login = lazy(() => import("./pages/login/login"));
 
 export default function App() {
   return (
@@ -100,6 +101,20 @@ export default function App() {
                   }
                 >
                   <SProduct />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <Suspense
+                  fallback={
+                    <div className="loading-app">
+                      <Loader />
+                    </div>
+                  }
+                >
+                  <Login />
                 </Suspense>
               }
             />

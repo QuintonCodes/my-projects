@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import BuyNowBtn from "../../components/BuyNowBtn";
 
 function Product(props) {
@@ -8,7 +8,10 @@ function Product(props) {
     <div className="product">
       <div className="product-container">
         <div className="cart-item">
-          <img src={frontImg} alt={productName} />
+          <Suspense>
+            <img src={frontImg} alt={productName} width="500" height="500" />
+          </Suspense>
+
           <div className="dsp">
             <h4>{productName}</h4>
             <span>{color}</span>

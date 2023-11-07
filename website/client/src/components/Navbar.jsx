@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.webp";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faCartShopping,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import "../components/navbar.css";
 
 function Navbar() {

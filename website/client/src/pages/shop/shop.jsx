@@ -1,8 +1,9 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { PRODUCTS } from "../../products";
-import Product from "./product";
 import "./shop.css";
+
+const Product = lazy(() => import("./product"));
 
 function Shop() {
   const rows = [];
