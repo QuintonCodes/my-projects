@@ -1,7 +1,11 @@
-.login-page {
+.login-page,
+.login-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.login-page {
   margin: 20px 0;
 }
 
@@ -12,15 +16,15 @@
   background: transparent;
   border: 2px solid black;
   border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: height 0.2s ease;
-  /*overflow: hidden;*/
 }
 
-.active {
+.active-form {
   height: 520px;
+}
+
+.hidden-form {
+  display: none;
 }
 
 .form-box {
@@ -28,12 +32,14 @@
   padding: 40px;
 }
 
-.form-box .login {
+.form-box .login,
+.form-box .register,
+.active-form .form-box.register {
   transition: transform 0.18s ease;
   transform: translateX(0);
 }
 
-.active .form-box.login {
+.active-form .form-box.login {
   transition: none;
   transform: translateX(-400px);
 }
@@ -42,11 +48,6 @@
   position: absolute;
   transition: none;
   transform: translateX(400px);
-}
-
-.active .form-box.register {
-  transition: transform 0.18s ease;
-  transform: translateX(0);
 }
 
 .form-box h3 {
@@ -110,13 +111,21 @@
   margin-right: 3px;
 }
 
-.remember-forgot a {
+.remember-forgot a,
+.login-register a {
   color: antiquewhite;
   text-decoration: none;
 }
 
-.remember-forgot a:hover {
+.remember-forgot a:hover,
+.login-register a:hover {
   text-decoration: underline;
+}
+
+.login-btn,
+.login-register {
+  font-weight: 500;
+  font-size: 1em;
 }
 
 .login-btn {
@@ -127,24 +136,15 @@
   outline: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1em;
   color: #fff;
-  font-weight: 500;
+  font-family: "Farro", sans-serif;
 }
 
 .login-register {
-  font-size: 0.9em;
   text-align: center;
-  font-weight: 500;
   margin: 25px 0 10px;
 }
 
 .login-register a {
-  color: antiquewhite;
-  text-decoration: none;
   font-weight: 600;
-}
-
-.login-register a:hover {
-  text-decoration: underline;
 }

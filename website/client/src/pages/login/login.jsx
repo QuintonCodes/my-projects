@@ -10,14 +10,14 @@ function Login() {
     setIsRegisterVisible(!isRegisterVisible);
   };
 
-  const loginWrapperClass = `login-wrapper ${
-    isRegisterVisible ? "active" : ""
-  }`;
-
   return (
     <div className="login-page">
-      <div className={loginWrapperClass}>
-        <div className="form-box login">
+      <div
+        className={`login-wrapper ${isRegisterVisible ? "active-form" : ""}`}
+      >
+        <div
+          className={`form-box login ${isRegisterVisible ? "hidden-form" : ""}`}
+        >
           <h3>Login</h3>
           <form action="#">
             <div className="input-box">
@@ -51,7 +51,11 @@ function Login() {
           </form>
         </div>
 
-        <div className="form-box register">
+        <div
+          className={`form-box register ${
+            isRegisterVisible ? "" : "hidden-form"
+          }`}
+        >
           <h3>Register</h3>
           <form action="#">
             <div className="input-box">
