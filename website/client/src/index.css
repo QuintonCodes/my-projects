@@ -36,6 +36,7 @@ a {
 
 body {
   background: #5d5e5a;
+  font-display: swap;
   font-family: "Farro", sans-serif;
   margin: 0;
   padding: 0;
