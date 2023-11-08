@@ -1,5 +1,5 @@
 .contact-details {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #000;
 }
 
 .details {
@@ -12,9 +12,9 @@
 }
 
 .details svg {
-  transition: 0.3s ease;
   color: #ebebeb;
   padding: 14px 10px;
+  transition: 0.3s ease;
 }
 
 .contact-info {
@@ -22,10 +22,10 @@
 }
 
 .contact-info:nth-child(1) svg:hover {
-  color: #ff0000;
+  color: red;
 }
 .contact-info:nth-child(2) svg:hover {
-  color: #00ff00;
+  color: #0f0;
 }
 .contact-info:nth-child(3) svg:hover {
   color: #338bff;
@@ -35,16 +35,16 @@
 }
 
 .form-head {
-  text-align: center;
   color: #ebebeb;
+  text-align: center;
 }
 
 .form-details {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-bottom: 30px;
-  flex-direction: column;
 }
 
 .form-details h2 {
@@ -53,7 +53,7 @@
 
 .form {
   background-color: transparent;
-  border: 2px solid black;
+  border: 2px solid #000;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -64,8 +64,7 @@
 }
 
 .message {
-  color: rgba(88, 87, 87, 0.822);
-
+  color: #585757d2;
   font-size: 14px;
 }
 
@@ -82,12 +81,12 @@
 .form label .input,
 .form label .input01 {
   background-color: transparent;
-  border: 2px solid black;
+  border: 2px solid #000;
   border-radius: 5px;
-  outline: 0;
-  padding: 10px 10px 20px 10px;
-  width: 100%;
   font-family: "Farro", sans-serif;
+  outline: 0;
+  padding: 10px 10px 20px;
+  width: 100%;
 }
 
 .form label .input + span,
@@ -129,7 +128,7 @@
 
 .fancy {
   background-color: transparent;
-  border: 2px solid black;
+  border: 2px solid #000;
   border-radius: 0px;
   box-sizing: border-box;
   color: #ebebeb;
@@ -172,12 +171,12 @@
   padding-left: 2em;
   text-align: left;
   text-decoration: none;
-  transition: all 0.3s ease-in-out;
   transform: translateX(30%);
+  transition: all 0.3s ease-in-out;
 }
 
 .fancy .top-key {
-  background: white;
+  background: #fff;
   height: 2px;
   left: 0.625rem;
   position: absolute;
@@ -187,8 +186,8 @@
 }
 
 .fancy .bottom-key-1 {
+  background: #fff;
   bottom: -2px;
-  background: white;
   height: 2px;
   position: absolute;
   right: 1.875rem;
@@ -197,7 +196,7 @@
 }
 
 .fancy .bottom-key-2 {
-  background: white;
+  background: #fff;
   bottom: -2px;
   height: 2px;
   position: absolute;
@@ -208,16 +207,16 @@
 
 .fancy:hover {
   background: #1b1b1b;
-  color: white;
+  color: #fff;
 }
 
 .fancy:hover::before {
-  background: white;
+  background: #fff;
   width: 1.5rem;
 }
 
 .fancy:hover .text {
-  color: white;
+  color: #fff;
   padding-left: 1.5em;
 }
 
