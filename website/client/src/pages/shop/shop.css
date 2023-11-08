@@ -16,9 +16,9 @@
 }
 
 .product-container {
-  border: 2px solid black;
+  border: 2px solid #000;
   border-radius: 25px;
-  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+  box-shadow: 20px 20px 30px #00000005;
   cursor: pointer;
   margin: 15px 0;
   min-width: 250px;
@@ -29,13 +29,13 @@
 }
 
 .product-container:hover {
-  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 16px #fff3;
 }
 
 .cart-item img {
-  width: 100%;
   height: auto;
   transition: 0.3s ease;
+  width: 100%;
 }
 
 .cart-item img:hover {

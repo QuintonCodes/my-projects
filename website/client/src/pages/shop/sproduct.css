@@ -5,24 +5,18 @@
   margin-top: 20px;
 }
 
-/*! Image Slider */
-
 .slide-container {
+  height: 450px;
   position: relative;
   text-align: center;
   width: 450px;
-  height: 450px;
-}
-
-.slide-container .slides {
-  position: relative;
 }
 
 .slide-container .slides img {
-  position: absolute;
-  width: 100%;
-  transition: transform 0.5s ease;
   display: none;
+  position: absolute;
+  transition: transform 0.5s ease;
+  width: 100%;
 }
 
 .slide-container .slides img.active {
@@ -30,18 +24,16 @@
 }
 
 .slider-controls {
-  position: relative;
-  margin-top: 10px;
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
+  position: relative;
 }
 
 .slider-controls svg {
-  margin-top: 50%;
   cursor: pointer;
+  margin-top: 50%;
 }
-
-/*! End */
 
 .spro-details {
   padding-left: 30px;
@@ -54,47 +46,44 @@
 }
 
 .size {
-  display: block;
-  font-family: "Farro", sans-serif;
   background-color: transparent;
+  border: solid 2px;
+  border-radius: 5px;
+  display: block;
+  font: 600 15px "Farro", sans-serif;
   margin-bottom: 10px;
   padding: 5px 10px;
-  font-weight: 600;
-  font-size: 15px;
-  border-radius: 5px;
-  border: solid 2px;
 }
 
 .size option {
-  font-family: "Farro", sans-serif;
-  font-weight: 400;
-  font-size: 15px;
+  font: 400 15px "Farro", sans-serif;
 }
 
 .qtn-buttons button {
   background-color: transparent;
-  font-size: large;
   border: none;
-  font-weight: 600;
   cursor: pointer;
+  font-size: large;
+  font-weight: 600;
 }
 
 .qtn-buttons input {
-  height: 47px;
   background-color: transparent;
-  font-size: medium;
-  padding: 10px 5px 10px 15px;
-  width: 50px;
   border: solid 2px;
   border-radius: 5px;
+  font-size: medium;
   font-weight: 600;
-}
-
-.spro-buy {
-  position: relative;
+  height: 47px;
+  padding: 10px 5px 10px 15px;
+  width: 50px;
 }
 
 .back-to-shop {
   margin-top: 20px;
   text-align: center;
+}
+
+.slide-container .slides,
+.spro-buy {
+  position: relative;
 }

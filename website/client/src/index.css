@@ -35,12 +35,11 @@ a {
 }
 
 body {
+  background: #5d5e5a;
   font-family: "Farro", sans-serif;
-  font-display: swap;
   margin: 0;
-  width: 100%;
   padding: 0;
-  background: rgb(93, 94, 90);
+  width: 100%;
 }
 
 .section-p1 {
@@ -52,16 +51,16 @@ body {
 }
 
 .loading {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
   width: 100%;
 }
 
 .loading-app {
-  display: flex;
   align-items: center;
+  display: flex;
+  height: 80vh;
   justify-content: center;
   width: 100%;
-  height: 80vh;
 }
