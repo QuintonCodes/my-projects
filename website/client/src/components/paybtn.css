@@ -1,9 +1,9 @@
 .Btn {
   align-items: center;
-  background-color: rgb(15, 15, 15);
+  background-color: #0f0f0f;
   border: none;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
-  color: white;
+  box-shadow: 5px 5px 10px #0000001a;
+  color: #fff;
   cursor: pointer;
   display: flex;
   font-weight: 600;
@@ -22,7 +22,7 @@
 }
 
 .Btn::before {
-  background-color: white;
+  background-color: #fff;
   border-radius: 50%;
   content: "";
   height: 130px;
@@ -45,5 +45,5 @@
 }
 
 .svgIcon path {
-  fill: white;
+  fill: #fff;
 }

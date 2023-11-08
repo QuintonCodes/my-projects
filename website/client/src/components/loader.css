@@ -1,20 +1,20 @@
 .spinner {
-  display: flex;
   align-items: center;
+  display: flex;
+  height: 9px;
   justify-content: center;
   position: absolute;
   width: 9px;
-  height: 9px;
 }
 
 .spinner div {
-  position: absolute;
-  width: 50%;
+  animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
+  background: #000;
   height: 150%;
-  background: #000000;
+  position: absolute;
   transform: rotate(calc(var(--rotation) * 1deg))
     translate(0, calc(var(--translation) * 1%));
-  animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
+  width: 50%;
 }
 
 .spinner div:nth-child(1) {
