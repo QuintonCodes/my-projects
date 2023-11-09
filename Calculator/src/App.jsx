@@ -11,7 +11,7 @@ function App() {
     const removeListeners = initializeCalc();
 
     return () => {
-      removeEventListeners(removeListeners);
+      removeListeners();
     };
   }, []);
 
@@ -57,6 +57,8 @@ function App() {
         case "/":
           setCurrentValue(num1 / num2);
           break;
+        case "%":
+          setCurrentValue((num1 * num2) / 100);
         default:
           break;
       }
@@ -89,7 +91,21 @@ function App() {
 
     return () => {
       buttons.forEach((button) => {
-        button.removeEventListener("click", handleButtonClick);
+        button.removeEventListener("click", (e) => {
+          const buttonValue = e.target.getAttribute("data-num");
+
+          if (buttonValue === "=") {
+            handleEqualClick();
+          } else if (buttonValue === "C") {
+            handleClear();
+          } else {
+            if (!isNaN(buttonValue) || buttonValue === ".") {
+              handleNumberClick(buttonValue);
+            } else {
+              handleOperatorClick(buttonValue);
+            }
+          }
+        });
       });
     };
   };
