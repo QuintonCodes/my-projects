@@ -1,52 +1,15 @@
-form input {
-  background-color: #000;
-  border: none;
-  border-radius: 12px;
-  color: #fff;
-  font-size: 2rem;
-  height: 150px;
-  padding: 1rem;
-  pointer-events: none;
-  text-align: right;
-  width: 100%;
-}
-
-.buttons {
+.App {
+  align-items: center;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 20px;
+  justify-content: center;
 }
 
-button {
-  border: 1px solid #000;
-  border-radius: 5px;
-  cursor: pointer;
-  flex: 0 0 22%;
-  font-size: 22px;
-  font-weight: 600;
-  height: 52px;
-  margin: 5px 0;
-  width: 60px;
+.calc-wrapper {
+  background-color: #fae2ba;
+  border-radius: 16px;
+  width: 400px;
 }
 
-.btn-yellow {
-  background: #f5923e;
-  color: #fff;
-}
-
-.btn-grey {
-  background: #e0e0e0;
-}
-
-.btn-equal {
-  background: green;
-}
-
-.btn-clear {
-  background: red;
-}
-
-#zero {
-  flex: 0 0 50%;
+.row {
+  display: flex;
 }

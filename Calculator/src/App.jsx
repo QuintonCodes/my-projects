@@ -1,275 +1,62 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import { evaluate } from "mathjs";
+import Buttons from "./components/Buttons";
+import Input from "./components/Input";
 import "./app.css";
 
 function App() {
-  const screenRef = useRef(null);
-  const [currentValue, setCurrentValue] = useState("");
-  const [previousValue, setPreviousValue] = useState("");
-  const [operator, setOperator] = useState(null);
+  const [text, setText] = useState("");
+  const [result, setResult] = useState("");
 
-  useEffect(() => {
-    const removeListeners = initializeCalc();
-
-    return () => {
-      removeListeners();
-    };
-  }, []);
-
-  const updateScreen = () => {
-    screenRef.current.value = currentValue;
+  const addToText = (val) => {
+    setText((text) => [...text, val + " "]);
   };
 
-  const handleNumberClick = (number) => {
-    setCurrentValue(currentValue + number);
-    updateScreen();
+  const calcResult = () => {
+    const input = text.join(""); // Removes commas
+
+    setResult(evaluate(input));
   };
 
-  const handleOperatorClick = (op) => {
-    if (currentValue !== "") {
-      setPreviousValue(currentValue);
-      setCurrentValue("");
-      setOperator(op);
-    }
+  const clear = () => {
+    setText("");
+    setResult("");
   };
 
-  const handleClear = () => {
-    setCurrentValue("");
-    setPreviousValue("");
-    setOperator(null);
-    updateScreen();
-  };
-
-  const handleEqualClick = () => {
-    if (previousValue !== "" && operator !== null) {
-      const num1 = parseFloat(previousValue);
-      const num2 = parseFloat(currentValue);
-
-      switch (operator) {
-        case "+":
-          setCurrentValue(num1 + num2);
-          break;
-        case "-":
-          setCurrentValue(num1 - num2);
-          break;
-        case "*":
-          setCurrentValue(num1 * num2);
-          break;
-        case "/":
-          setCurrentValue(num1 / num2);
-          break;
-        case "%":
-          setCurrentValue((num1 * num2) / 100);
-        default:
-          break;
-      }
-
-      setPreviousValue("");
-      setOperator(null);
-    }
-    updateScreen();
-  };
-
-  const initializeCalc = () => {
-    const buttons = document.querySelectorAll(".btn");
-    buttons.forEach((button) => {
-      button.addEventListener("click", (e) => {
-        const buttonValue = e.target.getAttribute("data-num");
-
-        if (buttonValue === "=") {
-          handleEqualClick();
-        } else if (buttonValue === "C") {
-          handleClear();
-        } else {
-          if (!isNaN(buttonValue) || buttonValue === ".") {
-            handleNumberClick(buttonValue);
-          } else {
-            handleOperatorClick(buttonValue);
-          }
-        }
-      });
-    });
-
-    return () => {
-      buttons.forEach((button) => {
-        button.removeEventListener("click", (e) => {
-          const buttonValue = e.target.getAttribute("data-num");
-
-          if (buttonValue === "=") {
-            handleEqualClick();
-          } else if (buttonValue === "C") {
-            handleClear();
-          } else {
-            if (!isNaN(buttonValue) || buttonValue === ".") {
-              handleNumberClick(buttonValue);
-            } else {
-              handleOperatorClick(buttonValue);
-            }
-          }
-        });
-      });
-    };
-  };
+  const buttonColor = "#f2a33c";
 
   return (
-    <>
-      <form className="textarea">
-        <input type="text" className="screen" id="txt" ref={screenRef} />
-      </form>
+    <div className="App">
+      <div className="calc-wrapper">
+        <Input text={text} result={result} />
 
-      <div className="buttons">
-        <button
-          type="button"
-          className="btn btn-clear"
-          id="allcancel"
-          onClick={handleClear}
-        >
-          AC
-        </button>
-        <button
-          type="button"
-          className="btn btn-clear"
-          id="cancel"
-          onClick={handleClear}
-        >
-          C
-        </button>
-        <button type="button" className="btn btn-yellow" data-num="%">
-          %
-        </button>
-        <button
-          type="button"
-          className="btn btn-yellow"
-          data-num="/"
-          onClick={() => handleOperatorClick("/")}
-        >
-          /
-        </button>
-
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="7"
-          onClick={() => handleNumberClick("7")}
-        >
-          7
-        </button>
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="8"
-          onClick={() => handleNumberClick("8")}
-        >
-          8
-        </button>
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="9"
-          onClick={() => handleNumberClick("9")}
-        >
-          9
-        </button>
-        <button
-          type="button"
-          className="btn btn-yellow"
-          data-num="*"
-          onClick={() => handleOperatorClick("*")}
-        >
-          *
-        </button>
-
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="4"
-          onClick={() => handleNumberClick("4")}
-        >
-          4
-        </button>
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="5"
-          onClick={() => handleNumberClick("5")}
-        >
-          5
-        </button>
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="6"
-          onClick={() => handleNumberClick("6")}
-        >
-          6
-        </button>
-        <button
-          type="button"
-          className="btn btn-yellow"
-          data-num="-"
-          onClick={() => handleOperatorClick("-")}
-        >
-          -
-        </button>
-
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="1"
-          onClick={() => handleNumberClick("1")}
-        >
-          1
-        </button>
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="2"
-          onClick={() => handleNumberClick("2")}
-        >
-          2
-        </button>
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="3"
-          onClick={() => handleNumberClick("3")}
-        >
-          3
-        </button>
-        <button
-          type="button"
-          className="btn btn-yellow"
-          data-num="+"
-          onClick={() => handleOperatorClick("+")}
-        >
-          +
-        </button>
-
-        <button
-          id="zero"
-          type="button"
-          className="btn btn-grey"
-          data-num="0"
-          onClick={() => handleNumberClick("0")}
-        >
-          0
-        </button>
-        <button
-          type="button"
-          className="btn btn-grey"
-          data-num="."
-          onClick={() => handleNumberClick(".")}
-        >
-          .
-        </button>
-        <button
-          type="button"
-          className="btn btn-equal"
-          onClick={handleEqualClick}
-        >
-          =
-        </button>
+        <div className="row">
+          <Buttons symbol="7" handleClick={addToText} />
+          <Buttons symbol="8" handleClick={addToText} />
+          <Buttons symbol="9" handleClick={addToText} />
+          <Buttons symbol="/" color={buttonColor} handleClick={addToText} />
+        </div>
+        <div className="row">
+          <Buttons symbol="4" handleClick={addToText} />
+          <Buttons symbol="5" handleClick={addToText} />
+          <Buttons symbol="6" handleClick={addToText} />
+          <Buttons symbol="*" color={buttonColor} handleClick={addToText} />
+        </div>
+        <div className="row">
+          <Buttons symbol="1" handleClick={addToText} />
+          <Buttons symbol="2" handleClick={addToText} />
+          <Buttons symbol="3" handleClick={addToText} />
+          <Buttons symbol="+" color={buttonColor} handleClick={addToText} />
+        </div>
+        <div className="row">
+          <Buttons symbol="0" handleClick={addToText} />
+          <Buttons symbol="." handleClick={addToText} />
+          <Buttons symbol="=" handleClick={calcResult} />
+          <Buttons symbol="-" color={buttonColor} handleClick={addToText} />
+        </div>
+        <Buttons symbol="Clear" color="red" handleClick={clear} />
       </div>
-    </>
+    </div>
   );
 }
 
