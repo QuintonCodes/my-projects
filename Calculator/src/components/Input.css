@@ -5,6 +5,7 @@
   align-items: flex-end;
   flex-direction: column;
   padding: 16px;
+  color: #fff;
 }
 
 .result {
