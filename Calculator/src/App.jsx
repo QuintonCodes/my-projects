@@ -10,12 +10,17 @@ function App() {
 
   const addToText = (val) => {
     if (val === "%") {
-      const lastNumberIndex = findLastNumberIndex(text);
-      if (lastNumberIndex !== -1) {
-        const lastNumber = parseFloat(text.slice(lastNumberIndex).join(""));
-        const percentage = lastNumber / 100;
+      let lastIndex = text.length - 1;
+      while (lastIndex >= 0 && !isNaN(text[lastIndex])) {
+        lastIndex--;
+      }
+
+      const number = text.slice(lastIndex + 1).join("");
+
+      if (number) {
+        const percentage = parseFloat(number) / 100;
         setText((text) => [
-          ...text.slice(0, lastNumberIndex),
+          ...text.slice(0, lastIndex + 1),
           ...percentage.toString().split(""),
           " ",
         ]);
