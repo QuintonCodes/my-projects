@@ -31,30 +31,38 @@ function App() {
         <Input text={text} result={result} />
 
         <div className="row">
+          <Buttons
+            symbol="Clear"
+            color="red"
+            handleClick={clear}
+            className="wide-button"
+          />
+          <Buttons symbol="%" handleClick={addToText} />
+          <Buttons symbol="/" color={buttonColor} handleClick={addToText} />
+        </div>
+        <div className="row">
           <Buttons symbol="7" handleClick={addToText} />
           <Buttons symbol="8" handleClick={addToText} />
           <Buttons symbol="9" handleClick={addToText} />
-          <Buttons symbol="/" color={buttonColor} handleClick={addToText} />
+          <Buttons symbol="*" color={buttonColor} handleClick={addToText} />
         </div>
         <div className="row">
           <Buttons symbol="4" handleClick={addToText} />
           <Buttons symbol="5" handleClick={addToText} />
           <Buttons symbol="6" handleClick={addToText} />
-          <Buttons symbol="*" color={buttonColor} handleClick={addToText} />
+          <Buttons symbol="-" color={buttonColor} handleClick={addToText} />
         </div>
         <div className="row">
           <Buttons symbol="1" handleClick={addToText} />
           <Buttons symbol="2" handleClick={addToText} />
           <Buttons symbol="3" handleClick={addToText} />
-          <Buttons symbol="-" color={buttonColor} handleClick={addToText} />
-        </div>
-        <div className="row">
-          <Buttons symbol="0" handleClick={addToText} />
-          <Buttons symbol="." handleClick={addToText} />
-          <Buttons symbol="=" color={buttonColor} handleClick={calcResult} />
           <Buttons symbol="+" color={buttonColor} handleClick={addToText} />
         </div>
-        <Buttons symbol="Clear" color="red" handleClick={clear} />
+        <div className="row">
+          <Buttons symbol="0" handleClick={addToText} className="wide-button" />
+          <Buttons symbol="." handleClick={addToText} />
+          <Buttons symbol="=" color={buttonColor} handleClick={calcResult} />
+        </div>
       </div>
     </div>
   );
