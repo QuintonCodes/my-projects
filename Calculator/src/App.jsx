@@ -9,7 +9,41 @@ function App() {
   const [result, setResult] = useState("");
 
   const addToText = (val) => {
-    setText((text) => [...text, val + " "]);
+    if (val === "%") {
+      const lastNumberIndex = findLastNumberIndex(text);
+      if (lastNumberIndex !== -1) {
+        const lastNumber = parseFloat(text.slice(lastNumberIndex).join(""));
+        const percentage = lastNumber / 100;
+        setText((text) => [
+          ...text.slice(0, lastNumberIndex),
+          ...percentage.toString().split(""),
+          " ",
+        ]);
+      }
+    } else if (val === ".") {
+      const lastValue = text[text.length - 1];
+      if (!isNaN(lastValue) && !lastValue.includes(".")) {
+        setText((text) => [...text, val]);
+      } else if (
+        lastValue === undefined ||
+        lastValue === "=" ||
+        isNaN(lastValue)
+      ) {
+        setText((text) => [...text, "0" + val]);
+      }
+    } else {
+      setText((text) => [...text, val]);
+    }
+  };
+
+  const findLastNumberIndex = (text) => {
+    for (let i = text.length - 1; i >= 0; i--) {
+      const current = text[i];
+      if (!isNaN(current) || current === ".") {
+        return i;
+      }
+    }
+    return -1;
   };
 
   const calcResult = () => {
@@ -37,7 +71,7 @@ function App() {
             handleClick={clear}
             className="wide-button"
           />
-          <Buttons symbol="%" handleClick={addToText} />
+          <Buttons symbol="%" color={buttonColor} handleClick={addToText} />
           <Buttons symbol="/" color={buttonColor} handleClick={addToText} />
         </div>
         <div className="row">

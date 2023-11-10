@@ -1,10 +1,12 @@
 import React from "react";
 import "./Buttons.css";
 
-function Buttons({ symbol, color, handleClick }) {
+function Buttons({ symbol, color, handleClick, className }) {
+  const buttonClass = `button-wrapper ${className || ""}`;
+
   return (
     <div
-      className="button-wrapper"
+      className={buttonClass}
       style={{ backgroundColor: color }}
       onClick={() => handleClick(symbol)}
     >
