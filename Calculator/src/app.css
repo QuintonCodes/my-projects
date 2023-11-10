@@ -2,10 +2,11 @@
   align-items: center;
   display: flex;
   justify-content: center;
+  font-family: "Farro", sans-serif;
 }
 
 .calc-wrapper {
-  background-color: #fae2ba;
+  background-color: #000;
   border-radius: 16px;
   width: 400px;
 }
