@@ -41,16 +41,6 @@ function App() {
     }
   };
 
-  const findLastNumberIndex = (text) => {
-    for (let i = text.length - 1; i >= 0; i--) {
-      const current = text[i];
-      if (!isNaN(current) || current === ".") {
-        return i;
-      }
-    }
-    return -1;
-  };
-
   const calcResult = () => {
     const input = text.join(""); // Removes commas
 
