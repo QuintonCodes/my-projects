@@ -43,7 +43,6 @@ function App() {
 
   const calcResult = () => {
     const input = text.join(""); // Removes commas
-
     setResult(math.evaluate(input));
   };
 
