@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Features from "../../components/Features";
 import ShopNow from "../../components/ShopNow";
@@ -16,9 +15,9 @@ function About() {
             <br />
             At KickFlip Store, we live and breathe the exhilarating essence of
             urban street culture and the daring spirit of skateboarding. <br />
-            Established with a passion for genuine self-expression, we've become
+            Established with a passion for genuine self-expression, we`ve become
             more than just a clothing brand; <br />
-            we're a hub for individuals who want to make a statement, push
+            we`re a hub for individuals who want to make a statement, push
             boundaries, and embrace their unique style. <br />
             Our journey began on the streets and skate parks, where the sound of
             wheels on pavement and the pulse of creativity converge. <br />
@@ -45,12 +44,12 @@ function About() {
             resonates with your lifestyle.
           </p>
           <p>
-            But KickFlip Store is more than just clothing; it's a community.
+            But KickFlip Store is more than just clothing; it`s a community.
             <br />
-            We're united by a shared love for pushing boundaries and defying
+            We`re united by a shared love for pushing boundaries and defying
             norms. Our brand is a celebration of the skaters, the artists, the
             rebels, and the dreamers <br />
-            who challenge conventions and carve their own path. Whether you're
+            who challenge conventions and carve their own path. Whether you`re
             perfecting your tricks, exploring cityscapes, or simply seeking a
             unique way to express yourself, <br />
             KickFlip Store welcomes you with open arms. Join us as we ride

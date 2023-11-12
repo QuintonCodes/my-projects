@@ -1,4 +1,3 @@
-import React from "react";
 import "../components/loader.css";
 
 function Loader() {

@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import img1 from "../assets/features/shipping.webp";
 import img2 from "../assets/features/online_ordering.webp";
 import img3 from "../assets/features/promotion.webp";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./login.css";
@@ -42,7 +42,7 @@ function Login() {
             </button>
             <div className="login-register">
               <p>
-                Don't have an account?
+                Don`t have an account?
                 <a href="#" className="register-link" onClick={toggleRegister}>
                   Register
                 </a>

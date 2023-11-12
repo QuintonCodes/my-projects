@@ -1,4 +1,3 @@
-import React from "react";
 import "./paybtn.css";
 
 function PayBtn() {

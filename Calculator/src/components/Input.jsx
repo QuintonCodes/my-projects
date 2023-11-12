@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import "./Input.css";
 
 function Input({ text, result }) {
@@ -13,5 +13,10 @@ function Input({ text, result }) {
     </div>
   );
 }
+
+Input.propTypes = {
+  text: PropTypes.number.isRequired,
+  result: PropTypes.number.isRequired,
+};
 
 export default Input;

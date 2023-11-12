@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { Link } from "react-router-dom";
 import { PRODUCTS } from "../../products";
 import "./shop.css";

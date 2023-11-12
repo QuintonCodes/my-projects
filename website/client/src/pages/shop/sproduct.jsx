@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +9,12 @@ import { PRODUCTS } from "../../products";
 import "./sproduct.css";
 
 function SProduct() {
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState("S");
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
+
   const { productId } = useParams();
   const product = PRODUCTS.find(
     (product) => product.id === parseInt(productId)
@@ -19,12 +25,6 @@ function SProduct() {
   }
 
   const { color, price, productName } = product;
-
-  const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState("S");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
 
   const existingCartItem = cartItems.find((item) => item.id === product.id);
 

@@ -1,9 +1,8 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
+import PropTypes from "prop-types";
 import BuyNowBtn from "../../components/BuyNowBtn";
 
-function Product(props) {
-  const { color, price, frontImg, productName } = props.data;
-
+function Product({ color, price, frontImg, productName }) {
   return (
     <div className="product">
       <div className="product-container">
@@ -26,5 +25,12 @@ function Product(props) {
     </div>
   );
 }
+
+Product.propTypes = {
+  color: PropTypes.string.isRequired,
+  frontImg: PropTypes.object.isRequired,
+  price: PropTypes.number.isRequired,
+  productName: PropTypes.string.isRequired,
+};
 
 export default Product;

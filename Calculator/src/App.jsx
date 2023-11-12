@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as math from "mathjs";
 import Buttons from "./components/Buttons";
 import Input from "./components/Input";
