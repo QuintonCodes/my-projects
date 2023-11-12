@@ -7,8 +7,8 @@
 body {
   align-items: center;
   background: #faebd7;
-  font-family: "Farro", sans-serif;
   display: flex;
+  font-family: "Farro", sans-serif;
   justify-content: center;
   min-height: 100vh;
 }
