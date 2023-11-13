@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import PropTypes from "prop-types";
 import BuyNowBtn from "../../components/BuyNowBtn";
 
-function Product({ color, price, frontImg, productName }) {
+function Product({ color, frontImg, price, productName }) {
   return (
     <div className="product">
       <div className="product-container">
@@ -27,10 +27,10 @@ function Product({ color, price, frontImg, productName }) {
 }
 
 Product.propTypes = {
-  color: PropTypes.string.isRequired,
-  frontImg: PropTypes.object.isRequired,
-  price: PropTypes.number.isRequired,
-  productName: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  frontImg: PropTypes.any,
+  price: PropTypes.number,
+  productName: PropTypes.string,
 };
 
 export default Product;

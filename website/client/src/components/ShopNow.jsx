@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import "./shopnow.css";
 
-function ShopNow() {
+function ShopNow({ text }) {
   return (
     <button className="show-now">
-      <span className="hover-underline-animation">{this.props.text}</span>
+      <span className="hover-underline-animation">{text}</span>
       <svg
         viewBox="0 0 46 16"
         height="10"
