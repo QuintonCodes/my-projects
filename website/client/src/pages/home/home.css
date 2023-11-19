@@ -1,89 +1,45 @@
-.hero {
-  align-items: center;
+#hero {
   border-bottom: 2px solid #000;
-  display: flex;
-  height: 100%;
-  justify-content: space-between;
+  min-height: 70vh;
   padding: 0 50px;
-  width: 100%;
 }
 
-.hero-info h2 {
-  font-size: 60px;
-}
-
-.hero-info h2,
-.hero-info h4 {
-  color: #f5f5dc;
-}
-
-.slideshow-container {
-  margin-right: 80px;
+#slideshow-container {
   max-width: 400px;
-  width: 100%;
 }
 
-.blog {
+#blog {
   border-bottom: 2px solid #000;
-  text-align: center;
+  border-top: 2px solid #000;
 }
 
-.blog-content {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.blog-content h2 {
-  color: #ebebeb;
-}
-
-.blog button {
-  align-items: center;
+#blog button {
   background: #1b1b1b;
-  border: none;
   border-radius: 5px;
   box-shadow: 0px 6px 24px 0px #0003;
-  cursor: pointer;
-  display: flex;
-  font-family: "Farro", sans-serif;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
 }
 
-.blog button:after {
+#blog button:after {
   background: #f5f5dc;
   content: " ";
-  height: 100%;
-  position: absolute;
-  right: 0;
   transition: all 0.4s ease-in-out;
-  width: 0%;
 }
 
-.blog button:hover:after {
+#blog button:hover:after {
   left: 0;
   right: auto;
   width: 100%;
 }
 
-.blog button span {
-  color: #f5f5dc;
-  font-size: 1.125em;
+#blog button span {
   font-weight: 700;
   letter-spacing: 0.3em;
   padding: 18px 25px;
-  text-align: center;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
-  width: 100%;
-  z-index: 20;
 }
 
-.blog button:hover span {
+#blog button:hover span {
   animation: scaleUp 0.3s ease-in-out;
   color: #1b1b1b;
 }

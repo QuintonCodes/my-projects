@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import PayBtn from "../../components/PayBtn";
-import ShopNow from "../../components/ShopNow";
 import { ShopContext } from "../../context/shop-context";
 import "./cart.css";
 
@@ -135,11 +133,6 @@ function Cart() {
           </table>
           <PayBtn />
         </div>
-      </section>
-      <section className="back-to-shop">
-        <Link to="/shop">
-          <ShopNow text="Back To Shop" />
-        </Link>
       </section>
     </>
   );

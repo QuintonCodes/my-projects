@@ -1,30 +1,29 @@
-import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import Loader from "../../components/Loader";
-import ShopNow from "../../components/ShopNow";
 import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
+import Features from "../../components/Features";
 import "./home.css";
-
-const Features = lazy(() => import("../../components/Features"));
 
 function Home() {
   return (
     <>
-      <section className="hero">
-        <div className="hero-info">
-          <h2>Our New Brutalist Hoodies</h2>
-          <h4>
+      <section
+        className="items-center flex h-full w-full justify-between"
+        id="hero"
+      >
+        <div>
+          <h2 className="text-6xl">Our New Brutalist Hoodies</h2>
+          <h4 className="pt-4">
             Delivered with comfort and style, <br />
             you`re guaranteed taking the streets by a storm.
+            <br />
+            Embrace the streets with confidence as you envelop yourself
+            <br />
+            in the cozy allure of our premium hoodies
           </h4>
-
-          <Link to="/shop">
-            <ShopNow text="Shop Now" />
-          </Link>
         </div>
 
-        <div className="slideshow-container">
-          <div className="mySlides">
+        <div className="mr-20 w-full" id="slideshow-container">
+          <div>
             <img
               src={hero1}
               alt="Front Black Hoodie"
@@ -35,18 +34,10 @@ function Home() {
         </div>
       </section>
 
-      <Suspense
-        fallback={
-          <div className="loading">
-            <Loader />
-          </div>
-        }
-      >
-        <Features />
-      </Suspense>
+      <Features />
 
-      <section className="blog">
-        <div className="blog-content">
+      <section className="text-center" id="blog">
+        <div className="items-center flex flex-col justify-center my-5">
           <article>
             <h2>What is KickFlip?</h2>
             <p>
@@ -59,13 +50,16 @@ function Home() {
               Something that grabs the attention of others when seen.
             </p>
             <p>
-              As the motto of the brand says <b>`Flip It`</b>, we will turn
-              things around!
+              As the motto of the brand says{" "}
+              <b className="text-[#545484]">Flip It</b>, we will turn things
+              around!
             </p>
           </article>
           <Link to="/about">
-            <button>
-              <span>Find Out!</span>
+            <button className="items-center border-none cursor-pointer flex justify-center overflow-hidden relative after:h-full after:absolute after:w-0 after:right-0">
+              <span className="text-white text-base text-center w-full z-20">
+                Find Out!
+              </span>
             </button>
           </Link>
         </div>

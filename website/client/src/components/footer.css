@@ -1,8 +1,4 @@
 footer {
-  background: #1b1b1b;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   padding: 0 50px;
 }
 
@@ -11,56 +7,39 @@ footer p {
   margin: 0 0 8px;
 }
 
-.col {
+#col {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
-.col img {
-  height: 130px;
-}
-
-.socials {
-  margin-right: 10px;
-}
-
-.socials svg {
-  color: #ebebeb;
+#col svg {
+  color: #fff;
   padding: 0 13px;
   transition: 0.3s ease;
 }
 
-.socials svg:hover:nth-child(1) {
+#col svg:hover:nth-child(1) {
   color: red;
 }
 
-.socials svg:hover:nth-child(2) {
+#col svg:hover:nth-child(2) {
   color: #0f0;
 }
 
-.socials svg:hover:nth-child(3) {
+#col svg:hover:nth-child(3) {
   color: #d65cff;
 }
 
-.socials svg:hover {
+#col svg:hover {
   transform: translateY(-15%);
-  color: #faebd7;
 }
 
-.newsletter {
-  padding: 20px;
-}
-
-.subscribe {
+#subscribe {
   border: 2px solid #ffffff0d;
-  background: transparent;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
   max-width: 350px;
-  padding: 20px;
 }
 
 .title {
@@ -71,21 +50,14 @@ footer p {
   line-height: 2rem;
 }
 
-.description {
+#description {
   color: #ebebeb;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  margin-top: 1rem;
 }
 
-.email-section {
+#email-section {
   column-gap: 0.5rem;
-  display: flex;
-  max-width: 28rem;
-  margin-top: 1rem;
 }
-
-.email-section input {
+#email-section input {
   background-color: #1b1b1b;
   border: 1px solid #808080;
   border-radius: 0.375rem;
@@ -96,11 +68,16 @@ footer p {
   padding: 0.5rem 0.875rem;
 }
 
-.email-section input:focus {
+#email-section input:focus {
   border: 1px solid #faebd7;
 }
 
-.email-section button {
+.email-section input::placeholder,
+.account h4 {
+  color: #ebebeb;
+}
+
+#email-section button {
   background-color: #3a3a3a;
   border-radius: 0.375rem;
   border: none;
@@ -111,31 +88,11 @@ footer p {
   padding: 0.625rem 0.875rem;
 }
 
-.account {
-  margin-right: 40px;
-}
-
-.account a {
-  color: #ebebeb;
+#col a {
   font-size: 15px;
   margin-bottom: 10px;
 }
 
-.account a:hover {
-  color: #faebd7;
-}
-
-.copyright {
-  color: #ebebeb;
-  text-align: center;
-  width: 100%;
-}
-
-.copyright svg {
-  padding-right: 5px;
-}
-
-.email-section input::placeholder,
-.account h4 {
-  color: #ebebeb;
+#col a:hover {
+  color: #545484;
 }

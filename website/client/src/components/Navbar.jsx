@@ -1,27 +1,11 @@
-import { useEffect, useState } from "react";
 import logo from "../assets/logo.webp";
 import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
+import { UserIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import "../components/navbar.css";
 
 function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <header className={scrolled ? "scrolled" : "header"}>
+    <header className="header">
       <div className="header-left">
         <NavLink exact="true" to="/" activeclassname="active" className="logo">
           <img src={logo} alt="KickFlip Logo" height="130px" width="130px" />
@@ -52,14 +36,14 @@ function Navbar() {
       </div>
 
       <ul className="navbar-links">
-        <li>
+        <li className="pb-5 px-2">
           <NavLink to="/login" activeclassname="active">
-            <FontAwesomeIcon icon={faUser} size="lg" />
+            <UserIcon className="h-7 w-7" />
           </NavLink>
         </li>
-        <li>
+        <li className="pb-5 px-2">
           <NavLink to="/cart" activeclassname="active">
-            <FontAwesomeIcon icon={faCartShopping} size="lg" />
+            <ShoppingCartIcon className="h-7 w-7" />
           </NavLink>
         </li>
       </ul>

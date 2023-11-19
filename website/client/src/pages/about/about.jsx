@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import Features from "../../components/Features";
-import ShopNow from "../../components/ShopNow";
 import "./about.css";
 
 function About() {
@@ -57,11 +55,6 @@ function About() {
             Thank you for being a part of the KickFlip Store family - where
             style meets the streets and individuality reigns supreme.
           </p>
-          <div className="btn">
-            <Link to="/shop">
-              <ShopNow text="Shop Now" />
-            </Link>
-          </div>
         </div>
       </section>
 

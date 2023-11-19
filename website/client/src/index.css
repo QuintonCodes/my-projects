@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 h1 {
   font-size: 50px;
   line-height: 64px;
@@ -35,9 +39,10 @@ a {
 }
 
 body {
-  background: #5d5e5a;
+  background: #282828;
   font-display: swap;
   font-family: "Farro", sans-serif;
+  color: #fff;
   margin: 0;
   padding: 0;
   width: 100%;
