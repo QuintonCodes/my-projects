@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
+import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
 import Features from "../../components/Features";
 import "./home.css";
 
@@ -11,7 +12,7 @@ function Home() {
         id="hero"
       >
         <div>
-          <h2 className="text-6xl">Our New Brutalist Hoodies</h2>
+          <h2 className="text-6xl font-bold">Our New Brutalist Hoodies</h2>
           <h4 className="pt-4">
             Delivered with comfort and style, <br />
             you`re guaranteed taking the streets by a storm.
@@ -22,13 +23,22 @@ function Home() {
           </h4>
         </div>
 
-        <div className="mr-20 w-full" id="slideshow-container">
-          <div>
+        <div className="relative">
+          <div className="flex">
             <img
-              src={hero1}
+              className="absolute -top-20 -left-40 w-full"
+              src={hero2}
               alt="Front Black Hoodie"
               height="500"
               width="500"
+            />
+
+            <img
+              className="bg-gray-200 rounded-2xl"
+              src={hero1}
+              alt="Front Black Hoodie"
+              height="400"
+              width="400"
             />
           </div>
         </div>
@@ -39,7 +49,7 @@ function Home() {
       <section className="text-center" id="blog">
         <div className="items-center flex flex-col justify-center my-5">
           <article>
-            <h2>What is KickFlip?</h2>
+            <h2 className="font-bold">What is KickFlip?</h2>
             <p>
               KickFlip is a clothing brand which aims to inspire the youth`s
               style and aesthetic while also contributing to the ever changing

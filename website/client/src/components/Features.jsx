@@ -34,10 +34,10 @@ const features = [
 
 function Features() {
   return (
-    <div className="bg-[#282828] py-12">
+    <div className=" py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h1 className="text-5xl font-bold tracking-tight text-white">
+          <h1 className="text-5xl font-bold tracking-tight text-black">
             Features
           </h1>
         </div>
@@ -48,13 +48,13 @@ function Features() {
                 <dt className="text-base font-semibold leading-7 text-[#545484]">
                   <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-none">
                     <feature.icon
-                      className="h-7 w-7 text-white"
+                      className="h-7 w-7 text-black"
                       aria-hidden="true"
                     />
                   </div>
                   {feature.name}
                 </dt>
-                <dd className="mt-2 text-base leading-7 text-white">
+                <dd className="mt-2 text-base leading-7 text-black">
                   {feature.description}
                 </dd>
               </div>

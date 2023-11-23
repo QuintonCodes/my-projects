@@ -1,9 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import BuyNowBtn from "../../components/BuyNowBtn";
-import ShopNow from "../../components/ShopNow";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { ShopContext } from "../../context/shop-context";
 import { PRODUCTS } from "../../products";
 import "./sproduct.css";
@@ -74,7 +71,7 @@ function SProduct() {
 
   return (
     <section className="spro-section section-p1">
-      <div className="spro">
+      <div className="flex items-start mt-5">
         <div className="spro-img">
           <div className="slide-container">
             <div className="slides">
@@ -95,26 +92,16 @@ function SProduct() {
             </div>
 
             <div className="slider-controls">
-              <FontAwesomeIcon
-                icon={faAngleLeft}
-                size="lg"
-                style={{ color: "#000000" }}
-                onClick={prevSlide}
-              />
-              <FontAwesomeIcon
-                icon={faAngleRight}
-                size="lg"
-                style={{ color: "#000000" }}
-                onClick={nextSlide}
-              />
+              <ChevronLeftIcon onClick={prevSlide} className="h-6 w-6" />
+              <ChevronRightIcon onClick={nextSlide} className="h-6 w-6" />
             </div>
           </div>
         </div>
 
         <div className="spro-details">
-          <h4>{productName}</h4>
-          <span>{color}</span>
-          <h3>R {price}.00</h3>
+          <h3 className="text-3xl font-semibold">{productName}</h3>
+          <h4 className="text-2xl mt-2">R {price}.00</h4>
+          <h5 className="my-2">{color}</h5>
           <select
             id="options"
             className="size"
@@ -135,12 +122,6 @@ function SProduct() {
             <button onClick={handleIncrement}>+</button>
           </div>
 
-          <Link to="/cart">
-            <div className="spro-buy" onClick={handleBuyNow}>
-              <BuyNowBtn />
-            </div>
-          </Link>
-
           <div className="spro-info">
             <h4>Product Details</h4>
             <p>
@@ -156,13 +137,16 @@ function SProduct() {
               seamlessly integrating into any occasion.
             </p>
           </div>
-        </div>
-      </div>
 
-      <div className="back-to-shop">
-        <Link to="/shop">
-          <ShopNow text="Back To Shop" />
-        </Link>
+          <Link to="/cart">
+            <div
+              className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-medium text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2"
+              onClick={handleBuyNow}
+            >
+              Buy
+            </div>
+          </Link>
+        </div>
       </div>
     </section>
   );

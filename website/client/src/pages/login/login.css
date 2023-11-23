@@ -113,7 +113,7 @@
 
 .remember-forgot a,
 .login-register a {
-  color: #faebd7;
+  color: #545484;
   text-decoration: none;
 }
 
@@ -129,7 +129,7 @@
 }
 
 .login-btn {
-  background: grey;
+  background: #282828;
   border: none;
   border-radius: 6px;
   color: #fff;

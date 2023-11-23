@@ -57,7 +57,7 @@ function Footer() {
         </div>
 
         <div className="text-center w-full">
-          <p>2023, KickFlip</p>
+          <p className="text-white">2023, KickFlip</p>
         </div>
       </footer>
     </>

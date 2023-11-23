@@ -1,13 +1,12 @@
 import Features from "../../components/Features";
-import "./about.css";
 
 function About() {
   return (
     <>
-      <section className="about-us">
-        <div className="article">
-          <h2>Welcome to KickFlip Store</h2>
-          <p>
+      <section className="mt-5">
+        <div className="text-center">
+          <h2 className="text-black">Welcome to KickFlip Store</h2>
+          <p className="text-lg my-4 mx-4">
             Your Ultimate Destination for Authentic Streetwear and
             Skater-Inspired Clothing!
             <br />
@@ -26,7 +25,7 @@ function About() {
             ethos of the skating community and infuse it into every thread of
             our clothing.
           </p>
-          <p>
+          <p className="text-lg my-4 mx-4">
             What sets KickFlip Store apart is our unwavering commitment to
             authenticity. Each piece of apparel we offer tells a story - a story
             of passion, rebellion, and authenticity. <br />
@@ -41,7 +40,7 @@ function About() {
             testament to our dedication to delivering premium streetwear that
             resonates with your lifestyle.
           </p>
-          <p>
+          <p className="text-lg my-4 mx-4">
             But KickFlip Store is more than just clothing; it`s a community.
             <br />
             We`re united by a shared love for pushing boundaries and defying

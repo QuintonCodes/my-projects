@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  EnvelopeIcon,
+  UserIcon,
+  LockClosedIcon,
+} from "@heroicons/react/24/outline";
 import "./login.css";
 
 function Login() {
@@ -21,12 +24,12 @@ function Login() {
           <h3>Login</h3>
           <form action="#">
             <div className="input-box">
-              <FontAwesomeIcon icon={faEnvelope} size="lg" />
+              <EnvelopeIcon className="h-6 w-6" />
               <input type="email" required id="email-login" />
               <label htmlFor="email-login">Email</label>
             </div>
             <div className="input-box">
-              <FontAwesomeIcon icon={faLock} size="lg" />
+              <LockClosedIcon className="h-6 w-6" />
               <input type="password" required id="password-login" />
               <label htmlFor="password-login">Password</label>
             </div>
@@ -42,7 +45,7 @@ function Login() {
             </button>
             <div className="login-register">
               <p>
-                Don`t have an account?
+                Don`t have an account?{" "}
                 <a href="#" className="register-link" onClick={toggleRegister}>
                   Register
                 </a>
@@ -59,7 +62,7 @@ function Login() {
           <h3>Register</h3>
           <form action="#">
             <div className="input-box">
-              <FontAwesomeIcon icon={faUser} size="lg" />
+              <UserIcon className="h-6 w-6" />
               <input
                 type="text"
                 required
@@ -69,12 +72,12 @@ function Login() {
               <label htmlFor="username">Username</label>
             </div>
             <div className="input-box">
-              <FontAwesomeIcon icon={faEnvelope} size="lg" />
+              <EnvelopeIcon className="h-6 w-6" />
               <input type="email" required id="email-register" />
               <label htmlFor="email-register">Email</label>
             </div>
             <div className="input-box">
-              <FontAwesomeIcon icon={faLock} size="lg" />
+              <LockClosedIcon className="h-6 w-6" />
               <input type="password" required id="password-register" />
               <label htmlFor="password-register">Password</label>
             </div>
@@ -89,7 +92,7 @@ function Login() {
             </button>
             <div className="login-register">
               <p>
-                Already have an account?
+                Already have an account?{" "}
                 <a href="#" className="login-link" onClick={toggleRegister}>
                   Login
                 </a>

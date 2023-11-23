@@ -4,12 +4,7 @@
   padding: 0 50px;
 }
 
-#slideshow-container {
-  max-width: 400px;
-}
-
 #blog {
-  border-bottom: 2px solid #000;
   border-top: 2px solid #000;
 }
 
