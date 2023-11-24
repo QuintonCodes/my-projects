@@ -53,6 +53,7 @@
 .form-box h3 {
   font-size: 2em;
   text-align: center;
+  font-weight: 600;
 }
 
 .input-box {
@@ -138,6 +139,10 @@
   height: 45px;
   outline: none;
   width: 100%;
+}
+
+.login-btn:hover {
+  background: #1f1f1f;
 }
 
 .login-register {

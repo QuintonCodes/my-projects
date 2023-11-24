@@ -79,11 +79,6 @@ export default function Example() {
               Phone number
             </label>
             <div className="relative mt-2.5">
-              <div className="absolute inset-y-0 left-0 flex items-center">
-                <label htmlFor="country" className="sr-only">
-                  Country
-                </label>
-              </div>
               <input
                 type="tel"
                 name="phone-number"
@@ -139,7 +134,7 @@ export default function Example() {
             </Switch.Label>
           </Switch.Group>
         </div>
-        <div className="mt-10">
+        <div className="mt-5">
           <button
             type="submit"
             className="block bg-[#282828] w-full rounded-md bg-grey-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-[#3a3a3a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3a3a3a]"

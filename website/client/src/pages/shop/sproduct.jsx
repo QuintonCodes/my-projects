@@ -123,24 +123,22 @@ function SProduct() {
           </div>
 
           <div className="spro-info">
-            <h4>Product Details</h4>
+            <h4 className="font-bold">Product Details</h4>
             <p>
               Stay effortlessly stylish and comfortable with our classic Black
               Hoodie. Crafted with care and attention to detail, this versatile
               wardrobe essential is designed to keep you cozy while exuding an
-              air of understated elegance.
-            </p>
-            <p>
-              Made from a premium blend of high-quality cotton and soft
-              polyester, the hoodie offers a luxuriously smooth feel against
-              your skin. Its deep black hue is both timeless and adaptable,
-              seamlessly integrating into any occasion.
+              air of understated elegance. Made from a premium blend of
+              high-quality cotton and soft polyester, the hoodie offers a
+              luxuriously smooth feel against your skin. Its deep black hue is
+              both timeless and adaptable, seamlessly integrating into any
+              occasion.
             </p>
           </div>
 
           <Link to="/cart">
             <div
-              className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-medium text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2"
+              className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-bold text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2"
               onClick={handleBuyNow}
             >
               Buy

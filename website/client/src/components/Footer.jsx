@@ -22,7 +22,7 @@ function Footer() {
             />
           </Link>
 
-          <div className="mr-2.5">
+          <div className="mr-2.5 cursor-pointer">
             <FontAwesomeIcon icon={faInstagram} id="icon" size="xl" />
             <FontAwesomeIcon icon={faWhatsapp} id="icon" size="xl" />
             <FontAwesomeIcon icon={faTiktok} size="xl" />
@@ -49,7 +49,7 @@ function Footer() {
         </div>
 
         <div className="mr-10 mt-5" id="col">
-          <h4>My Account</h4>
+          <h4 className="font-bold">My Account</h4>
           <Link to="/login">Sign in</Link>
           <Link to="/cart">View Cart</Link>
           <Link to="/shop">Shop Now</Link>

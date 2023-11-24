@@ -1,5 +1,3 @@
-import Features from "../../components/Features";
-
 function About() {
   return (
     <>
@@ -56,8 +54,6 @@ function About() {
           </p>
         </div>
       </section>
-
-      <Features />
     </>
   );
 }
