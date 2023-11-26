@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
-import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
 import {
   ComputerDesktopIcon,
   CheckBadgeIcon,
   ShoppingBagIcon,
   TruckIcon,
 } from "@heroicons/react/24/outline";
+import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
+import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
 import "./home.css";
 
 const features = [
