@@ -1,37 +1,6 @@
-#hero {
-  border-bottom: 2px solid #000;
-  min-height: 70vh;
-  padding: 0 50px;
-}
-
-#blog {
-  border-top: 2px solid #000;
-}
-
-#blog button {
-  background: #1b1b1b;
-  border-radius: 5px;
-  box-shadow: 0px 6px 24px 0px #0003;
-}
-
-#blog button:after {
-  background: #f5f5dc;
-  content: " ";
-  transition: all 0.4s ease-in-out;
-}
-
-#blog button:hover:after {
-  left: 0;
-  right: auto;
-  width: 100%;
-}
-
 #blog button span {
-  font-weight: 700;
   letter-spacing: 0.3em;
-  padding: 18px 25px;
   text-decoration: none;
-  transition: all 0.3s ease-in-out;
 }
 
 #blog button:hover span {

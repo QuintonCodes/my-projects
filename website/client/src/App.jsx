@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import Navbar from "./components/Navbar";
 import ShopContextProvider from "./context/shop-context";
 
 const About = lazy(() => import("./pages/about/about"));
 const Cart = lazy(() => import("./pages/cart/cart"));
 const Contact = lazy(() => import("./pages/contact/contact"));
 const Home = lazy(() => import("./pages/home/home"));
+const Login = lazy(() => import("./pages/login/login"));
 const Shop = lazy(() => import("./pages/shop/shop"));
 const SProduct = lazy(() => import("./pages/shop/sproduct"));
-const Login = lazy(() => import("./pages/login/login"));
 
 export default function App() {
   return (
@@ -25,7 +25,7 @@ export default function App() {
               element={
                 <Suspense
                   fallback={
-                    <div className="loading-app">
+                    <div className="items-center flex h-screen justify-center w-full">
                       <Loader />
                     </div>
                   }
@@ -39,7 +39,7 @@ export default function App() {
               element={
                 <Suspense
                   fallback={
-                    <div className="loading-app">
+                    <div className="items-center flex h-screen justify-center w-full">
                       <Loader />
                     </div>
                   }
@@ -53,7 +53,7 @@ export default function App() {
               element={
                 <Suspense
                   fallback={
-                    <div className="loading-app">
+                    <div className="items-center flex h-screen justify-center w-full">
                       <Loader />
                     </div>
                   }
@@ -67,7 +67,7 @@ export default function App() {
               element={
                 <Suspense
                   fallback={
-                    <div className="loading-app">
+                    <div className="items-center flex h-screen justify-center w-full">
                       <Loader />
                     </div>
                   }
@@ -81,7 +81,7 @@ export default function App() {
               element={
                 <Suspense
                   fallback={
-                    <div className="loading-app">
+                    <div className="items-center flex h-screen justify-center w-full">
                       <Loader />
                     </div>
                   }
@@ -95,7 +95,7 @@ export default function App() {
               element={
                 <Suspense
                   fallback={
-                    <div className="loading-app">
+                    <div className="items-center flex h-screen justify-center w-full">
                       <Loader />
                     </div>
                   }
@@ -109,7 +109,7 @@ export default function App() {
               element={
                 <Suspense
                   fallback={
-                    <div className="loading-app">
+                    <div className="items-center flex h-screen justify-center w-full">
                       <Loader />
                     </div>
                   }

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: "Farro", sans-serif;
+  }
+}
+
 h1 {
   font-size: 50px;
   line-height: 64px;
@@ -54,19 +60,4 @@ body {
 
 * {
   box-sizing: border-box;
-}
-
-.loading {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.loading-app {
-  align-items: center;
-  display: flex;
-  height: 80vh;
-  justify-content: center;
-  width: 100%;
 }

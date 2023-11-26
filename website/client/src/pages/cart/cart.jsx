@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { ShopContext } from "../../context/shop-context";
-import "./cart.css";
 
 function Cart() {
   const [cartSubTotal, setCartSubTotal] = useState(0);
@@ -55,75 +54,113 @@ function Cart() {
 
   return (
     <>
-      <section className="cart section-p1">
-        <table className="cart-table">
-          <thead className="cart-head">
+      <section className="overflow-x-auto my-5 mx-10">
+        <table className="border-collapse table-fixed whitespace-nowrap w-full">
+          <thead className="border-[2px] border-solid border-black border-l-0 border-r-0">
             <tr>
-              <td>Remove</td>
-              <td>Image</td>
-              <td>Product</td>
-              <td>Price</td>
-              <td>Quantity</td>
-              <td>SubTotal</td>
+              <td className="font-bold py-[18px] uppercase text-center w-[100px]">
+                Remove
+              </td>
+              <td className="font-bold py-[18px] uppercase text-center w-[100px]">
+                Image
+              </td>
+              <td className="font-bold py-[18px] uppercase text-center w-[200px]">
+                Product
+              </td>
+              <td className="font-bold py-[18px] uppercase text-center w-[150px]">
+                Price
+              </td>
+              <td className="font-bold py-[18px] uppercase text-center w-[150px]">
+                Quantity
+              </td>
+              <td className="font-bold py-[18px] uppercase text-center w-[150px]">
+                SubTotal
+              </td>
             </tr>
           </thead>
           <tbody className="cart-items">
             {cartItems.map((product) => (
-              <tr className="cart-row" key={product.id}>
-                <td className="remove">
-                  <button onClick={() => removeFromCart(product.id)}>
+              <tr key={product.id}>
+                <td className="pt-[15px] text-center w-[100px]">
+                  <button
+                    onClick={() => removeFromCart(product.id)}
+                    className="bg-transparent border-none cursor-pointer"
+                  >
                     <TrashIcon className="h-6 w-6" />
                   </button>
                 </td>
-                <td className="w-[70px] items-center justify-center flex">
+                <td className="w-[100px] items-center justify-center flex pt-[15px] text-center">
                   <img
                     src={product.frontImg}
                     alt={product.productName}
                     className="h-[50px]"
                   />
                 </td>
-                <td className="pd">
+                <td className="pt-[15px] text-center w-[200px]">
                   {product.productName} - {product.color} ({product.size})
                 </td>
 
-                <td className="price">R {product.price}.00</td>
-                <td className="qtn">
+                <td className="pt-[15px] text-center w-[150px]">
+                  R {product.price}.00
+                </td>
+                <td className="pt-[15px] text-center w-[150px]">
                   <button
                     onClick={() => {
                       const newQuantity = product.quantity - 1;
                       updateQuantity(product.id, newQuantity);
                     }}
+                    className="bg-transparent text-xl cursor-pointer border-none font-semibold"
                   >
                     -
                   </button>
-                  <input id={product.id} value={product.quantity} readOnly />
-                  <button onClick={() => addToCart(product)}>+</button>
+                  <input
+                    id={product.id}
+                    value={product.quantity}
+                    readOnly
+                    className="bg-transparent text-lg border-none font-semibold py-[10px] pr-[5px] pl-[15px] w-10"
+                  />
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="bg-transparent text-xl cursor-pointer border-none font-semibold"
+                  >
+                    +
+                  </button>
                 </td>
-                <td className="sub">R {calculateSubTotal(product)}.00</td>
+                <td className="pt-[15px] text-center w-[150px]">
+                  R {calculateSubTotal(product)}.00
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </section>
 
-      <section className="cart-add section-p1">
-        <div className="subtotal">
+      <section className="my-5 mx-10">
+        <div className="border-[2px] border-solid border-black mb-[30px] p-[30px] w-1/2">
           <h3>Cart Totals</h3>
-          <table className="cart-summary">
+          <table className="border-collapse mb-5 w-full">
             <tbody>
-              <tr className="cart-add-row">
-                <td>Cart SubTotals</td>
-                <td className="cart-sub">R {cartSubTotal}.00</td>
+              <tr>
+                <td className="border border-solid border-black p-[10px] w-1/2">
+                  Cart SubTotals
+                </td>
+                <td className="border border-solid border-black p-[10px] w-1/2">
+                  R {cartSubTotal}.00
+                </td>
               </tr>
-              <tr className="cart-add-row">
-                <td>Shipping</td>
-                <td className="delivery">R {totalShipping}.00</td>
+              <tr>
+                <td className="border border-solid border-black p-[10px] w-1/2">
+                  Shipping
+                </td>
+                <td className="border border-solid border-black p-[10px] w-1/2">
+                  R {totalShipping}.00
+                </td>
               </tr>
-              <tr className="cart-add-row">
-                <td>
+              <tr>
+                <td className="border border-solid border-black p-[10px] w-1/2">
                   <strong>Total</strong>
                 </td>
-                <td className="total">
+                <td className="border border-solid border-black p-[10px] w-1/2">
                   <strong>R {totalCost}.00</strong>
                 </td>
               </tr>

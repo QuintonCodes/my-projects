@@ -39,10 +39,7 @@ const features = [
 function Home() {
   return (
     <>
-      <section
-        className="items-center flex h-full w-full justify-between"
-        id="hero"
-      >
+      <section className="items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px]">
         <div>
           <h2 className="text-6xl font-bold">Our New Brutalist Hoodies</h2>
           <h4 className="pt-4">
@@ -61,16 +58,16 @@ function Home() {
               className="absolute -top-20 -left-40 w-full"
               src={hero2}
               alt="Front Black Hoodie"
-              height="500"
-              width="500"
+              height="450"
+              width="450"
             />
 
             <img
               className="bg-gray-200 rounded-2xl"
               src={hero1}
               alt="Front Black Hoodie"
-              height="400"
-              width="400"
+              height="450"
+              width="450"
             />
           </div>
         </div>
@@ -108,7 +105,10 @@ function Home() {
         </div>
       </section>
 
-      <section className="text-center" id="blog">
+      <section
+        className="text-center border-t-2 border-solid border-t-black"
+        id="blog"
+      >
         <div className="items-center flex flex-col justify-center my-5">
           <article>
             <h2 className="font-bold">What is KickFlip?</h2>
@@ -128,8 +128,8 @@ function Home() {
             </p>
           </article>
           <Link to="/about">
-            <button className="items-center border-none cursor-pointer flex justify-center overflow-hidden relative after:h-full after:absolute after:w-0 after:right-0">
-              <span className="text-white text-base text-center w-full z-20">
+            <button className="items-center border-none cursor-pointer flex justify-center overflow-hidden relative after:h-full after:absolute after:w-0 after:right-0 after:bg-[#f5f5dc] after:content-['_'] after:transition-all after:duration-300 hover:after:left-0 hover:after:right-auto hover:after:w-full bg-[#1b1b1b] rounded-[5px] shadow-[0px_6px_24px_0px] shadow-[#0001]">
+              <span className="text-white text-base text-center w-full z-20 font-bold py-[18px] px-[25px] transition-all duration-300">
                 Find Out!
               </span>
             </button>
