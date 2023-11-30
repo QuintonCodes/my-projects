@@ -30,22 +30,6 @@ function SProduct() {
     addToCart({ ...product, quantity: quantity + 1, size });
   };
 
-  const handleBuyNow = () => {
-    if (existingCartItem) {
-      // Item is already in the cart, just update the quantity
-      const updatedCartItems = cartItems.map((item) => {
-        if (item.id === product.id) {
-          return { ...item, quantity, size };
-        }
-        return item;
-      });
-      setCartItems(updatedCartItems);
-    } else {
-      // Item is not in the cart, add it with initial quantity
-      addToCart({ ...product, quantity, size });
-    }
-  };
-
   const handleDecrement = () => {
     if (quantity > 1) {
       const updatedCartItems = cartItems.map((item) => {
@@ -58,6 +42,20 @@ function SProduct() {
       setCartItems(updatedCartItems);
     } else {
       setCartItems(cartItems.filter((item) => item.id !== product.id));
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (existingCartItem) {
+      const updatedCartItems = cartItems.map((item) => {
+        if (item.id === product.id) {
+          return { ...item, quantity, size };
+        }
+        return item;
+      });
+      setCartItems(updatedCartItems);
+    } else {
+      addToCart({ ...product, quantity, size });
     }
   };
 
