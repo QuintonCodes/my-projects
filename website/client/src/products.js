@@ -21,6 +21,7 @@ export const PRODUCTS = [
     backImg: image2,
     quantity: 0,
     size: "",
+    category: "Hoodie",
   },
   {
     id: 2,
@@ -31,6 +32,7 @@ export const PRODUCTS = [
     backImg: image4,
     quantity: 0,
     size: "",
+    category: "Hoodie",
   },
   {
     id: 3,
@@ -41,6 +43,7 @@ export const PRODUCTS = [
     backImg: image6,
     quantity: 0,
     size: "",
+    category: "Hoodie",
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ export const PRODUCTS = [
     backImg: image8,
     quantity: 0,
     size: "",
+    category: "T-Shirt",
   },
   {
     id: 5,
@@ -61,6 +65,7 @@ export const PRODUCTS = [
     backImg: image10,
     quantity: 0,
     size: "",
+    category: "T-Shirt",
   },
   {
     id: 6,
@@ -71,5 +76,6 @@ export const PRODUCTS = [
     backImg: image12,
     quantity: 0,
     size: "",
+    category: "T-Shirt",
   },
 ];
