@@ -33,11 +33,22 @@ function ShopContextProvider(props) {
     setCartItems((prev) => prev.filter((item) => item.id !== itemId));
   };
 
+  const updateCartItemQuantity = (itemId, newQuantity) => {
+    setCartItems((prevCartItems) =>
+      prevCartItems.map((cartItem) =>
+        cartItem.id === itemId
+          ? { ...cartItem, quantity: newQuantity }
+          : cartItem
+      )
+    );
+  };
+
   const contextValue = {
     addToCart,
     cartItems,
     removeFromCart,
     setCartItems,
+    updateCartItemQuantity,
   };
 
   return (

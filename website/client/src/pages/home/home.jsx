@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import {
   ComputerDesktopIcon,
@@ -5,9 +6,10 @@ import {
   ShoppingBagIcon,
   TruckIcon,
 } from "@heroicons/react/24/outline";
-import hero1 from "../../assets/mock-ups/Black-Hoodie-Front.webp";
-import hero2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
+import Loader from "../../components/Loader";
 import "./home.css";
+
+const Hero = lazy(() => import("../../components/Hero"));
 
 const features = [
   {
@@ -52,25 +54,15 @@ function Home() {
           </h4>
         </div>
 
-        <div className="relative">
-          <div className="flex">
-            <img
-              className="absolute -top-20 -left-40 w-full"
-              src={hero2}
-              alt="Front Black Hoodie"
-              height="450"
-              width="450"
-            />
-
-            <img
-              className="bg-gray-200 rounded-2xl"
-              src={hero1}
-              alt="Front Black Hoodie"
-              height="450"
-              width="450"
-            />
-          </div>
-        </div>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center w-1/2">
+              <Loader />
+            </div>
+          }
+        >
+          <Hero />
+        </Suspense>
       </section>
 
       <section>

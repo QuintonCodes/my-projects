@@ -32,14 +32,17 @@ function SProduct() {
 
   const handleDecrement = () => {
     if (quantity > 1) {
-      const updatedCartItems = cartItems.map((item) => {
-        item.id === product.id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item;
-      });
-      setCartItems(updatedCartItems);
+      setCartItems((prevCartItems) =>
+        prevCartItems.map((item) =>
+          item.id === product.id && item.size === size
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+      );
     } else {
-      setCartItems(cartItems.filter((item) => item.id !== product.id));
+      setCartItems(
+        cartItems.filter((item) => item.id !== product.id || item.size !== size)
+      );
     }
   };
 
@@ -49,7 +52,9 @@ function SProduct() {
     if (existingCartItem) {
       setCartItems((prevCartItems) =>
         prevCartItems.map((item) =>
-          item.id === product.id ? updatedCartItem : item
+          item.id === product.id && item.size === size
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
         )
       );
     } else {

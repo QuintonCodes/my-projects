@@ -37,12 +37,16 @@ function Navbar() {
 
       <ul className="navbar-links">
         <li className="pb-5 px-2">
-          <NavLink to="/login" activeclassname="active">
+          <NavLink to="/login" activeclassname="active" aria-label="user">
             <UserIcon className="h-7 w-7" />
           </NavLink>
         </li>
         <li className="pb-5 px-2">
-          <NavLink to="/cart" activeclassname="active">
+          <NavLink
+            to="/cart"
+            activeclassname="active"
+            aria-label="shopping cart"
+          >
             <ShoppingCartIcon className="h-7 w-7" />
           </NavLink>
         </li>
