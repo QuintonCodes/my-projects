@@ -33,12 +33,10 @@ function SProduct() {
   const handleDecrement = () => {
     if (quantity > 1) {
       const updatedCartItems = cartItems.map((item) => {
-        if (item.id === product.id) {
-          return { ...item, quantity: item.quantity - 1, size };
-        }
-        return item;
+        item.id === product.id
+          ? { ...item, quantity: item.quantity - 1 }
+          : item;
       });
-      setQuantity(quantity - 1);
       setCartItems(updatedCartItems);
     } else {
       setCartItems(cartItems.filter((item) => item.id !== product.id));
@@ -46,16 +44,16 @@ function SProduct() {
   };
 
   const handleBuyNow = () => {
+    const updatedCartItem = { ...product, quantity, size };
+
     if (existingCartItem) {
-      const updatedCartItems = cartItems.map((item) => {
-        if (item.id === product.id) {
-          return { ...item, quantity, size };
-        }
-        return item;
-      });
-      setCartItems(updatedCartItems);
+      setCartItems((prevCartItems) =>
+        prevCartItems.map((item) =>
+          item.id === product.id ? updatedCartItem : item
+        )
+      );
     } else {
-      addToCart({ ...product, quantity, size });
+      addToCart(updatedCartItem);
     }
   };
 
@@ -168,7 +166,7 @@ function SProduct() {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-base text-black">
-                    <a href={`/shop/${product.id}`}>
+                    <a href={`/shop/${similiarProduct.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {product.productName}
                     </a>

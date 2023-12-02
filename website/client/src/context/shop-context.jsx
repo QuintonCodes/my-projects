@@ -8,21 +8,23 @@ function ShopContextProvider(props) {
 
   const addToCart = (item) => {
     const existingCartItem = cartItems.find(
-      (cartItem) => cartItem.id === item.id
+      (cartItem) =>
+        cartItem.id === item.id &&
+        cartItem.size === item.size &&
+        cartItem.color === item.color
     );
 
     if (existingCartItem) {
-      // If the item exists, increase its quantity
-      setCartItems((prevCartItems) => {
-        return prevCartItems.map((cartItem) => {
-          if (cartItem.id === item.id) {
-            return { ...cartItem, quantity: cartItem.quantity + 1 };
-          }
-          return cartItem;
-        });
-      });
+      setCartItems((prevCartItems) =>
+        prevCartItems.map((cartItem) =>
+          cartItem.id === item.id &&
+          cartItem.size === item.size &&
+          cartItem.color === item.color
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        )
+      );
     } else {
-      // If the item is not in the cart, add it with a quantity of 1
       setCartItems((prev) => [...prev, { ...item, quantity: 1 }]);
     }
   };
