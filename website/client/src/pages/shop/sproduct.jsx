@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { ShopContext } from "../../context/shop-context";
 import { PRODUCTS } from "../../products";
-import "./sproduct.css";
 
 function SProduct() {
   const [quantity, setQuantity] = useState(1);
@@ -78,57 +77,92 @@ function SProduct() {
     <>
       <section className="my-5 mx-10">
         <div className="flex items-start mt-5">
-          <div className="spro-img">
-            <div className="slide-container">
-              <div className="slides">
-                {product && product.frontImg && product.backImg && (
-                  <>
-                    <img
-                      src={product.frontImg}
-                      alt={productName}
-                      className={currentImageIndex === 0 ? "active" : ""}
-                    />
-                    <img
-                      src={product.backImg}
-                      alt={productName}
-                      className={currentImageIndex === 1 ? "active" : ""}
-                    />
-                  </>
-                )}
-              </div>
+          <div className="h-[450px] relative text-center w-[450px]">
+            <div className="relative">
+              {product && product.frontImg && product.backImg && (
+                <>
+                  <img
+                    src={product.frontImg}
+                    alt={productName}
+                    className={
+                      currentImageIndex === 0
+                        ? "hidden absolute transition-transform ease-linear duration-150 w-full active:block"
+                        : ""
+                    }
+                  />
+                  <img
+                    src={product.backImg}
+                    alt={productName}
+                    className={
+                      currentImageIndex === 1
+                        ? "hidden absolute transition-transform ease-linear duration-150 w-full active:block"
+                        : ""
+                    }
+                  />
+                </>
+              )}
+            </div>
 
-              <div className="slider-controls">
-                <ChevronLeftIcon onClick={prevSlide} className="h-6 w-6" />
-                <ChevronRightIcon onClick={nextSlide} className="h-6 w-6" />
-              </div>
+            <div className="flex justify-between relative -mt-[55%]">
+              <ChevronLeftIcon
+                onClick={prevSlide}
+                className="h-6 w-6 cursor-pointer"
+              />
+              <ChevronRightIcon
+                onClick={nextSlide}
+                className="h-6 w-6 cursor-pointer"
+              />
             </div>
           </div>
 
-          <div className="spro-details">
+          <div className="pl-[30px] pt-[10px]">
             <h3 className="text-3xl font-semibold">{productName}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
             <h5 className="my-2">{color}</h5>
             <select
               id="options"
-              className="size"
+              className="bg-transparent border-black border-solid border-2 rounded-[5px] block cursor-pointer font-semibold text-[15px] mb-[10px] py-[5px] px-[10px]"
               autoComplete="Select size"
               value={size}
               onChange={(e) => setSize(e.target.value)}
             >
-              <option value="S">Small</option>
-              <option value="M">Medium</option>
-              <option value="L">Large</option>
-              <option value="XL">X Large</option>
+              <option value="S" className="font-normal text-[15px]">
+                Small
+              </option>
+              <option value="M" className="font-normal text-[15px]">
+                Medium
+              </option>
+              <option value="L" className="font-normal text-[15px]">
+                Large
+              </option>
+              <option value="XL" className="font-normal text-[15px]">
+                X Large
+              </option>
             </select>
 
             <div className="qtn-buttons">
-              <button onClick={handleDecrement}>-</button>
+              <button
+                onClick={handleDecrement}
+                className="bg-transparent border-none cursor-pointer text-lg font-semibold"
+              >
+                -
+              </button>
 
-              <input id={product.id} value={quantity} readOnly />
-              <button onClick={handleIncrement}>+</button>
+              <input
+                id={product.id}
+                value={quantity}
+                readOnly
+                className="bg-transparent rounded-[5px] font-semibold text-base h-[47px] py-[10px] pl-[15px] pr-[5px] w-[50px]"
+              />
+              <button
+                onClick={handleIncrement}
+                className="bg-transparent border-none cursor-pointer text-lg font-semibold"
+              >
+                +
+              </button>
             </div>
 
-            <div className="spro-info">
+            <div className="sproduct-info">
               <h4 className="font-bold">Product Details</h4>
               <p>
                 Stay effortlessly stylish and comfortable with our classic Black
