@@ -20,7 +20,12 @@ export const PRODUCTS = [
     frontImg: image1,
     backImg: image2,
     quantity: 0,
-    size: "",
+    size: [
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+      { name: "XL", inStock: true },
+    ],
     category: "Hoodie",
   },
   {
@@ -31,7 +36,12 @@ export const PRODUCTS = [
     frontImg: image3,
     backImg: image4,
     quantity: 0,
-    size: "",
+    size: [
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+      { name: "XL", inStock: true },
+    ],
     category: "Hoodie",
   },
   {
@@ -42,7 +52,12 @@ export const PRODUCTS = [
     frontImg: image5,
     backImg: image6,
     quantity: 0,
-    size: "",
+    size: [
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+      { name: "XL", inStock: true },
+    ],
     category: "Hoodie",
   },
   {
@@ -53,7 +68,12 @@ export const PRODUCTS = [
     frontImg: image7,
     backImg: image8,
     quantity: 0,
-    size: "",
+    size: [
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+      { name: "XL", inStock: true },
+    ],
     category: "T-Shirt",
   },
   {
@@ -64,7 +84,12 @@ export const PRODUCTS = [
     frontImg: image9,
     backImg: image10,
     quantity: 0,
-    size: "",
+    size: [
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+      { name: "XL", inStock: true },
+    ],
     category: "T-Shirt",
   },
   {
@@ -75,7 +100,12 @@ export const PRODUCTS = [
     frontImg: image11,
     backImg: image12,
     quantity: 0,
-    size: "",
+    size: [
+      { name: "S", inStock: true },
+      { name: "M", inStock: true },
+      { name: "L", inStock: true },
+      { name: "XL", inStock: true },
+    ],
     category: "T-Shirt",
   },
 ];

@@ -1,16 +1,19 @@
 import { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { RadioGroup } from "@headlessui/react";
 import { ShopContext } from "../../context/shop-context";
 import { PRODUCTS } from "../../products";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 function SProduct() {
-  const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState("S");
+  const [selectedSize, setSelectedSize] = useState("S");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
-
   const { productId } = useParams();
   const product = PRODUCTS.find(
     (product) => product.id === parseInt(productId)
@@ -21,39 +24,15 @@ function SProduct() {
   }
 
   const { color, price, productName } = product;
-
   const existingCartItem = cartItems.find((item) => item.id === product.id);
 
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
-    addToCart({ ...product, quantity: quantity + 1, size });
-  };
-
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setCartItems((prevCartItems) =>
-        prevCartItems.map((item) =>
-          item.id === product.id && item.size === size
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-      );
-    } else {
-      setCartItems(
-        cartItems.filter((item) => item.id !== product.id || item.size !== size)
-      );
-    }
-  };
-
   const handleBuyNow = () => {
-    const updatedCartItem = { ...product, quantity, size };
+    const updatedCartItem = { ...product };
 
     if (existingCartItem) {
       setCartItems((prevCartItems) =>
         prevCartItems.map((item) =>
-          item.id === product.id && item.size === size
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
+          item.id === product.id ? { ...item } : item
         )
       );
     } else {
@@ -119,48 +98,72 @@ function SProduct() {
             <h3 className="text-3xl font-semibold">{productName}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
             <h5 className="my-2">{color}</h5>
-            <select
-              id="options"
-              className="bg-transparent border-black border-solid border-2 rounded-[5px] block cursor-pointer font-semibold text-[15px] mb-[10px] py-[5px] px-[10px]"
-              autoComplete="Select size"
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
+
+            <RadioGroup
+              value={selectedSize}
+              onChange={setSelectedSize}
+              className="mt-4"
             >
-              <option value="S" className="font-normal text-[15px]">
-                Small
-              </option>
-              <option value="M" className="font-normal text-[15px]">
-                Medium
-              </option>
-              <option value="L" className="font-normal text-[15px]">
-                Large
-              </option>
-              <option value="XL" className="font-normal text-[15px]">
-                X Large
-              </option>
-            </select>
-
-            <div className="qtn-buttons">
-              <button
-                onClick={handleDecrement}
-                className="bg-transparent border-none cursor-pointer text-lg font-semibold"
-              >
-                -
-              </button>
-
-              <input
-                id={product.id}
-                value={quantity}
-                readOnly
-                className="bg-transparent rounded-[5px] font-semibold text-base h-[47px] py-[10px] pl-[15px] pr-[5px] w-[50px]"
-              />
-              <button
-                onClick={handleIncrement}
-                className="bg-transparent border-none cursor-pointer text-lg font-semibold"
-              >
-                +
-              </button>
-            </div>
+              <RadioGroup.Label className="sr-only">
+                Choose a size
+              </RadioGroup.Label>
+              <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                {product.size.map((s) => (
+                  <RadioGroup.Option
+                    key={s.name}
+                    value={s}
+                    disabled={!s.inStock}
+                    className={({ active }) =>
+                      classNames(
+                        s.inStock
+                          ? "cursor-pointer bg-white text-gray-900 shadow-sm"
+                          : "cursor-not-allowed bg-gray-50 text-gray-200",
+                        active ? "ring-2 ring-indigo-500" : "",
+                        "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
+                      )
+                    }
+                  >
+                    {({ active, checked }) => (
+                      <>
+                        <RadioGroup.Label as="span">{s.name}</RadioGroup.Label>
+                        {s.inStock ? (
+                          <span
+                            className={classNames(
+                              active ? "border" : "border-2",
+                              checked
+                                ? "border-indigo-500"
+                                : "border-transparent",
+                              "pointer-events-none absolute -inset-px rounded-md"
+                            )}
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                          >
+                            <svg
+                              className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                              viewBox="0 0 100 100"
+                              preserveAspectRatio="none"
+                              stroke="currentColor"
+                            >
+                              <line
+                                x1={0}
+                                y1={100}
+                                x2={100}
+                                y2={0}
+                                vectorEffect="non-scaling-stroke"
+                              />
+                            </svg>
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </RadioGroup.Option>
+                ))}
+              </div>
+            </RadioGroup>
 
             <div className="sproduct-info">
               <h4 className="font-bold">Product Details</h4>
