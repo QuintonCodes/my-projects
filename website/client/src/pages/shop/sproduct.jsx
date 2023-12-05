@@ -77,25 +77,25 @@ function SProduct() {
     <>
       <section className="my-5 mx-10">
         <div className="flex items-start mt-5">
-          <div className="h-[450px] relative text-center w-[450px]">
+          <div className="h-[450px] relative text-center w-full">
             <div className="relative">
               {product && product.frontImg && product.backImg && (
                 <>
                   <img
-                    src={product.frontImg}
+                    src={product.backImg}
                     alt={productName}
                     className={
                       currentImageIndex === 0
-                        ? "hidden absolute transition-transform ease-linear duration-150 w-full active:block"
+                        ? "hidden absolute transition-transform ease-linear duration-150 w-full h-[450px] active:block"
                         : ""
                     }
                   />
                   <img
-                    src={product.backImg}
+                    src={product.frontImg}
                     alt={productName}
                     className={
                       currentImageIndex === 1
-                        ? "hidden absolute transition-transform ease-linear duration-150 w-full active:block"
+                        ? "hidden absolute transition-transform ease-linear duration-150 w-full h-[450px] active:block"
                         : ""
                     }
                   />
