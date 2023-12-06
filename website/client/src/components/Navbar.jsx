@@ -23,11 +23,6 @@ function Navbar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about" activeclassname="active">
-              About
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/contact" activeclassname="active">
               Contact
             </NavLink>

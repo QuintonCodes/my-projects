@@ -94,7 +94,7 @@ function SProduct() {
             </div>
           </div>
 
-          <div className="pl-[30px] pt-[10px]">
+          <div className="pl-[30px] pt-[10px] max-w-[980px]">
             <h3 className="text-3xl font-semibold">{productName}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
             <h5 className="my-2">{color}</h5>
@@ -102,12 +102,12 @@ function SProduct() {
             <RadioGroup
               value={selectedSize}
               onChange={setSelectedSize}
-              className="mt-4"
+              className="my-4"
             >
               <RadioGroup.Label className="sr-only">
                 Choose a size
               </RadioGroup.Label>
-              <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+              <div className="grid grid-cols-4 gap-4 w-1/2">
                 {product.size.map((s) => (
                   <RadioGroup.Option
                     key={s.name}
@@ -119,7 +119,7 @@ function SProduct() {
                           ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                           : "cursor-not-allowed bg-gray-50 text-gray-200",
                         active ? "ring-2 ring-indigo-500" : "",
-                        "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
+                        "group relative flex items-center justify-center rounded-md border py-6 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none flex-1"
                       )
                     }
                   >

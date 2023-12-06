@@ -5,7 +5,6 @@ import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
 import ShopContextProvider from "./context/shop-context";
 
-const About = lazy(() => import("./pages/about/about"));
 const Cart = lazy(() => import("./pages/cart/cart"));
 const Contact = lazy(() => import("./pages/contact/contact"));
 const Home = lazy(() => import("./pages/home/home"));
@@ -20,20 +19,6 @@ export default function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route
-              path="/about"
-              element={
-                <Suspense
-                  fallback={
-                    <div className="items-center flex h-screen justify-center w-full">
-                      <Loader />
-                    </div>
-                  }
-                >
-                  <About />
-                </Suspense>
-              }
-            />
             <Route
               path="/cart"
               element={
