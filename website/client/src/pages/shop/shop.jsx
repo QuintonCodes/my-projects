@@ -25,7 +25,11 @@ function Shop() {
                       {product.productName}
                     </a>
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                  {product.color.map((color) => (
+                    <p key={color.name} className="mt-1 text-sm text-gray-500">
+                      {color.name}
+                    </p>
+                  ))}
                 </div>
                 <p className="text-base font-medium text-black">
                   R {product.price}

@@ -16,7 +16,12 @@ export const PRODUCTS = [
     id: 1,
     productName: "Brutalist Hoodie",
     price: 300.0,
-    color: "Black",
+    color: [
+      {
+        name: "Black",
+        class: "bg-black",
+      },
+    ],
     frontImg: image1,
     backImg: image2,
     quantity: 0,
@@ -32,7 +37,12 @@ export const PRODUCTS = [
     id: 2,
     productName: "Brutalist Hoodie",
     price: 300.0,
-    color: "Grey",
+    color: [
+      {
+        name: "Gray",
+        class: "bg-[#acacac]",
+      },
+    ],
     frontImg: image3,
     backImg: image4,
     quantity: 0,
@@ -48,7 +58,12 @@ export const PRODUCTS = [
     id: 3,
     productName: "Brutalist Hoodie",
     price: 300.0,
-    color: "White",
+    color: [
+      {
+        name: "White",
+        class: "bg-white",
+      },
+    ],
     frontImg: image5,
     backImg: image6,
     quantity: 0,
@@ -64,7 +79,12 @@ export const PRODUCTS = [
     id: 4,
     productName: "Brutalist T-Shirt",
     price: 300.0,
-    color: "Black",
+    color: [
+      {
+        name: "Black",
+        class: "bg-black",
+      },
+    ],
     frontImg: image7,
     backImg: image8,
     quantity: 0,
@@ -80,7 +100,12 @@ export const PRODUCTS = [
     id: 5,
     productName: "Brutalist T-Shirt",
     price: 300.0,
-    color: "Grey",
+    color: [
+      {
+        name: "Gray",
+        class: "bg-[#acacac]",
+      },
+    ],
     frontImg: image9,
     backImg: image10,
     quantity: 0,
@@ -96,7 +121,12 @@ export const PRODUCTS = [
     id: 6,
     productName: "Brutalist T-Shirt",
     price: 300.0,
-    color: "White",
+    color: [
+      {
+        name: "White",
+        class: "bg-white",
+      },
+    ],
     frontImg: image11,
     backImg: image12,
     quantity: 0,

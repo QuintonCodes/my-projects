@@ -23,7 +23,7 @@ function SProduct() {
     return <div>Product not found</div>;
   }
 
-  const { color, price, productName } = product;
+  const { price, productName } = product;
   const existingCartItem = cartItems.find((item) => item.id === product.id);
 
   const handleBuyNow = () => {
@@ -97,7 +97,28 @@ function SProduct() {
           <div className="pl-[30px] pt-[10px] max-w-[980px]">
             <h3 className="text-3xl font-semibold">{productName}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
-            <h5 className="my-2">{color}</h5>
+            {product.color.map((c) => (
+              <div key={c.name} className="flex items-center">
+                <h5 className="my-2">{c.name}</h5>
+                <RadioGroup className="mx-2">
+                  <div>
+                    <RadioGroup.Label
+                      key={c.name}
+                      value={c}
+                      className="relative -m-0.5 flex items-center justify-center rounded-full p-0.5"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={classNames(
+                          c.class,
+                          "h-6 w-6 rounded-full border border-black border-opacity-10"
+                        )}
+                      />
+                    </RadioGroup.Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            ))}
 
             <RadioGroup
               value={selectedSize}
@@ -118,7 +139,7 @@ function SProduct() {
                         s.inStock
                           ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                           : "cursor-not-allowed bg-gray-50 text-gray-200",
-                        active ? "ring-2 ring-indigo-500" : "",
+                        active ? "ring-2 ring-black" : "",
                         "group relative flex items-center justify-center rounded-md border py-6 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none flex-1"
                       )
                     }
@@ -130,9 +151,7 @@ function SProduct() {
                           <span
                             className={classNames(
                               active ? "border" : "border-2",
-                              checked
-                                ? "border-indigo-500"
-                                : "border-transparent",
+                              checked ? "border-black" : "border-transparent",
                               "pointer-events-none absolute -inset-px rounded-md"
                             )}
                             aria-hidden="true"
@@ -208,15 +227,19 @@ function SProduct() {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-base text-black">
-                    <a href={`/shop/${similiarProduct.id}`}>
+                    <Link to={`/shop/${similiarProduct.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
-                      {product.productName}
-                    </a>
+                      {similiarProduct.productName}
+                    </Link>
                   </h3>
-                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                  {similiarProduct.color.map((color) => (
+                    <p key={color.name} className="mt-1 text-sm text-gray-500">
+                      {color.name}
+                    </p>
+                  ))}
                 </div>
                 <p className="text-base font-medium text-black">
-                  R {product.price}
+                  R {similiarProduct.price}
                 </p>
               </div>
             </div>
