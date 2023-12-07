@@ -10,11 +10,13 @@ function Shop() {
             <div key={product.id} className="group relative">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
                 <Link to={`shop/${product.id}`} key={product.id}>
-                  <img
-                    src={product.frontImg}
-                    alt={product.productName}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
+                  {product && product.images && (
+                    <img
+                      src={product.images[0]}
+                      alt={`${product.name}`}
+                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    />
+                  )}
                 </Link>
               </div>
               <div className="mt-4 flex justify-between">
@@ -22,7 +24,7 @@ function Shop() {
                   <h3 className="text-base text-black">
                     <a href={`shop/${product.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
-                      {product.productName}
+                      {product.name}
                     </a>
                   </h3>
                   {product.color.map((color) => (
@@ -32,7 +34,7 @@ function Shop() {
                   ))}
                 </div>
                 <p className="text-base font-medium text-black">
-                  R {product.price}
+                  R {product.price}.00
                 </p>
               </div>
             </div>

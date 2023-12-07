@@ -8,6 +8,8 @@ import {
 } from "@heroicons/react/24/outline";
 import Loader from "../../components/Loader";
 import "./home.css";
+import pro1 from "../../assets/mock-ups/Grey-T-Shirt-Front.webp";
+import pro2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
 
 const Hero = lazy(() => import("../../components/Hero"));
 
@@ -44,14 +46,14 @@ function Home() {
       <section className="items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px]">
         <div>
           <h2 className="text-6xl font-bold">Our New Brutalist Hoodies</h2>
-          <h4 className="pt-4">
+          <p className="pt-4 text-xl">
             Delivered with comfort and style, <br />
             you`re guaranteed taking the streets by a storm.
             <br />
             Embrace the streets with confidence as you envelop yourself
             <br />
             in the cozy allure of our premium hoodies
-          </h4>
+          </p>
         </div>
 
         <Suspense
@@ -63,6 +65,47 @@ function Home() {
         >
           <Hero />
         </Suspense>
+      </section>
+
+      <section
+        className="text-center border-b-2 border-solid border-b-black py-10"
+        id="blog"
+      >
+        <h2 className="font-bold">Shop Now</h2>
+        <div className="flex items-center justify-center space-x-[10rem] my-5">
+          <div className="group relative">
+            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
+              <Link to={`/shop`}>
+                <img
+                  src={pro1}
+                  alt="Shirt"
+                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                  height="450px"
+                  width="450px"
+                />
+              </Link>
+            </div>
+            <span className="flex items-center justify-center text-xl pt-3">
+              Shirts
+            </span>
+          </div>
+          <div className="group relative">
+            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
+              <Link to={`/shop`}>
+                <img
+                  src={pro2}
+                  alt="Hoodie"
+                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                  height="450px"
+                  width="450px"
+                />
+              </Link>
+            </div>
+            <span className="flex items-center justify-center text-xl pt-3">
+              Hoodies
+            </span>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -94,38 +137,6 @@ function Home() {
               </dl>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section
-        className="text-center border-t-2 border-solid border-t-black"
-        id="blog"
-      >
-        <div className="items-center flex flex-col justify-center my-5">
-          <article>
-            <h2 className="font-bold">What is KickFlip?</h2>
-            <p>
-              KickFlip is a clothing brand which aims to inspire the youth`s
-              style and aesthetic while also contributing to the ever changing
-              fashion world.
-            </p>
-            <p>
-              Originally, the core aesthetic of our brand is skate wear.
-              Something that grabs the attention of others when seen.
-            </p>
-            <p>
-              As the motto of the brand says{" "}
-              <b className="text-[#545484]">Flip It</b>, we will turn things
-              around!
-            </p>
-          </article>
-          <Link to="/about">
-            <button className="items-center border-none cursor-pointer flex justify-center overflow-hidden relative after:h-full after:absolute after:w-0 after:right-0 after:bg-[#f5f5dc] after:content-['_'] after:transition-all after:duration-300 hover:after:left-0 hover:after:right-auto hover:after:w-full bg-[#1b1b1b] rounded-[5px] shadow-[0px_6px_24px_0px] shadow-[#0001]">
-              <span className="text-white text-base text-center w-full z-20 font-bold py-[18px] px-[25px] transition-all duration-300">
-                Find Out!
-              </span>
-            </button>
-          </Link>
         </div>
       </section>
     </>

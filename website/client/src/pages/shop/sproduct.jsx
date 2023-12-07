@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState, Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { RadioGroup } from "@headlessui/react";
+import { RadioGroup, Dialog, Transition } from "@headlessui/react";
 import { ShopContext } from "../../context/shop-context";
 import { PRODUCTS } from "../../products";
 
@@ -10,8 +10,9 @@ function classNames(...classes) {
 }
 
 function SProduct() {
-  const [selectedSize, setSelectedSize] = useState("S");
+  const [selectedSize, setSelectedSize] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isSizeDialogOpen, setIsSizeDialogOpen] = useState(false);
 
   const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
   const { productId } = useParams();
@@ -23,16 +24,21 @@ function SProduct() {
     return <div>Product not found</div>;
   }
 
-  const { price, productName } = product;
+  const { price, name, description, color, size, images } = product;
   const existingCartItem = cartItems.find((item) => item.id === product.id);
 
   const handleBuyNow = () => {
-    const updatedCartItem = { ...product };
+    if (!selectedSize) {
+      setIsSizeDialogOpen(true);
+      return;
+    }
+
+    const updatedCartItem = { ...product, selectedSize: selectedSize };
 
     if (existingCartItem) {
       setCartItems((prevCartItems) =>
         prevCartItems.map((item) =>
-          item.id === product.id ? { ...item } : item
+          item.id === product.id ? updatedCartItem : item
         )
       );
     } else {
@@ -41,14 +47,16 @@ function SProduct() {
   };
 
   const nextSlide = () => {
-    setCurrentImageIndex((currentImageIndex + 1) % 2);
+    setCurrentImageIndex((currentImageIndex + 1) % images.length);
   };
 
   const prevSlide = () => {
-    setCurrentImageIndex((currentImageIndex - 1 + 2) % 2);
+    setCurrentImageIndex(
+      (currentImageIndex - 1 + images.length) % images.length
+    );
   };
 
-  const similiarProducts = PRODUCTS.filter(
+  const similarProducts = PRODUCTS.filter(
     (p) => p.category === product.category && p.id !== product.id
   ).slice(0, 2);
 
@@ -58,28 +66,18 @@ function SProduct() {
         <div className="flex items-start mt-5">
           <div className="h-[450px] relative text-center w-full">
             <div className="relative">
-              {product && product.frontImg && product.backImg && (
-                <>
-                  <img
-                    src={product.backImg}
-                    alt={productName}
-                    className={
-                      currentImageIndex === 0
-                        ? "hidden absolute transition-transform ease-linear duration-150 w-full h-[450px] active:block"
-                        : ""
-                    }
-                  />
-                  <img
-                    src={product.frontImg}
-                    alt={productName}
-                    className={
-                      currentImageIndex === 1
-                        ? "hidden absolute transition-transform ease-linear duration-150 w-full h-[450px] active:block"
-                        : ""
-                    }
-                  />
-                </>
-              )}
+              {images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`${name} - ${index + 1}`}
+                  className={
+                    currentImageIndex === index
+                      ? "hidden absolute transition-transform ease-linear duration-150 w-full h-[450px] active:block"
+                      : ""
+                  }
+                />
+              ))}
             </div>
 
             <div className="flex justify-between relative -mt-[55%]">
@@ -95,22 +93,22 @@ function SProduct() {
           </div>
 
           <div className="pl-[30px] pt-[10px] max-w-[980px]">
-            <h3 className="text-3xl font-semibold">{productName}</h3>
+            <h3 className="text-3xl font-semibold">{name}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
-            {product.color.map((c) => (
-              <div key={c.name} className="flex items-center">
-                <h5 className="my-2">{c.name}</h5>
+            {color.map((colorOption) => (
+              <div key={colorOption.name} className="flex items-center">
+                <h5 className="my-2">{colorOption.name}</h5>
                 <RadioGroup className="mx-2">
                   <div>
                     <RadioGroup.Label
-                      key={c.name}
-                      value={c}
+                      key={colorOption.name}
+                      value={colorOption}
                       className="relative -m-0.5 flex items-center justify-center rounded-full p-0.5"
                     >
                       <span
                         aria-hidden="true"
                         className={classNames(
-                          c.class,
+                          colorOption.class,
                           "h-6 w-6 rounded-full border border-black border-opacity-10"
                         )}
                       />
@@ -129,14 +127,14 @@ function SProduct() {
                 Choose a size
               </RadioGroup.Label>
               <div className="grid grid-cols-4 gap-4 w-1/2">
-                {product.size.map((s) => (
+                {size.map((sizeOption) => (
                   <RadioGroup.Option
-                    key={s.name}
-                    value={s}
-                    disabled={!s.inStock}
+                    key={sizeOption.name}
+                    value={sizeOption}
+                    disabled={!sizeOption.inStock}
                     className={({ active }) =>
                       classNames(
-                        s.inStock
+                        sizeOption.inStock
                           ? "cursor-pointer bg-white text-gray-900 shadow-sm"
                           : "cursor-not-allowed bg-gray-50 text-gray-200",
                         active ? "ring-2 ring-black" : "",
@@ -146,8 +144,10 @@ function SProduct() {
                   >
                     {({ active, checked }) => (
                       <>
-                        <RadioGroup.Label as="span">{s.name}</RadioGroup.Label>
-                        {s.inStock ? (
+                        <RadioGroup.Label as="span">
+                          {sizeOption.name}
+                        </RadioGroup.Label>
+                        {sizeOption.inStock ? (
                           <span
                             className={classNames(
                               active ? "border" : "border-2",
@@ -186,16 +186,8 @@ function SProduct() {
 
             <div className="sproduct-info">
               <h4 className="font-bold">Product Details</h4>
-              <p>
-                Stay effortlessly stylish and comfortable with our classic Black
-                Hoodie. Crafted with care and attention to detail, this
-                versatile wardrobe essential is designed to keep you cozy while
-                exuding an air of understated elegance. Made from a premium
-                blend of high-quality cotton and soft polyester, the hoodie
-                offers a luxuriously smooth feel against your skin. Its deep
-                black hue is both timeless and adaptable, seamlessly integrating
-                into any occasion.
-              </p>
+
+              <p>{description}</p>
             </div>
 
             <Link to="/cart">
@@ -213,39 +205,104 @@ function SProduct() {
       <section className="my-5">
         <h2 className="flex items-center justify-center">Similiar Products</h2>
         <div className="flex items-center justify-center space-x-[10rem] mt-4">
-          {similiarProducts.map((similiarProduct) => (
-            <div key={similiarProduct.id} className="group relative">
+          {similarProducts.map((similarProduct) => (
+            <div key={similarProduct.id} className="group relative">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200  group-hover:opacity-75">
-                <Link to={`/shop/${similiarProduct.id}`}>
-                  <img
-                    src={similiarProduct.frontImg}
-                    alt={similiarProduct.productName}
-                    className="h-full w-full object-cover object-center"
-                  />
+                <Link to={`/shop/${similarProduct.id}`}>
+                  {similarProduct && similarProduct.images && (
+                    <img
+                      src={similarProduct.images[0]}
+                      alt={similarProduct.name}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  )}
                 </Link>
               </div>
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-base text-black">
-                    <Link to={`/shop/${similiarProduct.id}`}>
+                    <Link to={`/shop/${similarProduct.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
-                      {similiarProduct.productName}
+                      {similarProduct.name}
                     </Link>
                   </h3>
-                  {similiarProduct.color.map((color) => (
-                    <p key={color.name} className="mt-1 text-sm text-gray-500">
-                      {color.name}
+                  {similarProduct.color.map((colorOption) => (
+                    <p
+                      key={colorOption.name}
+                      className="mt-1 text-sm text-gray-500"
+                    >
+                      {colorOption.name}
                     </p>
                   ))}
                 </div>
                 <p className="text-base font-medium text-black">
-                  R {similiarProduct.price}
+                  R {similarProduct.price}.00
                 </p>
               </div>
             </div>
           ))}
         </div>
       </section>
+
+      <Transition appear show={isSizeDialogOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          open={isSizeDialogOpen}
+          onClose={() => setIsSizeDialogOpen(false)}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Select a size
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      No size was selected so please select a size of your
+                      choice before adding the item to the cart.
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => setIsSizeDialogOpen(false)}
+                    >
+                      Got it, thanks!
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 }

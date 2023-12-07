@@ -89,15 +89,16 @@ function Cart() {
                     <TrashIcon className="h-6 w-6" />
                   </button>
                 </td>
-                <td className="w-[100px] items-center justify-center flex pt-[15px] text-center">
+                <td className="w-full items-center justify-center flex pt-[15px]">
                   <img
-                    src={product.frontImg}
-                    alt={product.productName}
-                    className="h-[50px]"
+                    src={product.images[0]}
+                    alt={product.name}
+                    className="h-[60px]"
                   />
                 </td>
                 <td className="pt-[15px] text-center w-[200px]">
-                  {product.productName} - {product.color} ({product.size})
+                  {product.name} - {product.color[0].name} (
+                  {product.selectedSize.name})
                 </td>
 
                 <td className="pt-[15px] text-center w-[150px]">

@@ -1,25 +1,30 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 export const ShopContext = createContext(null);
 
 function ShopContextProvider(props) {
-  const [cartItems, setCartItems] = useState([]);
+  const initialCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+  const [cartItems, setCartItems] = useState(initialCartItems);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (item) => {
     const existingCartItem = cartItems.find(
       (cartItem) =>
         cartItem.id === item.id &&
-        cartItem.size === item.size &&
-        cartItem.color === item.color
+        cartItem.selectedSize.name === item.selectedSize.name &&
+        cartItem.color[0].name === item.color[0].name
     );
 
     if (existingCartItem) {
       setCartItems((prevCartItems) =>
         prevCartItems.map((cartItem) =>
           cartItem.id === item.id &&
-          cartItem.size === item.size &&
-          cartItem.color === item.color
+          cartItem.selectedSize.name === item.selectedSize.name &&
+          cartItem.color[0].name === item.color[0].name
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         )
