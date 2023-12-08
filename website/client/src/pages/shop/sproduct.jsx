@@ -12,7 +12,7 @@ function classNames(...classes) {
 function SProduct() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isSizeDialogOpen, setIsSizeDialogOpen] = useState(false);
+  const [isSizeDialogOpen, setIsSizeDialogOpen] = useState(!selectedSize);
 
   const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
   const { productId } = useParams();
@@ -283,15 +283,15 @@ function SProduct() {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      No size was selected so please select a size of your
-                      choice before adding the item to the cart.
+                      No size is selected so please select a size of your choice
+                      before adding the item to the cart.
                     </p>
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-gray-300 px-4 py-2 text-sm font-medium text-black hover:bg-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2"
                       onClick={() => setIsSizeDialogOpen(false)}
                     >
                       Got it, thanks!
