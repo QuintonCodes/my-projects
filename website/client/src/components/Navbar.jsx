@@ -1,9 +1,17 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.webp";
+import { ShopContext } from "../context/shop-context";
 import "../components/navbar.css";
 
 function Navbar() {
+  const { cartItems } = useContext(ShopContext);
+
+  const totalItemsInCart = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
   return (
     <header className="header">
       <div className="header-left">
@@ -42,7 +50,14 @@ function Navbar() {
             activeclassname="active"
             aria-label="shopping cart"
           >
-            <ShoppingCartIcon className="h-7 w-7" />
+            <div className="relative">
+              <ShoppingCartIcon className="h-7 w-7" />
+              {totalItemsInCart > 0 && (
+                <span className="absolute text-white px-2 -top-2 -right-2 bg-[#9595b2] rounded-full opacity-75">
+                  {totalItemsInCart}
+                </span>
+              )}
+            </div>
           </NavLink>
         </li>
       </ul>
