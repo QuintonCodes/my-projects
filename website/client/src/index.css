@@ -47,17 +47,13 @@ a {
 body {
   background: #ebebeb;
   font-display: swap;
-  font-family: "Farro", sans-serif;
   color: #000;
   margin: 0;
   padding: 0;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .section-p1 {
   margin: 20px 40px;
-}
-
-* {
-  box-sizing: border-box;
 }

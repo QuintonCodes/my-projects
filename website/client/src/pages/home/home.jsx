@@ -43,10 +43,12 @@ const features = [
 function Home() {
   return (
     <>
-      <section className="items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px]">
+      <section className="items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh]">
         <div>
-          <h2 className="text-6xl font-bold">Our New Brutalist Hoodies</h2>
-          <p className="pt-4 text-xl">
+          <h2 className="text-6xl font-bold max-[450px]:text-5xl">
+            Our New Brutalist Hoodies
+          </h2>
+          <p className="pt-4 text-xl max-[450px]:text-lg max-[450px]:pt-2">
             Delivered with comfort and style, <br />
             you`re guaranteed taking the streets by a storm.
             <br />
