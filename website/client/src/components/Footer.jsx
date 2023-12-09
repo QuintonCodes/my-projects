@@ -40,15 +40,18 @@ function Footer() {
           </div>
         </div>
 
-        <div className="p-5 items-start flex flex-col mb-5 text-white">
-          <form className="flex flex-col p-5 bg-transparent border-2 border-solid border-[#ffffff0d] rounded-[10px] max-w-[350px]">
+        <div className="p-5 items-start flex flex-col mb-5 text-white min-[350px]:p-0">
+          <form className="flex flex-col p-5 bg-transparent border-2 border-solid border-[#ffffff0d] rounded-[10px] max-w-[350px] max-[450px]:max-w-[300px]">
             <span className="text-[#ebebeb] text-[2rem] font-bold tracking-tight leading-8">
               Subscribe to our newsletter
             </span>
             <p className="text-base mt-4 text-[15px] mb-2 text-[#ebebeb]">
               Get email updates to our latest content and sales
             </p>
-            <div id="email-section" className="flex max-w-md mt-4 gap-x-2">
+            <div
+              id="email-section"
+              className="flex max-w-md mt-4 gap-x-2 max-[450px]:flex-col"
+            >
               <input
                 placeholder="Enter your email"
                 type="email"
@@ -59,7 +62,7 @@ function Footer() {
               />
               <button
                 type="submit"
-                className="bg-[#3a3a3a] rounded-md border-none text-[#ebebeb] cursor-pointer font-semibold text-sm outline-none py-[0.625rem] px-[0.875rem]"
+                className="bg-[#3a3a3a] rounded-md border-none text-[#ebebeb] cursor-pointer font-semibold text-sm outline-none py-[0.625rem] px-[0.875rem] max-[450px]:m-3"
               >
                 Subscribe
               </button>

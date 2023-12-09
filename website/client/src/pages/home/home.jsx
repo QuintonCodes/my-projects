@@ -43,7 +43,7 @@ const features = [
 function Home() {
   return (
     <>
-      <section className="items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh]">
+      <section className="items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[450px]:mt-2">
         <div>
           <h2 className="text-6xl font-bold max-[450px]:text-5xl">
             Our New Brutalist Hoodies
@@ -74,8 +74,8 @@ function Home() {
         id="blog"
       >
         <h2 className="font-bold">Shop Now</h2>
-        <div className="flex items-center justify-center space-x-[10rem] my-5">
-          <div className="group relative">
+        <div className="flex items-center justify-center space-x-[10rem] my-5 max-[450px]:flex-wrap max-[450px]:space-x-0">
+          <div className="group relative max-[450px]:p-5">
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
               <Link to={`/shop`}>
                 <img
@@ -91,7 +91,7 @@ function Home() {
               Shirts
             </span>
           </div>
-          <div className="group relative">
+          <div className="group relative max-[450px]:p-5">
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
               <Link to={`/shop`}>
                 <img
@@ -113,7 +113,7 @@ function Home() {
       <section>
         <div className="py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl lg:text-center">
+            <div className="mx-auto max-w-2xl max-[450px]:text-center">
               <h1 className="text-5xl font-bold tracking-tight text-black">
                 Features
               </h1>

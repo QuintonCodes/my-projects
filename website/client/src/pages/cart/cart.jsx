@@ -137,7 +137,7 @@ function Cart() {
       </section>
 
       <section className="my-5 mx-10">
-        <div className="border-[2px] border-solid border-black mb-[30px] p-[30px] w-1/2">
+        <div className="border-[2px] border-solid border-black mb-[30px] p-[30px] w-1/2 max-[450px]:w-full">
           <h3>Cart Totals</h3>
           <table className="border-collapse mb-5 w-full">
             <tbody>

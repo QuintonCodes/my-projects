@@ -63,8 +63,8 @@ function SProduct() {
   return (
     <>
       <section className="my-5 mx-10">
-        <div className="flex items-start mt-5">
-          <div className="h-[450px] relative text-center w-full">
+        <div className="flex items-start mt-5 max-[450px]:flex-wrap">
+          <div className="h-[450px] relative text-center w-full max-[450px]:h-[350px]">
             <div className="relative">
               {images.map((img, index) => (
                 <img
@@ -92,7 +92,7 @@ function SProduct() {
             </div>
           </div>
 
-          <div className="pl-[30px] pt-[10px] max-w-[980px]">
+          <div className="pl-[30px] pt-[10px] max-w-[980px] max-[450px]:pl-0">
             <h3 className="text-3xl font-semibold">{name}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
             {color.map((colorOption) => (
@@ -126,7 +126,7 @@ function SProduct() {
               <RadioGroup.Label className="sr-only">
                 Choose a size
               </RadioGroup.Label>
-              <div className="grid grid-cols-4 gap-4 w-1/2">
+              <div className="grid grid-cols-4 gap-4 w-1/2 max-[450px]:w-full">
                 {size.map((sizeOption) => (
                   <RadioGroup.Option
                     key={sizeOption.name}
@@ -192,7 +192,7 @@ function SProduct() {
 
             <Link to="/cart">
               <div
-                className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-bold text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2"
+                className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-bold text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 max-[450px]:w-1/3"
                 onClick={handleBuyNow}
               >
                 Buy
@@ -204,7 +204,7 @@ function SProduct() {
 
       <section className="my-5">
         <h2 className="flex items-center justify-center">Similiar Products</h2>
-        <div className="flex items-center justify-center space-x-[10rem] mt-4">
+        <div className="flex items-center justify-center space-x-[10rem] mt-4 max-[450px]:flex-wrap max-[450px]:p-5 max-[450px]:space-x-0">
           {similarProducts.map((similarProduct) => (
             <div key={similarProduct.id} className="group relative">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200  group-hover:opacity-75">
