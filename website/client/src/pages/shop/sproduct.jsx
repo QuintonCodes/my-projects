@@ -63,7 +63,7 @@ function SProduct() {
   return (
     <>
       <section className="my-5 mx-10">
-        <div className="flex items-start mt-5 max-[450px]:flex-wrap">
+        <div className="flex items-start mt-5 max-[1024px]:flex-wrap">
           <div className="h-[450px] relative text-center w-full max-[450px]:h-[350px]">
             <div className="relative">
               {images.map((img, index) => (
