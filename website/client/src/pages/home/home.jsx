@@ -113,7 +113,7 @@ function Home() {
       <section>
         <div className="py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl max-[1024px]:text-center">
+            <div className="mx-auto max-w-2xl text-center">
               <h1 className="text-5xl font-bold tracking-tight text-black">
                 Features
               </h1>

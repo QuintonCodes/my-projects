@@ -65,7 +65,7 @@ function SProduct() {
       <section className="my-5 mx-10">
         <div className="flex items-start mt-5 max-[1024px]:flex-wrap">
           <div className="h-[450px] relative text-center w-full max-[450px]:h-[350px]">
-            <div className="relative">
+            <div className="relative max-[1024px]:flex max-[1024px]:items-center max-[1024px]:justify-center">
               {images.map((img, index) => (
                 <img
                   key={index}
@@ -80,7 +80,7 @@ function SProduct() {
               ))}
             </div>
 
-            <div className="flex justify-between relative -mt-[55%]">
+            <div className="flex justify-between relative lg:-mt-[55%] max-[450px]:-mt-[50%] md:-mt-[42%] max-[1024px]:-mt-[55%]">
               <ChevronLeftIcon
                 onClick={prevSlide}
                 className="h-6 w-6 cursor-pointer"
@@ -92,7 +92,7 @@ function SProduct() {
             </div>
           </div>
 
-          <div className="pl-[30px] pt-[10px] max-w-[980px] max-[450px]:pl-0">
+          <div className="pl-[30px] pt-[10px] max-w-[980px] max-[1024px]:pl-0 max-[1024px]:mt-7">
             <h3 className="text-3xl font-semibold">{name}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
             {color.map((colorOption) => (
@@ -126,7 +126,7 @@ function SProduct() {
               <RadioGroup.Label className="sr-only">
                 Choose a size
               </RadioGroup.Label>
-              <div className="grid grid-cols-4 gap-4 w-1/2 max-[450px]:w-full">
+              <div className="grid grid-cols-4 gap-4 w-1/2 max-[450px]:w-full max-[1024px]:w-8/12">
                 {size.map((sizeOption) => (
                   <RadioGroup.Option
                     key={sizeOption.name}
@@ -192,7 +192,7 @@ function SProduct() {
 
             <Link to="/cart">
               <div
-                className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-bold text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 max-[450px]:w-1/3"
+                className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-bold text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 max-[450px]:w-1/3 max-[1024px]:w-3/12"
                 onClick={handleBuyNow}
               >
                 Buy
@@ -203,8 +203,10 @@ function SProduct() {
       </section>
 
       <section className="my-5">
-        <h2 className="flex items-center justify-center">Similiar Products</h2>
-        <div className="flex items-center justify-center space-x-[10rem] mt-4 max-[450px]:flex-wrap max-[450px]:p-5 max-[450px]:space-x-0">
+        <h2 className="flex items-center justify-center max-[450px]:text-4xl">
+          Similiar Products
+        </h2>
+        <div className="flex items-center justify-center space-x-[10rem] mt-4 max-[450px]:flex-wrap max-[450px]:p-5 max-[450px]:space-x-0 max-[1024px]:space-x-[5rem]">
           {similarProducts.map((similarProduct) => (
             <div key={similarProduct.id} className="group relative">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200  group-hover:opacity-75">

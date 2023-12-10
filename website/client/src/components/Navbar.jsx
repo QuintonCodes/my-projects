@@ -27,7 +27,13 @@ function Navbar() {
     <header className="header">
       <div className="header-left">
         <NavLink exact="true" to="/" activeclassname="active" className="logo">
-          <img src={logo} alt="KickFlip Logo" height="130px" width="130px" />
+          <img
+            src={logo}
+            alt="KickFlip Logo"
+            height="130px"
+            width="130px"
+            className="max-[450px]:w-[100px] max-[450px]:h-[100px]"
+          />
         </NavLink>
 
         <ul
