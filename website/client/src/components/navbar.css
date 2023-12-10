@@ -64,7 +64,7 @@
   color: #545484;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 550px) {
   .navbar-links.non-active {
     display: none;
   }
@@ -87,6 +87,7 @@
 
   .header-left .navbar-links a {
     margin: 0;
+    font-size: larger;
   }
   .header-left .navbar-links li {
     padding: 10px 0;

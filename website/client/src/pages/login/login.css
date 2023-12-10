@@ -153,3 +153,9 @@
 .login-register a {
   font-weight: 600;
 }
+
+@media (max-width: 1024px) {
+  .login-page {
+    min-height: 60vh;
+  }
+}

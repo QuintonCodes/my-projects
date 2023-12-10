@@ -40,7 +40,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="p-5 items-start flex flex-col mb-5 text-white min-[350px]:p-0">
+        <div className="p-5 items-start flex flex-col mb-5 text-white max-[450px]:p-0 max-[1024px]:p-2">
           <form className="flex flex-col p-5 bg-transparent border-2 border-solid border-[#ffffff0d] rounded-[10px] max-w-[350px] max-[450px]:max-w-[300px]">
             <span className="text-[#ebebeb] text-[2rem] font-bold tracking-tight leading-8">
               Subscribe to our newsletter

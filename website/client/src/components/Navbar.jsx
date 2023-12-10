@@ -75,7 +75,7 @@ function Navbar() {
                 </div>
               </NavLink>
             </li>
-            <li className="pt-1 px-2">
+            <li className="pt-1 px-2 min-[550px]:hidden">
               <Bars3Icon
                 className="h-7 w-7 text-white text-[16px] font-semibold"
                 onClick={toggleNavbar}

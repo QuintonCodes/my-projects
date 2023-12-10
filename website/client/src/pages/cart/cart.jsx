@@ -54,7 +54,7 @@ function Cart() {
 
   return (
     <>
-      <section className="overflow-x-auto my-5 mx-10">
+      <section className="overflow-x-auto my-5 mx-10 max-[1024px]:min-h-[10vh]">
         <table className="border-collapse table-fixed whitespace-nowrap w-full">
           <thead className="border-[2px] border-solid border-black border-l-0 border-r-0">
             <tr>
@@ -136,8 +136,8 @@ function Cart() {
         </table>
       </section>
 
-      <section className="my-5 mx-10">
-        <div className="border-[2px] border-solid border-black mb-[30px] p-[30px] w-1/2 max-[450px]:w-full">
+      <section className="my-5 mx-10 max-[1024px]:min-h-[50vh] max-[1024px]:flex max-[1024px]:items-center max-[1024px]:justify-center max-[1024px]:my-1">
+        <div className="border-[2px] border-solid border-black mb-[30px] p-[30px] w-1/2 max-[1024px]:w-full ">
           <h3>Cart Totals</h3>
           <table className="border-collapse mb-5 w-full">
             <tbody>
