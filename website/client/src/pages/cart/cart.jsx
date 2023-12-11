@@ -54,91 +54,79 @@ function Cart() {
 
   return (
     <>
-      <section className="overflow-x-auto my-5 mx-10 max-[1024px]:min-h-[10vh]">
-        <table className="border-collapse table-fixed whitespace-nowrap w-full">
-          <thead className="border-[2px] border-solid border-black border-l-0 border-r-0">
-            <tr>
-              <td className="font-bold py-[18px] uppercase text-center w-[100px]">
-                Remove
-              </td>
-              <td className="font-bold py-[18px] uppercase text-center w-[100px]">
-                Image
-              </td>
-              <td className="font-bold py-[18px] uppercase text-center w-[200px]">
-                Product
-              </td>
-              <td className="font-bold py-[18px] uppercase text-center w-[150px]">
-                Price
-              </td>
-              <td className="font-bold py-[18px] uppercase text-center w-[150px]">
-                Quantity
-              </td>
-              <td className="font-bold py-[18px] uppercase text-center w-[150px]">
-                SubTotal
-              </td>
-            </tr>
-          </thead>
-          <tbody className="cart-items">
-            {cartItems.map((product) => (
-              <tr key={product.id}>
-                <td className="pt-[15px] text-center w-[100px]">
-                  <button
-                    onClick={() => removeFromCart(product.id)}
-                    className="bg-transparent border-none cursor-pointer"
-                  >
-                    <TrashIcon className="h-6 w-6" />
-                  </button>
-                </td>
-                <td className="w-full items-center justify-center flex pt-[15px]">
-                  <img
-                    src={product.images[0]}
-                    alt={product.name}
-                    className="h-[60px]"
-                  />
-                </td>
-                <td className="pt-[15px] text-center w-[200px]">
-                  {product.name} - {product.color[0].name} (
-                  {product.selectedSize.name})
-                </td>
+      <section className="my-5 mx-10 grid grid-cols-2 max-[1024px]:min-h-[50vh] max-[1024px]:flex items-center max-[1024px]:justify-center max-[1024px]:my-1">
+        <div className="my-5">
+          <h3 className="mb-5 font-semibold">Shopping Cart</h3>
 
-                <td className="pt-[15px] text-center w-[150px]">
-                  R {product.price}.00
-                </td>
-                <td className="pt-[15px] text-center w-[150px]">
-                  <button
-                    onClick={() => {
-                      const newQuantity = product.quantity - 1;
-                      updateQuantity(product.id, newQuantity);
-                    }}
-                    className="bg-transparent text-xl cursor-pointer border-none font-semibold"
-                  >
-                    -
-                  </button>
-                  <input
-                    id={product.id}
-                    value={product.quantity}
-                    readOnly
-                    className="bg-transparent text-lg border-none font-semibold py-[10px] pr-[5px] pl-[15px] w-10"
-                  />
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="bg-transparent text-xl cursor-pointer border-none font-semibold"
-                  >
-                    +
-                  </button>
-                </td>
-                <td className="pt-[15px] text-center w-[150px]">
-                  R {calculateSubTotal(product)}.00
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+          {cartItems.length === 0 ? (
+            <p>Your cart is empty</p>
+          ) : (
+            <ul role="list" className="-my-6 divide-y divide-gray-300">
+              {cartItems.map((product) => (
+                <li key={product.id} className="flex py-6 w-[90%]">
+                  <div className="h-48 w-48 flex-shrink-0 overflow-hidden rounded-md border border-gray-300">
+                    <img
+                      src={product.images[0]}
+                      alt=""
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
 
-      <section className="my-5 mx-10 max-[1024px]:min-h-[50vh] max-[1024px]:flex max-[1024px]:items-center max-[1024px]:justify-center max-[1024px]:my-1">
-        <div className="border-[2px] border-solid border-black mb-[30px] p-[30px] w-1/2 max-[1024px]:w-full ">
-          <h3>Cart Totals</h3>
+                  <div className="ml-4 flex flex-1 flex-col">
+                    <div>
+                      <div className="flex justify-between text-base font-medium text-gray-900">
+                        <h4>
+                          {product.name} ({product.selectedSize.name})
+                        </h4>
+                        <h4 className="">R {product.price}.00</h4>
+                      </div>
+                      <p className="mt-1 text-sm text-gray-500">
+                        {product.color[0].name}
+                      </p>
+                    </div>
+                    <div className="flex flex-1 items-end justify-between text-sm">
+                      <div>
+                        <button
+                          onClick={() => {
+                            const newQuantity = product.quantity - 1;
+                            updateQuantity(product.id, newQuantity);
+                          }}
+                          className="bg-transparent text-xl cursor-pointer border-none font-semibold"
+                        >
+                          -
+                        </button>
+                        <input
+                          id={product.id}
+                          value={product.quantity}
+                          readOnly
+                          className="bg-transparent text-lg border-none font-semibold py-[10px] pr-[5px] pl-[15px] w-10"
+                        />
+                        <button
+                          onClick={() => addToCart(product)}
+                          className="bg-transparent text-xl cursor-pointer border-none font-semibold"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      <div className="flex mb-3">
+                        <button
+                          onClick={() => removeFromCart(product.id)}
+                          className="bg-transparent border-none cursor-pointer"
+                        >
+                          <TrashIcon className="h-6 w-6" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="border-[2px] border-solid border-black mb-[30px] p-[30px] w-full ">
+          <h3 className="font-semibold">Cart Totals</h3>
           <table className="border-collapse mb-5 w-full">
             <tbody>
               <tr>

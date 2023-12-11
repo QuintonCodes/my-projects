@@ -43,8 +43,8 @@ const features = [
 function Home() {
   return (
     <>
-      <section className="items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[450px]:mt-2 max-[1024px]:min-h-[60vh]">
-        <div>
+      <section className="bg-[#BAB5BA] items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[1024px]:min-h-[60vh]">
+        <div className="max-[450px]:mt-5">
           <h2 className="text-6xl font-bold max-[450px]:text-5xl">
             Our New Brutalist Hoodies
           </h2>
@@ -58,15 +58,17 @@ function Home() {
           </p>
         </div>
 
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center w-1/2">
-              <Loader />
-            </div>
-          }
-        >
-          <Hero />
-        </Suspense>
+        <div className="max-[450px]:mb-5">
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center w-1/2">
+                <Loader />
+              </div>
+            }
+          >
+            <Hero />
+          </Suspense>
+        </div>
       </section>
 
       <section

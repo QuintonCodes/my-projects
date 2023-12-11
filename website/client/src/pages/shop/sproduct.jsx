@@ -1,6 +1,5 @@
 import { useContext, useState, Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { RadioGroup, Dialog, Transition } from "@headlessui/react";
 import { ShopContext } from "../../context/shop-context";
 import { PRODUCTS } from "../../products";
@@ -63,9 +62,9 @@ function SProduct() {
   return (
     <>
       <section className="my-5 mx-10">
-        <div className="flex items-start mt-5 max-[1024px]:flex-wrap">
-          <div className="h-[450px] relative text-center w-full max-[450px]:h-[350px]">
-            <div className="relative max-[1024px]:flex max-[1024px]:items-center max-[1024px]:justify-center">
+        <div className="flex items-start max-[1024px]:flex-wrap">
+          <div className="h-[500px] relative text-center w-full max-[450px]:h-[350px] md:mb-6">
+            <div className="relative max-[1024px]:flex max-[1024px]:justify-center max-[1024px]:items-center">
               {images.map((img, index) => (
                 <img
                   key={index}
@@ -73,26 +72,30 @@ function SProduct() {
                   alt={`${name} - ${index + 1}`}
                   className={
                     currentImageIndex === index
-                      ? "hidden absolute transition-transform ease-linear duration-150 w-full h-[450px] active:block"
+                      ? "hidden absolute transition-transform ease-linear w-full h-[450px] active:block"
                       : ""
                   }
                 />
               ))}
             </div>
 
-            <div className="flex justify-between relative lg:-mt-[55%] max-[450px]:-mt-[50%] md:-mt-[42%] max-[1024px]:-mt-[55%]">
-              <ChevronLeftIcon
+            <div className="flex justify-between">
+              <button
+                className="border-2 border-black rounded-lg w-[50px]"
                 onClick={prevSlide}
-                className="h-6 w-6 cursor-pointer"
-              />
-              <ChevronRightIcon
+              >
+                Prev
+              </button>
+              <button
+                className="border-2 border-black rounded-lg w-[50px]"
                 onClick={nextSlide}
-                className="h-6 w-6 cursor-pointer"
-              />
+              >
+                Next
+              </button>
             </div>
           </div>
 
-          <div className="pl-[30px] pt-[10px] max-w-[980px] max-[1024px]:pl-0 max-[1024px]:mt-7">
+          <div className="lg:ml-[30px] md:mt-[10px] max-w-[980px] max-[1024px]:ml-0 max-[450px]:mt-8">
             <h3 className="text-3xl font-semibold">{name}</h3>
             <h4 className="text-2xl mt-2">R {price}.00</h4>
             {color.map((colorOption) => (
@@ -202,7 +205,7 @@ function SProduct() {
         </div>
       </section>
 
-      <section className="my-5">
+      <section className="my-5 mx-10">
         <h2 className="flex items-center justify-center max-[450px]:text-4xl">
           Similiar Products
         </h2>
