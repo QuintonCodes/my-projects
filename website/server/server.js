@@ -1,18 +1,23 @@
 const express = require("express");
-const path = require("path");
-const compression = require("compression");
-
 const app = express();
-const port = process.env.PORT || 3000;
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
 
-app.use(compression());
+dotenv.config();
 
-app.use(express.static(path.join(__dirname, "src")));
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("DB Connection successful"))
+  .catch((err) => {
+    console.log(err);
+  });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "src", "index.html"));
-});
+app.use(express.json());
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server is running");
 });

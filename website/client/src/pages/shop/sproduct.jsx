@@ -75,7 +75,7 @@ function SProduct() {
                   alt={`${name} - ${index + 1}`}
                   className={
                     currentImageIndex === index
-                      ? "hidden absolute transition-transform ease-linear w-full h-[450px] active:block"
+                      ? "hidden absolute transition-transform ease-in-out w-full h-[450px] active:block"
                       : ""
                   }
                 />

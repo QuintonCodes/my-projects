@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import {
   ComputerDesktopIcon,
@@ -6,12 +5,9 @@ import {
   ShoppingBagIcon,
   TruckIcon,
 } from "@heroicons/react/24/outline";
-import Loader from "../../components/Loader";
 import "./home.css";
 import pro1 from "../../assets/mock-ups/Grey-T-Shirt-Front.webp";
 import pro2 from "../../assets/mock-ups/Black-Hoodie-Back.webp";
-
-const Hero = lazy(() => import("../../components/Hero"));
 
 const features = [
   {
@@ -43,7 +39,10 @@ const features = [
 function Home() {
   return (
     <>
-      <section className="bg-[#BAB5BA] items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[1024px]:min-h-[60vh]">
+      <section
+        className="bg-[#BAB5BA] items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[1024px]:min-h-[60vh]"
+        id="hero"
+      >
         <div className="max-[450px]:mt-5">
           <h2 className="text-6xl font-bold max-[450px]:text-5xl">
             Our New Brutalist Hoodies
@@ -56,18 +55,6 @@ function Home() {
             <br />
             in the cozy allure of our premium hoodies
           </p>
-        </div>
-
-        <div className="max-[450px]:mb-5">
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center w-1/2">
-                <Loader />
-              </div>
-            }
-          >
-            <Hero />
-          </Suspense>
         </div>
       </section>
 

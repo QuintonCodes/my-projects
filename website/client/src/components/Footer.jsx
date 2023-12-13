@@ -70,7 +70,7 @@ function Footer() {
           </form>
         </div>
 
-        <div className="mr-10 mt-5 items-start flex flex-col mb-5 text-white">
+        <div className="mr-10 mt-5 items-start flex flex-col mb-5 text-white max-[1024px]:mr-0">
           <h4 className="font-bold">My Account</h4>
           <Link
             to="/login"

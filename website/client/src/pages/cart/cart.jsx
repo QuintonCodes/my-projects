@@ -54,8 +54,8 @@ function Cart() {
   }, [cartItems]);
 
   return (
-    <section className="my-5 mx-10 grid grid-cols-2 max-[1024px]:min-h-[50vh]  items-center max-[450px]:flex max-[450px]:flex-wrap">
-      <div className="my-5">
+    <section className="my-5 mx-10 grid grid-cols-2 max-[1024px]:min-h-[60vh]  items-center max-[1024px]:flex max-[1024px]:flex-wrap">
+      <div className="my-5 max-[1024px]:w-full">
         <h3 className="mb-5 font-semibold">Shopping Cart</h3>
 
         {cartItems.length === 0 ? (
@@ -65,7 +65,7 @@ function Cart() {
             {cartItems.map((product) => (
               <li
                 key={product.id}
-                className="flex py-6 w-[90%] max-[450px]:w-full"
+                className="flex py-6 w-[90%] max-[1024px]:w-full"
               >
                 <div className="h-48 w-48 flex-shrink-0 overflow-hidden rounded-md border border-gray-300 max-[450px]:h-28 max-[450px]:w-28">
                   <img
@@ -78,10 +78,10 @@ function Cart() {
                 <div className="ml-4 flex flex-1 flex-col">
                   <div className="max-[450px]:text-sm">
                     <div className="flex justify-between font-medium text-gray-900">
-                      <h4 className="max-[450px]:text-lg max-[450px]:break-pwords">
+                      <h4 className="max-[450px]:text-base max-[450px]:break-all">
                         {product.name} ({product.selectedSize.name})
                       </h4>
-                      <h4 className="max-[450px]:text-sm max-[450px]:break-all">
+                      <h4 className="max-[450px]:text-sm max-[450px]:break-all  max-[1024px]:pl-2">
                         R {product.price}.00
                       </h4>
                     </div>
@@ -161,10 +161,10 @@ function Cart() {
           </tbody>
         </table>
 
-        <div className="flex justify-around">
+        <div className="flex justify-around max-[450px]:flex-col max-[450px]:items-center">
           <button
             id="Btn"
-            className="items-center bg-[#0f0f0f] border-none text-white cursor-pointer flex font-semibold gap-2 h-10 justify-center overflow-hidden relative w-32 before:bg-white shadow-[5px_5px_10px_#0000001a] duration-300 active:duration-300 active:translate-x-[5px] active:translate-y-[5px] before:rounded-[50%] before:content-[''] before:h-[130px] before:-left-full before:mix-blend-difference before:absolute before:top-0 before:duration-300 before:w-[130px] hover:before:rounded-none hover:before:translate-x-[100%] hover:before:translate-y-[-50%] hover:before:duration-300"
+            className="items-center bg-[#0f0f0f] border-none text-white cursor-pointer flex font-semibold gap-2 h-10 justify-center overflow-hidden relative w-[130px] before:bg-white shadow-[5px_5px_10px_#0000001a] duration-300 active:duration-300 active:translate-x-[5px] active:translate-y-[5px] before:rounded-[50%] before:content-[''] before:h-[130px] before:-left-full before:mix-blend-difference before:absolute before:top-0 before:duration-300 before:w-[130px] hover:before:rounded-none hover:before:translate-x-[100%] hover:before:translate-y-[-50%] hover:before:duration-300"
           >
             Pay
             <svg className="w-4" viewBox="0 0 576 512">
@@ -177,7 +177,7 @@ function Cart() {
           <p>OR</p>
 
           <Link to="/shop">
-            <button className="rounded border-2 border-black h-10 font-semibold p-2 hover:bg-black hover:text-white transition ease-in-out duration-300">
+            <button className="rounded border-2 border-black h-10 font-semibold p-2 hover:bg-black hover:text-white transition ease-in-out duration-300 max-[450px]:text-sm max-[450px]:h-11">
               Back To Shop
             </button>
           </Link>
