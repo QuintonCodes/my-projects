@@ -76,7 +76,7 @@ export default function App() {
               }
             />
             <Route
-              path="/shop/:productId"
+              path="/shop/:productName/:productId"
               element={
                 <Suspense
                   fallback={

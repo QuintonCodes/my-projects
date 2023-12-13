@@ -9,7 +9,10 @@ function Shop() {
           {PRODUCTS.map((product) => (
             <div key={product.id} className="group relative">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
-                <Link to={`shop/${product.id}`} key={product.id}>
+                <Link
+                  to={`shop/${product.name}/${product.id}`}
+                  key={product.id}
+                >
                   {product && product.images && (
                     <img
                       src={product.images[0]}
@@ -22,7 +25,7 @@ function Shop() {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-base text-black">
-                    <a href={`shop/${product.id}`}>
+                    <a href={`shop/${product.name}/${product.id}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {product.name}
                     </a>

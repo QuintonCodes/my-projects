@@ -9,7 +9,10 @@ function classNames(...classes) {
 }
 
 function SProduct() {
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedSize, setSelectedSize] = useState({
+    name: "S",
+    inStock: true,
+  });
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isSizeDialogOpen, setIsSizeDialogOpen] = useState(!selectedSize);
 
@@ -213,7 +216,7 @@ function SProduct() {
           {similarProducts.map((similarProduct) => (
             <div key={similarProduct.id} className="group relative">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200  group-hover:opacity-75">
-                <Link to={`/shop/${similarProduct.id}`}>
+                <Link to={`/shop/${similarProduct.name}/${similarProduct.id}`}>
                   {similarProduct && similarProduct.images && (
                     <img
                       src={similarProduct.images[0]}
@@ -226,7 +229,9 @@ function SProduct() {
               <div className="mt-4 flex justify-between">
                 <div>
                   <h3 className="text-base text-black">
-                    <Link to={`/shop/${similarProduct.id}`}>
+                    <Link
+                      to={`/shop/${similarProduct.name}/${similarProduct.id}`}
+                    >
                       <span aria-hidden="true" className="absolute inset-0" />
                       {similarProduct.name}
                     </Link>
