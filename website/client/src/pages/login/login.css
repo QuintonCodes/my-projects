@@ -13,14 +13,14 @@
   background: transparent;
   border: 2px solid #000;
   border-radius: 20px;
-  height: 440px;
+  height: 520px;
   position: relative;
   transition: height 0.2s ease;
-  width: 400px;
+  width: 550px;
 }
 
 .active-form {
-  height: 520px;
+  height: 600px;
 }
 
 .hidden-form {
@@ -58,14 +58,14 @@
 
 .input-box {
   border-bottom: 2px solid #000;
-  height: 50px;
+  height: 60px;
   margin: 30px 0;
   position: relative;
   width: 100%;
 }
 
 .input-box label {
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 500;
   left: 5px;
   padding: 0 5px;
@@ -84,16 +84,16 @@
 .input-box input {
   background: transparent;
   border: none;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 600;
   height: 100%;
   outline: none;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
 }
 
 .input-box svg {
-  line-height: 57px;
+  line-height: 67px;
   position: absolute;
   right: 8px;
   top: 25%;
@@ -154,15 +154,8 @@
   font-weight: 600;
 }
 
-@media (max-width: 1024px) {
-  .login-page {
-    min-height: 60vh;
-  }
-}
-
 @media (max-width: 450px) {
   .login-page {
-    min-height: 80vh;
     padding: 0px 20px;
   }
 }

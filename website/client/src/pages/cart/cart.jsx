@@ -30,11 +30,7 @@ function Cart() {
   }
 
   const calculateShipping = (product) => {
-    if (product.price * product.quantity >= 900) {
-      return 0;
-    } else {
-      return product.price * 0.25 * product.quantity;
-    }
+    return product.price * 0.25 * product.quantity;
   };
 
   useEffect(() => {
