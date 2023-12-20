@@ -1,12 +1,9 @@
 import PropTypes from "prop-types";
-import "./Buttons.css";
 
-function Buttons({ color, className, handleClick, symbol }) {
-  const buttonClass = `button-wrapper ${className || ""}`;
-
+function Buttons({ color, handleClick, symbol }) {
   return (
     <div
-      className={buttonClass}
+      className="items-center bg-[#5a5a5a] rounded-[25px] text-white cursor-pointer flex flex-[1] text-2xl h-20 justify-center m-1"
       style={{ backgroundColor: color }}
       onClick={() => handleClick(symbol)}
     >
@@ -17,7 +14,6 @@ function Buttons({ color, className, handleClick, symbol }) {
 
 Buttons.propTypes = {
   color: PropTypes.string,
-  className: PropTypes.string,
   handleClick: PropTypes.func,
   symbol: PropTypes.string.isRequired,
 };
