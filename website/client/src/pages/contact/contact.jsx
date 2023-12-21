@@ -7,6 +7,47 @@ function classNames(...classes) {
 
 export default function Example() {
   const [agreed, setAgreed] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+  });
+
+  const token = "d33c8587-24d4-49d9-abf3-8e803b5bf9ca";
+
+  function sendEmail() {
+    const emailBody = `
+    <b> First Name: </b> ${formData.firstName}
+    <br/>
+    <b> Last Name: </b> ${formData.lastName}
+    <br/>
+    <b> Email: </b> ${formData.email}
+    <br/>
+    <b> Phone Number: </b> ${formData.phoneNumber}
+    <br/>
+    <b> Message: </b> ${formData.message}
+    `;
+
+    window.Email.send({
+      SecureToken: token,
+      To: "kickflip01.store@gmail.com",
+      From: "kagisojiyane28@gmail.com",
+      Subject: "Contact Us Submission",
+      Body: emailBody,
+    }).then((message) => alert(message));
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    sendEmail();
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   return (
     <div className="isolate bg-eerie-black px-6 py-12 sm:py-12 lg:px-8">
@@ -18,7 +59,11 @@ export default function Example() {
           Reach out to us regarding any issues.
         </p>
       </div>
-      <form action="#" method="POST" className="mx-auto max-w-xl sm:mt-10">
+      <form
+        onSubmit={handleSubmit}
+        method="POST"
+        className="mx-auto max-w-xl sm:mt-10"
+      >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
             <label
@@ -30,9 +75,10 @@ export default function Example() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="first-name"
+                name="firstName"
                 id="first-name"
                 autoComplete="given-name"
+                onChange={handleInputChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
               />
             </div>
@@ -47,9 +93,10 @@ export default function Example() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="last-name"
+                name="lastName"
                 id="last-name"
                 autoComplete="family-name"
+                onChange={handleInputChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
               />
             </div>
@@ -67,6 +114,7 @@ export default function Example() {
                 name="email"
                 id="email"
                 autoComplete="email"
+                onChange={handleInputChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
               />
             </div>
@@ -81,9 +129,10 @@ export default function Example() {
             <div className="relative mt-2.5">
               <input
                 type="tel"
-                name="phone-number"
+                name="phoneNumber"
                 id="phone-number"
                 autoComplete="tel"
+                onChange={handleInputChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
               />
             </div>
@@ -100,6 +149,7 @@ export default function Example() {
                 name="message"
                 id="message"
                 rows={4}
+                onChange={handleInputChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
                 defaultValue={""}
               />

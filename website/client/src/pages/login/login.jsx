@@ -4,33 +4,69 @@ import {
   UserIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
+import axios from "axios";
 import "./login.css";
 
 function Login() {
-  const [isRegisterVisible, setIsRegisterVisible] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(true);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const toggleRegister = () => {
-    setIsRegisterVisible(!isRegisterVisible);
+    setIsRegistered(!isRegistered);
   };
+
+  async function submit(e) {
+    e.preventDefault();
+
+    try {
+      if (isRegistered) {
+        await axios.post("http://localhost:3000/api/auth/login", {
+          email,
+          password,
+        });
+      } else {
+        await axios.post("http://localhost:3000/api/auth/register", {
+          username,
+          email,
+          password,
+        });
+        setIsRegistered(true);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <div className="login-page">
-      <div
-        className={`login-wrapper ${isRegisterVisible ? "active-form" : ""}`}
-      >
-        <div
-          className={`form-box login ${isRegisterVisible ? "hidden-form" : ""}`}
-        >
+      <div className={`login-wrapper ${isRegistered ? "active-form" : ""}`}>
+        <div className={`form-box login ${isRegistered ? "hidden-form" : ""}`}>
           <h3>Login</h3>
-          <form action="#">
+          <form action="POST">
             <div className="input-box">
               <EnvelopeIcon className="h-6 w-6" />
-              <input type="email" required id="email-login" />
+              <input
+                type="email"
+                required
+                id="email-login"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
               <label htmlFor="email-login">Email</label>
             </div>
             <div className="input-box">
               <LockClosedIcon className="h-6 w-6" />
-              <input type="password" required id="password-login" />
+              <input
+                type="password"
+                required
+                id="password-login"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
               <label htmlFor="password-login">Password</label>
             </div>
             <div className="remember-forgot">
@@ -40,7 +76,7 @@ function Login() {
               </label>
               <a href="#">Forgot Password?</a>
             </div>
-            <button type="submit" className="login-btn">
+            <button type="submit" className="login-btn" onClick={submit}>
               Login
             </button>
             <div className="login-register">
@@ -55,9 +91,7 @@ function Login() {
         </div>
 
         <div
-          className={`form-box register ${
-            isRegisterVisible ? "" : "hidden-form"
-          }`}
+          className={`form-box register ${isRegistered ? "" : "hidden-form"}`}
         >
           <h3>Register</h3>
           <form action="#">
@@ -68,17 +102,34 @@ function Login() {
                 required
                 id="username"
                 autoComplete="Username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
               />
               <label htmlFor="username">Username</label>
             </div>
             <div className="input-box">
               <EnvelopeIcon className="h-6 w-6" />
-              <input type="email" required id="email-register" />
+              <input
+                type="email"
+                required
+                id="email-register"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
               <label htmlFor="email-register">Email</label>
             </div>
             <div className="input-box">
               <LockClosedIcon className="h-6 w-6" />
-              <input type="password" required id="password-register" />
+              <input
+                type="password"
+                required
+                id="password-register"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
               <label htmlFor="password-register">Password</label>
             </div>
             <div className="remember-forgot">
@@ -87,7 +138,7 @@ function Login() {
                 conditions
               </label>
             </div>
-            <button type="submit" className="login-btn">
+            <button type="submit" className="login-btn" onClick={submit}>
               Register
             </button>
             <div className="login-register">
