@@ -26,7 +26,7 @@ function Login() {
 
     try {
       if (isRegistered) {
-        await axios.post("http://localhost:3000/api/auth/login", {
+        await axios.post("http://localhost:3000/api/auth/register", {
           email,
           password,
         });
@@ -36,7 +36,7 @@ function Login() {
 
         navigate("/");
       } else {
-        await axios.post("http://localhost:3000/api/auth/register", {
+        await axios.post("http://localhost:3000/api/auth/login", {
           username,
           email,
           password,
@@ -124,7 +124,7 @@ function Login() {
                   setUsername(e.target.value);
                 }}
               />
-              <label htmlFor="username">Username</label>
+              <label htmlFor="name">Username</label>
             </div>
             <div className="input-box">
               <EnvelopeIcon className="h-6 w-6" />
