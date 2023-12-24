@@ -22,7 +22,14 @@ mongoose
   });
 
 app.use(express.json());
-app.use("/api/auth", authRoute);
+app.use(
+  "/api/auth",
+  (req, res, next) => {
+    console.log("Request to /api/auth");
+    next();
+  },
+  authRoute
+);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);

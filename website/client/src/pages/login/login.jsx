@@ -5,6 +5,7 @@ import {
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
 function Login() {
@@ -12,8 +13,11 @@ function Login() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(null);
+  const navigate = useNavigate();
 
-  const toggleRegister = () => {
+  const toggleRegister = (e) => {
+    e.preventDefault();
     setIsRegistered(!isRegistered);
   };
 
@@ -26,6 +30,11 @@ function Login() {
           email,
           password,
         });
+
+        setLoginError(null);
+        alert("Login successful!");
+
+        navigate("/");
       } else {
         await axios.post("http://localhost:3000/api/auth/register", {
           username,
@@ -33,9 +42,14 @@ function Login() {
           password,
         });
         setIsRegistered(true);
+
+        setLoginError(null);
+        alert("Registration successful!");
       }
     } catch (e) {
       console.log(e);
+
+      setLoginError("Login or registration failed. Please try again.");
     }
   }
 
@@ -82,7 +96,11 @@ function Login() {
             <div className="login-register">
               <p>
                 Don`t have an account?{" "}
-                <a href="#" className="register-link" onClick={toggleRegister}>
+                <a
+                  href="#"
+                  className="register-link"
+                  onClick={(e) => toggleRegister(e)}
+                >
                   Register
                 </a>
               </p>
@@ -94,14 +112,14 @@ function Login() {
           className={`form-box register ${isRegistered ? "" : "hidden-form"}`}
         >
           <h3>Register</h3>
-          <form action="#">
+          <form action="POST">
             <div className="input-box">
               <UserIcon className="h-6 w-6" />
               <input
                 type="text"
                 required
-                id="username"
-                autoComplete="Username"
+                id="name"
+                autoComplete="Name"
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}
@@ -144,7 +162,11 @@ function Login() {
             <div className="login-register">
               <p>
                 Already have an account?{" "}
-                <a href="#" className="login-link" onClick={toggleRegister}>
+                <a
+                  href="#"
+                  className="login-link"
+                  onClick={(e) => toggleRegister(e)}
+                >
                   Login
                 </a>
               </p>
@@ -152,6 +174,7 @@ function Login() {
           </form>
         </div>
       </div>
+      {loginError && <p className="error-message">{loginError}</p>}
     </div>
   );
 }
