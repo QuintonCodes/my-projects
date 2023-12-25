@@ -72,14 +72,14 @@ function Cart() {
                 </div>
 
                 <div className="ml-4 flex flex-1 flex-col">
-                  <div className="max-[450px]:text-sm">
+                  <div>
                     <div className="flex justify-between font-medium text-gray-900">
-                      <h4 className="max-[450px]:text-base max-[450px]:break-all">
+                      <h4 className="max-[450px]:text-sm max-[450px]:break-all">
                         {product.name} ({product.selectedSize.name})
                       </h4>
-                      <h4 className="max-[450px]:text-sm max-[450px]:break-all  max-[1024px]:pl-2">
+                      <h5 className="max-[450px]:text-sm max-[450px]:break-all max-[1024px]:pl-2">
                         R {product.price}.00
-                      </h4>
+                      </h5>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">
                       {product.color[0].name}

@@ -135,7 +135,6 @@
   border-radius: 6px;
   color: #fff;
   cursor: pointer;
-  font-family: "Farro", sans-serif;
   height: 45px;
   outline: none;
   width: 100%;
@@ -157,5 +156,9 @@
 @media (max-width: 450px) {
   .login-page {
     padding: 0px 20px;
+    flex-direction: column;
+  }
+  .login-wrapper {
+    width: 340px;
   }
 }

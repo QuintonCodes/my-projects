@@ -37,7 +37,7 @@ h6 {
 
 p {
   font-size: 16px;
-  margin: 15px 0 20px 0;
+  margin: 15px 0 20px;
 }
 
 a {
@@ -46,7 +46,6 @@ a {
 
 body {
   background: #ebebeb;
-  font-display: swap;
   color: #000;
   margin: 0;
   padding: 0;
