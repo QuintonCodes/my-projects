@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  EnvelopeIcon,
+  UserIcon,
+  LockClosedIcon,
+} from "@heroicons/react/24/outline";
 import "./login.css";
 
-function Login() {
+function Register() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,35 +17,54 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/api/auth/login", { email, password })
+      .post("http://localhost:3000/api/auth/register", {
+        username,
+        email,
+        password,
+      })
       .then((result) => {
-        console.log(result);
-        if (result.data === "Success") {
-          navigate("/");
-        }
+        console.log(result), navigate("/login");
       })
       .catch((err) => console.log(err));
   };
-
   return (
     <div className="items-center flex justify-center">
-      <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] h-[520px] relative w-[550px]">
+      <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] h-[600px] relative w-[550px]">
         <div className="p-10 w-full">
-          <h3 className="text-[2em] text-center font-semibold">Login</h3>
+          <h3 className="text-[2em] text-center font-semibold">Register</h3>
           <form onSubmit={handleSubmit}>
+            <div className="input-box border-b-2 border-solid border-black h-[60px] my-[30px] mx-0 relative w-full">
+              <UserIcon className="h-6 w-6 absolute right-2 top-1/4 leading-[67px]" />
+              <input
+                type="text"
+                required
+                id="name"
+                autoComplete="Name"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
+              />
+              <label
+                htmlFor="name"
+                className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-500"
+              >
+                Username
+              </label>
+            </div>
             <div className="input-box border-b-2 border-solid border-black h-[60px] my-[30px] mx-0 relative w-full">
               <EnvelopeIcon className="h-6 w-6 absolute right-2 top-1/4 leading-[67px]" />
               <input
                 type="email"
                 required
-                id="email-login"
+                id="email-register"
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
                 className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
               />
               <label
-                htmlFor="email-login"
+                htmlFor="email-register"
                 className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-500"
               >
                 Email
@@ -51,14 +75,14 @@ function Login() {
               <input
                 type="password"
                 required
-                id="password-login"
+                id="password-register"
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
                 className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
               />
               <label
-                htmlFor="password-login"
+                htmlFor="password-register"
                 className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-500"
               >
                 Password
@@ -68,32 +92,26 @@ function Login() {
               <label htmlFor="checkbox">
                 <input
                   type="checkbox"
-                  id="checkbox"
+                  id="terms"
                   className="accent-black mr-[3px]"
                 />
-                Remember me
+                I agree to the terms & conditions
               </label>
-              <a
-                href="#"
-                className="hover:underline text-[#545484] no-underline"
-              >
-                Forgot Password?
-              </a>
             </div>
             <button
               type="submit"
               className="text-base font-medium bg-[#282828] border-none rounded-md text-white cursor-pointer h-[45px] outline-none w-full hover:bg-[#1f1f1f]"
             >
-              Login
+              Register
             </button>
-            <div className="mt-[25px] mx-0 mb-[10px] text-center">
+            <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
               <p>
-                Don`t have an account?{" "}
+                Already have an account?{" "}
                 <Link
-                  to="/register"
-                  className="text-base font-semibold hover:underline text-[#545484] no-underline"
+                  to="/login"
+                  className="font-semibold hover:underline text-[#545484] no-underline"
                 >
-                  Register
+                  Login
                 </Link>
               </p>
             </div>
@@ -104,4 +122,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

@@ -9,6 +9,7 @@ const Cart = lazy(() => import("./pages/cart/cart"));
 const Contact = lazy(() => import("./pages/contact/contact"));
 const Home = lazy(() => import("./pages/home/home"));
 const Login = lazy(() => import("./pages/login/login"));
+const Register = lazy(() => import("./pages/login/register"));
 const Shop = lazy(() => import("./pages/shop/shop"));
 const SProduct = lazy(() => import("./pages/shop/sproduct"));
 
@@ -100,6 +101,20 @@ export default function App() {
                   }
                 >
                   <Login />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <Suspense
+                  fallback={
+                    <div className="items-center flex h-screen justify-center w-full">
+                      <Loader />
+                    </div>
+                  }
+                >
+                  <Register />
                 </Suspense>
               }
             />
