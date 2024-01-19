@@ -3,15 +3,15 @@ import { Suspense, lazy } from "react";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
-import ShopContextProvider from "./context/shop-context";
+import ShopContextProvider from "./context/ShopContext";
 
-const Cart = lazy(() => import("./pages/cart/cart"));
-const Contact = lazy(() => import("./pages/contact/contact"));
-const Home = lazy(() => import("./pages/home/home"));
-const Login = lazy(() => import("./pages/login/login"));
-const Register = lazy(() => import("./pages/login/register"));
-const Shop = lazy(() => import("./pages/shop/shop"));
-const SProduct = lazy(() => import("./pages/shop/sproduct"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
+const Signup = lazy(() => import("./pages/Signup"));
+const Shop = lazy(() => import("./pages/Shop"));
+const Sproduct = lazy(() => import("./pages/Sproduct"));
 
 export default function App() {
   return (
@@ -86,7 +86,7 @@ export default function App() {
                     </div>
                   }
                 >
-                  <SProduct />
+                  <Sproduct />
                 </Suspense>
               }
             />
@@ -114,7 +114,7 @@ export default function App() {
                     </div>
                   }
                 >
-                  <Register />
+                  <Signup />
                 </Suspense>
               }
             />

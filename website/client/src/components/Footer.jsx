@@ -62,7 +62,7 @@ function Footer() {
               />
               <button
                 type="submit"
-                className="bg-[#3a3a3a] rounded-md border-none text-[#ebebeb] cursor-pointer font-semibold text-sm outline-none py-[0.625rem] px-[0.875rem] max-[450px]:m-3"
+                className="bg-[#3a3a3a] hover:bg-[#3d3d3d] transition-colors duration-300 rounded-md border-none text-[#ebebeb] cursor-pointer font-semibold text-sm outline-none py-[0.625rem] px-[0.875rem] max-[450px]:m-3"
               >
                 Subscribe
               </button>
@@ -73,26 +73,26 @@ function Footer() {
         <div className="mr-10 mt-5 items-start flex flex-col mb-5 text-white max-[1024px]:mr-0">
           <h4 className="font-bold">My Account</h4>
           <Link
-            to="/login"
-            className="text-[15px] mb-[10px] hover:text-[#545484]"
+            to="/register"
+            className="text-[15px] mb-[10px] hover:text-[#545484] transition-colors duration-300"
           >
             Sign in
           </Link>
           <Link
             to="/cart"
-            className="text-[15px] mb-[10px] hover:text-[#545484]"
+            className="text-[15px] mb-[10px] hover:text-[#545484] transition-colors duration-300"
           >
             View Cart
           </Link>
           <Link
             to="/shop"
-            className="text-[15px] mb-[10px] hover:text-[#545484]"
+            className="text-[15px] mb-[10px] hover:text-[#545484] transition-colors duration-300"
           >
             Shop Now
           </Link>
           <Link
             to="/contact"
-            className="text-[15px] mb-[10px] hover:text-[#545484]"
+            className="text-[15px] mb-[10px] hover:text-[#545484] transition-colors duration-300"
           >
             Help
           </Link>

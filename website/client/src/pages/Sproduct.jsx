@@ -1,8 +1,8 @@
 import { useContext, useState, Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 import { RadioGroup, Dialog, Transition } from "@headlessui/react";
-import { ShopContext } from "../../context/shop-context";
-import { PRODUCTS } from "../../products";
+import { ShopContext } from "../context/ShopContext";
+import { PRODUCTS } from "../products";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

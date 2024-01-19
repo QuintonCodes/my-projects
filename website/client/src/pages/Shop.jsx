@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PRODUCTS } from "../../products";
+import { PRODUCTS } from "../products";
 
 function Shop() {
   return (

@@ -7,7 +7,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import logo from "../assets/logo.webp";
-import { ShopContext } from "../context/shop-context";
+import { ShopContext } from "../context/ShopContext";
 import "../components/navbar.css";
 
 function Navbar() {
@@ -61,7 +61,11 @@ function Navbar() {
         {!isNavbarActive && (
           <>
             <li className="pb-5 px-2">
-              <NavLink to="/login" activeclassname="active" aria-label="user">
+              <NavLink
+                to="/register"
+                activeclassname="active"
+                aria-label="user"
+              >
                 <UserIcon className="h-7 w-7" />
               </NavLink>
             </li>

@@ -1,15 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  EnvelopeIcon,
-  UserIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
-import "./login.css";
+import axios from "axios";
+import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 
-function Register() {
-  const [username, setUsername] = useState("");
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -17,54 +11,35 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/api/auth/register", {
-        username,
-        email,
-        password,
-      })
+      .post("http://localhost:3000/api/auth/login", { email, password })
       .then((result) => {
-        console.log(result), navigate("/login");
+        console.log(result);
+        if (result.data === "Success") {
+          navigate("/");
+        }
       })
       .catch((err) => console.log(err));
   };
+
   return (
-    <div className="items-center flex justify-center">
-      <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] h-[600px] relative w-[550px]">
+    <div className="items-center flex justify-center my-10">
+      <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] h-[520px] relative w-[550px]">
         <div className="p-10 w-full">
-          <h3 className="text-[2em] text-center font-semibold">Register</h3>
+          <h3 className="text-[2em] text-center font-semibold">Login</h3>
           <form onSubmit={handleSubmit}>
-            <div className="input-box border-b-2 border-solid border-black h-[60px] my-[30px] mx-0 relative w-full">
-              <UserIcon className="h-6 w-6 absolute right-2 top-1/4 leading-[67px]" />
-              <input
-                type="text"
-                required
-                id="name"
-                autoComplete="Name"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-                className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
-              />
-              <label
-                htmlFor="name"
-                className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-500"
-              >
-                Username
-              </label>
-            </div>
             <div className="input-box border-b-2 border-solid border-black h-[60px] my-[30px] mx-0 relative w-full">
               <EnvelopeIcon className="h-6 w-6 absolute right-2 top-1/4 leading-[67px]" />
               <input
                 type="email"
                 required
-                id="email-register"
+                id="email-login"
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
                 className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
               />
               <label
-                htmlFor="email-register"
+                htmlFor="email-login"
                 className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-500"
               >
                 Email
@@ -75,14 +50,14 @@ function Register() {
               <input
                 type="password"
                 required
-                id="password-register"
+                id="password-login"
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
                 className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
               />
               <label
-                htmlFor="password-register"
+                htmlFor="password-login"
                 className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-500"
               >
                 Password
@@ -92,26 +67,32 @@ function Register() {
               <label htmlFor="checkbox">
                 <input
                   type="checkbox"
-                  id="terms"
+                  id="checkbox"
                   className="accent-black mr-[3px]"
                 />
-                I agree to the terms & conditions
+                Remember me
               </label>
+              <a
+                href="#"
+                className="hover:underline text-[#545484] no-underline"
+              >
+                Forgot Password?
+              </a>
             </div>
             <button
               type="submit"
               className="text-base font-medium bg-[#282828] border-none rounded-md text-white cursor-pointer h-[45px] outline-none w-full hover:bg-[#1f1f1f]"
             >
-              Register
+              Login
             </button>
-            <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
+            <div className="mt-[25px] mx-0 mb-[10px] text-center">
               <p>
-                Already have an account?{" "}
+                Don`t have an account?{" "}
                 <Link
-                  to="/login"
-                  className="font-semibold hover:underline text-[#545484] no-underline"
+                  to="/register"
+                  className="text-base font-semibold hover:underline text-[#545484] no-underline"
                 >
-                  Login
+                  Register
                 </Link>
               </p>
             </div>
@@ -122,4 +103,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

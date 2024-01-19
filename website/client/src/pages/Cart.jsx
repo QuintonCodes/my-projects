@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { ShopContext } from "../../context/shop-context";
+import { ShopContext } from "../context/ShopContext";
 
 function Cart() {
   const [cartSubTotal, setCartSubTotal] = useState(0);
