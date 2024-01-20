@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-family: "Farro", sans-serif;
+    font-family: "Farro", "Trebuchet MS", Helvetica, sans-serif;
   }
 }
 

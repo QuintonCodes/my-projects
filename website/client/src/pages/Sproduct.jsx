@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { RadioGroup, Dialog, Transition } from "@headlessui/react";
 import { ShopContext } from "../context/ShopContext";
 import { PRODUCTS } from "../products";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,7 +16,7 @@ function SProduct() {
     inStock: true,
   });
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isSizeDialogOpen, setIsSizeDialogOpen] = useState(!selectedSize);
+  const [isSizeDialogOpen, setIsSizeDialogOpen] = useState(true);
 
   const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
   const { productId } = useParams();
@@ -64,6 +66,8 @@ function SProduct() {
 
   return (
     <>
+      <Navbar />
+
       <section className="my-5 mx-10">
         <div className="flex items-start max-[1024px]:flex-wrap">
           <div className="h-[500px] relative text-center w-full max-[450px]:h-[350px] md:mb-6">
@@ -313,6 +317,8 @@ function SProduct() {
           </div>
         </Dialog>
       </Transition>
+
+      <Footer />
     </>
   );
 }

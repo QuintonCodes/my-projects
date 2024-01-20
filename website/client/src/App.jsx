@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import Footer from "./components/Footer";
 import Loader from "./components/Loader";
-import Navbar from "./components/Navbar";
 import ShopContextProvider from "./context/ShopContext";
 
 const Cart = lazy(() => import("./pages/Cart"));
@@ -18,7 +16,6 @@ export default function App() {
     <>
       <ShopContextProvider>
         <Router>
-          <Navbar />
           <Routes>
             <Route
               path="/cart"
@@ -119,7 +116,6 @@ export default function App() {
               }
             />
           </Routes>
-          <Footer />
         </Router>
       </ShopContextProvider>
     </>

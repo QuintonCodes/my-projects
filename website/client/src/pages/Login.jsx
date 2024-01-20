@@ -11,7 +11,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/api/auth/login", { email, password })
+      .post("http://localhost:3000/api/users/login", { email, password })
       .then((result) => {
         console.log(result);
         if (result.data === "Success") {
@@ -22,7 +22,7 @@ function Login() {
   };
 
   return (
-    <div className="items-center flex justify-center my-10">
+    <section className="items-center flex justify-center my-20">
       <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] h-[520px] relative w-[550px]">
         <div className="p-10 w-full">
           <h3 className="text-[2em] text-center font-semibold">Login</h3>
@@ -36,7 +36,7 @@ function Login() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
+                className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"
               />
               <label
                 htmlFor="email-login"
@@ -54,7 +54,7 @@ function Login() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
+                className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"
               />
               <label
                 htmlFor="password-login"
@@ -99,7 +99,7 @@ function Login() {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

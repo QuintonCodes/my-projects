@@ -16,7 +16,7 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/api/auth/register", {
+      .post("http://localhost:3000/api/users/register", {
         username,
         email,
         password,
@@ -27,7 +27,7 @@ function Register() {
       .catch((err) => console.log(err));
   };
   return (
-    <div className="items-center flex justify-center my-10">
+    <section className="items-center flex justify-center my-20">
       <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] h-[600px] relative w-[550px]">
         <div className="p-10 w-full">
           <h3 className="text-[2em] text-center font-semibold">Register</h3>
@@ -42,7 +42,7 @@ function Register() {
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}
-                className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
+                className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"
               />
               <label
                 htmlFor="name"
@@ -60,7 +60,7 @@ function Register() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
+                className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"
               />
               <label
                 htmlFor="email-register"
@@ -78,7 +78,7 @@ function Register() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="bg-transparent border-none text-[1.2em] font-semibold h-full outline-none p-[10px] w-full"
+                className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"
               />
               <label
                 htmlFor="password-register"
@@ -117,7 +117,7 @@ function Register() {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

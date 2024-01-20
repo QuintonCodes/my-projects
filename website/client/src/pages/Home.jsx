@@ -2,10 +2,14 @@ import { Link } from "react-router-dom";
 import { FEATURES } from "../features";
 import pro1 from "../assets/mock-ups/Grey-T-Shirt-Front.webp";
 import pro2 from "../assets/mock-ups/Black-Hoodie-Back.webp";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
     <>
+      <Navbar />
+
       <section
         className="bg-[#BAB5BA] items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[1024px]:min-h-[60vh]"
         id="hero"
@@ -97,6 +101,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </>
   );
 }
