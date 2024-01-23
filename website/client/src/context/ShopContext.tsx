@@ -1,17 +1,39 @@
-import { createContext, useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { createContext, useState, useEffect } from "react";
 
-export const ShopContext = createContext(null);
+interface CartItem {
+  id: string;
+  quantity: number;
+  selectedSize: { name: string };
+  color: [{ name: string }];
+}
 
-function ShopContextProvider(props) {
-  const initialCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  const [cartItems, setCartItems] = useState(initialCartItems);
+interface ShopContextType {
+  addToCart: (item: CartItem) => void;
+  cartItems: CartItem[];
+  removeFromCart: (itemId: string) => void;
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  updateCartItemQuantity: (itemId: string, newQuantity: number) => void;
+}
+
+export const ShopContext = createContext<ShopContextType | null>(null);
+
+interface ShopContextProviderProps {
+  children: React.ReactNode;
+}
+
+export const ShopContextProvider: React.FC<ShopContextProviderProps> = ({
+  children,
+}) => {
+  const initialCartItems: CartItem[] = JSON.parse(
+    localStorage.getItem("cartItems") || "[]"
+  );
+  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (item) => {
+  const addToCart = (item: CartItem) => {
     const existingCartItem = cartItems.find(
       (cartItem) =>
         cartItem.id === item.id &&
@@ -34,11 +56,11 @@ function ShopContextProvider(props) {
     }
   };
 
-  const removeFromCart = (itemId) => {
+  const removeFromCart = (itemId: string) => {
     setCartItems((prev) => prev.filter((item) => item.id !== itemId));
   };
 
-  const updateCartItemQuantity = (itemId, newQuantity) => {
+  const updateCartItemQuantity = (itemId: string, newQuantity: number) => {
     setCartItems((prevCartItems) =>
       prevCartItems.map((cartItem) =>
         cartItem.id === itemId
@@ -57,14 +79,6 @@ function ShopContextProvider(props) {
   };
 
   return (
-    <ShopContext.Provider value={contextValue}>
-      {props.children}
-    </ShopContext.Provider>
+    <ShopContext.Provider value={contextValue}>{children}</ShopContext.Provider>
   );
-}
-
-ShopContextProvider.propTypes = {
-  children: PropTypes.object,
 };
-
-export default ShopContextProvider;

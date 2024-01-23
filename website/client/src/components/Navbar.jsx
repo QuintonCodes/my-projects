@@ -6,11 +6,11 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import logo from "../assets/logo.webp";
 import { ShopContext } from "../context/ShopContext";
+import logo from "../assets/logo.webp";
 import "../components/navbar.css";
 
-function Navbar() {
+const Navbar = () => {
   const { cartItems } = useContext(ShopContext);
   const [isNavbarActive, setIsNavbarActive] = useState(false);
 
@@ -104,6 +104,6 @@ function Navbar() {
       </ul>
     </header>
   );
-}
+};
 
 export default Navbar;

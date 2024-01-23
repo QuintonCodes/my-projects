@@ -1,6 +1,6 @@
 import "../components/loader.css";
 
-function Loader() {
+const Loader = () => {
   return (
     <div className="spinner">
       <div></div>
@@ -15,6 +15,6 @@ function Loader() {
       <div></div>
     </div>
   );
-}
+};
 
 export default Loader;

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { PRODUCTS } from "../products";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+import { PRODUCTS } from "../products";
 
-function Shop() {
+const ShopPage = () => {
   return (
     <>
       <Navbar />
@@ -57,6 +57,6 @@ function Shop() {
       <Footer />
     </>
   );
-}
+};
 
-export default Shop;
+export default ShopPage;

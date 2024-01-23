@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { FEATURES } from "../features";
 import pro1 from "../assets/mock-ups/Grey-T-Shirt-Front.webp";
 import pro2 from "../assets/mock-ups/Black-Hoodie-Back.webp";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { FEATURES } from "../features";
 
-function Home() {
+const HomePage = () => {
   return (
     <>
       <Navbar />
@@ -105,6 +105,6 @@ function Home() {
       <Footer />
     </>
   );
-}
+};
 
-export default Home;
+export default HomePage;
