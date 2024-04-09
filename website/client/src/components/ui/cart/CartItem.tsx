@@ -4,14 +4,12 @@ import { BaseProduct } from "../../../utils/models";
 
 interface CartItemProps {
   product: BaseProduct;
-  addToCart: (product: BaseProduct) => void;
-  updateQuantity: (productId: string, newQuantity: number) => void;
-  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: number, newQuantity: number) => void;
+  removeFromCart: (productId: number) => void;
 }
 
 const CartItem: FC<CartItemProps> = ({
   product,
-  addToCart,
   updateQuantity,
   removeFromCart,
 }) => {
@@ -46,7 +44,7 @@ const CartItem: FC<CartItemProps> = ({
               -
             </button>
             <input
-              id={product.id}
+              id={`${product.id}`}
               value={product.quantity}
               readOnly
               className="bg-transparent text-lg border-none font-semibold py-[10px] pr-[5px] pl-[15px] w-10 max-[450px]:text-base"

@@ -2,32 +2,14 @@ import { useState, FC } from "react";
 import { Link } from "react-router-dom";
 import { RadioGroup } from "@headlessui/react";
 import { classNames } from "../../../utils/helpers";
-
-interface ColorOption {
-  name: string;
-  class: string;
-}
-
-interface SizeOption {
-  name: string;
-  inStock: boolean;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  color: ColorOption[];
-  sizes: SizeOption[];
-}
+import { BaseProduct, SizeOption } from "../../../utils/models";
 
 interface ProductDetailsProps {
-  product: Product;
-  addToCart: (item: Product & { selectedSize: SizeOption }) => void;
-  setCartItems: (item: (prevItems: Product[]) => Product[]) => void;
+  product: BaseProduct;
+  addToCart: (item: BaseProduct & { selectedSize: SizeOption }) => void;
+  setCartItems: (item: (prevItems: BaseProduct[]) => BaseProduct[]) => void;
   setIsSizeDialogOpen: (isOpen: boolean) => void;
-  cartItems: (Product & { selectedSize: SizeOption })[];
+  cartItems: (BaseProduct & { selectedSize: { name: string } })[];
 }
 
 const ProductDetails: FC<ProductDetailsProps> = ({
@@ -38,7 +20,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({
   cartItems,
 }) => {
   const [selectedSize, setSelectedSize] = useState<SizeOption | null>(
-    product.sizes[0] || null
+    product.size[0] || null
   );
 
   const handleBuyNow = () => {
@@ -94,8 +76,8 @@ const ProductDetails: FC<ProductDetailsProps> = ({
       >
         <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
         <div className="grid grid-cols-4 gap-4 w-1/2 max-[450px]:w-full max-[1024px]:w-8/12">
-          {product.sizes &&
-            product.sizes.map((sizeOption) => (
+          {product.size &&
+            product.size.map((sizeOption) => (
               <RadioGroup.Option
                 key={sizeOption.name}
                 value={sizeOption}

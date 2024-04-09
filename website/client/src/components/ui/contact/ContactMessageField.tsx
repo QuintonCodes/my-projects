@@ -4,7 +4,7 @@ interface ContactMessageFieldProps {
   label: string;
   name: string;
   value: string;
-  handleInputChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  handleInputChange: (event: ChangeEvent<HTMLTextAreaElement>) => any;
 }
 
 const ContactMessageField: FC<ContactMessageFieldProps> = ({

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, FC } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -7,14 +7,14 @@ import ProductDetails from "../components/ui/shop/ProductDetails";
 import ProductImageGallery from "../components/ui/shop/ProductImageGallery";
 import SimilarProducts from "../components/ui/shop/SimilarProducts";
 import { ShopContext } from "../context/ShopContext";
-import { PRODUCTS } from "../products";
+import { PRODUCTS } from "../utils/resources";
 
-const ProductInfoPage = () => {
-  const [isSizeDialogOpen, setIsSizeDialogOpen] = useState(true);
+const ProductInfoPage: FC = () => {
+  const [isSizeDialogOpen, setIsSizeDialogOpen] = useState<boolean>(true);
   const { addToCart, cartItems, setCartItems } = useContext(ShopContext);
-  const { productId } = useParams();
+  const { productId = "" } = useParams();
   const product = PRODUCTS.find(
-    (product) => product.id === parseInt(productId)
+    (product) => product.id === parseInt(productId, 10)
   );
 
   if (!product) {

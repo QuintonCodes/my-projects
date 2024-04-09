@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FC, FormEvent, ComponentType } from "react";
 import {
   EnvelopeIcon,
   UserIcon,
@@ -11,40 +11,40 @@ import AuthInputField from "../components/ui/auth/AuthInputField";
 import AuthSubmitButton from "../components/ui/auth/AuthSubmitButton";
 import { useAuthSubmit } from "../hooks/useAuthSubmit";
 
-const RegisterPage = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const RegisterPage: FC = () => {
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const authSubmit = useAuthSubmit();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    authSubmit(email, password, true, username);
+    authSubmit({ email, password, isLogin: true, username });
   };
 
   return (
     <AuthFormLayout title="Register">
       <form onSubmit={handleSubmit}>
         <AuthInputField
-          icon={UserIcon}
+          icon={UserIcon as ComponentType<{ className: string }>}
           type="text"
           id="username"
           label="Username"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setUsername(e.currentTarget.value)}
         />
         <AuthInputField
-          icon={EnvelopeIcon}
+          icon={EnvelopeIcon as ComponentType<{ className: string }>}
           type="email"
           id="email-register"
           label="Email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.currentTarget.value)}
         />
         <AuthInputField
-          icon={LockClosedIcon}
+          icon={LockClosedIcon as ComponentType<{ className: string }>}
           type="password"
           id="password-register"
           label="Password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.currentTarget.value)}
         />
 
         <AuthCheckBox

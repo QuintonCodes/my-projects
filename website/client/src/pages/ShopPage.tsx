@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { PRODUCTS } from "../products";
+import { PRODUCTS } from "../utils/resources";
+import { BaseProduct } from "../utils/models";
 
 const ShopPage = () => {
   return (
@@ -11,7 +12,7 @@ const ShopPage = () => {
       <section className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-            {PRODUCTS.map((product) => (
+            {PRODUCTS.map((product: BaseProduct) => (
               <div key={product.id} className="group relative">
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
                   <Link

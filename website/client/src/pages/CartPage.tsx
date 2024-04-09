@@ -16,7 +16,7 @@ import { BaseProduct } from "../utils/models";
 interface ShopContextType {
   addToCart: (product: BaseProduct) => void;
   cartItems: BaseProduct[];
-  removeFromCart: (productId: string) => void;
+  removeFromCart: (productId: number) => void;
   setCartItems: (items: BaseProduct[]) => void;
 }
 
@@ -36,7 +36,7 @@ const CartPage = () => {
     setTotalCost(calculateTotalCost(subtotal, shipping));
   }, [cartItems]);
 
-  function updateQuantity(productId: string, newQuantity: number) {
+  function updateQuantity(productId: number, newQuantity: number) {
     const updatedCartItems = updateProductQuantity(
       cartItems,
       productId,
@@ -61,7 +61,6 @@ const CartPage = () => {
                 <CartItem
                   key={product.id}
                   product={product}
-                  addToCart={addToCart}
                   updateQuantity={updateQuantity}
                   removeFromCart={removeFromCart}
                 />

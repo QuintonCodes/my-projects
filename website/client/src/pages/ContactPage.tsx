@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useState, FormEvent, FC, ChangeEvent } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ContactFormButton from "../components/ui/contact/ContactFormButton";
 import ContactInputField from "../components/ui/contact/ContactInputField";
 import ContactMessageField from "../components/ui/contact/ContactMessageField";
 import ContactSwitchGroup from "../components/ui/contact/ContactSwitchGroup";
-import { useFormInput } from "../hooks/useFormInput.ts";
+import { useFormInput } from "../hooks/useFormInput";
 import { useSendEmail } from "../hooks/useSendEmail";
 
-const ContactPage = () => {
-  const [agreed, setAgreed] = useState(false);
-  const [formData, handleInputChange] = useFormInput({
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  message: string;
+}
+
+const ContactPage: FC = () => {
+  const [agreed, setAgreed] = useState<boolean>(false);
+  const [formData, handleInputChange] = useFormInput<FormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -24,7 +32,7 @@ const ContactPage = () => {
     () => alert("Failed to send email.")
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (!agreed) {
@@ -86,7 +94,9 @@ const ContactPage = () => {
             <ContactMessageField
               name="message"
               label="Message"
-              handleInputChange={handleInputChange}
+              handleInputChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                handleInputChange(e)
+              }
               value={formData.message}
             />
 

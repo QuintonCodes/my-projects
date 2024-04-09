@@ -1,12 +1,12 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, FC } from "react";
 import { BaseProduct } from "../utils/models";
 
 interface ShopContextType {
   addToCart: (item: BaseProduct) => void;
   cartItems: BaseProduct[];
-  removeFromCart: (itemId: string) => void;
+  removeFromCart: (itemId: number) => void;
   setCartItems: React.Dispatch<React.SetStateAction<BaseProduct[]>>;
-  updateCartItemQuantity: (itemId: string, newQuantity: number) => void;
+  updateCartItemQuantity: (itemId: number, newQuantity: number) => void;
 }
 
 const defaultContextValue: ShopContextType = {
@@ -23,7 +23,7 @@ interface ShopContextProviderProps {
   children: React.ReactNode;
 }
 
-export const ShopContextProvider: React.FC<ShopContextProviderProps> = ({
+export const ShopContextProvider: FC<ShopContextProviderProps> = ({
   children,
 }) => {
   const initialCartItems: BaseProduct[] = JSON.parse(
@@ -58,11 +58,11 @@ export const ShopContextProvider: React.FC<ShopContextProviderProps> = ({
     }
   };
 
-  const removeFromCart = (itemId: string) => {
+  const removeFromCart = (itemId: number) => {
     setCartItems((prev) => prev.filter((item) => item.id !== itemId));
   };
 
-  const updateCartItemQuantity = (itemId: string, newQuantity: number) => {
+  const updateCartItemQuantity = (itemId: number, newQuantity: number) => {
     setCartItems((prevCartItems) =>
       prevCartItems.map((cartItem) =>
         cartItem.id === itemId

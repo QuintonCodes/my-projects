@@ -1,11 +1,10 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
-import pro1 from "../assets/mock-ups/Grey-T-Shirt-Front.webp";
-import pro2 from "../assets/mock-ups/Black-Hoodie-Back.webp";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { FEATURES } from "../features";
+import { FEATURES, IMAGES } from "../utils/resources";
 
-const HomePage = () => {
+const HomePage: FC = () => {
   return (
     <>
       <Navbar />
@@ -39,7 +38,7 @@ const HomePage = () => {
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
               <Link to={`/shop`}>
                 <img
-                  src={pro1}
+                  src={IMAGES[8].src}
                   alt="Shirt"
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   height="450px"
@@ -55,7 +54,7 @@ const HomePage = () => {
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-xl bg-gray-200 lg:aspect-none group-hover:opacity-75">
               <Link to={`/shop`}>
                 <img
-                  src={pro2}
+                  src={IMAGES[1].src}
                   alt="Hoodie"
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   height="450px"

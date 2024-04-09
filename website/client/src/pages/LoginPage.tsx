@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent, FC, ComponentType } from "react";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import AuthCheckAcc from "../components/ui/auth/AuthCheckAcc";
 import AuthCheckBox from "../components/ui/auth/AuthCheckBox";
@@ -7,32 +7,32 @@ import AuthInputField from "../components/ui/auth/AuthInputField";
 import AuthSubmitButton from "../components/ui/auth/AuthSubmitButton";
 import { useAuthSubmit } from "../hooks/useAuthSubmit";
 
-const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const LoginPage: FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const authSubmit = useAuthSubmit();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    authSubmit(email, password, true);
+    authSubmit({ email, password, isLogin: true });
   };
 
   return (
     <AuthFormLayout title="Login">
       <form onSubmit={handleSubmit}>
         <AuthInputField
-          icon={EnvelopeIcon}
+          icon={EnvelopeIcon as ComponentType<{ className: string }>}
           type="email"
           id="email-login"
           label="Email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.currentTarget.value)}
         />
         <AuthInputField
-          icon={LockClosedIcon}
+          icon={LockClosedIcon as ComponentType<{ className: string }>}
           type="password"
           id="password-login"
           label="Password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.currentTarget.value)}
         />
 
         <AuthCheckBox text="Remember me" forgotPassword={true} />

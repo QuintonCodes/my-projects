@@ -20,7 +20,7 @@ export function calculateTotalCost(subtotal: number, shipping: number): number {
 
 export function updateProductQuantity(
   cartItems: BaseProduct[],
-  productId: string,
+  productId: number,
   newQuantity: number
 ): BaseProduct[] {
   return cartItems.map((item) =>

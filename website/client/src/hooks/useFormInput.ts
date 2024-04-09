@@ -3,7 +3,9 @@ import { useState, ChangeEvent } from "react";
 export const useFormInput = <T>(initialState: T) => {
   const [formData, setFormData] = useState<T>(initialState);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
