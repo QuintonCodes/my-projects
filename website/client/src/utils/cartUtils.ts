@@ -1,19 +1,15 @@
-interface Product {
-  id: string;
-  price: number;
-  quantity: number;
-}
+import { BaseProduct } from "./models";
 
-export function calculateSubTotal(products: Product[]): number {
-  return products.reduce(
-    (total, product) => total + product.price * product.quantity,
+export function calculateSubTotal(cartItems: BaseProduct[]): number {
+  return cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
     0
   );
 }
 
-export function calculateShipping(products: Product[]): number {
-  return products.reduce(
-    (total, product) => total + product.price * 0.25 * product.quantity,
+export function calculateShipping(cartItems: BaseProduct[]): number {
+  return cartItems.reduce(
+    (total, item) => total + item.price * 0.25 * item.quantity,
     0
   );
 }
@@ -23,11 +19,11 @@ export function calculateTotalCost(subtotal: number, shipping: number): number {
 }
 
 export function updateProductQuantity(
-  products: Product[],
+  cartItems: BaseProduct[],
   productId: string,
   newQuantity: number
-): Product[] {
-  return products.map((product) =>
-    product.id === productId ? { ...product, quantity: newQuantity } : product
+): BaseProduct[] {
+  return cartItems.map((item) =>
+    item.id === productId ? { ...item, quantity: newQuantity } : item
   );
 }

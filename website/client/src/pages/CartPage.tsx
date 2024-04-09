@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import CartButtons from "../components/ui/cart/CartButtons";
-import CartSummary from "../components/ui/cart/CartSummary";
 import CartItem from "../components/ui/cart/CartItem";
+import CartSummary from "../components/ui/cart/CartSummary";
 import { ShopContext } from "../context/ShopContext";
 import {
   calculateShipping,
@@ -11,11 +11,19 @@ import {
   calculateTotalCost,
   updateProductQuantity,
 } from "../utils/cartUtils";
+import { BaseProduct } from "../utils/models";
+
+interface ShopContextType {
+  addToCart: (product: BaseProduct) => void;
+  cartItems: BaseProduct[];
+  removeFromCart: (productId: string) => void;
+  setCartItems: (items: BaseProduct[]) => void;
+}
 
 const CartPage = () => {
-  const [cartSubTotal, setCartSubTotal] = useState(0);
-  const [totalShipping, setTotalShipping] = useState(0);
-  const [totalCost, setTotalCost] = useState(0);
+  const [cartSubTotal, setCartSubTotal] = useState<number>(0);
+  const [totalShipping, setTotalShipping] = useState<number>(0);
+  const [totalCost, setTotalCost] = useState<number>(0);
   const { addToCart, cartItems, removeFromCart, setCartItems } =
     useContext(ShopContext);
 
@@ -28,7 +36,7 @@ const CartPage = () => {
     setTotalCost(calculateTotalCost(subtotal, shipping));
   }, [cartItems]);
 
-  function updateQuantity(productId, newQuantity) {
+  function updateQuantity(productId: string, newQuantity: number) {
     const updatedCartItems = updateProductQuantity(
       cartItems,
       productId,
@@ -49,7 +57,7 @@ const CartPage = () => {
             <p>Your cart is empty</p>
           ) : (
             <ul role="list" className="-my-6 divide-y divide-gray-300">
-              {cartItems.map((product) => (
+              {cartItems.map((product: BaseProduct) => (
                 <CartItem
                   key={product.id}
                   product={product}

@@ -1,25 +1,10 @@
 import { FC } from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
-
-interface Product {
-  id: string;
-  name: string;
-  images: string[];
-  selectedSize: {
-    name: string;
-  };
-  price: number;
-  quantity: number;
-  color: [
-    {
-      name: string;
-    }
-  ];
-}
+import { BaseProduct } from "../../../utils/models";
 
 interface CartItemProps {
-  product: Product;
-  addToCart: (product: Product) => void;
+  product: BaseProduct;
+  addToCart: (product: BaseProduct) => void;
   updateQuantity: (productId: string, newQuantity: number) => void;
   removeFromCart: (productId: string) => void;
 }
@@ -67,7 +52,7 @@ const CartItem: FC<CartItemProps> = ({
               className="bg-transparent text-lg border-none font-semibold py-[10px] pr-[5px] pl-[15px] w-10 max-[450px]:text-base"
             />
             <button
-              onClick={() => addToCart(product)}
+              onClick={() => updateQuantity(product.id, product.quantity + 1)}
               className="bg-transparent text-xl cursor-pointer border-none font-semibold max-[450px]:text-lg"
             >
               +

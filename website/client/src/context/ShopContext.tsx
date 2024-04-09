@@ -1,21 +1,23 @@
 import React, { createContext, useState, useEffect } from "react";
-
-interface CartItem {
-  id: string;
-  quantity: number;
-  selectedSize: { name: string };
-  color: [{ name: string }];
-}
+import { BaseProduct } from "../utils/models";
 
 interface ShopContextType {
-  addToCart: (item: CartItem) => void;
-  cartItems: CartItem[];
+  addToCart: (item: BaseProduct) => void;
+  cartItems: BaseProduct[];
   removeFromCart: (itemId: string) => void;
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  setCartItems: React.Dispatch<React.SetStateAction<BaseProduct[]>>;
   updateCartItemQuantity: (itemId: string, newQuantity: number) => void;
 }
 
-export const ShopContext = createContext<ShopContextType | null>(null);
+const defaultContextValue: ShopContextType = {
+  addToCart: () => {},
+  cartItems: [],
+  removeFromCart: () => {},
+  setCartItems: () => {},
+  updateCartItemQuantity: () => {},
+};
+
+export const ShopContext = createContext<ShopContextType>(defaultContextValue);
 
 interface ShopContextProviderProps {
   children: React.ReactNode;
@@ -24,16 +26,16 @@ interface ShopContextProviderProps {
 export const ShopContextProvider: React.FC<ShopContextProviderProps> = ({
   children,
 }) => {
-  const initialCartItems: CartItem[] = JSON.parse(
+  const initialCartItems: BaseProduct[] = JSON.parse(
     localStorage.getItem("cartItems") || "[]"
   );
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+  const [cartItems, setCartItems] = useState<BaseProduct[]>(initialCartItems);
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (item: CartItem) => {
+  const addToCart = (item: BaseProduct) => {
     const existingCartItem = cartItems.find(
       (cartItem) =>
         cartItem.id === item.id &&
