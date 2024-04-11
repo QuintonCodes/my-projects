@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RadioGroup } from "@headlessui/react";
 import { classNames } from "../../../utils/helpers";
 import { BaseProduct, SizeOption } from "../../../utils/models";
+import Button from "../../Button";
 
 interface ProductDetailsProps {
   product: BaseProduct;
@@ -141,12 +142,11 @@ const ProductDetails: FC<ProductDetailsProps> = ({
       </div>
 
       <Link to="/cart">
-        <div
-          className="mt-5 flex w-2/12 items-center justify-center rounded-md border border-transparent bg-[#282828] px-8 py-3 text-base font-bold text-white hover:bg-[#1f1f1f] focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 max-[450px]:w-1/3 max-[1024px]:w-3/12"
+        <Button
           onClick={handleBuyNow}
-        >
-          Buy
-        </div>
+          text="Buy"
+          additionalClasses="mt-5 flex w-2/12 items-center justify-center px-8 py-3 focus:outline-none focus:ring-2 focus:ring-[#333333] focus:ring-offset-2 max-[450px]:w-1/3 max-[1024px]:w-3/12"
+        />
       </Link>
     </div>
   );

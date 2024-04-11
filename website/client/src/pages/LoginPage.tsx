@@ -4,8 +4,8 @@ import AuthCheckAcc from "../components/ui/auth/AuthCheckAcc";
 import AuthCheckBox from "../components/ui/auth/AuthCheckBox";
 import AuthFormLayout from "../components/ui/auth/AuthFormLayout";
 import AuthInputField from "../components/ui/auth/AuthInputField";
-import AuthSubmitButton from "../components/ui/auth/AuthSubmitButton";
 import { useAuthSubmit } from "../hooks/useAuthSubmit";
+import Button from "../components/Button";
 
 const LoginPage: FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -36,7 +36,7 @@ const LoginPage: FC = () => {
         />
 
         <AuthCheckBox text="Remember me" forgotPassword={true} />
-        <AuthSubmitButton text="Login" />
+        <Button text="Login" />
         <AuthCheckAcc
           check="Don`t have an account?"
           link="/register"

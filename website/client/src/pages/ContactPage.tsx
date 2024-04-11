@@ -1,7 +1,7 @@
 import { useState, FormEvent, FC, ChangeEvent } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import ContactFormButton from "../components/ui/contact/ContactFormButton";
+import Button from "../components/Button";
 import ContactInputField from "../components/ui/contact/ContactInputField";
 import ContactMessageField from "../components/ui/contact/ContactMessageField";
 import ContactSwitchGroup from "../components/ui/contact/ContactSwitchGroup";
@@ -102,7 +102,12 @@ const ContactPage: FC = () => {
 
             <ContactSwitchGroup agreed={agreed} setAgreed={setAgreed} />
           </div>
-          <ContactFormButton />
+          <div className="mt-5">
+            <Button
+              text="Let`s Talk"
+              additionalClasses="bg-[#282828] block bg-grey-600 px-3.5 py-2.5 text-center text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3a3a3a]"
+            />
+          </div>
         </form>
       </section>
 

@@ -8,8 +8,8 @@ import AuthCheckAcc from "../components/ui/auth/AuthCheckAcc";
 import AuthCheckBox from "../components/ui/auth/AuthCheckBox";
 import AuthFormLayout from "../components/ui/auth/AuthFormLayout";
 import AuthInputField from "../components/ui/auth/AuthInputField";
-import AuthSubmitButton from "../components/ui/auth/AuthSubmitButton";
 import { useAuthSubmit } from "../hooks/useAuthSubmit";
+import Button from "../components/Button";
 
 const RegisterPage: FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -51,7 +51,7 @@ const RegisterPage: FC = () => {
           text="I agree to the terms & conditions"
           forgotPassword={false}
         />
-        <AuthSubmitButton text="Register" />
+        <Button text="Register" />
         <AuthCheckAcc
           check="Already have an account?"
           link="/login"

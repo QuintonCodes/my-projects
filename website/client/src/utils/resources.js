@@ -1,15 +1,15 @@
-import image1 from "./assets/mock-ups/Black-Hoodie-Front.webp";
-import image2 from "./assets/mock-ups/Black-Hoodie-Back.webp";
-import image3 from "./assets/mock-ups/Grey-Hoodie-Front.webp";
-import image4 from "./assets/mock-ups/Grey-Hoodie-Back.webp";
-import image5 from "./assets/mock-ups/White-Hoodie-Front.webp";
-import image6 from "./assets/mock-ups/White-Hoodie-Back.webp";
-import image7 from "./assets/mock-ups/Black-T-Shirt-Front.webp";
-import image8 from "./assets/mock-ups/Black-T-Shirt-Back.webp";
-import image9 from "./assets/mock-ups/Grey-T-Shirt-Front.webp";
-import image10 from "./assets/mock-ups/Grey-T-Shirt-Back.webp";
-import image11 from "./assets/mock-ups/White-T-Shirt-Front.webp";
-import image12 from "./assets/mock-ups/White-T-Shirt-Back.webp";
+import image1 from "../assets/mock-ups/Black-Hoodie-Front.webp";
+import image2 from "../assets/mock-ups/Black-Hoodie-Back.webp";
+import image3 from "../assets/mock-ups/Grey-Hoodie-Front.webp";
+import image4 from "../assets/mock-ups/Grey-Hoodie-Back.webp";
+import image5 from "../assets/mock-ups/White-Hoodie-Front.webp";
+import image6 from "../assets/mock-ups/White-Hoodie-Back.webp";
+import image7 from "../assets/mock-ups/Black-T-Shirt-Front.webp";
+import image8 from "../assets/mock-ups/Black-T-Shirt-Back.webp";
+import image9 from "../assets/mock-ups/Grey-T-Shirt-Front.webp";
+import image10 from "../assets/mock-ups/Grey-T-Shirt-Back.webp";
+import image11 from "../assets/mock-ups/White-T-Shirt-Front.webp";
+import image12 from "../assets/mock-ups/White-T-Shirt-Back.webp";
 
 import {
   ComputerDesktopIcon,
