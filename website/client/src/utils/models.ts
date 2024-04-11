@@ -13,6 +13,7 @@ export interface BaseProduct {
   name: string;
   price: number;
   color: ColorOption[];
+  category: string;
   images: string[];
   quantity: number;
   size: SizeOption[];
