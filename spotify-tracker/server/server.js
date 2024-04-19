@@ -72,7 +72,10 @@ app.get("/get_followed_artists", async (req, res) => {
   try {
     const data = await spotifyApi.getFollowedArtists({ limit: 10 });
     const artists = data.body.artists.items.map((artist) => {
-      return { name: artist.name };
+      return {
+        name: artist.name,
+        image: artist.images[0] ? artist.images[0].url : null,
+      };
     });
     res.json(artists);
   } catch (error) {

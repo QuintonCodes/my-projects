@@ -1,8 +1,16 @@
 import { FC, useEffect, useState } from "react";
 import axios from "axios";
+import {
+  Avatar,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+} from "@mui/material";
 
 interface Artist {
   name: string;
+  image: string | null;
 }
 
 const App: FC = () => {
@@ -36,20 +44,43 @@ const App: FC = () => {
   }, []);
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
+    <div
+      style={{
+        padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <h1>Followed Artists</h1>
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <ul>
+        <List
+          sx={{
+            width: "100%",
+            maxWidth: 520,
+          }}
+        >
           {artists.map((artist, index) => (
-            <li key={index} style={{ color: "white" }}>
-              {artist.name}
-            </li>
+            <ListItem
+              key={index}
+              sx={{
+                bgcolor: "#424242",
+                marginBottom: 1,
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            >
+              <ListItemAvatar>
+                <Avatar src={artist.image || undefined} alt={artist.name} />
+              </ListItemAvatar>
+              <ListItemText primary={artist.name} />
+            </ListItem>
           ))}
-        </ul>
+        </List>
       )}
     </div>
   );
