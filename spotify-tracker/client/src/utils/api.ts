@@ -1,0 +1,27 @@
+import axios from "axios";
+import { Artist } from "./models";
+
+export const fetchArtists = async (
+  currentPage: number,
+  itemsPerPage: number
+): Promise<Artist[]> => {
+  const offset = (currentPage - 1) * itemsPerPage;
+  const response = await axios.get(
+    `http://localhost:3000/get_followed_artists?limit=${itemsPerPage}&offset=${offset}`,
+    { withCredentials: true }
+  );
+  if (response.status !== 200) {
+    throw new Error("Network response was not ok");
+  }
+  return response.data;
+};
+
+export const fetchArtistOfTheDay = async (): Promise<Artist> => {
+  const response = await axios.get("http://localhost:3000/get_random_artist", {
+    withCredentials: true,
+  });
+  if (response.status !== 200) {
+    throw new Error("Failed to fetch artist of the day");
+  }
+  return response.data;
+};

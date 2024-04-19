@@ -70,29 +70,32 @@ app.get("/get_followed_artists", async (req, res) => {
   spotifyApi.setAccessToken(req.session.token_info.access_token);
 
   try {
-    const data = await spotifyApi.getFollowedArtists({ limit: 10 });
-    const artists = data.body.artists.items.map((artist) => {
-      return {
-        name: artist.name,
-        image: artist.images[0] ? artist.images[0].url : null,
-      };
-    });
+    if (!req.session.full_artist_list) {
+      const data = await spotifyApi.getFollowedArtists({ limit: 50 });
+      // Randomize the order
+      req.session.full_artist_list = data.body.artists.items
+        .map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
+    }
+
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0;
+    const paginatedArtists = req.session.full_artist_list.slice(
+      offset,
+      offset + limit
+    );
+    const data = await spotifyApi.getFollowedArtists({ limit, offset });
+    const artists = paginatedArtists.map((artist) => ({
+      name: artist.name,
+      image: artist.images[0] ? artist.images[0].url : null,
+    }));
     res.json(artists);
   } catch (error) {
     console.error("Failed to fetch artists:", error);
     if (error.statusCode === 401) {
-      // Access token expired, refresh it
-      try {
-        const data = await spotifyApi.refreshAccessToken();
-        req.session.token_info.access_token = data.body["access_token"];
-        spotifyApi.setAccessToken(data.body["access_token"]);
-        return res.redirect("/get_followed_artists");
-      } catch (refreshError) {
-        return res.status(500).json({
-          error: "Failed to refresh access token",
-          message: refreshError,
-        });
-      }
+      // Handle token expiration etc.
+      res.status(401).send("Authentication required.");
     } else {
       res
         .status(500)
@@ -115,7 +118,10 @@ app.get("/get_random_artist", async (req, res) => {
         Math.random() * data.body.artists.items.length
       );
       const randomArtist = data.body.artists.items[randomIndex];
-      res.json({ randomArtistName: randomArtist.name });
+      const artistImage = randomArtist.images[0]
+        ? randomArtist.images[0].url
+        : null;
+      res.json({ name: randomArtist.name, image: artistImage });
     } else {
       res.status(404).send("No followed artists found");
     }

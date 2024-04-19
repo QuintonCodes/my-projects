@@ -1,88 +1,49 @@
-import { FC, useEffect, useState } from "react";
-import axios from "axios";
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-} from "@mui/material";
-
-interface Artist {
-  name: string;
-  image: string | null;
-}
+import { FC, useState } from "react";
+import ArtistList from "./components/ArtistList";
+import ArtistOfTheDay from "./components/ArtistOfTheDay";
+import useArtists from "./hooks/useArtists";
+import useArtistOfTheDay from "./hooks/useArtistOfTheDay";
+import { Container } from "@mui/material";
 
 const App: FC = () => {
-  const [artists, setArtists] = useState<Artist[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const {
+    artists,
+    isLoading: isArtistsLoading,
+    error: artistError,
+  } = useArtists(currentPage, itemsPerPage);
+  const { artistOfTheDay, isLoading: isArtistOfDayLoading } =
+    useArtistOfTheDay();
 
-  useEffect(() => {
-    const fetchArtists = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/get_followed_artists",
-          { withCredentials: true }
-        );
-        if (response.status !== 200) {
-          throw new Error("Network response was not ok");
-        }
-        setArtists(response.data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("An unknown error occured");
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-    fetchArtists();
-  }, []);
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <h1>Followed Artists</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <List
-          sx={{
-            width: "100%",
-            maxWidth: 520,
-          }}
-        >
-          {artists.map((artist, index) => (
-            <ListItem
-              key={index}
-              sx={{
-                bgcolor: "#424242",
-                marginBottom: 1,
-                borderRadius: "10px",
-                boxShadow: 3,
-              }}
-            >
-              <ListItemAvatar>
-                <Avatar src={artist.image || undefined} alt={artist.name} />
-              </ListItemAvatar>
-              <ListItemText primary={artist.name} />
-            </ListItem>
-          ))}
-        </List>
-      )}
-    </div>
+    <Container>
+      <ArtistList
+        artists={artists}
+        error={artistError}
+        isLoading={isArtistsLoading}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+      />
+      <ArtistOfTheDay
+        artistOfTheDay={artistOfTheDay}
+        isLoading={isArtistOfDayLoading}
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+      />
+    </Container>
   );
 };
 
