@@ -1,13 +1,15 @@
 import { FC } from "react";
 import {
+  Alert,
+  AlertTitle,
   Button,
   Backdrop,
   Card,
-  CardMedia,
-  CardContent,
-  Typography,
   CardActions,
+  CardContent,
+  CardMedia,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import { Artist } from "../utils/models";
 
@@ -91,9 +93,10 @@ const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
             </div>
           </Card>
         ) : (
-          <Typography variant="subtitle1">
+          <Alert severity="error">
+            <AlertTitle>Sad news</AlertTitle>
             No artist of the day found
-          </Typography>
+          </Alert>
         )}
       </Backdrop>
     </div>

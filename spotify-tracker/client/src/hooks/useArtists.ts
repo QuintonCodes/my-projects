@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Artist } from "../utils/models";
 import { fetchArtists } from "../utils/api";
+import { Artist } from "../utils/models";
+import axios from "axios";
 
 const useArtists = (currentPage: number, itemsPerPage: number) => {
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -8,13 +9,22 @@ const useArtists = (currentPage: number, itemsPerPage: number) => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const load = async () => {
       setIsLoading(true);
+
       try {
-        const data = await fetchArtists(currentPage, itemsPerPage);
+        const data = await fetchArtists(
+          currentPage,
+          itemsPerPage,
+          controller.signal
+        );
         setArtists(data);
       } catch (error: unknown) {
-        if (error instanceof Error) {
+        if (axios.isCancel(error)) {
+          console.log("Fetch cancelled");
+        } else if (error instanceof Error) {
           setError(error.message);
         } else {
           setError("An unknown error occured");
@@ -25,6 +35,10 @@ const useArtists = (currentPage: number, itemsPerPage: number) => {
     };
 
     load();
+
+    return () => {
+      controller.abort();
+    };
   }, [currentPage, itemsPerPage]);
 
   return { artists, isLoading, error };

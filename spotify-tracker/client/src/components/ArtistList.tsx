@@ -1,14 +1,14 @@
 import { FC } from "react";
 import {
-  Avatar,
   Alert,
   AlertTitle,
+  Avatar,
+  CircularProgress,
   List,
   ListItem,
-  ListItemText,
   ListItemAvatar,
+  ListItemText,
   Pagination,
-  CircularProgress,
 } from "@mui/material";
 import { Artist } from "../utils/models";
 
@@ -40,12 +40,10 @@ const ArtistList: FC<ArtistListProps> = ({
       {isLoading ? (
         <CircularProgress color="inherit" />
       ) : error ? (
-        <>
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            {error}
-          </Alert>
-        </>
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {error}
+        </Alert>
       ) : (
         <List
           sx={{

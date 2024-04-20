@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Artist } from "../utils/models";
 import { fetchArtistOfTheDay } from "../utils/api";
+import { Artist } from "../utils/models";
 
 const useArtistOfTheDay = () => {
   const [artistOfTheDay, setArtistOfTheDay] = useState<Artist | null>(null);
