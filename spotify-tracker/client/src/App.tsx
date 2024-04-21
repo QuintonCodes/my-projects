@@ -1,44 +1,35 @@
-import { FC, useState } from "react";
-import ArtistList from "./components/ArtistList";
-import ArtistOfTheDay from "./components/ArtistOfTheDay";
-import useArtists from "./hooks/useArtists";
-import useArtistOfTheDay from "./hooks/useArtistOfTheDay";
-import { Container } from "@mui/material";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import ArtistListPage from "./pages/ArtistListPage";
+import DailyArtistPage from "./pages/DailyArtistPage";
+import { Container, CircularProgress, Box } from "@mui/material";
 
-const App: FC = () => {
-  const itemsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const {
-    artists,
-    isLoading: isArtistsLoading,
-    error: artistError,
-    totalPages,
-  } = useArtists(currentPage, itemsPerPage);
-  const { artistOfTheDay, isLoading: isArtistOfDayLoading } =
-    useArtistOfTheDay();
-
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setCurrentPage(value);
-  };
-
+const App = () => {
   return (
-    <Container>
-      <ArtistList
-        totalPages={totalPages}
-        artists={artists}
-        error={artistError}
-        isLoading={isArtistsLoading}
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-      />
-      <ArtistOfTheDay
-        artistOfTheDay={artistOfTheDay}
-        isLoading={isArtistOfDayLoading}
-      />
-    </Container>
+    <Router>
+      <Navbar />
+      <Container component="main" maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/artists" element={<ArtistListPage />} />
+          <Route path="/daily-artist" element={<DailyArtistPage />} />
+          <Route
+            path="*"
+            element={
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="80vh"
+              >
+                <CircularProgress />
+              </Box>
+            }
+          />
+        </Routes>
+      </Container>
+    </Router>
   );
 };
 

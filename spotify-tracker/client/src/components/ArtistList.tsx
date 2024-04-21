@@ -149,9 +149,19 @@ const ArtistList: FC<ArtistListProps> = ({
         onChange={handlePageChange}
         sx={{
           paddingY: 5,
+          "& .MuiPaginationItem-root": {
+            color: "white",
+          },
+          "& .MuiPaginationItem-root.Mui-selected": {
+            backgroundColor: "#1DB954",
+            color: "white",
+          },
+          "& .MuiPaginationItem-root:hover": {
+            backgroundColor: "rgba(79, 227, 131, 0.7)",
+            color: "#fff",
+          },
         }}
         size="large"
-        color="primary"
       />
       <Backdrop
         sx={{
@@ -176,7 +186,7 @@ const ArtistList: FC<ArtistListProps> = ({
           {selectedArtist && (
             <ArtistCard
               artist={selectedArtist}
-              includeCloseButton={true}
+              includeViewButton={true}
               onListen={() => handleListen(selectedArtist.id)}
               onClose={handleCloseModal}
             />

@@ -12,13 +12,13 @@ import { Artist } from "../utils/models";
 interface ArtistCardProps {
   artist: Artist;
   onListen: () => void;
-  includeCloseButton?: boolean; // Optional prop to render a close button
+  includeViewButton?: boolean; // Optional prop to render a view button
   onClose?: () => void;
 }
 
 const ArtistCard: FC<ArtistCardProps> = ({
   artist,
-  includeCloseButton = false,
+  includeViewButton = false,
   onListen,
   onClose,
 }) => {
@@ -58,7 +58,7 @@ const ArtistCard: FC<ArtistCardProps> = ({
           </Typography>
         </CardContent>
         <CardActions>
-          {includeCloseButton && (
+          {includeViewButton && (
             <Button
               size="small"
               sx={{
@@ -73,7 +73,7 @@ const ArtistCard: FC<ArtistCardProps> = ({
               }}
               onClick={onClose}
             >
-              Close
+              View
             </Button>
           )}
           <Button

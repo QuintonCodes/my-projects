@@ -36,7 +36,16 @@ const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
       <Button
         onClick={handleOpenModal}
         size="large"
-        sx={{ textTransform: "none", color: "#fff", fontSize: 16 }}
+        sx={{
+          textTransform: "none",
+          color: "#fff",
+          fontSize: 16,
+          "&:hover": {
+            backgroundColor: "#1DB954",
+          },
+          borderRadius: 3,
+          padding: 1.25,
+        }}
       >
         Show
       </Button>

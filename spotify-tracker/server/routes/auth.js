@@ -14,7 +14,7 @@ router.get("/callback", async (req, res) => {
     req.session.token_info = {
       access_token: data.body["access_token"],
       refresh_token: data.body["refresh_token"],
-      expires_in: Date.now() + 10800000,
+      expires_in: Date.now() + 108000,
     };
 
     console.log("Token info set in session:", req.session.token_info);

@@ -13,7 +13,7 @@ async function refreshTokenIfNeeded(req, res, next) {
       req.session.token_info = {
         access_token: data.body["access_token"],
         refresh_token: refresh_token || data.body["refresh_token"], // Some APIs do not return a new refresh token
-        expires_in: Date.now() + 10800000,
+        expires_in: Date.now() + 108000,
       };
       spotifyApi.setAccessToken(data.body["access_token"]);
     } catch (error) {
