@@ -57,7 +57,10 @@ router.get(
         offset + limit
       );
 
-      res.json(paginatedArtists);
+      res.json({
+        artists: paginatedArtists,
+        total: req.session.full_artist_list.length,
+      });
     } catch (error) {
       console.error("Failed to fetch artists:", error);
       if (error.statusCode === 401) {

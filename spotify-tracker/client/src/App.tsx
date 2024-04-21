@@ -12,6 +12,7 @@ const App: FC = () => {
     artists,
     isLoading: isArtistsLoading,
     error: artistError,
+    totalPages,
   } = useArtists(currentPage, itemsPerPage);
   const { artistOfTheDay, isLoading: isArtistOfDayLoading } =
     useArtistOfTheDay();
@@ -26,6 +27,7 @@ const App: FC = () => {
   return (
     <Container>
       <ArtistList
+        totalPages={totalPages}
         artists={artists}
         error={artistError}
         isLoading={isArtistsLoading}

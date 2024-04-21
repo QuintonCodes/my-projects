@@ -21,6 +21,7 @@ interface ArtistListProps {
   artists: Artist[];
   error: string;
   isLoading: boolean;
+  totalPages: number;
   currentPage: number;
   handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
@@ -34,6 +35,7 @@ const ArtistList: FC<ArtistListProps> = ({
   artists,
   error,
   isLoading,
+  totalPages,
   currentPage,
   handlePageChange,
 }) => {
@@ -142,7 +144,7 @@ const ArtistList: FC<ArtistListProps> = ({
         </List>
       )}
       <Pagination
-        count={10}
+        count={totalPages}
         page={currentPage}
         onChange={handlePageChange}
         sx={{

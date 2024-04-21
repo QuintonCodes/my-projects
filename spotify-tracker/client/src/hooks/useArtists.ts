@@ -7,12 +7,14 @@ const useArtists = (currentPage: number, itemsPerPage: number) => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(0);
 
   useEffect(() => {
     const controller = new AbortController();
 
     const load = async () => {
       setIsLoading(true);
+      setError("");
 
       try {
         const data = await fetchArtists(
@@ -20,7 +22,8 @@ const useArtists = (currentPage: number, itemsPerPage: number) => {
           itemsPerPage,
           controller.signal
         );
-        setArtists(data);
+        setArtists(data.artists);
+        setTotalPages(Math.ceil(data.total / itemsPerPage));
       } catch (error: unknown) {
         if (axios.isCancel(error)) {
           console.log("Fetch cancelled");
@@ -41,7 +44,7 @@ const useArtists = (currentPage: number, itemsPerPage: number) => {
     };
   }, [currentPage, itemsPerPage]);
 
-  return { artists, isLoading, error };
+  return { artists, isLoading, error, totalPages };
 };
 
 export default useArtists;
