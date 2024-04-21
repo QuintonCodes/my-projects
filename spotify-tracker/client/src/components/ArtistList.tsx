@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState, useMemo } from "react";
 import {
   Alert,
   AlertTitle,
@@ -9,6 +9,8 @@ import {
   ListItemAvatar,
   ListItemText,
   Pagination,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
 import { Artist } from "../utils/models";
 
@@ -20,6 +22,11 @@ interface ArtistListProps {
   handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
+const sortOptions = [
+  { label: "A to Z", value: "az" },
+  { label: "Z to A", value: "za" },
+];
+
 const ArtistList: FC<ArtistListProps> = ({
   artists,
   error,
@@ -27,6 +34,18 @@ const ArtistList: FC<ArtistListProps> = ({
   currentPage,
   handlePageChange,
 }) => {
+  const [sortOrder, setSortOrder] = useState(sortOptions[0].value);
+
+  const sortedArtists = useMemo(() => {
+    return [...artists].sort((a, b) => {
+      if (sortOrder === "az") {
+        return a.name.localeCompare(b.name);
+      } else {
+        return b.name.localeCompare(a.name);
+      }
+    });
+  }, [artists, sortOrder]);
+
   return (
     <div
       style={{
@@ -37,6 +56,38 @@ const ArtistList: FC<ArtistListProps> = ({
       }}
     >
       <h1>Followed Artists</h1>
+      <Autocomplete
+        id="sort-artists"
+        options={sortOptions}
+        getOptionLabel={(option) => option.label}
+        value={sortOptions.find((option) => option.value === sortOrder)}
+        onChange={(event, newValue) => {
+          if (newValue) {
+            setSortOrder(newValue.value);
+          }
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Sort by"
+            sx={{
+              ".MuiOutlinedInput-root": {
+                color: "#fff",
+                bgcolor: "#333",
+                "& fieldset": { borderColor: "#777" },
+                "&:hover fieldset": { borderColor: "#bbb" },
+                "&.Mui-focused fieldset": { borderColor: "#fff" },
+              },
+            }}
+          />
+        )}
+        sx={{
+          width: 300,
+          marginBottom: 2,
+          ".MuiAutocomplete-inputRoot": { color: "white" },
+          ".MuiInputLabel-root": { color: "white" },
+        }}
+      />
       {isLoading ? (
         <CircularProgress color="inherit" />
       ) : error ? (
@@ -51,7 +102,7 @@ const ArtistList: FC<ArtistListProps> = ({
             maxWidth: 520,
           }}
         >
-          {artists.map((artist, index) => (
+          {sortedArtists.map((artist, index) => (
             <ListItem
               key={index}
               sx={{
@@ -64,6 +115,7 @@ const ArtistList: FC<ArtistListProps> = ({
                 "&:hover": {
                   transform: "scale(1.05)",
                   boxShadow: 6,
+                  cursor: "pointer",
                 },
               }}
             >

@@ -4,14 +4,11 @@ import {
   AlertTitle,
   Button,
   Backdrop,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   CircularProgress,
-  Typography,
 } from "@mui/material";
 import { Artist } from "../utils/models";
+import ArtistCard from "./ArtistCard";
+import { handleListen } from "../utils/helper";
 
 interface ArtistOfTheDayProps {
   artistOfTheDay: Artist | null;
@@ -46,58 +43,39 @@ const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
         Show
       </Button>
       <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            backdropFilter: open ? "blur(4px)" : "none", // Change blur intensity as needed
+            backgroundColor: "rgba(0,0,0,0.5)", // Optional: add a slight dark overlay
+            pointerEvents: "none",
+          },
+        }}
         open={open}
         onClick={handleClose}
       >
-        {isLoading ? (
-          <CircularProgress color="inherit" />
-        ) : artistOfTheDay ? (
-          <Card
-            sx={{
-              maxWidth: 325,
-              borderRadius: 3,
-              backgroundColor: "#1f1f1f",
-            }}
-          >
-            <CardMedia
-              component="img"
-              height="100"
-              image={artistOfTheDay.image || "default_image_url_here"}
-              alt={artistOfTheDay.name}
+        <div style={{ position: "relative", zIndex: 2 }}>
+          {isLoading ? (
+            <CircularProgress color="inherit" />
+          ) : artistOfTheDay ? (
+            <ArtistCard
+              artist={artistOfTheDay}
+              onListen={() => handleListen(artistOfTheDay.id)}
             />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <CardContent>
-                <Typography variant="h5" color="#fff">
-                  {artistOfTheDay.name}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button
-                  size="small"
-                  sx={{
-                    textTransform: "none",
-                    color: "#fff",
-                    fontSize: 16,
-                  }}
-                >
-                  Okay
-                </Button>
-              </CardActions>
-            </div>
-          </Card>
-        ) : (
-          <Alert severity="error">
-            <AlertTitle>Sad news</AlertTitle>
-            No artist of the day found
-          </Alert>
-        )}
+          ) : (
+            <Alert severity="info">
+              <AlertTitle>Sad news</AlertTitle>
+              No artist available today
+            </Alert>
+          )}
+        </div>
       </Backdrop>
     </div>
   );

@@ -15,6 +15,16 @@ function ensureAuthenticated(req, res, next) {
   next();
 }
 
+// Simplified data extraction function
+function simplifyArtistData(artist) {
+  return {
+    id: artist.id,
+    name: artist.name,
+    image: artist.images.length > 0 ? artist.images[0].url : null,
+    monthlyFollowers: artist.followers.total,
+  };
+}
+
 // Get followed artists
 router.get("/get_followed_artists", ensureAuthenticated, async (req, res) => {
   try {
@@ -24,7 +34,7 @@ router.get("/get_followed_artists", ensureAuthenticated, async (req, res) => {
       req.session.full_artist_list = data.body.artists.items
         .map((value) => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value);
+        .map(({ value }) => simplifyArtistData(value));
     }
 
     const limit = parseInt(req.query.limit) || 10;
@@ -33,12 +43,8 @@ router.get("/get_followed_artists", ensureAuthenticated, async (req, res) => {
       offset,
       offset + limit
     );
-    res.json(
-      paginatedArtists.map((artist) => ({
-        name: artist.name,
-        image: artist.images[0] ? artist.images[0].url : null,
-      }))
-    );
+
+    res.json(paginatedArtists);
   } catch (error) {
     console.error("Failed to fetch artists:", error);
     if (error.statusCode === 401) {
@@ -60,11 +66,11 @@ router.get("/get_random_artist", ensureAuthenticated, async (req, res) => {
       const randomIndex = Math.floor(
         Math.random() * data.body.artists.items.length
       );
-      const randomArtist = data.body.artists.items[randomIndex];
-      res.json({
-        name: randomArtist.name,
-        image: randomArtist.images[0] ? randomArtist.images[0].url : null,
-      });
+      const randomArtist = simplifyArtistData(
+        data.body.artists.items[randomIndex]
+      );
+
+      res.json(randomArtist);
     } else {
       res.status(404).send("No followed artists found");
     }
