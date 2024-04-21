@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Alert,
   AlertTitle,
@@ -8,23 +8,21 @@ import {
 } from "@mui/material";
 import { Artist } from "../utils/models";
 import ArtistCard from "./ArtistCard";
-import { handleListen } from "../utils/helper";
+import { handleClose, handleListen, handleOpen } from "../utils/helper";
 
 interface ArtistOfTheDayProps {
   artistOfTheDay: Artist | null;
   isLoading: boolean;
-  open: boolean;
-  handleOpen: () => void;
-  handleClose: () => void;
 }
 
 const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
   artistOfTheDay,
   isLoading,
-  open,
-  handleOpen,
-  handleClose,
 }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpenModal = () => handleOpen(setOpen);
+  const handleCloseModal = () => handleClose(setOpen);
   return (
     <div
       style={{
@@ -36,7 +34,7 @@ const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
     >
       <h1>Artist of the day</h1>
       <Button
-        onClick={handleOpen}
+        onClick={handleOpenModal}
         size="large"
         sx={{ textTransform: "none", color: "#fff", fontSize: 16 }}
       >
@@ -59,7 +57,7 @@ const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
           },
         }}
         open={open}
-        onClick={handleClose}
+        onClick={handleCloseModal}
       >
         <div style={{ position: "relative", zIndex: 2 }}>
           {isLoading ? (

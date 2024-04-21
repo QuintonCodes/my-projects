@@ -1,11 +1,5 @@
 const router = require("express").Router();
-const SpotifyWebApi = require("spotify-web-api-node");
-
-const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: process.env.REDIRECT_URI,
-});
+const spotifyApi = require("../utils/spotifyClient");
 
 // Login route
 router.get("/login", (req, res) => {
@@ -20,7 +14,7 @@ router.get("/callback", async (req, res) => {
     req.session.token_info = {
       access_token: data.body["access_token"],
       refresh_token: data.body["refresh_token"],
-      expires_in: data.body["expires_in"],
+      expires_in: Date.now() + 10800000,
     };
 
     console.log("Token info set in session:", req.session.token_info);

@@ -11,8 +11,11 @@ import {
   Pagination,
   Autocomplete,
   TextField,
+  Backdrop,
 } from "@mui/material";
 import { Artist } from "../utils/models";
+import ArtistCard from "./ArtistCard";
+import { handleClose, handleListen, handleOpen } from "../utils/helper";
 
 interface ArtistListProps {
   artists: Artist[];
@@ -35,6 +38,11 @@ const ArtistList: FC<ArtistListProps> = ({
   handlePageChange,
 }) => {
   const [sortOrder, setSortOrder] = useState(sortOptions[0].value);
+  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
+  const [open, setOpen] = useState(false);
+
+  const handleOpenModal = () => handleOpen(setOpen);
+  const handleCloseModal = () => handleClose(setOpen);
 
   const sortedArtists = useMemo(() => {
     return [...artists].sort((a, b) => {
@@ -45,6 +53,11 @@ const ArtistList: FC<ArtistListProps> = ({
       }
     });
   }, [artists, sortOrder]);
+
+  const handleArtistClick = (artist: Artist) => {
+    setSelectedArtist(artist);
+    handleOpenModal();
+  };
 
   return (
     <div
@@ -105,6 +118,7 @@ const ArtistList: FC<ArtistListProps> = ({
           {sortedArtists.map((artist, index) => (
             <ListItem
               key={index}
+              onClick={() => handleArtistClick(artist)}
               sx={{
                 bgcolor: "#424242",
                 marginBottom: 1,
@@ -137,6 +151,36 @@ const ArtistList: FC<ArtistListProps> = ({
         size="large"
         color="primary"
       />
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            backdropFilter: open ? "blur(4px)" : "none", // Change blur intensity as needed
+            backgroundColor: "rgba(0,0,0,0.5)", // Optional: add a slight dark overlay
+            pointerEvents: "none",
+          },
+        }}
+        open={open}
+        onClick={handleCloseModal}
+      >
+        <div style={{ position: "relative", zIndex: 2 }}>
+          {selectedArtist && (
+            <ArtistCard
+              artist={selectedArtist}
+              includeCloseButton={true}
+              onListen={() => handleListen(selectedArtist.id)}
+              onClose={handleCloseModal}
+            />
+          )}
+        </div>
+      </Backdrop>
     </div>
   );
 };
