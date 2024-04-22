@@ -24,7 +24,7 @@ interface NavbarLinkProps {
 }
 
 const navigation = [
-  { name: "Home", to: "/", current: true },
+  { name: "Home", to: "/", current: false },
   { name: "Artists", to: "/artists", current: false },
   { name: "Daily Artist", to: "/daily-artist", current: false },
 ];
@@ -38,7 +38,6 @@ const NavbarLink = styled(ListItemText, {
     color: active ? "#1DB954" : "#fff",
     transition: "color 0.5s",
     whiteSpace: "nowrap",
-    // overflow: "hidden",
     textOverflow: "ellipsis",
   },
   "& span::after": {
@@ -82,15 +81,26 @@ const Navbar = () => {
   };
 
   const drawer = (
-    <List>
+    <List sx={{ bgcolor: "#1f1f1f", width: 250 }}>
       {navigation.map((item) => (
         <ListItem
           key={item.name}
           component={Link}
           to={item.to}
+          sx={{
+            "&:hover": {
+              backgroundColor: "#1DB954",
+              "& .MuiListItemText-primary": {
+                color: "#000",
+              },
+            },
+          }}
           selected={item.to === location.pathname}
         >
-          <ListItemText primary={item.name} />
+          <ListItemText
+            primary={item.name}
+            primaryTypographyProps={{ style: { color: "#fff" } }}
+          />
         </ListItem>
       ))}
     </List>
@@ -154,13 +164,13 @@ const Navbar = () => {
             onClick={handleMenu}
             color="inherit"
           >
-            <AccountCircleOutlinedIcon />
+            <AccountCircleOutlinedIcon sx={{ fontSize: 33 }} />
           </IconButton>
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: "top",
+              vertical: "bottom",
               horizontal: "right",
             }}
             keepMounted
