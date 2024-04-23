@@ -4,3 +4,12 @@ export interface Artist {
   image: string | null;
   monthlyFollowers: number;
 }
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  images: Array<{
+    url: string;
+  }>;
+}
