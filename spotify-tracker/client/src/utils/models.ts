@@ -6,10 +6,7 @@ export interface Artist {
 }
 
 export interface UserProfile {
+  display_name: string;
   id: string;
-  name: string;
-  email: string;
-  images: Array<{
-    url: string;
-  }>;
+  image: string;
 }

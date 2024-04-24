@@ -19,7 +19,12 @@ router.get("/profile", async (req, res) => {
   try {
     spotifyApi.setAccessToken(req.session.token_info.access_token);
     const me = await spotifyApi.getMe();
-    res.json(me.body);
+    const profile = {
+      display_name: me.body.display_name,
+      id: me.body.id,
+      image: me.body.images[0] ? me.body.images[0].url : null,
+    };
+    res.json(profile);
   } catch (error) {
     console.error("Error fetching user profile:", error);
     if (error.statusCode === 401) {
@@ -30,9 +35,16 @@ router.get("/profile", async (req, res) => {
         spotifyApi.setAccessToken(data.body["access_token"]);
         req.session.token_info.access_token = data.body["access_token"];
 
-        const me = await spotifyApi.getMe();
-        res.json(me.body);
-      } catch (error) {
+        const refreshedMe = await spotifyApi.getMe();
+        const refreshedProfile = {
+          display_name: refreshedMe.body.display_name,
+          id: refreshedMe.body.id,
+          image: refreshedMe.body.images[0]
+            ? refreshedMe.body.images[0].url
+            : null,
+        };
+        res.json(refreshedProfile);
+      } catch (refreshError) {
         console.error("Error refreshing token:", refreshError);
         res.status(500).send("Failed to refresh token and fetch user profile");
       }

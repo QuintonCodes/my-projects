@@ -47,7 +47,7 @@ const UserMenu = ({ authService }: UserMenuProps) => {
       >
         {user ? (
           <img
-            src={user.images[0].url}
+            src={user.image}
             alt="Profile"
             style={{ width: 33, borderRadius: "50%" }}
           />
