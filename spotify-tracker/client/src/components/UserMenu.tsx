@@ -20,8 +20,8 @@ const UserMenu = ({ authService }: UserMenuProps) => {
     setAnchorEl(null);
   };
 
-  const handleSignIn = async () => {
-    await authService.signIn();
+  const handleSignIn = () => {
+    authService.signIn();
   };
 
   const handleSignOut = async () => {

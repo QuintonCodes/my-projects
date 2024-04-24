@@ -13,11 +13,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { NavLinks, DrawerEl } from "./NavLinks";
 import UserMenu from "./UserMenu";
 import useUserEffect from "../hooks/useUserEffect";
-import AuthService from "../services/AuthService";
+import useAuthService from "../services/AuthService";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const authService = AuthService();
+  const authService = useAuthService();
 
   const theme = useTheme();
   const isMediumScreenDown = useMediaQuery(theme.breakpoints.down("md"));

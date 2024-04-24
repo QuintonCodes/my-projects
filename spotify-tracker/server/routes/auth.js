@@ -25,11 +25,17 @@ router.get("/profile", async (req, res) => {
     if (error.statusCode === 401) {
       // handle expired access token
       console.log("Access token expired, attempting to refresh...");
-      const data = await spotifyApi.refreshAccessToken();
-      spotifyApi.setAccessToken(data.body["access_token"]);
-      req.session.token_info.access_token = data.body["access_token"];
-      // Retry fetching profile after refreshing token
-      return router.get("/profile");
+      try {
+        const data = await spotifyApi.refreshAccessToken();
+        spotifyApi.setAccessToken(data.body["access_token"]);
+        req.session.token_info.access_token = data.body["access_token"];
+
+        const me = await spotifyApi.getMe();
+        res.json(me.body);
+      } catch (error) {
+        console.error("Error refreshing token:", refreshError);
+        res.status(500).send("Failed to refresh token and fetch user profile");
+      }
     } else {
       res.status(500).send("Failed to fetch user profile");
     }
@@ -43,7 +49,7 @@ router.get("/callback", async (req, res) => {
     req.session.token_info = {
       access_token: data.body["access_token"],
       refresh_token: data.body["refresh_token"],
-      expires_in: Date.now() + 108000,
+      expires_in: Date.now() + data.body["expires_in"] * 1000,
     };
 
     console.log("Token info set in session:", req.session.token_info);

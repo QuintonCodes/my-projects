@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-import AuthService from "../services/AuthService";
+import useAuthService from "../services/AuthService";
 
 const useUserEffect = () => {
   const location = useLocation();
-  const authService = AuthService();
+  const navigate = useNavigate();
+  const authService = useAuthService();
   const { login } = useUser();
 
   useEffect(() => {
@@ -17,8 +18,9 @@ const useUserEffect = () => {
     const searchParams = new URLSearchParams(location.search);
     if (searchParams.get("login") === "success") {
       fetchProfile();
+      navigate(location.pathname);
     }
-  }, [location.search, login, authService]);
+  }, [location, navigate, login, authService]);
 
   return null;
 };
