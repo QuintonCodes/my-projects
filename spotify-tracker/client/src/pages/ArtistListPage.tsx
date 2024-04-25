@@ -11,6 +11,7 @@ const ArtistListPage: FC = () => {
     error: artistError,
     totalPages,
   } = useArtists(currentPage, itemsPerPage);
+
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
     value: number

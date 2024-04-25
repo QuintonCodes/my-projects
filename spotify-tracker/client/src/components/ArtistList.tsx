@@ -1,4 +1,4 @@
-import { FC, useState, useMemo } from "react";
+import { FC, useState, useMemo, useContext } from "react";
 import {
   Alert,
   AlertTitle,
@@ -16,6 +16,7 @@ import {
 import { Artist } from "../utils/models";
 import ArtistCard from "./ArtistCard";
 import { handleClose, handleListen, handleOpen } from "../utils/helper";
+import { UserContext } from "../context/UserContext";
 
 interface ArtistListProps {
   artists: Artist[];
@@ -42,6 +43,7 @@ const ArtistList: FC<ArtistListProps> = ({
   const [sortOrder, setSortOrder] = useState(sortOptions[0].value);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [open, setOpen] = useState(false);
+  const userContext = useContext(UserContext);
 
   const handleOpenModal = () => handleOpen(setOpen);
   const handleCloseModal = () => handleClose(setOpen);
@@ -105,10 +107,10 @@ const ArtistList: FC<ArtistListProps> = ({
       />
       {isLoading ? (
         <CircularProgress color="inherit" />
-      ) : error ? (
+      ) : error || !userContext?.user ? (
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
-          {error}
+          {error || "Please log in to view the artist of the day."}
         </Alert>
       ) : (
         <List
@@ -144,7 +146,7 @@ const ArtistList: FC<ArtistListProps> = ({
         </List>
       )}
       <Pagination
-        count={totalPages}
+        count={totalPages || 10}
         page={currentPage}
         onChange={handlePageChange}
         sx={{
