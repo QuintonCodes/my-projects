@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import logo from "../assets/Spotify-logo.png";
+import { UserContext } from "../context/UserContext";
 
 const HomePage = () => {
+  const userContext = useContext(UserContext);
   return (
     <div
       style={{
@@ -10,9 +13,13 @@ const HomePage = () => {
         alignItems: "center",
       }}
     >
-      <h1>
-        Welcome to Vibe Voyage where you can discover new artists everyday
-      </h1>
+      {!userContext?.user ? (
+        <h1>
+          Welcome to Vibe Voyage where you can discover new artists everyday
+        </h1>
+      ) : (
+        <h1>Welcome to Vibe Voyage {userContext.user.display_name}, Enjoy!</h1>
+      )}
       <div
         style={{
           display: "flex",

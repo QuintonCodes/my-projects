@@ -31,7 +31,7 @@ const UserMenu = ({ authService }: UserMenuProps) => {
   };
 
   const handleProfileClick = () => {
-    window.open("https://www.spotify.com/account/overview/", "_blank");
+    window.open(`https://open.spotify.com/user/${user?.id}`, "_blank");
     handleClose();
   };
   return (
@@ -71,10 +71,10 @@ const UserMenu = ({ authService }: UserMenuProps) => {
         onClose={handleClose}
       >
         {user ? (
-          <Fragment>
+          <div>
             <MenuItem onClick={handleProfileClick}>Your Profile</MenuItem>
             <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
-          </Fragment>
+          </div>
         ) : (
           <MenuItem onClick={handleSignIn}>Sign in</MenuItem>
         )}

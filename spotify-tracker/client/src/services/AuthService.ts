@@ -22,24 +22,25 @@ const useAuthService = () => {
           "width=800,height=600"
         );
 
+        showMessage("Sign in initiated", "info");
+
         if (loginWindow) {
           const timer = setInterval(async () => {
-            try {
-              const profileResponse = await axiosInstance.get(
-                `${BASE_URL}/profile`
-              );
-              if (profileResponse.status === 200) {
-                clearInterval(timer);
-                loginWindow.close();
-                login(profileResponse.data);
-                showMessage(
-                  "Signed in and profile fetched successfully",
-                  "success"
+            if (loginWindow.closed) {
+              clearInterval(timer);
+              try {
+                const profileResponse = await axiosInstance.get(
+                  `${BASE_URL}/profile`
                 );
-              }
-            } catch (error) {
-              if (loginWindow.closed) {
-                clearInterval(timer);
+                if (profileResponse.status === 200) {
+                  loginWindow.close();
+                  login(profileResponse.data);
+                  showMessage(
+                    "Signed in and profile fetched successfully",
+                    "success"
+                  );
+                }
+              } catch (error) {
                 showMessage("Failed to fetch profile after sign-in", "error");
                 console.error("Error fetching profile after sign-in", error);
               }
@@ -48,7 +49,6 @@ const useAuthService = () => {
         } else {
           showMessage("Failed to open login window", "error");
         }
-        showMessage("Sign in initiated", "info");
       },
 
       signOut: async () => {

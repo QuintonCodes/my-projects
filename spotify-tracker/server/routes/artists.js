@@ -2,6 +2,11 @@ const router = require("express").Router();
 const spotifyApi = require("../utils/spotifyClient");
 const refreshTokenIfNeeded = require("../utils/refreshToken");
 
+let dailyArtist = {
+  artist: null,
+  timestamp: 0,
+};
+
 function ensureAuthenticated(req, res, next) {
   if (!req.session.token_info) {
     return res.redirect("/auth/login");
@@ -82,34 +87,41 @@ router.get(
   refreshTokenIfNeeded,
   async (req, res) => {
     try {
-      if (!req.session.full_artist_list) {
-        let allArtists = [];
-        let after = undefined;
+      const currentTimestamp = Date.now();
+      const oneDay = 24 * 60 * 60 * 1000;
 
-        while (true) {
-          const data = await spotifyApi.getFollowedArtists({
-            limit: 50,
-            after,
-          });
-          allArtists = allArtists.concat(data.body.artists.items);
-          after = data.body.artists.cursors.after;
-          if (!after) {
-            break; // Exit loop when no further pages are left
+      if (
+        !dailyArtist.artist ||
+        currentTimestamp - dailyArtist.timestamp > oneDay
+      ) {
+        let allArtists = req.session.full_artist_list || [];
+
+        if (allArtists.length === 0) {
+          let after = undefined;
+          while (true) {
+            const data = await spotifyApi.getFollowedArtists({
+              limit: 50,
+              after,
+            });
+            allArtists = allArtists.concat(data.body.artists.items);
+            after = data.body.artists.cursors.after;
+            if (!after) {
+              break; // Exit loop when no further pages are left
+            }
           }
+          allArtists = allArtists.map(simplifyArtistData);
+          req.session.full_artist_list = allArtists;
         }
-        req.session.full_artist_list = allArtists.map(simplifyArtistData);
+
+        // Select a new random artist
+        const randomIndex = Math.floor(Math.random() * allArtists.length);
+        dailyArtist = {
+          artist: allArtists[randomIndex],
+          timestamp: currentTimestamp,
+        };
       }
 
-      if (req.session.full_artist_list.length > 0) {
-        const randomIndex = Math.floor(
-          Math.random() * req.session.full_artist_list.length
-        );
-        const randomArtist = req.session.full_artist_list[randomIndex];
-
-        res.json(randomArtist);
-      } else {
-        res.status(404).send("No followed artists found");
-      }
+      res.json(dailyArtist.artist);
     } catch (error) {
       console.error("Failed to fetch artists:", error);
       res
