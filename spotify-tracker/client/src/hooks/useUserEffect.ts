@@ -1,26 +1,29 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useUser } from "../hooks/useContext";
+import { useNavigate } from "react-router-dom";
 import useAuthService from "../services/AuthService";
+import { useSnackbar } from "../hooks/useContext";
 
 const useUserEffect = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const authService = useAuthService();
-  const { login } = useUser();
+  const { showMessage } = useSnackbar();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const message = await authService.fetchProfile();
-      console.log(message);
+    const handleLogin = async () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("code")) {
+        try {
+          await authService.fetchProfile();
+          navigate("/", { replace: true });
+          showMessage("Login successful", "success");
+        } catch (error) {
+          showMessage("Login failed", "error");
+        }
+      }
     };
 
-    const searchParams = new URLSearchParams(location.search);
-    if (searchParams.get("login") === "success") {
-      fetchProfile();
-      navigate(location.pathname);
-    }
-  }, [location, navigate, login, authService]);
+    handleLogin();
+  }, [navigate, authService, showMessage]);
 
   return null;
 };

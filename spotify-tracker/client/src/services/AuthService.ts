@@ -8,16 +8,52 @@ const BASE_URL = "http://localhost:3000/auth";
 const useAuthService = () => {
   const { login, logout } = useUser();
   const { showMessage } = useSnackbar();
+  const axiosInstance = axios.create({
+    baseURL: BASE_URL,
+    withCredentials: true,
+  });
 
   const authService = useMemo(
     () => ({
       signIn: () => {
-        window.open(`${BASE_URL}/login`);
+        const loginWindow = window.open(
+          `${BASE_URL}/login`,
+          "_blank",
+          "width=800,height=600"
+        );
+
+        if (loginWindow) {
+          const timer = setInterval(async () => {
+            try {
+              const profileResponse = await axiosInstance.get(
+                `${BASE_URL}/profile`
+              );
+              if (profileResponse.status === 200) {
+                clearInterval(timer);
+                loginWindow.close();
+                login(profileResponse.data);
+                showMessage(
+                  "Signed in and profile fetched successfully",
+                  "success"
+                );
+              }
+            } catch (error) {
+              if (loginWindow.closed) {
+                clearInterval(timer);
+                showMessage("Failed to fetch profile after sign-in", "error");
+                console.error("Error fetching profile after sign-in", error);
+              }
+            }
+          }, 500);
+        } else {
+          showMessage("Failed to open login window", "error");
+        }
+        showMessage("Sign in initiated", "info");
       },
 
       signOut: async () => {
         try {
-          await axios.get(`${BASE_URL}/logout`);
+          await axiosInstance.get(`${BASE_URL}/logout`);
           logout();
           showMessage("Logged out successfully", "success");
         } catch (error) {
@@ -28,8 +64,9 @@ const useAuthService = () => {
 
       fetchProfile: async () => {
         try {
-          const response = await axios.get(`${BASE_URL}/profile`);
+          const response = await axiosInstance.get(`${BASE_URL}/profile`);
           login(response.data);
+          console.log("Profile fetched successfully", response.data);
           showMessage("Profile fetched successfully", "success");
         } catch (error: unknown) {
           if (axios.isAxiosError(error)) {
@@ -59,7 +96,7 @@ const useAuthService = () => {
         }
       },
     }),
-    [login, logout, showMessage]
+    [login, logout, showMessage, axiosInstance]
   );
 
   return authService;

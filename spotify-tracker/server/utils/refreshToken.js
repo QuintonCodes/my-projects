@@ -6,22 +6,25 @@ async function refreshTokenIfNeeded(req, res, next) {
   }
 
   const { access_token, refresh_token, expires_in } = req.session.token_info;
-  if (Date.now() > expires_in) {
+  const expirationTime = new Date(expires_in);
+  if (Date.now() > expirationTime.getTime()) {
     // Check if the token has expired
     try {
       const data = await spotifyApi.refreshAccessToken();
+
       req.session.token_info = {
         access_token: data.body["access_token"],
-        refresh_token: refresh_token || data.body["refresh_token"], // Some APIs do not return a new refresh token
-        expires_in: Date.now() + 108000,
+        refresh_token: refresh_token, // Some APIs do not return a new refresh token
+        expires_in: Date.now() + data.body["expires_in"] * 1000,
       };
       spotifyApi.setAccessToken(data.body["access_token"]);
     } catch (error) {
       console.error("Error refreshing access token:", error);
       return res.status(401).send("Failed to refresh token");
     }
+  } else {
+    spotifyApi.setAccessToken(access_token);
   }
-  spotifyApi.setAccessToken(access_token);
   next();
 }
 

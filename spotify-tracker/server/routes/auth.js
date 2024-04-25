@@ -70,7 +70,7 @@ router.get("/callback", async (req, res) => {
     spotifyApi.setAccessToken(data.body["access_token"]);
     spotifyApi.setRefreshToken(data.body["refresh_token"]);
 
-    res.redirect("http://localhost:5173/?login=success");
+    res.send(`<html><script>window.close();</script></html>`);
   } catch (error) {
     console.error("Error during callback token handling:", error);
     res.status(401).send("Failed to get token");

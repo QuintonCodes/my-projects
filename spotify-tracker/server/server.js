@@ -19,8 +19,8 @@ app.use(
   session({
     secret: process.env.SECRET_KEY,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: "auto" },
+    saveUninitialized: false,
+    cookie: { secure: "auto", httpOnly: true, sameSite: "lax" },
   })
 );
 
