@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 import { UserProfile } from "../utils/models";
 
 interface UserContextType {
@@ -7,15 +7,7 @@ interface UserContextType {
   logout: () => void;
 }
 
-const UserContext = createContext<UserContextType | null>(null);
-
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("useUser must be used within a UserProvider");
-  }
-  return context;
-};
+export const UserContext = createContext<UserContextType | null>(null);
 
 interface UserProviderProps {
   children: ReactNode;

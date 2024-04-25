@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../hooks/useUser";
 import AuthService from "../services/AuthService";
 
 interface UserMenuProps {

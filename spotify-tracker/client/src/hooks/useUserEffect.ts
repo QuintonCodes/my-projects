@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../hooks/useUser";
 import useAuthService from "../services/AuthService";
 
 const useUserEffect = () => {
