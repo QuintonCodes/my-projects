@@ -33,7 +33,7 @@ const useAuthService = () => {
                   `${BASE_URL}/profile`
                 );
                 if (profileResponse.status === 200) {
-                  loginWindow.close();
+                  // loginWindow.close();
                   login(profileResponse.data);
                   showMessage(
                     "Signed in and profile fetched successfully",
