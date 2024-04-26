@@ -1,32 +1,30 @@
-import { useState, Fragment } from "react";
+import { Fragment, useState } from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { useUser } from "../hooks/useContext";
 import AuthService from "../services/AuthService";
+import { handleMenuClose } from "../utils/helper";
 
 interface UserMenuProps {
   authService: ReturnType<typeof AuthService>;
 }
 
 const UserMenu = ({ authService }: UserMenuProps) => {
-  const { user } = useUser();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { user } = useUser();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClose = () => handleMenuClose(setAnchorEl);
 
   const handleSignIn = () => {
     authService.signIn();
   };
 
   const handleSignOut = async () => {
-    const message = await authService.signOut();
-    console.log(message); // Here you could use a snackbar to show messages
+    await authService.signOut();
     handleClose();
   };
 
@@ -37,18 +35,18 @@ const UserMenu = ({ authService }: UserMenuProps) => {
   return (
     <Fragment>
       <IconButton
-        size="large"
-        edge="end"
-        aria-label="account of current user"
         aria-controls="menu-appbar"
+        aria-label="account of current user"
         aria-haspopup="true"
-        onClick={handleMenu}
         color="inherit"
+        edge="end"
+        onClick={handleMenu}
+        size="large"
       >
         {user ? (
           <img
-            src={user.image}
             alt="Profile"
+            src={user.image}
             style={{ width: 33, borderRadius: "50%" }}
           />
         ) : (
@@ -56,19 +54,19 @@ const UserMenu = ({ authService }: UserMenuProps) => {
         )}
       </IconButton>
       <Menu
-        id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{
+          horizontal: "right",
           vertical: "bottom",
-          horizontal: "right",
         }}
+        id="menu-appbar"
         keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        transformOrigin={{
+          horizontal: "right",
+          vertical: "top",
+        }}
       >
         {user ? (
           <div>

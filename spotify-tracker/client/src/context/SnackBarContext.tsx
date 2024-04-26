@@ -1,5 +1,5 @@
 import React, { createContext, useState, ReactNode } from "react";
-import { Snackbar, Alert } from "@mui/material";
+import { Alert, Snackbar } from "@mui/material";
 
 interface SnackbarProviderProps {
   children: ReactNode;
@@ -19,8 +19,8 @@ export const SnackbarContext = createContext<SnackbarContextType | undefined>(
 export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
   children,
 }) => {
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
   const [severity, setSeverity] = useState<
     "error" | "success" | "info" | "warning"
   >("info");
@@ -47,7 +47,7 @@ export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
   return (
     <SnackbarContext.Provider value={{ showMessage }}>
       {children}
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar autoHideDuration={6000} onClose={handleClose} open={open}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
           {message}
         </Alert>

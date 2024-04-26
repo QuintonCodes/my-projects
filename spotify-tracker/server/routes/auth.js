@@ -86,12 +86,4 @@ router.get("/logout", (req, res) => {
   });
 });
 
-router.get("/spotify-profile", async (req, res) => {
-  if (!req.session.token_info || !req.session.token_info.access_token) {
-    return res.status(401).send("Unauthorized: No session available");
-  }
-  const profileUrl = "https://www.spotify.com/account/overview/";
-  res.json({ profileUrl });
-});
-
 module.exports = router;

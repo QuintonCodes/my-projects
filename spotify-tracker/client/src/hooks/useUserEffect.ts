@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuthService from "../services/AuthService";
 import { useSnackbar } from "../hooks/useContext";
+import useAuthService from "../services/AuthService";
 
 const useUserEffect = () => {
   const navigate = useNavigate();
+
   const authService = useAuthService();
   const { showMessage } = useSnackbar();
 
@@ -23,7 +24,7 @@ const useUserEffect = () => {
     };
 
     handleLogin();
-  }, [navigate, authService, showMessage]);
+  }, [authService, navigate, showMessage]);
 
   return null;
 };

@@ -11,84 +11,84 @@ import { Artist } from "../utils/models";
 
 interface ArtistCardProps {
   artist: Artist;
-  onListen: () => void;
-  includeViewButton?: boolean; // Optional prop to render a view button
+  includeViewButton?: boolean;
   onClose?: () => void;
+  onListen: () => void;
 }
 
 const ArtistCard: FC<ArtistCardProps> = ({
   artist,
   includeViewButton = false,
-  onListen,
   onClose,
+  onListen,
 }) => {
   return (
     <Card
       sx={{
-        maxWidth: 345,
-        borderRadius: 3,
         backgroundColor: "#1f1f1f",
+        borderRadius: 3,
+        maxWidth: 345,
       }}
     >
       <CardMedia
+        alt={artist.name}
         component="img"
         height="140"
         image={artist.image || "default_image_url_here"}
-        alt={artist.name}
       />
       <div
         style={{
+          alignItems: "center",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
         }}
       >
         <CardContent
           sx={{
+            alignItems: "center",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
           }}
         >
-          <Typography variant="h5" color="#fff">
+          <Typography color="#fff" variant="h5">
             {artist.name}
           </Typography>
-          <Typography variant="body2" color="#fff">
+          <Typography color="#fff" variant="body2">
             Monthly Followers: {artist.monthlyFollowers.toLocaleString()}
           </Typography>
         </CardContent>
         <CardActions>
           {includeViewButton && (
             <Button
+              onClick={onClose}
               size="small"
               sx={{
-                textTransform: "none",
+                borderRadius: 3,
                 color: "#fff",
                 fontSize: 16,
+                padding: 1.25,
+                textTransform: "none",
                 "&:hover": {
                   backgroundColor: "#1DB954",
                 },
-                borderRadius: 3,
-                padding: 1.25,
               }}
-              onClick={onClose}
             >
               View
             </Button>
           )}
           <Button
+            onClick={onListen}
             size="small"
             sx={{
-              textTransform: "none",
+              borderRadius: 3,
               color: "#fff",
               fontSize: 16,
+              padding: 1.25,
+              textTransform: "none",
               "&:hover": {
                 backgroundColor: "#1DB954",
               },
-              borderRadius: 3,
-              padding: 1.25,
             }}
-            onClick={onListen}
           >
             Listen on Spotify
           </Button>

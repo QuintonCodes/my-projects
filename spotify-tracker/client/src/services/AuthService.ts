@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import axios from "axios";
-import { useUser } from "../hooks/useContext";
-import { useSnackbar } from "../hooks/useContext";
+import { useUser, useSnackbar } from "../hooks/useContext";
 
 const BASE_URL = "http://localhost:3000/auth";
 
 const useAuthService = () => {
   const { login, logout } = useUser();
   const { showMessage } = useSnackbar();
+
   const axiosInstance = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,

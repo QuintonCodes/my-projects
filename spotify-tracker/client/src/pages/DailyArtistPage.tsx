@@ -1,18 +1,18 @@
-import ArtistOfTheDay from "../components/ArtistOfTheDay";
-import useArtistOfTheDay from "../hooks/useArtistOfTheDay";
+import DailyArtist from "../components/DailyArtist";
+import useDailyArtist from "../hooks/useDailyArtist";
 
 const DailyArtistPage = () => {
   const {
-    artistOfTheDay,
-    isLoading: isArtistOfDayLoading,
-    error: dailyArtistError,
-  } = useArtistOfTheDay();
+    dailyArtist,
+    error: artistError,
+    isLoading: isArtistLoading,
+  } = useDailyArtist();
 
   return (
-    <ArtistOfTheDay
-      artistOfTheDay={artistOfTheDay}
-      isLoading={isArtistOfDayLoading}
-      error={dailyArtistError}
+    <DailyArtist
+      dailyArtist={dailyArtist}
+      error={artistError}
+      isLoading={isArtistLoading}
     />
   );
 };

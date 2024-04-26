@@ -3,9 +3,9 @@ import { Container, CircularProgress, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import { SnackbarProvider } from "./context/SnackBarContext";
 import { UserProvider } from "./context/UserContext";
-import HomePage from "./pages/HomePage";
 import ArtistListPage from "./pages/ArtistListPage";
 import DailyArtistPage from "./pages/DailyArtistPage";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (

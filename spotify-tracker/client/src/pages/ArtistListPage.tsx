@@ -3,8 +3,9 @@ import ArtistList from "../components/ArtistList";
 import useArtists from "../hooks/useArtists";
 
 const ArtistListPage: FC = () => {
-  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
+
   const {
     artists,
     isLoading: isArtistsLoading,

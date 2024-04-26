@@ -1,14 +1,15 @@
-import { useState, useEffect, useContext } from "react";
-import { fetchArtists } from "../utils/api";
-import { Artist } from "../utils/models";
+import { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
+import { fetchArtists } from "../utils/api";
+import { Artist } from "../utils/models";
 
 const useArtists = (currentPage: number, itemsPerPage: number) => {
   const [artists, setArtists] = useState<Artist[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
+
   const userContext = useContext(UserContext);
 
   useEffect(() => {

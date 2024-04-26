@@ -2,7 +2,7 @@ import { List, ListItem, ListItemText, styled } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 
 interface NavbarLinkProps {
-  active?: boolean; // Include the active prop for styling
+  active?: boolean;
   isMediumScreenDown?: boolean;
 }
 
@@ -16,12 +16,12 @@ const NavbarLink = styled(ListItemText, {
   shouldForwardProp: (prop) => prop !== "active",
 })<NavbarLinkProps>(({ active }) => ({
   "& span": {
-    position: "relative",
-    display: "block",
     color: active ? "#1DB954" : "#fff",
+    display: "block",
+    position: "relative",
+    textOverflow: "ellipsis",
     transition: "color 0.5s",
     whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
   },
   "& span::after": {
     background: "#1DB954",
@@ -44,41 +44,15 @@ const NavbarLink = styled(ListItemText, {
   },
 }));
 
-export const NavLinks = ({ isMediumScreenDown }: NavbarLinkProps) => {
-  const location = useLocation();
-  return (
-    <List sx={{ display: isMediumScreenDown ? "none" : "flex" }}>
-      {navigation.map((item) => (
-        <ListItem
-          key={item.name}
-          component={Link}
-          to={item.to}
-          sx={{
-            "&.Mui-selected": {
-              backgroundColor: "transparent",
-            },
-            paddingX: 3,
-          }}
-          selected={item.to === location.pathname}
-        >
-          <NavbarLink
-            primary={item.name}
-            active={item.to === location.pathname}
-          />
-        </ListItem>
-      ))}
-    </List>
-  );
-};
-
 export const DrawerEl = () => {
   const location = useLocation();
+
   return (
     <List sx={{ bgcolor: "#1f1f1f", width: 250 }}>
       {navigation.map((item) => (
         <ListItem
-          key={item.name}
           component={Link}
+          key={item.name}
           to={item.to}
           sx={{
             "&:hover": {
@@ -93,6 +67,34 @@ export const DrawerEl = () => {
           <ListItemText
             primary={item.name}
             primaryTypographyProps={{ style: { color: "#fff" } }}
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+};
+
+export const NavLinks = ({ isMediumScreenDown }: NavbarLinkProps) => {
+  const location = useLocation();
+
+  return (
+    <List sx={{ display: isMediumScreenDown ? "none" : "flex" }}>
+      {navigation.map((item) => (
+        <ListItem
+          component={Link}
+          key={item.name}
+          to={item.to}
+          sx={{
+            paddingX: 3,
+            "&.Mui-selected": {
+              backgroundColor: "transparent",
+            },
+          }}
+          selected={item.to === location.pathname}
+        >
+          <NavbarLink
+            active={item.to === location.pathname}
+            primary={item.name}
           />
         </ListItem>
       ))}

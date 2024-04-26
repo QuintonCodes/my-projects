@@ -1,12 +1,13 @@
 import { useEffect, useState, useContext } from "react";
-import { fetchArtistOfTheDay } from "../utils/api";
-import { Artist } from "../utils/models";
 import { UserContext } from "../context/UserContext";
+import { fetchDailyArtist } from "../utils/api";
+import { Artist } from "../utils/models";
 
-const useArtistOfTheDay = () => {
-  const [artistOfTheDay, setArtistOfTheDay] = useState<Artist | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const useDailyArtist = () => {
+  const [dailyArtist, setDailyArtist] = useState<Artist | null>(null);
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const userContext = useContext(UserContext);
 
   useEffect(() => {
@@ -19,12 +20,13 @@ const useArtistOfTheDay = () => {
 
       setIsLoading(true);
       setError("");
+
       try {
-        const data = await fetchArtistOfTheDay();
-        setArtistOfTheDay(data);
+        const data = await fetchDailyArtist();
+        setDailyArtist(data);
       } catch (error) {
-        console.error("Failed to fetch artist of the day:", error);
-        setError(`Failed to fetch artist of the day: ${error}`);
+        console.error("Failed to fetch daily artist:", error);
+        setError(`Failed to fetch daily artist: ${error}`);
       } finally {
         setIsLoading(false);
       }
@@ -34,10 +36,10 @@ const useArtistOfTheDay = () => {
   }, [userContext?.user]);
 
   return {
-    artistOfTheDay,
+    dailyArtist,
     isLoading,
     error,
   };
 };
 
-export default useArtistOfTheDay;
+export default useDailyArtist;

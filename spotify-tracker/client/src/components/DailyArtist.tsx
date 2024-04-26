@@ -1,44 +1,45 @@
 import { FC, useContext } from "react";
 import { Alert, AlertTitle, CircularProgress } from "@mui/material";
-import { Artist } from "../utils/models";
 import ArtistCard from "./ArtistCard";
-import { handleListen } from "../utils/helper";
 import { UserContext } from "../context/UserContext";
+import { handleListen } from "../utils/helper";
+import { Artist } from "../utils/models";
 
-interface ArtistOfTheDayProps {
-  artistOfTheDay: Artist | null;
-  isLoading: boolean;
+interface DailyArtistProps {
+  dailyArtist: Artist | null;
   error: string;
+  isLoading: boolean;
 }
 
-const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
-  artistOfTheDay,
-  isLoading,
+const DailyArtist: FC<DailyArtistProps> = ({
+  dailyArtist,
   error,
+  isLoading,
 }) => {
   const userContext = useContext(UserContext);
+
   return (
     <div
       style={{
-        padding: "20px",
+        alignItems: "center",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        padding: "20px",
       }}
     >
-      <h1>Artist of the day</h1>
+      <h1>Artist of the Day</h1>
 
       {isLoading ? (
         <CircularProgress color="inherit" />
       ) : error || !userContext?.user ? (
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
-          {error || "Please log in to view the artist of the day."}
+          {error}
         </Alert>
-      ) : artistOfTheDay ? (
+      ) : dailyArtist ? (
         <ArtistCard
-          artist={artistOfTheDay}
-          onListen={() => handleListen(artistOfTheDay.id)}
+          artist={dailyArtist}
+          onListen={() => handleListen(dailyArtist.id)}
         />
       ) : (
         <Alert severity="info">
@@ -50,4 +51,4 @@ const ArtistOfTheDay: FC<ArtistOfTheDayProps> = ({
   );
 };
 
-export default ArtistOfTheDay;
+export default DailyArtist;

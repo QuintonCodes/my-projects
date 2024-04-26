@@ -1,30 +1,30 @@
-import { FC, useState, useMemo, useContext } from "react";
+import { FC, useContext, useMemo, useState } from "react";
 import {
   Alert,
   AlertTitle,
+  Autocomplete,
   Avatar,
+  Backdrop,
   CircularProgress,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Pagination,
-  Autocomplete,
   TextField,
-  Backdrop,
 } from "@mui/material";
-import { Artist } from "../utils/models";
 import ArtistCard from "./ArtistCard";
-import { handleClose, handleListen, handleOpen } from "../utils/helper";
 import { UserContext } from "../context/UserContext";
+import { handleClose, handleListen, handleOpen } from "../utils/helper";
+import { Artist } from "../utils/models";
 
 interface ArtistListProps {
   artists: Artist[];
+  currentPage: number;
   error: string;
+  handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
   isLoading: boolean;
   totalPages: number;
-  currentPage: number;
-  handlePageChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
 const sortOptions = [
@@ -34,19 +34,25 @@ const sortOptions = [
 
 const ArtistList: FC<ArtistListProps> = ({
   artists,
+  currentPage,
   error,
+  handlePageChange,
   isLoading,
   totalPages,
-  currentPage,
-  handlePageChange,
 }) => {
-  const [sortOrder, setSortOrder] = useState(sortOptions[0].value);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [sortOrder, setSortOrder] = useState<string>(sortOptions[0].value);
+
   const userContext = useContext(UserContext);
 
-  const handleOpenModal = () => handleOpen(setOpen);
   const handleCloseModal = () => handleClose(setOpen);
+  const handleOpenModal = () => handleOpen(setOpen);
+
+  const handleArtistClick = (artist: Artist) => {
+    setSelectedArtist(artist);
+    handleOpenModal();
+  };
 
   const sortedArtists = useMemo(() => {
     return [...artists].sort((a, b) => {
@@ -58,39 +64,33 @@ const ArtistList: FC<ArtistListProps> = ({
     });
   }, [artists, sortOrder]);
 
-  const handleArtistClick = (artist: Artist) => {
-    setSelectedArtist(artist);
-    handleOpenModal();
-  };
-
   return (
     <div
       style={{
-        padding: "20px",
+        alignItems: "center",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        padding: "20px",
       }}
     >
       <h1>Followed Artists</h1>
       <Autocomplete
-        id="sort-artists"
-        options={sortOptions}
         getOptionLabel={(option) => option.label}
-        value={sortOptions.find((option) => option.value === sortOrder)}
+        id="sort-artists"
         onChange={(event, newValue) => {
           if (newValue) {
             setSortOrder(newValue.value);
           }
         }}
+        options={sortOptions}
         renderInput={(params) => (
           <TextField
             {...params}
             label="Sort by"
             sx={{
               ".MuiOutlinedInput-root": {
-                color: "#fff",
                 bgcolor: "#333",
+                color: "#fff",
                 "& fieldset": { borderColor: "#777" },
                 "&:hover fieldset": { borderColor: "#bbb" },
                 "&.Mui-focused fieldset": { borderColor: "#fff" },
@@ -99,24 +99,25 @@ const ArtistList: FC<ArtistListProps> = ({
           />
         )}
         sx={{
-          width: 300,
           marginBottom: 2,
+          width: 300,
           ".MuiAutocomplete-inputRoot": { color: "white" },
           ".MuiInputLabel-root": { color: "white" },
         }}
+        value={sortOptions.find((option) => option.value === sortOrder)}
       />
       {isLoading ? (
         <CircularProgress color="inherit" />
       ) : error || !userContext?.user ? (
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
-          {error || "Please log in to view the artist of the day."}
+          {error}
         </Alert>
       ) : (
         <List
           sx={{
-            width: "100%",
             maxWidth: 520,
+            width: "100%",
           }}
         >
           {sortedArtists.map((artist, index) => (
@@ -125,20 +126,20 @@ const ArtistList: FC<ArtistListProps> = ({
               onClick={() => handleArtistClick(artist)}
               sx={{
                 bgcolor: "#424242",
-                marginBottom: 1,
                 borderRadius: "10px",
                 boxShadow: 3,
+                marginBottom: 1,
                 transition:
                   "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                 "&:hover": {
-                  transform: "scale(1.05)",
                   boxShadow: 6,
                   cursor: "pointer",
+                  transform: "scale(1.05)",
                 },
               }}
             >
               <ListItemAvatar>
-                <Avatar src={artist.image || undefined} alt={artist.name} />
+                <Avatar alt={artist.name} src={artist.image || undefined} />
               </ListItemAvatar>
               <ListItemText primary={artist.name} />
             </ListItem>
@@ -147,50 +148,50 @@ const ArtistList: FC<ArtistListProps> = ({
       )}
       <Pagination
         count={totalPages || 10}
-        page={currentPage}
         onChange={handlePageChange}
+        page={currentPage}
+        size="large"
         sx={{
           paddingY: 5,
           "& .MuiPaginationItem-root": {
-            color: "white",
-          },
-          "& .MuiPaginationItem-root.Mui-selected": {
-            backgroundColor: "#1DB954",
             color: "white",
           },
           "& .MuiPaginationItem-root:hover": {
             backgroundColor: "rgba(79, 227, 131, 0.7)",
             color: "#fff",
           },
+          "& .MuiPaginationItem-root.Mui-selected": {
+            backgroundColor: "#1DB954",
+            color: "white",
+          },
         }}
-        size="large"
       />
       <Backdrop
+        onClick={handleCloseModal}
+        open={open}
         sx={{
           color: "#fff",
           zIndex: (theme) => theme.zIndex.drawer + 1,
           "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            right: 0,
+            backdropFilter: open ? "blur(4px)" : "none",
+            backgroundColor: "rgba(0,0,0,0.5)",
             bottom: 0,
+            content: '""',
             left: 0,
-            backdropFilter: open ? "blur(4px)" : "none", // Change blur intensity as needed
-            backgroundColor: "rgba(0,0,0,0.5)", // Optional: add a slight dark overlay
             pointerEvents: "none",
+            position: "absolute",
+            right: 0,
+            top: 0,
           },
         }}
-        open={open}
-        onClick={handleCloseModal}
       >
         <div style={{ position: "relative", zIndex: 2 }}>
           {selectedArtist && (
             <ArtistCard
               artist={selectedArtist}
               includeViewButton={true}
-              onListen={() => handleListen(selectedArtist.id)}
               onClose={handleCloseModal}
+              onListen={() => handleListen(selectedArtist.id)}
             />
           )}
         </div>
