@@ -1,6 +1,5 @@
 const express = require("express");
 const session = require("express-session");
-const SQLiteStore = require("connect-sqlite3")(session);
 const cors = require("cors");
 require("dotenv").config();
 
@@ -18,10 +17,6 @@ app.use(
 
 app.use(
   session({
-    store: new SQLiteStore({
-      db: "sessions.db",
-      dir: "./var/db",
-    }),
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,

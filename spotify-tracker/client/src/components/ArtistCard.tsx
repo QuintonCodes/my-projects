@@ -33,7 +33,6 @@ const ArtistCard: FC<ArtistCardProps> = ({
       <CardMedia
         alt={artist.name}
         component="img"
-        height="140"
         image={artist.image || "default_image_url_here"}
       />
       <div
@@ -54,7 +53,7 @@ const ArtistCard: FC<ArtistCardProps> = ({
             {artist.name}
           </Typography>
           <Typography color="#fff" variant="body2">
-            Monthly Followers: {artist.monthlyFollowers.toLocaleString()}
+            Monthly Followers: {artist.followers.toLocaleString()}
           </Typography>
         </CardContent>
         <CardActions>

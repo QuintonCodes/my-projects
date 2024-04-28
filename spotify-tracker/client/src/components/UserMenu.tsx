@@ -29,9 +29,20 @@ const UserMenu = ({ authService }: UserMenuProps) => {
   };
 
   const handleProfileClick = () => {
-    window.open(`https://open.spotify.com/user/${user?.id}`, "_blank");
+    const spotifyUri = `spotify:user:${user?.id}`;
+    const fallbackUrl = `https://open.spotify.com/user/${user?.id}`;
+
+    window.open(spotifyUri, "_blank");
+
+    setTimeout(() => {
+      if (window.confirm("Open web version instead?")) {
+        window.open(fallbackUrl, "_blank");
+      }
+    }, 2000);
+
     handleClose();
   };
+
   return (
     <Fragment>
       <IconButton

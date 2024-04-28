@@ -1,8 +1,10 @@
 export interface Artist {
   id: string;
-  image: string | null;
-  monthlyFollowers: number;
   name: string;
+  image: string | null;
+  followers: number;
+  popularity: number;
+  genres: string[];
 }
 
 export interface UserProfile {

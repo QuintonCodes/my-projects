@@ -27,7 +27,7 @@ const HomePage = () => {
           paddingTop: 20,
         }}
       >
-        <h5 style={{ paddingRight: 15 }}>Content provided by: </h5>
+        <h4 style={{ paddingRight: 15 }}>Content provided by: </h4>
         <img src={logo} alt="logo" style={{ height: "70px" }} />
       </div>
     </div>
