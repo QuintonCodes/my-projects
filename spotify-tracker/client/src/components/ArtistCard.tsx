@@ -11,15 +11,13 @@ import { Artist } from "../utils/models";
 
 interface ArtistCardProps {
   artist: Artist;
-  includeViewButton?: boolean;
-  onClose?: () => void;
-  onListen: () => void;
+  includeListenButton?: boolean;
+  onListen?: () => void;
 }
 
 const ArtistCard: FC<ArtistCardProps> = ({
   artist,
-  includeViewButton = false,
-  onClose,
+  includeListenButton = false,
   onListen,
 }) => {
   return (
@@ -57,9 +55,9 @@ const ArtistCard: FC<ArtistCardProps> = ({
           </Typography>
         </CardContent>
         <CardActions>
-          {includeViewButton && (
+          {includeListenButton && (
             <Button
-              onClick={onClose}
+              onClick={onListen}
               size="small"
               sx={{
                 borderRadius: 3,
@@ -72,25 +70,9 @@ const ArtistCard: FC<ArtistCardProps> = ({
                 },
               }}
             >
-              View
+              Listen on Spotify
             </Button>
           )}
-          <Button
-            onClick={onListen}
-            size="small"
-            sx={{
-              borderRadius: 3,
-              color: "#fff",
-              fontSize: 16,
-              padding: 1.25,
-              textTransform: "none",
-              "&:hover": {
-                backgroundColor: "#1DB954",
-              },
-            }}
-          >
-            Listen on Spotify
-          </Button>
         </CardActions>
       </div>
     </Card>

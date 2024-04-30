@@ -39,6 +39,7 @@ const DailyArtist: FC<DailyArtistProps> = ({
       ) : dailyArtist ? (
         <ArtistCard
           artist={dailyArtist}
+          includeListenButton={true}
           onListen={() => handleListen(dailyArtist.id)}
         />
       ) : (

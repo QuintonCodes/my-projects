@@ -1,21 +1,20 @@
 import { FC, useContext, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Alert,
   AlertTitle,
   Autocomplete,
   Avatar,
-  Backdrop,
   CircularProgress,
   List,
   ListItem,
   ListItemAvatar,
+  ListItemButton,
   ListItemText,
   Pagination,
   TextField,
 } from "@mui/material";
-import ArtistCard from "./ArtistCard";
 import { UserContext } from "../context/UserContext";
-import { handleClose, handleListen, handleOpen } from "../utils/helper";
 import { Artist } from "../utils/models";
 
 interface ArtistListProps {
@@ -40,19 +39,9 @@ const ArtistList: FC<ArtistListProps> = ({
   isLoading,
   totalPages,
 }) => {
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
   const [sortOrder, setSortOrder] = useState<string>(sortOptions[0].value);
-
+  const navigate = useNavigate();
   const userContext = useContext(UserContext);
-
-  const handleCloseModal = () => handleClose(setOpen);
-  const handleOpenModal = () => handleOpen(setOpen);
-
-  const handleArtistClick = (artist: Artist) => {
-    setSelectedArtist(artist);
-    handleOpenModal();
-  };
 
   const sortedArtists = useMemo(() => {
     return [...artists].sort((a, b) => {
@@ -120,10 +109,9 @@ const ArtistList: FC<ArtistListProps> = ({
             width: "100%",
           }}
         >
-          {sortedArtists.map((artist, index) => (
+          {sortedArtists.map((artist) => (
             <ListItem
-              key={index}
-              onClick={() => handleArtistClick(artist)}
+              key={artist.id}
               sx={{
                 bgcolor: "#424242",
                 borderRadius: "10px",
@@ -135,6 +123,9 @@ const ArtistList: FC<ArtistListProps> = ({
                   boxShadow: 6,
                   cursor: "pointer",
                   transform: "scale(1.05)",
+                  "& .MuiListItemButton-root": {
+                    display: "flex",
+                  },
                 },
               }}
             >
@@ -142,6 +133,12 @@ const ArtistList: FC<ArtistListProps> = ({
                 <Avatar alt={artist.name} src={artist.image || undefined} />
               </ListItemAvatar>
               <ListItemText primary={artist.name} />
+              <ListItemButton
+                onClick={() => navigate(`/artists/${artist.id}`)}
+                sx={{ display: "none", flexGrow: 0, borderRadius: "10px" }}
+              >
+                View
+              </ListItemButton>
             </ListItem>
           ))}
         </List>
@@ -166,36 +163,6 @@ const ArtistList: FC<ArtistListProps> = ({
           },
         }}
       />
-      <Backdrop
-        onClick={handleCloseModal}
-        open={open}
-        sx={{
-          color: "#fff",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          "&::before": {
-            backdropFilter: open ? "blur(4px)" : "none",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            bottom: 0,
-            content: '""',
-            left: 0,
-            pointerEvents: "none",
-            position: "absolute",
-            right: 0,
-            top: 0,
-          },
-        }}
-      >
-        <div style={{ position: "relative", zIndex: 2 }}>
-          {selectedArtist && (
-            <ArtistCard
-              artist={selectedArtist}
-              includeViewButton={true}
-              onClose={handleCloseModal}
-              onListen={() => handleListen(selectedArtist.id)}
-            />
-          )}
-        </div>
-      </Backdrop>
     </div>
   );
 };

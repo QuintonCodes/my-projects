@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import { SnackbarProvider } from "./context/SnackBarContext";
 import { UserProvider } from "./context/UserContext";
 import ArtistListPage from "./pages/ArtistListPage";
+import ArtistInfoPage from "./pages/ArtistInfoPage";
 import DailyArtistPage from "./pages/DailyArtistPage";
 import HomePage from "./pages/HomePage";
 
@@ -17,6 +18,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/artists" element={<ArtistListPage />} />
+              <Route path="/artists/:id" element={<ArtistInfoPage />} />
               <Route path="/daily-artist" element={<DailyArtistPage />} />
               <Route
                 path="*"
