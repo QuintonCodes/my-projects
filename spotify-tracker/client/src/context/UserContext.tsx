@@ -14,14 +14,19 @@ interface UserProviderProps {
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<UserProfile | null>(() => {
+    const userData = localStorage.getItem("userData");
+    return userData ? JSON.parse(userData) : null;
+  });
 
   const login = (userData: UserProfile) => {
     setUser(userData);
+    localStorage.setItem("userData", JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("userData");
   };
 
   return (

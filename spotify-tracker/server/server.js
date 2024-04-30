@@ -1,6 +1,8 @@
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
@@ -15,9 +17,18 @@ app.use(
   })
 );
 
+mongoose
+  .connect(process.env.CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
+
 app.use(
   session({
     secret: process.env.SECRET_KEY,
+    store: MongoStore.create({ mongoUrl: process.env.CONNECTION_STRING }),
     resave: false,
     saveUninitialized: false,
     cookie: { secure: "auto", httpOnly: true, sameSite: "lax" },

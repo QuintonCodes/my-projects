@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const SpotifyWebApi = require("spotify-web-api-node");
 const spotifyApi = require("../utils/spotifyClient");
+const UserToken = require("../models/UserToken");
 
 // Login route
 router.get("/login", (req, res) => {
@@ -58,6 +59,11 @@ router.get("/profile", async (req, res) => {
 
 // Callback route
 router.get("/callback", async (req, res) => {
+  console.log("Authorization code:", req.query.code); // Check if code is received
+  if (!req.query.code) {
+    return res.status(400).send("Authorization code is missing");
+  }
+
   try {
     const data = await spotifyApi.authorizationCodeGrant(req.query.code);
     req.session.token_info = {
@@ -65,6 +71,15 @@ router.get("/callback", async (req, res) => {
       refresh_token: data.body["refresh_token"],
       expires_in: Date.now() + data.body["expires_in"] * 1000,
     };
+
+    const userToken = new UserToken({
+      accessToken: data.body["access_token"],
+      refreshToken: data.body["refresh_token"],
+      expiresIn: new Date(Date.now() + data.body["expires_in"] * 1000),
+    });
+
+    await userToken.save();
+    console.log("User token saved:", userToken);
 
     console.log("Token info set in session:", req.session.token_info);
 
@@ -75,7 +90,7 @@ router.get("/callback", async (req, res) => {
     res.send(`<html><script>window.close();</script></html>`);
   } catch (error) {
     console.error("Error during callback token handling:", error);
-    res.status(401).send("Failed to get token");
+    res.status(401).send("Failed to get token" + error.message);
   }
 });
 

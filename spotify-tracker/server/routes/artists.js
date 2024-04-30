@@ -15,13 +15,40 @@ function ensureAuthenticated(req, res, next) {
   next();
 }
 
-// Simplified data extraction function
-function simplifyArtistData(artist) {
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = (Math.floor(Math.random() * (i + 1))[(array[i], array[j])] = [
+      array[j],
+      array[i],
+    ]);
+  }
+}
+
+// Data extraction functions
+async function getTopTracksForArtist(artistId) {
+  try {
+    const topTracks = await spotifyApi.getArtistTopTracks(artistId, "ES");
+    return topTracks.body.tracks.slice(0, 5).map((track) => ({
+      id: track.id,
+      name: track.name,
+      image: track.album.images.length > 0 ? track.album.images[0].url : null,
+      popularity: track.popularity,
+      durationMs: track.duration_ms,
+    }));
+  } catch (error) {
+    console.error("Error fetching top tracks for artist:", error);
+    throw error;
+  }
+}
+
+function simplifyArtistDataBasic(artist) {
   return {
     id: artist.id,
     name: artist.name,
     image: artist.images.length > 0 ? artist.images[0].url : null,
-    monthlyFollowers: artist.followers.total,
+    followers: artist.followers.total,
+    popularity: artist.popularity,
+    genres: artist.genres,
   };
 }
 
@@ -48,11 +75,10 @@ router.get(
           }
         }
 
-        // Randomize the order
-        req.session.full_artist_list = allArtists
-          .map((artist) => ({ artist, sort: Math.random() }))
-          .sort((a, b) => a.sort - b.sort)
-          .map(({ artist }) => simplifyArtistData(artist));
+        req.session.full_artist_list = await Promise.all(
+          allArtists.map(simplifyArtistDataBasic)
+        );
+        shuffleArray(req.session.full_artist_list);
       }
 
       const limit = parseInt(req.query.limit) || 10;
@@ -67,15 +93,13 @@ router.get(
         total: req.session.full_artist_list.length,
       });
     } catch (error) {
-      console.error("Failed to fetch artists:", error);
-      if (error.statusCode === 401) {
-        // Handle token expiration etc.
-        res.status(401).send("Authentication required.");
-      } else {
-        res
-          .status(500)
-          .json({ error: "Failed to fetch artists", message: error });
-      }
+      console.error("Failed to fetch followed artists:", error);
+      res.status(500).json({
+        error: "Failed to fetch artists",
+        message: error.response
+          ? error.response.data.error.message
+          : error.message,
+      });
     }
   }
 );
@@ -106,10 +130,12 @@ router.get(
             allArtists = allArtists.concat(data.body.artists.items);
             after = data.body.artists.cursors.after;
             if (!after) {
-              break; // Exit loop when no further pages are left
+              break;
             }
           }
-          allArtists = allArtists.map(simplifyArtistData);
+          allArtists = await Promise.all(
+            allArtists.map(simplifyArtistDataBasic)
+          );
           req.session.full_artist_list = allArtists;
         }
 
@@ -123,10 +149,27 @@ router.get(
 
       res.json(dailyArtist.artist);
     } catch (error) {
-      console.error("Failed to fetch artists:", error);
+      console.error("Failed to get random artist:", error);
       res
         .status(500)
-        .json({ error: "Failed to fetch artists", message: error.message });
+        .json({ error: "Failed to fetch artist", message: error.message });
+    }
+  }
+);
+
+// Endpoint to fetch top tracks for a specific artist
+router.get(
+  "/:id/top_tracks",
+  ensureAuthenticated,
+  refreshTokenIfNeeded,
+  async (req, res) => {
+    try {
+      const tracks = await getTopTracksForArtist(req.params.id);
+      res.json(tracks);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Failed to fetch top tracks", message: error.message });
     }
   }
 );
