@@ -1,21 +1,16 @@
 import { FC, useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Alert,
-  AlertTitle,
   Autocomplete,
-  Avatar,
   CircularProgress,
   List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
   Pagination,
   TextField,
 } from "@mui/material";
 import { UserContext } from "../context/UserContext";
 import { Artist } from "../utils/models";
+import AlertCard from "./AlertCard";
+import ItemList from "./ItemList";
 
 interface ArtistListProps {
   artists: Artist[];
@@ -40,6 +35,7 @@ const ArtistList: FC<ArtistListProps> = ({
   totalPages,
 }) => {
   const [sortOrder, setSortOrder] = useState<string>(sortOptions[0].value);
+
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
 
@@ -98,10 +94,7 @@ const ArtistList: FC<ArtistListProps> = ({
       {isLoading ? (
         <CircularProgress color="inherit" />
       ) : error || !userContext?.user ? (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {error}
-        </Alert>
+        <AlertCard severity="error" title="Error" alertText={error} />
       ) : (
         <List
           sx={{
@@ -110,36 +103,13 @@ const ArtistList: FC<ArtistListProps> = ({
           }}
         >
           {sortedArtists.map((artist) => (
-            <ListItem
+            <ItemList
               key={artist.id}
-              sx={{
-                bgcolor: "#424242",
-                borderRadius: "10px",
-                boxShadow: 3,
-                marginBottom: 1,
-                transition:
-                  "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                "&:hover": {
-                  boxShadow: 6,
-                  cursor: "pointer",
-                  transform: "scale(1.05)",
-                  "& .MuiListItemButton-root": {
-                    display: "flex",
-                  },
-                },
-              }}
-            >
-              <ListItemAvatar>
-                <Avatar alt={artist.name} src={artist.image || undefined} />
-              </ListItemAvatar>
-              <ListItemText primary={artist.name} />
-              <ListItemButton
-                onClick={() => navigate(`/artists/${artist.id}`)}
-                sx={{ display: "none", flexGrow: 0, borderRadius: "10px" }}
-              >
-                View
-              </ListItemButton>
-            </ListItem>
+              id={artist.id}
+              primary={artist.name}
+              image={artist.image}
+              onClick={() => navigate(`/artists/${artist.id}`)}
+            />
           ))}
         </List>
       )}

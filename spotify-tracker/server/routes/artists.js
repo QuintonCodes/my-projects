@@ -17,10 +17,8 @@ function ensureAuthenticated(req, res, next) {
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
-    const j = (Math.floor(Math.random() * (i + 1))[(array[i], array[j])] = [
-      array[j],
-      array[i],
-    ]);
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
 
@@ -163,13 +161,42 @@ router.get(
   ensureAuthenticated,
   refreshTokenIfNeeded,
   async (req, res) => {
+    const { id } = req.params;
+    if (!id.match(/^[0-9a-zA-Z]+$/)) {
+      return res.status(400).json({ error: "Invalid artist ID format" });
+    }
     try {
-      const tracks = await getTopTracksForArtist(req.params.id);
+      const tracks = await getTopTracksForArtist(id);
       res.json(tracks);
     } catch (error) {
       res
         .status(500)
         .json({ error: "Failed to fetch top tracks", message: error.message });
+    }
+  }
+);
+
+router.get(
+  "/:id",
+  ensureAuthenticated,
+  refreshTokenIfNeeded,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      if (!id.match(/^[0-9a-zA-Z]+$/)) {
+        return res.status(400).json({ error: "Invalid artist ID format" });
+      }
+
+      const artist = await spotifyApi.getArtist(id);
+      if (!artist) {
+        return res.status(404).json({ error: "Artist not found" });
+      }
+      res.json(simplifyArtistDataBasic(artist.body));
+    } catch (error) {
+      console.error(`Error fetching artist with id ${req.params.id}:`, error);
+      res
+        .status(500)
+        .json({ error: "Failed to fetch artist", message: error.message });
     }
   }
 );

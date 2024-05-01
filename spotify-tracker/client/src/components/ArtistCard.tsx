@@ -1,25 +1,19 @@
-import { FC } from "react";
 import {
   Card,
-  CardMedia,
-  CardContent,
-  Typography,
   CardActions,
-  Button,
+  CardContent,
+  CardMedia,
+  Typography,
 } from "@mui/material";
+import Buttons from "./Buttons";
 import { Artist } from "../utils/models";
 
 interface ArtistCardProps {
   artist: Artist;
-  includeListenButton?: boolean;
-  onListen?: () => void;
+  onListen: () => void;
 }
 
-const ArtistCard: FC<ArtistCardProps> = ({
-  artist,
-  includeListenButton = false,
-  onListen,
-}) => {
+const ArtistCard = ({ artist, onListen }: ArtistCardProps) => {
   return (
     <Card
       sx={{
@@ -55,24 +49,7 @@ const ArtistCard: FC<ArtistCardProps> = ({
           </Typography>
         </CardContent>
         <CardActions>
-          {includeListenButton && (
-            <Button
-              onClick={onListen}
-              size="small"
-              sx={{
-                borderRadius: 3,
-                color: "#fff",
-                fontSize: 16,
-                padding: 1.25,
-                textTransform: "none",
-                "&:hover": {
-                  backgroundColor: "#1DB954",
-                },
-              }}
-            >
-              Listen on Spotify
-            </Button>
-          )}
+          <Buttons onClick={onListen} text="Listen on Spotify" />
         </CardActions>
       </div>
     </Card>
