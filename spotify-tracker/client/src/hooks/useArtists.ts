@@ -4,11 +4,12 @@ import { UserContext } from "../context/UserContext";
 import { fetchArtists } from "../utils/api";
 import { Artist } from "../utils/models";
 
-const useArtists = (currentPage: number, itemsPerPage: number) => {
+const useArtists = (currentPage: number) => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const itemsPerPage = 10;
 
   const userContext = useContext(UserContext);
 

@@ -1,5 +1,9 @@
-import DailyArtist from "../components/DailyArtist";
+import AlertCard from "../components/AlertCard";
+import ArtistCard from "../components/ArtistCard";
+import Loading from "../components/Loading";
+import { useUser } from "../hooks/useContext";
 import useDailyArtist from "../hooks/useDailyArtist";
+import { handleListen } from "../utils/helper";
 
 const DailyArtistPage = () => {
   const {
@@ -7,13 +11,35 @@ const DailyArtistPage = () => {
     error: artistError,
     isLoading: isArtistLoading,
   } = useDailyArtist();
+  const { user } = useUser();
 
   return (
-    <DailyArtist
-      dailyArtist={dailyArtist}
-      error={artistError}
-      isLoading={isArtistLoading}
-    />
+    <div
+      style={{
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        padding: "20px",
+      }}
+    >
+      <h1>Artist of the Day</h1>
+      {isArtistLoading ? (
+        <Loading />
+      ) : artistError || !user ? (
+        <AlertCard severity="error" title="Error" alertText={artistError} />
+      ) : dailyArtist ? (
+        <ArtistCard
+          artist={dailyArtist}
+          onListen={() => handleListen(dailyArtist.id)}
+        />
+      ) : (
+        <AlertCard
+          severity="info"
+          title="No Artist Today"
+          alertText="Unfortunately, there is no artist available today."
+        />
+      )}
+    </div>
   );
 };
 

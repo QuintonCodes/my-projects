@@ -1,9 +1,12 @@
-import ArtistInfo from "../components/ArtistInfo";
 import { useParams } from "react-router-dom";
+import AlertCard from "../components/AlertCard";
+import ArtistImageSection from "../components/ArtistImageSection";
+import Loading from "../components/Loading";
+import GenericList from "../components/GenericList";
 import useArtistsInfo from "../hooks/useArtistInfo";
-import { useEffect, FC } from "react";
+import { useUser } from "../hooks/useContext";
 
-const ArtistInfoPage: FC = () => {
+const ArtistInfoPage = () => {
   const { id } = useParams();
   const {
     artist,
@@ -11,25 +14,27 @@ const ArtistInfoPage: FC = () => {
     isLoading: isArtistInfoLoading,
     topTracks,
   } = useArtistsInfo(id);
-
-  useEffect(() => {
-    if (!id) {
-      return;
-    }
-
-    if (!artist && !artistInfoError && !isArtistInfoLoading) {
-      useArtistsInfo(id);
-    }
-  }, [id, artist, artistInfoError, isArtistInfoLoading]);
+  const { user } = useUser();
 
   return (
-    <div>
-      <ArtistInfo
-        artist={artist}
-        error={artistInfoError}
-        isLoading={isArtistInfoLoading}
-        topTracks={topTracks}
-      />
+    <div
+      style={{
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        padding: "20px",
+      }}
+    >
+      {isArtistInfoLoading ? (
+        <Loading />
+      ) : artistInfoError || !user ? (
+        <AlertCard severity="error" title="Error" alertText={artistInfoError} />
+      ) : (
+        <>
+          <ArtistImageSection artist={artist} />
+          <GenericList items={topTracks} itemType="track" />
+        </>
+      )}
     </div>
   );
 };

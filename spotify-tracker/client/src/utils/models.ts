@@ -1,7 +1,7 @@
 export interface Track {
   id: string;
   name: string;
-  image: string | null;
+  image: string | undefined;
   popularity: number;
   durationMs: number;
 }
@@ -9,7 +9,7 @@ export interface Track {
 export interface Artist {
   id: string;
   name: string;
-  image: string | null;
+  image: string | undefined;
   followers: number;
   popularity: number;
   genres: string[];
