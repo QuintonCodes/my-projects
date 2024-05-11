@@ -41,9 +41,14 @@ const ItemList = ({
       }}
     >
       <ListItemAvatar>
-        <Avatar alt={primary} src={image || undefined} />
+        <Avatar
+          alt={primary}
+          src={image || undefined}
+          variant="rounded"
+          sx={{ width: 45, height: 45, borderRadius: "8px" }}
+        />
       </ListItemAvatar>
-      <ListItemText primary={primary} />
+      <ListItemText primary={primary} sx={{ paddingLeft: "5px" }} />
       {secondary && (
         <ListItemText
           primary={secondary}

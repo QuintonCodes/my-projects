@@ -7,7 +7,7 @@ interface GenericListItem {
   id: string;
   name: string;
   image?: string;
-  durationMs?: number;
+  durationMs?: number | undefined;
 }
 
 interface GenericListProps<T extends GenericListItem> {
@@ -20,14 +20,23 @@ const GenericList: FC<GenericListProps<GenericListItem>> = ({
   itemType,
 }) => {
   const navigate = useNavigate();
+
+  const formatDuration = (durationMs: number | undefined) => {
+    if (!durationMs) return "";
+    const minutes = Math.floor(durationMs / 60000);
+    const seconds = Math.floor((durationMs % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
   return (
-    <List sx={{ maxWidth: 520, width: "100%" }}>
+    <List sx={{ maxWidth: 520, width: "100%", paddingTop: "20px" }}>
       {items.map((item) => (
         <ItemList
           key={item.id}
           id={item.id}
           primary={item.name}
-          secondary={itemType === "track" ? `${item.durationMs}` : undefined}
+          secondary={
+            itemType === "track" ? formatDuration(item.durationMs) : undefined
+          }
           image={item.image}
           onClick={
             itemType === "track"
