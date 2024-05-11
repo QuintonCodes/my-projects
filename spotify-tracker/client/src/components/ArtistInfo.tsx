@@ -1,9 +1,12 @@
-import { Box, Rating, Typography } from "@mui/material";
+import { Box, Grid, Rating, Typography } from "@mui/material";
+import { Verified } from "@mui/icons-material";
 import { Artist } from "../utils/models";
 
 interface ArtistInfoProps {
   artist: Artist | null;
 }
+
+const colors = ["#FF5733", "#33C4FF", "#D333FF", "#33FF57", "#FFD633"];
 
 const ArtistInfo = ({ artist }: ArtistInfoProps) => {
   return (
@@ -15,6 +18,12 @@ const ArtistInfo = ({ artist }: ArtistInfoProps) => {
         color: "white",
       }}
     >
+      <div style={{ display: "flex" }}>
+        <Verified sx={{ color: "#2196f3" }} />
+        <Typography variant="body1" sx={{ paddingLeft: 1 }}>
+          Verified Artist
+        </Typography>
+      </div>
       <Typography variant="h2">{artist?.name}</Typography>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="body1">
@@ -24,13 +33,35 @@ const ArtistInfo = ({ artist }: ArtistInfoProps) => {
           <Rating
             name="artist-rating"
             value={artist ? artist.popularity / 20 : 0}
-            precision={0.01}
+            precision={0.1}
             readOnly
             sx={{ paddingX: 2 }}
           />
           <Typography>{artist?.popularity}/100</Typography>
         </div>
       </div>
+      <h3>Genres:</h3>
+      <Grid container gap={2} sx={{ width: "100%" }}>
+        {artist?.genres.map((genre, index) => (
+          <Grid
+            item
+            key={index}
+            xs={5}
+            md={3.5}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              backgroundColor: colors[index % colors.length],
+              borderRadius: 2,
+              height: "12vh",
+              padding: 1,
+            }}
+          >
+            <Typography>{genre}</Typography>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 };

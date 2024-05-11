@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { List } from "@mui/material";
 import ItemList from "./ItemList";
+import { formatDuration } from "../utils/helper";
 
 interface GenericListItem {
   id: string;
@@ -21,14 +22,8 @@ const GenericList: FC<GenericListProps<GenericListItem>> = ({
 }) => {
   const navigate = useNavigate();
 
-  const formatDuration = (durationMs: number | undefined) => {
-    if (!durationMs) return "";
-    const minutes = Math.floor(durationMs / 60000);
-    const seconds = Math.floor((durationMs % 60000) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-  };
   return (
-    <List sx={{ maxWidth: 520, width: "100%", paddingTop: "20px" }}>
+    <List sx={{ maxWidth: 520, width: "100%", paddingTop: "15px" }}>
       {items.map((item) => (
         <ItemList
           key={item.id}

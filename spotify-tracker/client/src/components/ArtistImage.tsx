@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import { Artist } from "../utils/models";
 
-interface ArtistImageSectionProps {
+interface ArtistImageProps {
   artist: Artist | null;
 }
 
-const ArtistImageSection = ({ artist }: ArtistImageSectionProps) => {
+const ArtistImage = ({ artist }: ArtistImageProps) => {
   return (
     <Box
       sx={{
@@ -27,4 +27,4 @@ const ArtistImageSection = ({ artist }: ArtistImageSectionProps) => {
   );
 };
 
-export default ArtistImageSection;
+export default ArtistImage;

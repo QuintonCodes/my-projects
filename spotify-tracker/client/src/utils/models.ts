@@ -2,7 +2,6 @@ export interface Track {
   id: string;
   name: string;
   image: string | undefined;
-  popularity: number;
   durationMs: number;
 }
 

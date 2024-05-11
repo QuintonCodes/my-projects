@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { List, ListItem, ListItemText, styled } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 
@@ -44,7 +45,7 @@ const NavbarLink = styled(ListItemText, {
   },
 }));
 
-export const DrawerEl = () => {
+export const DrawerEl: FC = () => {
   const location = useLocation();
 
   return (
@@ -74,7 +75,7 @@ export const DrawerEl = () => {
   );
 };
 
-export const NavLinks = ({ isMediumScreenDown }: NavbarLinkProps) => {
+export const NavLinks: FC<NavbarLinkProps> = ({ isMediumScreenDown }) => {
   const location = useLocation();
 
   return (

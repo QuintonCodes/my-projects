@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { useUser } from "../hooks/useContext";
@@ -9,7 +9,7 @@ interface UserMenuProps {
   authService: ReturnType<typeof AuthService>;
 }
 
-const UserMenu = ({ authService }: UserMenuProps) => {
+const UserMenu: FC<UserMenuProps> = ({ authService }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { user } = useUser();
 

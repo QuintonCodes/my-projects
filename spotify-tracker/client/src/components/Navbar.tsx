@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import {
   AppBar,
   Drawer,
@@ -15,7 +15,7 @@ import UserMenu from "./UserMenu";
 import useUserEffect from "../hooks/useUserEffect";
 import useAuthService from "../services/AuthService";
 
-const Navbar = () => {
+const Navbar: FC = () => {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const authService = useAuthService();
 

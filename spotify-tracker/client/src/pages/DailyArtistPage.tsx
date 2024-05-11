@@ -1,6 +1,6 @@
 import AlertCard from "../components/AlertCard";
 import ArtistCard from "../components/ArtistCard";
-import Loading from "../components/Loading";
+import SkeletonUI from "../components/SkeletonUI";
 import { useUser } from "../hooks/useContext";
 import useDailyArtist from "../hooks/useDailyArtist";
 import { handleListen } from "../utils/helper";
@@ -24,7 +24,12 @@ const DailyArtistPage = () => {
     >
       <h1>Artist of the Day</h1>
       {isArtistLoading ? (
-        <Loading />
+        <SkeletonUI
+          height={495}
+          width={345}
+          animation="wave"
+          variant="rounded"
+        />
       ) : artistError || !user ? (
         <AlertCard severity="error" title="Error" alertText={artistError} />
       ) : dailyArtist ? (
