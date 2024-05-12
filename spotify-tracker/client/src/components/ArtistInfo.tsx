@@ -1,12 +1,11 @@
 import { Box, Grid, Rating, Typography } from "@mui/material";
 import { Verified } from "@mui/icons-material";
 import { Artist } from "../utils/models";
+import GenreCard from "./GenreCard";
 
 interface ArtistInfoProps {
   artist: Artist | null;
 }
-
-const colors = ["#FF5733", "#33C4FF", "#D333FF", "#33FF57", "#FFD633"];
 
 const ArtistInfo = ({ artist }: ArtistInfoProps) => {
   return (
@@ -43,23 +42,7 @@ const ArtistInfo = ({ artist }: ArtistInfoProps) => {
       <h3>Genres:</h3>
       <Grid container gap={2} sx={{ width: "100%" }}>
         {artist?.genres.map((genre, index) => (
-          <Grid
-            item
-            key={index}
-            xs={5}
-            md={3.5}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            sx={{
-              backgroundColor: colors[index % colors.length],
-              borderRadius: 2,
-              height: "12vh",
-              padding: 1,
-            }}
-          >
-            <Typography>{genre}</Typography>
-          </Grid>
+          <GenreCard id={index} genre={genre} />
         ))}
       </Grid>
     </Box>

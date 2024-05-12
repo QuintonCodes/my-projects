@@ -19,10 +19,7 @@ const UserMenu: FC<UserMenuProps> = ({ authService }) => {
 
   const handleClose = () => handleMenuClose(setAnchorEl);
 
-  const handleSignIn = () => {
-    authService.signIn();
-  };
-
+  const handleSignIn = () => authService.signIn();
   const handleSignOut = async () => {
     await authService.signOut();
     handleClose();

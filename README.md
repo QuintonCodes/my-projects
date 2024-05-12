@@ -1,5 +1,7 @@
 # My-Projects
 
+Welcome to My-Projects, a collection of personal projects showcasing my skills in web development. This repository contains two projects: KickFlip Store E-commerce Website and iOS Calculator Clone.
+
 # Table of Contents
 
 - [Projects](#projects)
@@ -20,8 +22,8 @@
      - Node.js,
      - Express.js,
      - HTML,
-     - CSS,
-     - Javascript
+     - CSS (TailwindCSS),
+     - Javascript and Typescript
 
 2. **iOS Calculator Clone**
    - Description:
@@ -45,7 +47,7 @@ To run these projects locally, follow these steps:
 ```bash
 # Clone the repository
 git clone https://github.com/CodeQ09/My-Projects.git
-cd Website-project/calculator
+cd My-Projects/calculator
 
 # Install dependencies
 npm install
