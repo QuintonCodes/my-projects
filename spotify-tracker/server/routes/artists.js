@@ -65,7 +65,7 @@ router.get(
   }
 );
 
-// Get artist of the day
+// Get daily artist
 router.get(
   "/get_random_artist",
   ensureAuthenticated,
@@ -118,7 +118,7 @@ router.get(
   }
 );
 
-// Endpoint to fetch top tracks for a specific artist
+// Fetch artist's top tracks
 router.get(
   "/:id/top_tracks",
   ensureAuthenticated,
@@ -139,6 +139,7 @@ router.get(
   }
 );
 
+// Get a single artist
 router.get(
   "/:id",
   ensureAuthenticated,
@@ -160,6 +161,32 @@ router.get(
       res
         .status(500)
         .json({ error: "Failed to fetch artist", message: error.message });
+    }
+  }
+);
+
+router.get(
+  "/search",
+  ensureAuthenticated,
+  refreshTokenIfNeeded,
+  async (req, res) => {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).json({ error: "Query parameter is required" });
+    }
+
+    try {
+      const data = await spotifyApi.searchArtists(query);
+      const artists = data.body.artists.items.map(simplifyArtistDataBasic);
+      res.json({ artists });
+    } catch (error) {
+      console.error("Failed to search artists:", error);
+      res.status(500).json({
+        error: "Failed to search artists",
+        message: error.response
+          ? error.response.data.error.message
+          : error.message,
+      });
     }
   }
 );

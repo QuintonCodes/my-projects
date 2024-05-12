@@ -64,3 +64,15 @@ export const fetchDailyArtist = async (): Promise<Artist> => {
 
   return response.data;
 };
+
+export const fetchSearchArtist = async (query: string): Promise<Artist[]> => {
+  const response = await axios.get(`${URL}/search?query=${query}`, {
+    withCredentials: true,
+  });
+
+  if (response.status !== 200) {
+    throw new Error("Failed to search for artist");
+  }
+
+  return response.data.artists;
+};
