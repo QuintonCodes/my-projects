@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Container, CircularProgress, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import { SnackbarProvider } from "./context/SnackBarContext";
 import { UserProvider } from "./context/UserContext";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import ArtistListPage from "./pages/ArtistListPage";
 import ArtistInfoPage from "./pages/ArtistInfoPage";
+import ArtistListPage from "./pages/ArtistListPage";
 import DailyArtistPage from "./pages/DailyArtistPage";
 import HomePage from "./pages/HomePage";
 

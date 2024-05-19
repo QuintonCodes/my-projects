@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { Artist } from "../utils/models";
 
 interface ArtistImageProps {
-  artist: Artist | null;
+  artist: Artist | null | undefined;
 }
 
 const ArtistImage = ({ artist }: ArtistImageProps) => {

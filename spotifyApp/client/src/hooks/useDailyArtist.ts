@@ -1,6 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { fetchDailyArtist } from "../utils/api";
 import { Artist } from "../utils/models";
-import { useQuery } from "@tanstack/react-query";
 
 const useDailyArtist = () => {
   return useQuery<Artist, Error>({

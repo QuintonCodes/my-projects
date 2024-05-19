@@ -3,9 +3,9 @@ import AlertCard from "../components/AlertCard";
 import ArtistImage from "../components/ArtistImage";
 import ArtistInfo from "../components/ArtistInfo";
 import GenericList from "../components/GenericList";
+import SkeletonUI from "../components/SkeletonUI";
 import useArtistsInfo from "../hooks/useArtistInfo";
 import { useUser } from "../hooks/useContext";
-import SkeletonUI from "../components/SkeletonUI";
 
 const ArtistInfoPage = () => {
   const { id } = useParams();
@@ -68,7 +68,13 @@ const ArtistInfoPage = () => {
           </div>
         </div>
       ) : artistInfoError || !user ? (
-        <AlertCard severity="error" title="Error" alertText={artistInfoError} />
+        <AlertCard
+          severity="error"
+          title="Error"
+          alertText={
+            artistInfoError?.message || "Please log in to view this content."
+          }
+        />
       ) : (
         <div style={{ display: "flex", width: "100%" }}>
           <ArtistImage artist={artist} />

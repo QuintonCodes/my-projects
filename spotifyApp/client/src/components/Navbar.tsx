@@ -16,7 +16,7 @@ import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import useUserEffect from "../hooks/useUserEffect";
 import useAuthService from "../services/AuthService";
-import useArtists from "../hooks/useArtists";
+import { useAllArtists } from "../hooks/useArtists";
 import { Artist } from "../utils/models";
 
 const Navbar: FC = () => {
@@ -29,7 +29,7 @@ const Navbar: FC = () => {
   const theme = useTheme();
   const isMediumScreenDown = useMediaQuery(theme.breakpoints.down("md"));
 
-  const { data } = useArtists(1, 100);
+  const { allArtists, isLoading } = useAllArtists();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -51,17 +51,16 @@ const Navbar: FC = () => {
     debouncedSetSearchQuery(query);
   };
 
-  const searchArtists = data?.artists.filter((artist) =>
-    artist.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   useEffect(() => {
-    if (searchQuery.length > 2 && searchArtists) {
-      setFilteredArtists(searchArtists);
+    if (searchQuery.length > 2) {
+      const filtered = allArtists.filter((artist) =>
+        artist.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredArtists(filtered);
     } else {
       setFilteredArtists([]);
     }
-  }, [searchQuery, searchArtists]);
+  }, [searchQuery, allArtists]);
 
   useUserEffect();
 
@@ -107,7 +106,7 @@ const Navbar: FC = () => {
         <DrawerEl />
       </Drawer>
       {searchQuery.length > 2 && (
-        <SearchResults isLoading={false} searchResults={filteredArtists} />
+        <SearchResults isLoading={isLoading} searchResults={filteredArtists} />
       )}
     </Fragment>
   );

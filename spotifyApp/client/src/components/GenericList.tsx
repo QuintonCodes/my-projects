@@ -4,15 +4,15 @@ import { List } from "@mui/material";
 import ItemList from "./ItemList";
 import { formatDuration } from "../utils/helper";
 
-interface GenericListItem {
-  id: string;
-  name: string;
-  image?: string;
+export interface GenericListItem {
   durationMs?: number | undefined;
+  id: string;
+  image?: string;
+  name: string;
 }
 
 interface GenericListProps<T extends GenericListItem> {
-  items: T[];
+  items: T[] | undefined;
   itemType: "artist" | "track";
 }
 

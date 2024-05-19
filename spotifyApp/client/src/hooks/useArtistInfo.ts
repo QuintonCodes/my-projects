@@ -1,8 +1,8 @@
-import { Artist, Track } from "../utils/models";
-import { fetchArtist, fetchArtistTopTracks } from "../utils/api";
 import { useQuery } from "@tanstack/react-query";
+import { fetchArtist, fetchArtistTopTracks } from "../utils/api";
+import { Artist, Track } from "../utils/models";
 
-const useArtistsInfo = (artistId: string | undefined) => {
+const useArtistsInfo = (artistId: string | null | undefined) => {
   const artistQuery = useQuery<Artist | null, Error>({
     queryKey: ["artist", artistId],
     queryFn: () => fetchArtist(artistId),

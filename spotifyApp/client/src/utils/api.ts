@@ -4,7 +4,7 @@ import { Artist, Track } from "./models";
 const URL = "http://localhost:3000/artists";
 
 export const fetchArtist = async (
-  artistId: string | undefined
+  artistId: string | null | undefined
 ): Promise<Artist | null> => {
   const response = await axios.get(`${URL}/${artistId}`, {
     withCredentials: true,
@@ -18,7 +18,7 @@ export const fetchArtist = async (
 };
 
 export const fetchArtistTopTracks = async (
-  artistId: string | undefined
+  artistId: string | null | undefined
 ): Promise<Track[]> => {
   const response = await axios.get(`${URL}/${artistId}/top_tracks`, {
     withCredentials: true,

@@ -23,6 +23,7 @@ const SortFilter = ({ sortOrder, setSortOrder }: SortFilterProps) => {
       onChange={(event, newValue) => {
         if (newValue) {
           setSortOrder(newValue.value);
+          console.log(event);
         }
       }}
       options={sortOptions}

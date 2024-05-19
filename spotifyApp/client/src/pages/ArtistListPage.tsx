@@ -4,7 +4,7 @@ import GenericList from "../components/GenericList";
 import Loading from "../components/Loading";
 import PaginationComponent from "../components/PaginationComponent";
 import SortFilter from "../components/SortFilter";
-import useArtists from "../hooks/useArtists";
+import { useArtists } from "../hooks/useArtists";
 import { useUser } from "../hooks/useContext";
 import useSortArtists from "../hooks/useSortArtists";
 

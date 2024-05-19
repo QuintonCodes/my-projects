@@ -8,6 +8,10 @@ interface SearchResultsProps {
 }
 
 const SearchResults = ({ isLoading, searchResults }: SearchResultsProps) => {
+  if (!searchResults || searchResults.length === 0) {
+    return null;
+  }
+
   return (
     <Box
       sx={{
@@ -33,7 +37,7 @@ const SearchResults = ({ isLoading, searchResults }: SearchResultsProps) => {
         </Box>
       ) : (
         <List>
-          {searchResults?.map((artist) => (
+          {searchResults.map((artist) => (
             <ListItem key={artist.id} button>
               <ListItemText primary={artist.name} sx={{ color: "#000" }} />
             </ListItem>
