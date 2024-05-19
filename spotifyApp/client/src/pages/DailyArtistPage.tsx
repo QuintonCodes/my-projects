@@ -7,7 +7,7 @@ import { handleListen } from "../utils/helper";
 
 const DailyArtistPage = () => {
   const {
-    dailyArtist,
+    data: dailyArtist,
     error: artistError,
     isLoading: isArtistLoading,
   } = useDailyArtist();
@@ -31,7 +31,13 @@ const DailyArtistPage = () => {
           variant="rounded"
         />
       ) : artistError || !user ? (
-        <AlertCard severity="error" title="Error" alertText={artistError} />
+        <AlertCard
+          severity="error"
+          title="Error"
+          alertText={
+            artistError?.message || "Please log in to view this content."
+          }
+        />
       ) : dailyArtist ? (
         <ArtistCard
           artist={dailyArtist}

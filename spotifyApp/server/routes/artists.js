@@ -165,30 +165,4 @@ router.get(
   }
 );
 
-router.get(
-  "/search",
-  ensureAuthenticated,
-  refreshTokenIfNeeded,
-  async (req, res) => {
-    const { query } = req.query;
-    if (!query) {
-      return res.status(400).json({ error: "Query parameter is required" });
-    }
-
-    try {
-      const data = await spotifyApi.searchArtists(query);
-      const artists = data.body.artists.items.map(simplifyArtistDataBasic);
-      res.json({ artists });
-    } catch (error) {
-      console.error("Failed to search artists:", error);
-      res.status(500).json({
-        error: "Failed to search artists",
-        message: error.response
-          ? error.response.data.error.message
-          : error.message,
-      });
-    }
-  }
-);
-
 module.exports = router;

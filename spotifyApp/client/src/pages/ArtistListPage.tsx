@@ -11,15 +11,16 @@ import useSortArtists from "../hooks/useSortArtists";
 const ArtistListPage: FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [sortOrder, setSortOrder] = useState<string>("az");
+  const itemsPerPage = 10;
 
   const {
-    artists,
+    data,
     isLoading: isArtistsLoading,
     error: artistError,
-    totalPages,
-  } = useArtists(currentPage);
+  } = useArtists(currentPage, itemsPerPage);
+
   const { user } = useUser();
-  const sortedArtists = useSortArtists(artists, sortOrder);
+  const sortedArtists = useSortArtists(data?.artists || [], sortOrder);
 
   return (
     <div
@@ -35,14 +36,20 @@ const ArtistListPage: FC = () => {
       {isArtistsLoading ? (
         <Loading />
       ) : artistError || !user ? (
-        <AlertCard severity="error" title="Error" alertText={artistError} />
+        <AlertCard
+          severity="error"
+          title="Error"
+          alertText={
+            artistError?.message || "Please log in to view this content."
+          }
+        />
       ) : (
         <GenericList items={sortedArtists} itemType="artist" />
       )}
       <PaginationComponent
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
+        totalPages={Math.ceil((data?.total || 0) / itemsPerPage)}
       />
     </div>
   );

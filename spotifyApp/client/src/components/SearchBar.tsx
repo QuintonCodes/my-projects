@@ -4,7 +4,7 @@ import { SearchRounded } from "@mui/icons-material";
 interface SearchBarProps {
   isMediumScreenDown: boolean;
   searchQuery: string;
-  onChange: () => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const SearchBar = ({

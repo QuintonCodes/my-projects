@@ -42,7 +42,7 @@ const ArtistInfo = ({ artist }: ArtistInfoProps) => {
       <h3>Genres:</h3>
       <Grid container gap={2} sx={{ width: "100%" }}>
         {artist?.genres.map((genre, index) => (
-          <GenreCard id={index} genre={genre} />
+          <GenreCard id={index} genre={genre} key={index}/>
         ))}
       </Grid>
     </Box>
