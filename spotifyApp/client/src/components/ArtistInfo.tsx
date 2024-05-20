@@ -1,4 +1,4 @@
-import { Box, Grid, Rating, Typography } from "@mui/material";
+import { Grid, Rating, Typography } from "@mui/material";
 import { Verified } from "@mui/icons-material";
 import GenreCard from "./GenreCard";
 import { Artist } from "../utils/models";
@@ -9,12 +9,12 @@ interface ArtistInfoProps {
 
 const ArtistInfo = ({ artist }: ArtistInfoProps) => {
   return (
-    <Box
-      sx={{
+    <div
+      style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        color: "white",
+        color: "#fff",
       }}
     >
       <div style={{ display: "flex" }}>
@@ -45,7 +45,7 @@ const ArtistInfo = ({ artist }: ArtistInfoProps) => {
           <GenreCard id={index} genre={genre} key={index} />
         ))}
       </Grid>
-    </Box>
+    </div>
   );
 };
 

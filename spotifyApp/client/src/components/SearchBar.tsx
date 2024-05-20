@@ -1,4 +1,3 @@
-import { Box, TextField, InputAdornment } from "@mui/material";
 import { SearchRounded } from "@mui/icons-material";
 
 interface SearchBarProps {
@@ -13,49 +12,46 @@ const SearchBar = ({
   onChange,
 }: SearchBarProps) => {
   return (
-    <Box
-      sx={{
+    <div
+      style={{
         display: "flex",
         alignItems: "center",
         flexGrow: 1,
         justifyContent: isMediumScreenDown ? "flex-start" : "center",
+        margin: "20px",
       }}
     >
-      <TextField
-        variant="outlined"
-        placeholder="Search artist"
-        sx={{
-          bgcolor: "white",
-          borderRadius: 3,
-          input: { color: "black" },
-          "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-              borderRadius: 3,
-            },
-            "&:hover fieldset": {
-              borderColor: "#1DB954", // Hover color
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "#1DB954", // Active color
-            },
-          },
-          mr: 2,
-          width: { xs: "100%", sm: "auto" },
-          ml: isMediumScreenDown ? 0 : 2,
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          backgroundColor: "white",
+          borderRadius: "15px",
+          border: "1px solid #ccc",
+          padding: "8px 12px",
+          width: "100%",
+          maxWidth: "300px",
         }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchRounded />
-            </InputAdornment>
-          ),
-        }}
-        size="small"
-        type="search"
-        value={searchQuery}
-        onChange={onChange}
-      />
-    </Box>
+      >
+        <SearchRounded sx={{ color: "#000" }} />
+        <input
+          type="search"
+          placeholder="Search artist"
+          value={searchQuery}
+          onChange={onChange}
+          style={{
+            border: "none",
+            outline: "none",
+            flexGrow: 1,
+            padding: "0 10px",
+            fontSize: "16px",
+            color: "black",
+            backgroundColor: "white",
+            fontFamily: "Poppins, sans-serif",
+          }}
+        />
+      </div>
+    </div>
   );
 };
 

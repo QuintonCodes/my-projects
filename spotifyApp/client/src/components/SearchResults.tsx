@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemText } from "@mui/material";
+import { List, ListItem, ListItemText } from "@mui/material";
 import { Artist } from "../utils/models";
 import Loading from "./Loading";
 
@@ -13,38 +13,40 @@ const SearchResults = ({ isLoading, searchResults }: SearchResultsProps) => {
   }
 
   return (
-    <Box
-      sx={{
+    <div
+      style={{
         position: "absolute",
         top: "90px",
         left: "50%",
         transform: "translateX(-50%)",
         width: "50%",
-        bgcolor: "grey",
-        borderRadius: 3,
-        boxShadow: 3,
+        backgroundColor: "#424242",
+        borderRadius: 8,
+        boxShadow: "3px",
         zIndex: 1300,
       }}
     >
       {isLoading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100px"
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100px",
+          }}
         >
           <Loading />
-        </Box>
+        </div>
       ) : (
         <List>
           {searchResults.map((artist) => (
             <ListItem key={artist.id} button>
-              <ListItemText primary={artist.name} sx={{ color: "#000" }} />
+              <ListItemText primary={artist.name} sx={{ color: "#fff" }} />
             </ListItem>
           ))}
         </List>
       )}
-    </Box>
+    </div>
   );
 };
 

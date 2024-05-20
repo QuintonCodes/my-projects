@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, useState } from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { useUser } from "../hooks/useContext";
@@ -41,7 +41,7 @@ const UserMenu: FC<UserMenuProps> = ({ authService }) => {
   };
 
   return (
-    <Fragment>
+    <div>
       <IconButton
         aria-controls="menu-appbar"
         aria-label="account of current user"
@@ -85,7 +85,7 @@ const UserMenu: FC<UserMenuProps> = ({ authService }) => {
           <MenuItem onClick={handleSignIn}>Sign in</MenuItem>
         )}
       </Menu>
-    </Fragment>
+    </div>
   );
 };
 

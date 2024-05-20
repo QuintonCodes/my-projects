@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Artist } from "../utils/models";
 
 interface ArtistImageProps {
@@ -7,12 +6,7 @@ interface ArtistImageProps {
 
 const ArtistImage = ({ artist }: ArtistImageProps) => {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        overflow: "hidden",
-      }}
-    >
+    <div style={{ width: "100%", overflow: "hidden" }}>
       <img
         src={artist?.image}
         alt={artist?.name}
@@ -23,7 +17,7 @@ const ArtistImage = ({ artist }: ArtistImageProps) => {
           marginRight: "20px",
         }}
       />
-    </Box>
+    </div>
   );
 };
 

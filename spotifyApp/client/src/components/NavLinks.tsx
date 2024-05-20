@@ -9,7 +9,7 @@ interface NavbarLinkProps {
 
 const navigation = [
   { name: "Home", to: "/" },
-  { name: "Artists", to: "/artists" },
+  { name: "Artists", to: "/artists/1" },
   { name: "Daily Artist", to: "/daily-artist" },
 ];
 

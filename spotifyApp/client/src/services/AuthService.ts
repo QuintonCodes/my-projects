@@ -16,10 +16,17 @@ const useAuthService = () => {
   const authService = useMemo(
     () => ({
       signIn: () => {
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const windowWidth = 600;
+        const windowHeight = 600;
+        const left = screenWidth / 2 - windowWidth / 2;
+        const top = screenHeight / 2 - windowHeight / 2;
+
         const loginWindow = window.open(
           `${BASE_URL}/login`,
           "_blank",
-          "width=800,height=600"
+          `width=${windowWidth},height=${windowHeight},top=${top},left=${left}`
         );
 
         showMessage("Sign in initiated", "info");
@@ -33,7 +40,6 @@ const useAuthService = () => {
                   `${BASE_URL}/profile`
                 );
                 if (profileResponse.status === 200) {
-                  // loginWindow.close();
                   login(profileResponse.data);
                   showMessage(
                     "Signed in and profile fetched successfully",

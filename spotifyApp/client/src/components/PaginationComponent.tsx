@@ -2,22 +2,15 @@ import { Pagination } from "@mui/material";
 
 interface PaginationComponentProps {
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  handlePageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
   totalPages: number;
 }
 
 const PaginationComponent = ({
   currentPage,
-  setCurrentPage,
+  handlePageChange,
   totalPages,
 }: PaginationComponentProps) => {
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setCurrentPage(value);
-  };
-
   return (
     <Pagination
       count={totalPages || 10}

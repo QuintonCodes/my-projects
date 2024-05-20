@@ -6,6 +6,7 @@ import GenericList from "../components/GenericList";
 import SkeletonUI from "../components/SkeletonUI";
 import useArtistsInfo from "../hooks/useArtistInfo";
 import { useUser } from "../hooks/useContext";
+import BackButton from "../components/BackButton";
 
 const ArtistInfoPage = () => {
   const { id } = useParams();
@@ -20,13 +21,20 @@ const ArtistInfoPage = () => {
   return (
     <div
       style={{
-        alignItems: "center",
+        alignItems: "flex-start",
         display: "flex",
-        flexDirection: "column",
-        padding: "20px",
+        flexDirection: "row",
+        padding: "12px",
       }}
     >
-      {isArtistInfoLoading ? (
+      <BackButton />
+      {!user ? (
+        <AlertCard
+          severity="error"
+          title="Error"
+          alertText="Please log in to view this content."
+        />
+      ) : isArtistInfoLoading ? (
         <div style={{ display: "flex", width: "100%" }}>
           <SkeletonUI
             height={450}
@@ -67,13 +75,11 @@ const ArtistInfoPage = () => {
             />
           </div>
         </div>
-      ) : artistInfoError || !user ? (
+      ) : artistInfoError ? (
         <AlertCard
           severity="error"
           title="Error"
-          alertText={
-            artistInfoError?.message || "Please log in to view this content."
-          }
+          alertText={artistInfoError?.message}
         />
       ) : (
         <div style={{ display: "flex", width: "100%" }}>

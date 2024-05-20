@@ -21,8 +21,8 @@ const App = () => {
             <Container component="main" maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/artists" element={<ArtistListPage />} />
-                <Route path="/artists/:id" element={<ArtistInfoPage />} />
+                <Route path="/artists/:page" element={<ArtistListPage />} />
+                <Route path="/artists/:page/:id" element={<ArtistInfoPage />} />
                 <Route path="/daily-artist" element={<DailyArtistPage />} />
                 <Route
                   path="*"

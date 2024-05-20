@@ -23,20 +23,24 @@ const DailyArtistPage = () => {
       }}
     >
       <h1>Artist of the Day</h1>
-      {isArtistLoading ? (
+      {!user ? (
+        <AlertCard
+          severity="error"
+          title="Error"
+          alertText="Please log in to view this content."
+        />
+      ) : isArtistLoading ? (
         <SkeletonUI
           height={495}
           width={345}
           animation="wave"
           variant="rounded"
         />
-      ) : artistError || !user ? (
+      ) : artistError ? (
         <AlertCard
           severity="error"
           title="Error"
-          alertText={
-            artistError?.message || "Please log in to view this content."
-          }
+          alertText={artistError?.message}
         />
       ) : dailyArtist ? (
         <ArtistCard

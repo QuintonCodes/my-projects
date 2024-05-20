@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { List } from "@mui/material";
 import ItemList from "./ItemList";
 import { formatDuration } from "../utils/helper";
@@ -21,10 +21,11 @@ const GenericList: FC<GenericListProps<GenericListItem>> = ({
   itemType,
 }) => {
   const navigate = useNavigate();
+  const { page } = useParams();
 
   return (
     <List sx={{ maxWidth: 520, width: "100%", paddingTop: "15px" }}>
-      {items.map((item) => (
+      {items?.map((item) => (
         <ItemList
           key={item.id}
           id={item.id}
@@ -36,7 +37,7 @@ const GenericList: FC<GenericListProps<GenericListItem>> = ({
           onClick={
             itemType === "track"
               ? undefined
-              : () => navigate(`/artists/${item.id}`)
+              : () => navigate(`/artists/${page}/${item.id}`)
           }
         />
       ))}

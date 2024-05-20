@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState, useRef, useEffect } from "react";
+import { FC, useState } from "react";
 import {
   AppBar,
   Drawer,
@@ -17,13 +17,11 @@ import SearchResults from "./SearchResults";
 import useUserEffect from "../hooks/useUserEffect";
 import useAuthService from "../services/AuthService";
 import { useAllArtists } from "../hooks/useArtists";
-import { Artist } from "../utils/models";
+import useDebouncedSearch from "../hooks/useDebouncedSearch";
+import useFilteredArtists from "../hooks/useFilteredArtists";
 
 const Navbar: FC = () => {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredArtists, setFilteredArtists] = useState<Artist[]>([]);
-  const timeoutRef = useRef<number | undefined>();
 
   const authService = useAuthService();
   const theme = useTheme();
@@ -31,49 +29,17 @@ const Navbar: FC = () => {
 
   const { allArtists, isLoading } = useAllArtists();
 
+  const { searchQuery, handleSearchInputChange } = useDebouncedSearch();
+  const filteredArtists = useFilteredArtists(allArtists, searchQuery);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const debouncedSetSearchQuery = (query: string) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    timeoutRef.current = window.setTimeout(() => {
-      setSearchQuery(query);
-    }, 300);
-  };
-
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const query = event.target.value;
-    debouncedSetSearchQuery(query);
-  };
-
-  useEffect(() => {
-    if (searchQuery.length > 2) {
-      const filtered = allArtists.filter((artist) =>
-        artist.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredArtists(filtered);
-    } else {
-      setFilteredArtists([]);
-    }
-  }, [searchQuery, allArtists]);
-
   useUserEffect();
 
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
   return (
-    <Fragment>
+    <div>
       <AppBar
         position="static"
         sx={{ bgcolor: "#1f1f1f", justifyContent: "center", minHeight: 80 }}
@@ -108,7 +74,7 @@ const Navbar: FC = () => {
       {searchQuery.length > 2 && (
         <SearchResults isLoading={isLoading} searchResults={filteredArtists} />
       )}
-    </Fragment>
+    </div>
   );
 };
 
