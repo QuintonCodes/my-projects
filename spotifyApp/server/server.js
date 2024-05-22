@@ -16,17 +16,17 @@ app.use(
     credentials: true,
   })
 );
-
-mongoose
-  .connect(process.env.CONNECTION_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => {
+(async () => {
+  try {
+    await mongoose.connect(process.env.CONNECTION_STRING, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB connected");
+  } catch (error) {
     console.error("MongoDB connection error:", err);
-    process.exit(1);
-  });
+  }
+})();
 
 app.use(
   session({
