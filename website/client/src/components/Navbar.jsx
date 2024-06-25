@@ -61,11 +61,7 @@ const Navbar = () => {
         {!isNavbarActive && (
           <>
             <li className="pb-5 px-2">
-              <NavLink
-                to="/register"
-                activeclassname="active"
-                aria-label="user"
-              >
+              <NavLink to="/signup" activeclassname="active" aria-label="user">
                 <UserIcon className="h-7 w-7" />
               </NavLink>
             </li>
