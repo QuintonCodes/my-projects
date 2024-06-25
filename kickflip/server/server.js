@@ -1,25 +1,39 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
+const products = require("./products");
+require("dotenv").config();
 
 const app = express();
 
-dotenv.config();
-
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("DB Connection successful"))
-  .catch((err) => {
-    console.log(err);
-  });
+(async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("DB Connection successful");
+  } catch (error) {
+    console.error("MongoDB connection error:", err);
+  }
+})();
 
-app.use("/api/users", userRoute);
+app.get("/", (req, res) => {
+  res.send("Welcome to KickFlip server !");
+});
 
-app.listen(3000, () => {
-  console.log("Server is running");
+app.get("/products", (req, res) => {
+  res.json(products);
+});
+
+app.use("/auth", userRoute);
+
+app.listen(4000, () => {
+  console.log("Server is running on http://localhost:4000");
 });
