@@ -4,7 +4,7 @@ import { UserIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
   return (
-    <header className="items-center bg-[#282828] border-2 border-solid border-black flex h-20 justify-between left-0 p-[30px_3%] sticky top-0 w-full z-[999]">
+    <header className="items-center bg-[#282828] border-b-2 border-solid border-black flex h-20 justify-between left-0 p-[30px_3%] sticky top-0 w-full z-[999]">
       <div className="flex items-center justify-center">
         <NavLink to="/">
           <img

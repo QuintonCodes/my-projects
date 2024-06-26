@@ -20,7 +20,7 @@ app.use(
     await mongoose.connect(process.env.MONGO_URL);
     console.log("DB Connection successful");
   } catch (error) {
-    console.error("MongoDB connection error:", err);
+    console.error("MongoDB connection error:", error);
   }
 })();
 
