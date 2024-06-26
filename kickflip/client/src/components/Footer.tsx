@@ -5,7 +5,7 @@ import {
   faWhatsapp,
   faTiktok,
 } from "@fortawesome/free-brands-svg-icons";
-import SubscribeForm from "./SubscribeForm;
+import SubscribeForm from "./SubscribeForm";
 import logo from "../assets/logo.png";
 
 const Footer = () => {
@@ -35,7 +35,7 @@ const Footer = () => {
         </div>
       </div>
 
-     <SubscribeForm/>
+      <SubscribeForm />
 
       <div className="mr-10 mt-5 items-start flex flex-col mb-5 text-white max-[1024px]:mr-0">
         <h4 className="font-bold pb-3">My Account</h4>
