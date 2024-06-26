@@ -1,6 +1,7 @@
-import { Link } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Products } from "../utils/models";
 import { Card, CardContent, CardFooter } from "./ui/card";
+import { cn } from "../lib/utils";
 
 interface ShopItemProps {
   products: Products;
@@ -8,28 +9,37 @@ interface ShopItemProps {
 
 const ShopItem = ({ products }: ShopItemProps) => {
   return (
-    <Card className="w-3/5 transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-transparent border-transparent">
-      <CardContent className="flex aspect-square items-center justify-center p-6 bg-card rounded-lg">
-        <Link to={`shop/${products.name}`}>
+    <Card className="w-3/5 transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-transparent">
+      <CardContent className="flex aspect-square items-center justify-center p-6 rounded-lg">
+        <Link to={`/shop/${products.name}`}>
           <img
             src={products.images[0].src}
             alt={products.name}
-            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+            className="h-full w-full object-cover object-center lg:h-full lg:w-full rounded-lg"
           />
         </Link>
       </CardContent>
       <CardFooter className="mt-4 flex justify-between">
         <div>
-          <h3 className="text-base text-black">
-            <a href="/shop/product">
+          <h3 className="text-base text-black text-wrap">
+            <Link to={`/shop/${products.name}`}>
               <span aria-hidden="true" className="inset-0" />
               {products.name}
-            </a>
+            </Link>
           </h3>
 
-          {products.color.map((color) => (
-            <p className="mt-1 text-sm text-gray-500">{color.name}</p>
-          ))}
+          <div className="flex gap-3 py-2">
+            {products.color.map((color) => (
+              <span
+                aria-hidden="true"
+                key={color.name}
+                className={cn(
+                  color.class,
+                  "h-6 w-6 rounded-full border border-black"
+                )}
+              />
+            ))}
+          </div>
         </div>
         <p className="text-base font-medium text-black">
           R {products.price}.00

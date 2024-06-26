@@ -8,41 +8,44 @@ const PRODUCTS = [
     color: [
       {
         name: "Black",
+        class: "bg-black",
         inStock: true,
       },
       {
         name: "White",
+        class: "bg-white",
         inStock: true,
       },
       {
         name: "Grey",
+        class: "bg-[#acacac]",
         inStock: true,
       },
     ],
     images: [
       {
         name: "Front Black",
-        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719342217/neqhlj6h9ssjxoim4oka.png",
+        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719465822/Front_Black_Hoodie_mh3rm4.png",
       },
       {
         name: "Front White",
-        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719342210/rtmg7yj5xujuteefrwob.png",
+        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719465826/Front_White_Hoodie_fmlpde.png",
       },
       {
         name: "Front Grey",
-        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719342221/bb8yyjshx3nothpl9eaq.png",
+        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719465827/Front_Grey_Hoodie_tju39v.png",
       },
       {
         name: "Back Black",
-        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719342201/uxpawwsvetsmbnw6z166.png",
+        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719465827/Back_Black_Hoodie_exip5v.png",
       },
       {
         name: "Back White",
-        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719342210/ihwfvirzb8egvmfowwf2.png",
+        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719465826/Back_White_Hoodie_fjijvi.png",
       },
       {
         name: "Back Grey",
-        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719342220/uhap7ye8kkoehhzgzgns.png",
+        src: "https://res.cloudinary.com/djyh1j8bs/image/upload/v1719465826/Back_Grey_Hoodie_gcfz2a.png",
       },
     ],
     size: [
@@ -61,10 +64,12 @@ const PRODUCTS = [
     color: [
       {
         name: "Black",
+        class: "bg-black",
         inStock: true,
       },
       {
         name: "White",
+        class: "bg-white",
         inStock: true,
       },
     ],
@@ -102,10 +107,12 @@ const PRODUCTS = [
     color: [
       {
         name: "Black",
+        class: "bg-black",
         inStock: true,
       },
       {
         name: "White",
+        class: "bg-white",
         inStock: true,
       },
     ],
@@ -142,10 +149,12 @@ const PRODUCTS = [
     color: [
       {
         name: "Black",
+        class: "bg-black",
         inStock: true,
       },
       {
         name: "Grey",
+        class: "bg-[#acacac]",
         inStock: true,
       },
     ],

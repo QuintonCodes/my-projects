@@ -6,6 +6,7 @@ export interface Products {
   category: string;
   color: {
     name: string;
+    class: string;
     inStock: boolean;
   }[];
   images: {
