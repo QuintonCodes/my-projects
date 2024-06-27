@@ -78,3 +78,9 @@
 body {
   font-family: "Mochiy Pop One", sans-serif;
 }
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+  top: -3px;
+  font-size: 1em;
+}

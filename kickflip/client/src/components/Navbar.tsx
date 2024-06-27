@@ -48,7 +48,7 @@ const Navbar = () => {
         <ul className="items-center justify-center flex list-none transition-transform duration-300 translate-x-0">
           <li className="pb-5 px-2">
             <NavLink
-              to="/signup"
+              to="/auth"
               aria-label="user"
               className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
             >

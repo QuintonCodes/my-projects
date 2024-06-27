@@ -4,10 +4,9 @@ import MainLayout from "./components/MainLayout";
 import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
 import ProductInfoPage from "./pages/ProductInfoPage";
 import ShopPage from "./pages/ShopPage";
-import SignupPage from "./pages/SignupPage";
+import AuthPage from "./pages/AuthPage";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -32,16 +31,12 @@ const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
+        path: "/auth",
+        element: <AuthPage />,
+      },
+      {
         path: "/cart",
         element: <CartPage />,
-      },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/signup",
-        element: <SignupPage />,
       },
     ],
   },

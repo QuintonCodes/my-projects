@@ -11,9 +11,9 @@ import {
 
 const CartPage = () => {
   return (
-    <section className="my-7 mx-10 grid grid-cols-2 h-[60vh] items-center max-[1024px]:flex max-[1024px]:flex-wrap">
+    <section className="bg-[#292929] text-white py-7 px-10 grid grid-cols-2 min-h-[70vh] items-center max-[1024px]:flex max-[1024px]:flex-wrap">
       <div className="my-5 max-[1024px]:w-full">
-        <h2 className="mb-5 font-semibold text-4xl">Shopping Cart</h2>
+        <h2 className="mb-5 font-semibold text-4xl py-3">Shopping Cart</h2>
         <ul role="list" className="-my-6 divide-y divide-gray-300">
           <CartItem />
         </ul>
@@ -23,25 +23,25 @@ const CartPage = () => {
         <h3 className="font-semibold text-3xl py-2">Cart Totals</h3>
         <Table>
           <TableHeader>
-            <TableRow>
-              <TableHead>Payment</TableHead>
-              <TableHead>Amount</TableHead>
+            <TableRow className="hover:bg-[#D6D6D6] hover:bg-opacity-20">
+              <TableHead className="text-white text-xl">Payment</TableHead>
+              <TableHead className="text-white text-xl">Amount</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
+            <TableRow className="hover:bg-[#D6D6D6] hover:bg-opacity-20">
               <TableCell>Cart SubTotals</TableCell>
               <TableCell>R {1000}.00</TableCell>
             </TableRow>
-            <TableRow>
+            <TableRow className="hover:bg-[#D6D6D6] hover:bg-opacity-20">
               <TableCell>Shipping</TableCell>
               <TableCell>R {200}.00</TableCell>
             </TableRow>
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableHead>Total</TableHead>
-              <TableHead>R {1200}.00</TableHead>
+          <TableFooter className="bg-[#D6D6D6] bg-opacity-20">
+            <TableRow className="hover:bg-inherit">
+              <TableHead className="text-[#7F1310]">Total</TableHead>
+              <TableHead className="text-[#7F1310]">R {1200}.00</TableHead>
             </TableRow>
           </TableFooter>
         </Table>

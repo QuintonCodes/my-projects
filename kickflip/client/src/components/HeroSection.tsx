@@ -3,10 +3,10 @@ import ImageSlides from "./ImageSlides";
 const HeroSection = () => {
   return (
     <section
-      className="bg-[#BAB5BA] items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[1024px]:min-h-[60vh]"
+      className="bg-[#292929] items-center flex h-full w-full justify-between border-b-2 border-b-black border-solid min-h-screen px-[50px] max-[450px]:flex-wrap max-[450px]:min-h-[80vh] max-[1024px]:min-h-[60vh]"
       id="hero"
     >
-      <div className="max-[450px]:mt-5">
+      <div className="max-[450px]:mt-5 text-white">
         <h2 className="text-6xl font-bold max-[450px]:text-5xl">
           Our New KickFlip Hoodies
         </h2>

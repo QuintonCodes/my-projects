@@ -1,18 +1,30 @@
 import ShopItem from "../components/ShopItem";
+import { Skeleton } from "../components/ui/skeleton";
 import useProducts from "../hooks/useProducts";
 
 const ShopPage = () => {
-  const { data: products } = useProducts();
+  const { data: products, isLoading: isProductsLoading } = useProducts();
 
   return (
-    <div className="bg-[#1f1f1f] text-center py-10">
+    <section className="bg-[#292929] text-center py-10 text-white min-h-[70vh]">
       <h2 className="font-bold pb-5 text-5xl">Shop All</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center gap-10">
-        {products?.map((product) => (
-          <ShopItem key={product.id} products={product} />
-        ))}
-      </div>
-    </div>
+      {isProductsLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center gap-10">
+          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
+          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
+          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
+          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
+        </div>
+      ) : products ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center gap-10">
+          {products?.map((product) => (
+            <ShopItem key={product.id} products={product} />
+          ))}
+        </div>
+      ) : (
+        <h2 className="text-2xl">Nothing Found</h2>
+      )}
+    </section>
   );
 };
 

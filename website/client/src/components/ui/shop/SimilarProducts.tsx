@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { PRODUCTS } from "../../../utils/resources";
 import { BaseProduct } from "../../../utils/models";
-import ProductCard from "../../ProductCard";
+import ProductCard from "./ProductCard";
 
 interface SimilarProductsProps {
   product: BaseProduct;

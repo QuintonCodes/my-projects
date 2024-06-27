@@ -2,7 +2,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { PRODUCTS } from "../utils/resources";
 import { BaseProduct } from "../utils/models";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/ui/shop/ProductCard";
 
 const ShopPage = () => {
   return (

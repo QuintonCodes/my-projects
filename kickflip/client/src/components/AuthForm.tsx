@@ -8,15 +8,15 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
 
-interface LoginFormProps {
+interface AuthFormProps {
   isRegistered: boolean;
 }
 
-const LoginForm = ({ isRegistered }: LoginFormProps) => {
+const AuthForm = ({ isRegistered }: AuthFormProps) => {
   return (
     <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] relative w-[550px]">
       <div className="p-10 w-full">
-        <h3 className="text-[2em] text-center font-semibold">
+        <h3 className="text-4xl text-center font-semibold">
           {isRegistered ? "Login" : "Signup"}
         </h3>
         <form action="">
@@ -39,25 +39,27 @@ const LoginForm = ({ isRegistered }: LoginFormProps) => {
                   <input
                     type="checkbox"
                     id="terms"
-                    className="accent-black mr-[3px]"
+                    className="accent-[#7F1310] mr-[6px]"
                   />
                   Remember me
                 </label>
 
                 <a
                   href="#"
-                  className="hover:underline text-[#545484] no-underline"
+                  className="hover:underline text-[#7F1310] no-underline"
                 >
                   Forgot Password?
                 </a>
               </div>
-              <Button className="w-full">Login</Button>
+              <Button className="w-full bg-[#292929] hover:bg-[#7F1310]">
+                Login
+              </Button>
               <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
                 <p>
-                  Don`t have an account?{" "}
+                  Don't have an account?{" "}
                   <Link
                     to="/signup"
-                    className="font-semibold hover:underline text-[#545484] no-underline"
+                    className="font-semibold hover:underline text-[#7F1310] no-underline"
                   >
                     Register
                   </Link>
@@ -89,18 +91,20 @@ const LoginForm = ({ isRegistered }: LoginFormProps) => {
                   <input
                     type="checkbox"
                     id="terms"
-                    className="accent-black mr-[3px]"
+                    className="accent-[#7F1310] mr-[6px]"
                   />
                   I agree to the terms & conditions
                 </label>
               </div>
-              <Button className="w-full">Register</Button>
+              <Button className="w-full bg-[#292929] hover:bg-[#7F1310]">
+                Register
+              </Button>
               <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
                 <p>
                   Already have an account?{" "}
                   <Link
                     to="/login"
-                    className="font-semibold hover:underline text-[#545484] no-underline"
+                    className="font-semibold hover:underline text-[#7F1310] no-underline"
                   >
                     Login
                   </Link>
@@ -114,4 +118,4 @@ const LoginForm = ({ isRegistered }: LoginFormProps) => {
   );
 };
 
-export default LoginForm;
+export default AuthForm;

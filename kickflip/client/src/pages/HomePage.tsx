@@ -4,11 +4,11 @@ import SubscribeForm from "../components/SubscribeForm";
 
 const HomePage = () => {
   return (
-    <div>
+    <section>
       <HeroSection />
       <ShopSection />
       <SubscribeForm />
-    </div>
+    </section>
   );
 };
 

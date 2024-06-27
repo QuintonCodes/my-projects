@@ -19,9 +19,9 @@ const ShopItem = ({ products }: ShopItemProps) => {
           />
         </Link>
       </CardContent>
-      <CardFooter className="mt-4 flex justify-between">
+      <CardFooter className="mt-4 flex justify-between text-white">
         <div>
-          <h3 className="text-base text-black text-wrap">
+          <h3 className="text-base text-wrap">
             <Link to={`/shop/${products.name}`}>
               <span aria-hidden="true" className="inset-0" />
               {products.name}
@@ -41,9 +41,7 @@ const ShopItem = ({ products }: ShopItemProps) => {
             ))}
           </div>
         </div>
-        <p className="text-base font-medium text-black">
-          R {products.price}.00
-        </p>
+        <p className="text-base font-medium">R {products.price}.00</p>
       </CardFooter>
     </Card>
   );

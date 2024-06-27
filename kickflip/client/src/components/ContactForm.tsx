@@ -28,18 +28,18 @@ const ContactForm = () => {
           Message
         </label>
         <Textarea
-          className="col-span-2 block w-full rounded-md border-0 px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
+          className="col-span-2 block bg-[#292929] w-full rounded-md border-0 px-3.5 py-1 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
           id="message"
         />
         <div className="flex gap-x-4 sm:col-span-2">
           <div className="flex h-6 items-center">
-            <Switch />
+            <Switch className="data-[state=unchecked]:bg-[#292929] data-[state=checked]:bg-[#7F1310]" />
           </div>
           <label htmlFor="">
             By selecting this, you agree to our privacy&nbsp;policy.
           </label>
         </div>
-        <Button className="col-span-2" variant="secondary">
+        <Button className="col-span-2 bg-[#292929] hover:bg-[#7F1310]">
           Let's Talk
         </Button>
       </div>
