@@ -11,7 +11,7 @@ const ShopItem = ({ products }: ShopItemProps) => {
   return (
     <Card className="w-3/5 transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-transparent">
       <CardContent className="flex aspect-square items-center justify-center p-6 rounded-lg">
-        <Link to={`/shop/${products.name}`}>
+        <Link to={`/shop/${products.id}`}>
           <img
             src={products.images[0].src}
             alt={products.name}
@@ -22,7 +22,7 @@ const ShopItem = ({ products }: ShopItemProps) => {
       <CardFooter className="mt-4 flex justify-between text-white">
         <div>
           <h3 className="text-base text-wrap">
-            <Link to={`/shop/${products.name}`}>
+            <Link to={`/shop/${products.id}`}>
               <span aria-hidden="true" className="inset-0" />
               {products.name}
             </Link>

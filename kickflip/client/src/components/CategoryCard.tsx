@@ -1,10 +1,10 @@
 import { Card, CardContent } from "./ui/card";
 
-interface ItemProps {
+interface CategoryCardProps {
   text: string;
 }
 
-const Item = ({ text }: ItemProps) => {
+const CategoryCard = ({ text }: CategoryCardProps) => {
   return (
     <Card className="w-1/4 transform transition-transform duration-300 hover:scale-105 cursor-pointer">
       <CardContent className="flex aspect-square items-center justify-center p-6">
@@ -14,4 +14,4 @@ const Item = ({ text }: ItemProps) => {
   );
 };
 
-export default Item;
+export default CategoryCard;

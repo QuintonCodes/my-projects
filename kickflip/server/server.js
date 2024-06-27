@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const userRoute = require("./routes/user");
-const products = require("./products");
+const shopRoute = require("./routes/shop");
 require("dotenv").config();
 
 const app = express();
@@ -28,11 +28,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to KickFlip server !");
 });
 
-app.get("/products", (req, res) => {
-  res.json(products);
-});
-
 app.use("/auth", userRoute);
+app.use("/shop", shopRoute);
 
 app.listen(4000, () => {
   console.log("Server is running on http://localhost:4000");
