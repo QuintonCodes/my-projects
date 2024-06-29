@@ -21,7 +21,8 @@ const HomePage = () => {
             in the cozy allure of our premium hoodies
           </p>
         </div>
-        <ProductImages includeButtons={false} product={product} />
+
+        {product && <ProductImages includeButtons={false} product={product} />}
       </section>
 
       <section className="bg-[#D6D6D6] text-center py-10">

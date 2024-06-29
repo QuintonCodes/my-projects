@@ -29,16 +29,14 @@ const ShopItem = ({ products }: ShopItemProps) => {
           </h3>
 
           <div className="flex gap-3 py-2">
-            {products.color.map((color) => (
-              <span
-                aria-hidden="true"
-                key={color.name}
-                className={cn(
-                  color.class,
-                  "h-6 w-6 rounded-full border border-black"
-                )}
-              />
-            ))}
+            <span
+              aria-hidden="true"
+              key={products.color.name}
+              className={cn(
+                products.color.class,
+                "h-6 w-6 rounded-full border border-black"
+              )}
+            />
           </div>
         </div>
         <p className="text-base font-medium">R {products.price}.00</p>

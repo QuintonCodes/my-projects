@@ -31,17 +31,17 @@ const ProductImages = ({
       plugins={!includeButtons ? [plugin.current] : undefined}
     >
       <CarouselContent>
-        <CarouselItem>
-          <div className="p-1">
-            <Card>
-              <CardContent className="flex aspect-square items-center justify-center p-6">
-                {product?.images.map((item) => (
-                  <img src={item.src} alt={item.name} key={item.name} />
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-        </CarouselItem>
+        {product?.images.map((item) => (
+          <CarouselItem key={item.src}>
+            <div className="p-1">
+              <Card className="bg-transparent border-none">
+                <CardContent className="flex aspect-square items-center justify-center p-6">
+                  <img src={item.src} alt={item.name} className="rounded-lg" />
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
       </CarouselContent>
       {includeButtons && (
         <>

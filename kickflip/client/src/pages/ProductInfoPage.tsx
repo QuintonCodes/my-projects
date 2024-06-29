@@ -18,16 +18,11 @@ import {
 } from "../components/ui/accordion";
 import { Button } from "../components/ui/button";
 import { ShoppingCart } from "lucide-react";
-import { useState } from "react";
+import { cn } from "../lib/utils";
 
 const ProductInfoPage = () => {
   const { id } = useParams();
   const { data: product } = useProduct(id);
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-
-  const handleColorSelect = (color: string) => {
-    setSelectedColor(color);
-  };
 
   return (
     <section className="my-5 ml-16">
@@ -38,24 +33,17 @@ const ProductInfoPage = () => {
           <h3 className="text-3xl font-semibold">
             {product?.name || "Product Name"}
           </h3>
-          <h4 className="text-2xl mt-2">R {product?.price || "300.00"}</h4>
-          <div className="flex flex-col mb-3">
-            <h5 className="my-2">Select a colour</h5>
+          <h4 className="text-2xl mt-2">R {product?.price || "300"}.00</h4>
+          <div className="flex my-4">
+            <h5>{product?.color.name}</h5>
             <div className="mx-2">
-              {product?.color.map((color) => (
-                <label
-                  key={color.name}
-                  className={`relative -m-0.5 flex rounded-full p-0.5 cursor-pointer ${
-                    selectedColor === color.name ? "border-2 border-black" : ""
-                  }`}
-                  onClick={() => handleColorSelect(color.name)}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`h-6 w-6 rounded-full ${color.class}`}
-                  />
-                </label>
-              ))}
+              <span
+                aria-hidden="true"
+                className={cn(
+                  product?.color.class,
+                  "h-6 w-6 rounded-full border border-black"
+                )}
+              />
             </div>
           </div>
 

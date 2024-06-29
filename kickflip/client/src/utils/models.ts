@@ -8,7 +8,7 @@ export interface Products {
     name: string;
     class: string;
     inStock: boolean;
-  }[];
+  };
   images: {
     name: string;
     src: string;
