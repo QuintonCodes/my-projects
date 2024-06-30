@@ -91,12 +91,10 @@ const CartItem = ({ item }: CartItemProps) => {
           </div>
 
           <div className="flex mb-3">
-            <button
-              className="bg-transparent border-none cursor-pointer"
+            <Trash2Icon
+              className="h-6 w-6 hover:text-[#7F1310] cursor-pointer hover:animate-pulse transition-transform duration-300 hover:scale-110"
               onClick={handleRemove}
-            >
-              <Trash2Icon className="h-6 w-6 hover:text-[#7F1310]" />
-            </button>
+            />
           </div>
         </div>
       </div>
