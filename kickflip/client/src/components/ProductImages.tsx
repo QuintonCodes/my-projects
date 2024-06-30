@@ -9,6 +9,7 @@ import {
 import { Card, CardContent } from "./ui/card";
 import AutoPlay from "embla-carousel-autoplay";
 import { Products } from "../utils/models";
+import { ImageOff } from "lucide-react";
 
 interface ProductImagesProps {
   product?: Products;
@@ -31,17 +32,35 @@ const ProductImages = ({
       plugins={!includeButtons ? [plugin.current] : undefined}
     >
       <CarouselContent>
-        {product?.images.map((item) => (
-          <CarouselItem key={item.src}>
+        {!product ? (
+          <CarouselItem>
             <div className="p-1">
-              <Card className="bg-transparent border-none">
+              <Card>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <img src={item.src} alt={item.name} className="rounded-lg" />
+                  <ImageOff className="h-20 w-20 text-gray-400" />
                 </CardContent>
               </Card>
             </div>
           </CarouselItem>
-        ))}
+        ) : (
+          <>
+            {product.images.map((item) => (
+              <CarouselItem key={item.src}>
+                <div className="p-1">
+                  <Card className="bg-transparent border-none">
+                    <CardContent className="flex aspect-square items-center justify-center p-0">
+                      <img
+                        src={item.src}
+                        alt={item.name}
+                        className="rounded-lg w-full h-full object-cover"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </>
+        )}
       </CarouselContent>
       {includeButtons && (
         <>

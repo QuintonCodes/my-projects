@@ -5,8 +5,7 @@ import useProducts from "../hooks/useProducts";
 const ShopPage = () => {
   const { data: products, isLoading: isProductsLoading } = useProducts();
 
-  console.log("Products data:", products);
-  const productList = Array.isArray(products) ? products : [];
+  console.log("Products", products);
 
   return (
     <section className="bg-[#292929] text-center py-10 text-white min-h-[70vh]">
@@ -18,9 +17,9 @@ const ShopPage = () => {
           <Skeleton className="w-3/5 h-[500px] rounded-xl" />
           <Skeleton className="w-3/5 h-[500px] rounded-xl" />
         </div>
-      ) : productList.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center gap-10">
-          {productList.map((product) => (
+      ) : products ? (
+        <div className="grid grid-cols-3 justify-items-center gap-10">
+          {products?.map((product) => (
             <ShopItem key={product.id} products={product} />
           ))}
         </div>

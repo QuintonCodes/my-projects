@@ -3,7 +3,7 @@ const PRODUCTS = [
     id: 1,
     name: "KickFlip Hoodie",
     price: 300.0,
-    quantity: 30,
+    quantity: 10,
     category: "Hoodies",
     color: {
       name: "Black",
@@ -31,14 +31,13 @@ const PRODUCTS = [
     id: 2,
     name: "KickFlip Hoodie",
     price: 300.0,
-    quantity: 30,
+    quantity: 5,
     category: "Hoodies",
     color: {
       name: "White",
       class: "bg-white",
       inStock: true,
     },
-
     images: [
       {
         name: "Front White",
@@ -60,14 +59,13 @@ const PRODUCTS = [
     id: 3,
     name: "KickFlip Hoodie",
     price: 300.0,
-    quantity: 30,
+    quantity: 8,
     category: "Hoodies",
     color: {
       name: "Grey",
       class: "bg-[#acacac]",
       inStock: true,
     },
-
     images: [
       {
         name: "Front Grey",
@@ -89,15 +87,13 @@ const PRODUCTS = [
     id: 4,
     name: "KickFlip T-Shirt",
     price: 200.0,
-    quantity: 6,
+    quantity: 10,
     category: "T-Shirts",
-    color: [
-      {
-        name: "Black",
-        class: "bg-black",
-        inStock: true,
-      },
-    ],
+    color: {
+      name: "Black",
+      class: "bg-black",
+      inStock: true,
+    },
     images: [
       {
         name: "Front Black",
@@ -119,15 +115,13 @@ const PRODUCTS = [
     id: 5,
     name: "KickFlip T-Shirt",
     price: 200.0,
-    quantity: 6,
+    quantity: 8,
     category: "T-Shirts",
-    color: [
-      {
-        name: "White",
-        class: "bg-white",
-        inStock: true,
-      },
-    ],
+    color: {
+      name: "White",
+      class: "bg-white",
+      inStock: true,
+    },
     images: [
       {
         name: "Front White",
@@ -149,15 +143,13 @@ const PRODUCTS = [
     id: 6,
     name: "KickFlip Zip Hoodie",
     price: 400.0,
-    quantity: 6,
-    category: "Jersey",
-    color: [
-      {
-        name: "Black",
-        class: "bg-black",
-        inStock: true,
-      },
-    ],
+    quantity: 10,
+    category: "Hoodies",
+    color: {
+      name: "Black",
+      class: "bg-black",
+      inStock: true,
+    },
     images: [
       {
         name: "Front Black",
@@ -178,15 +170,13 @@ const PRODUCTS = [
     id: 7,
     name: "KickFlip Zip Hoodie",
     price: 400.0,
-    quantity: 6,
-    category: "Jersey",
-    color: [
-      {
-        name: "White",
-        class: "bg-white",
-        inStock: true,
-      },
-    ],
+    quantity: 10,
+    category: "Hoodies",
+    color: {
+      name: "White",
+      class: "bg-white",
+      inStock: true,
+    },
     images: [
       {
         name: "Front White",
@@ -205,17 +195,15 @@ const PRODUCTS = [
   },
   {
     id: 8,
-    name: "KickFlip 1/4 Zip",
+    name: "KickFlip Q/Zip Sweatshirt",
     price: 400.0,
     quantity: 8,
-    category: "Jersey",
-    color: [
-      {
-        name: "Black",
-        class: "bg-black",
-        inStock: true,
-      },
-    ],
+    category: "Sweatshirts",
+    color: {
+      name: "Black",
+      class: "bg-black",
+      inStock: true,
+    },
     images: [
       {
         name: "Front Black",
@@ -234,17 +222,15 @@ const PRODUCTS = [
   },
   {
     id: 9,
-    name: "KickFlip 1/4 Zip",
+    name: "KickFlip Q/Zip Sweatshirt",
     price: 400.0,
     quantity: 8,
-    category: "Jersey",
-    color: [
-      {
-        name: "Grey",
-        class: "bg-[#acacac]",
-        inStock: true,
-      },
-    ],
+    category: "Sweatshirts",
+    color: {
+      name: "Grey",
+      class: "bg-[#acacac]",
+      inStock: true,
+    },
     images: [
       {
         name: "Front Grey",

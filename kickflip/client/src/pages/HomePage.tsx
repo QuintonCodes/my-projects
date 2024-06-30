@@ -1,9 +1,14 @@
 import ProductImages from "../components/ProductImages";
 import CategoryCard from "../components/CategoryCard";
-import useProduct from "../hooks/useProduct";
+import useProducts from "../hooks/useProducts";
 
 const HomePage = () => {
-  const { data: product } = useProduct("1");
+  const { data: products } = useProducts();
+
+  const getCategoryImage = (category: string) => {
+    const product = products?.find((p) => p.category === category);
+    return product ? product.images[0].src : "";
+  };
 
   return (
     <section>
@@ -22,15 +27,24 @@ const HomePage = () => {
           </p>
         </div>
 
-        {product && <ProductImages includeButtons={false} product={product} />}
+        <ProductImages
+          includeButtons={false}
+          product={products?.find((p) => p.id === 1)}
+        />
       </section>
 
       <section className="bg-[#D6D6D6] text-center py-10">
         <h2 className="font-bold pb-5 text-5xl">Shop All</h2>
         <div className="flex items-center justify-center gap-10 py-2">
-          <CategoryCard text="Hoodies" />
-          <CategoryCard text="T-Shirts" />
-          <CategoryCard text="Jerseys" />
+          <CategoryCard text="Hoodies" imageSrc={getCategoryImage("Hoodies")} />
+          <CategoryCard
+            text="T-Shirts"
+            imageSrc={getCategoryImage("T-Shirts")}
+          />
+          <CategoryCard
+            text="Sweatshirts"
+            imageSrc={getCategoryImage("Sweatshirts")}
+          />
         </div>
       </section>
 

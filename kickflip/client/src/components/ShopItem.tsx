@@ -9,7 +9,7 @@ interface ShopItemProps {
 
 const ShopItem = ({ products }: ShopItemProps) => {
   return (
-    <Card className="w-3/5 transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-transparent">
+    <Card className="w-4/5 transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-transparent">
       <CardContent className="flex aspect-square items-center justify-center p-6 rounded-lg">
         <Link to={`/shop/${products.id}`}>
           <img

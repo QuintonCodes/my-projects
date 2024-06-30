@@ -16,7 +16,7 @@ export const fetchProducts = async (): Promise<Products[]> => {
 };
 
 export const fetchProduct = async (
-  productId: string | null | undefined
+  productId: string | undefined
 ): Promise<Products> => {
   const response = await axios.get(`${URL}/products/${productId}`, {
     withCredentials: true,
