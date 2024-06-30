@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useProduct from "../hooks/useProduct";
 import ProductImages from "../components/ProductImages";
 import {
@@ -19,12 +19,33 @@ import {
 import { Button } from "../components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { cn } from "../lib/utils";
+import { useShop } from "../context/ShopContext";
+import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../components/ui/alert-dialog";
 
 const ProductInfoPage = () => {
   const { id } = useParams();
   const { data: product } = useProduct(id);
+  const { dispatch } = useShop();
+  const [selectedSize, setSelectedSize] = useState<string>("s");
 
-  console.log("Product Info:", product);
+  const handleAddToCart = () => {
+    dispatch({ type: "ADD_TO_CART", product, size: selectedSize });
+  };
+
+  const handleSizeChange = (value: string) => {
+    setSelectedSize(value);
+  };
 
   return (
     <section className="pt-10 px-16 bg-[#292929] min-h-[60vh]">
@@ -48,7 +69,7 @@ const ProductInfoPage = () => {
           </div>
 
           <div className="w-1/5 text-black">
-            <Select defaultValue="s">
+            <Select value={selectedSize} onValueChange={handleSizeChange}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a size" />
               </SelectTrigger>
@@ -82,10 +103,38 @@ const ProductInfoPage = () => {
             </AccordionItem>
           </Accordion>
 
-          <Button className="my-4 bg-[#D6D6D6] hover:bg-[#7F1310] hover:bg-opacity-90 hover:scale-110 transition duration-300 text-black hover:text-white">
-            <ShoppingCart className="mr-2 h-5 w-5" />
-            Add to Cart
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                className="my-4 bg-[#D6D6D6] hover:bg-[#7F1310] hover:bg-opacity-90 hover:scale-110 transition duration-300 text-black hover:text-white"
+                onClick={handleAddToCart}
+              >
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                Add to Cart
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="bg-[#292929]">
+              <AlertDialogHeader>
+                <AlertDialogTitle className="text-[#7F1310]">
+                  Successfully added to cart !
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-white">
+                  Your {product?.name} has been added to your cart. You can
+                  checkout or continue shopping now.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="bg-transparent text-white hover:text-black">
+                  Cancel
+                </AlertDialogCancel>
+                <Link to="/cart">
+                  <AlertDialogAction className="bg-[#D6D6D6] text-black hover:bg-[#7F1310] hover:text-white">
+                    Go to Cart
+                  </AlertDialogAction>
+                </Link>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </section>

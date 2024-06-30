@@ -1,8 +1,13 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { UserIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { useShop } from "../context/ShopContext";
+import { ShoppingCart, UserRound } from "lucide-react";
 
 const Navbar = () => {
+  const { state } = useShop();
+
+  const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <header className="items-center bg-[#282828] border-b-2 border-solid border-black flex h-20 justify-between left-0 p-[30px_3%] sticky top-0 w-full z-[999]">
       <div className="flex items-center justify-center">
@@ -52,7 +57,7 @@ const Navbar = () => {
               aria-label="user"
               className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
             >
-              <UserIcon className="h-7 w-7" />
+              <UserRound className="h-7 w-7" />
             </NavLink>
           </li>
           <li className="pb-5 px-2">
@@ -62,9 +67,9 @@ const Navbar = () => {
               className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
             >
               <div className="relative">
-                <ShoppingCartIcon className="h-7 w-7" />
+                <ShoppingCart className="h-7 w-7" />
                 <span className="absolute text-white px-2 -top-2 -right-2 bg-[#7F1310] rounded-full opacity-75">
-                  {0}
+                  {totalItems}
                 </span>
               </div>
             </NavLink>

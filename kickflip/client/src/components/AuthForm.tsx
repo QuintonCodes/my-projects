@@ -1,12 +1,8 @@
 import { ComponentType } from "react";
 import { Link } from "react-router-dom";
 import AuthInputField from "./AuthInputField";
-import {
-  EnvelopeIcon,
-  UserIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
+import { LockKeyhole, Mail, UserRound } from "lucide-react";
 
 interface AuthFormProps {
   isRegistered: boolean;
@@ -23,13 +19,13 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
           {isRegistered ? (
             <>
               <AuthInputField
-                icon={EnvelopeIcon as ComponentType<{ className: string }>}
+                icon={Mail as ComponentType<{ className: string }>}
                 type="email"
                 id="email-register"
                 label="Email"
               />
               <AuthInputField
-                icon={LockClosedIcon as ComponentType<{ className: string }>}
+                icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
                 id="password-register"
                 label="Password"
@@ -46,7 +42,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
 
                 <a
                   href="#"
-                  className="hover:underline text-[#7F1310] no-underline"
+                  className="hover:underline hover:underline-offset-4 text-[#7F1310]"
                 >
                   Forgot Password?
                 </a>
@@ -59,7 +55,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                   Don't have an account?{" "}
                   <Link
                     to="/signup"
-                    className="font-semibold hover:underline text-[#7F1310] no-underline"
+                    className="font-semibold hover:underline hover:underline-offset-4 text-[#7F1310] "
                   >
                     Register
                   </Link>
@@ -69,19 +65,19 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
           ) : (
             <>
               <AuthInputField
-                icon={UserIcon as ComponentType<{ className: string }>}
+                icon={UserRound as ComponentType<{ className: string }>}
                 type="text"
                 id="username"
                 label="Username"
               />
               <AuthInputField
-                icon={EnvelopeIcon as ComponentType<{ className: string }>}
+                icon={Mail as ComponentType<{ className: string }>}
                 type="email"
                 id="email-register"
                 label="Email"
               />
               <AuthInputField
-                icon={LockClosedIcon as ComponentType<{ className: string }>}
+                icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
                 id="password-register"
                 label="Password"
@@ -104,7 +100,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                   Already have an account?{" "}
                   <Link
                     to="/login"
-                    className="font-semibold hover:underline text-[#7F1310] no-underline"
+                    className="font-semibold hover:underline hover:underline-offset-4 text-[#7F1310] no-underline"
                   >
                     Login
                   </Link>

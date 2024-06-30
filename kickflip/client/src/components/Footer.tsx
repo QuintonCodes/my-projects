@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInstagram,
-  faWhatsapp,
-  faTiktok,
-} from "@fortawesome/free-brands-svg-icons";
 import logo from "../assets/logo.png";
+import { Instagram, MessageCircle, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -49,22 +44,10 @@ const Footer = () => {
         </Link>
       </div>
 
-      <div className="cursor-pointer ml-1 my-5">
-        <FontAwesomeIcon
-          icon={faInstagram}
-          size="xl"
-          className="text-white px-[13px] duration-300 ease-linear hover:text-[red] translate-y-[-15%]"
-        />
-        <FontAwesomeIcon
-          icon={faWhatsapp}
-          size="xl"
-          className="text-white px-[13px] duration-300 ease-linear hover:text-[#0f0] translate-y-[-15%]"
-        />
-        <FontAwesomeIcon
-          icon={faTiktok}
-          size="xl"
-          className="text-white px-[13px] duration-300 ease-linear hover:text-[#d65cff] translate-y-[-15%]"
-        />
+      <div className="cursor-pointer ml-1 my-5 flex gap-7">
+        <Instagram className="text-white h-8 w-8 duration-300 ease-linear hover:text-[red] hover:scale-110" />
+        <MessageCircle className="text-white h-8 w-8 duration-300 ease-linear hover:text-[#0f0] hover:scale-110" />
+        <Youtube className="text-white h-8 w-8 duration-300 ease-linear hover:text-[red] hover:scale-110" />
       </div>
 
       <div className="text-center w-ful7F1310">
