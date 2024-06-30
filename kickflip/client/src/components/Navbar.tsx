@@ -8,6 +8,14 @@ const Navbar = () => {
 
   const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
 
+  const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
+    return `text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310] ${
+      isActive
+        ? "text-[#7F1310] after:scale-x-100"
+        : "text-white after:scale-x-0"
+    }`;
+  };
+
   return (
     <header className="items-center bg-[#282828] border-b-2 border-solid border-black flex h-20 justify-between left-0 p-[30px_3%] sticky top-0 w-full z-[999]">
       <div className="flex items-center justify-center">
@@ -23,26 +31,17 @@ const Navbar = () => {
 
         <ul className="items-center justify-center flex list-none transition-transform duration-300 translate-x-0">
           <li>
-            <NavLink
-              to="/"
-              className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
-            >
+            <NavLink to="/" className={getNavLinkClass}>
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/shop"
-              className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
-            >
+            <NavLink to="/shop" className={getNavLinkClass}>
               Shop
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/contact"
-              className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
-            >
+            <NavLink to="/contact" className={getNavLinkClass}>
               Contact
             </NavLink>
           </li>
@@ -52,11 +51,7 @@ const Navbar = () => {
       <div>
         <ul className="items-center justify-center flex list-none transition-transform duration-300 translate-x-0">
           <li className="pb-5 px-2">
-            <NavLink
-              to="/auth"
-              aria-label="user"
-              className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
-            >
+            <NavLink to="/auth" aria-label="user" className={getNavLinkClass}>
               <UserRound className="h-7 w-7" />
             </NavLink>
           </li>
@@ -64,7 +59,7 @@ const Navbar = () => {
             <NavLink
               to="/cart"
               aria-label="shopping cart"
-              className="text-white text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:scale-x-0 after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310]"
+              className={getNavLinkClass}
             >
               <div className="relative">
                 <ShoppingCart className="h-7 w-7" />
