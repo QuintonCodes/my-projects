@@ -1,10 +1,15 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useShop } from "../context/ShopContext";
-import { ShoppingCart, UserRound } from "lucide-react";
+import { CircleUserRound, ShoppingCart, UserRound } from "lucide-react";
+import { useUser } from "../context/UserContext";
+import Menu from "./Menu";
 
 const Navbar = () => {
   const { state } = useShop();
+  const { user } = useUser();
+
+  console.log("User info", user);
 
   const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -17,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="items-center bg-[#282828] border-b-2 border-solid border-black flex h-20 justify-between left-0 p-[30px_3%] sticky top-0 w-full z-[999]">
+    <header className="items-center bg-[#282828] border-b-2 border-solid border-black flex h-20 justify-between left-0 p-[30px_3%] sticky top-0 w-full z-10">
       <div className="flex items-center justify-center">
         <NavLink to="/">
           <img
@@ -36,7 +41,7 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/shop" className={getNavLinkClass}>
+            <NavLink to="/shop?category=all" className={getNavLinkClass}>
               Shop
             </NavLink>
           </li>
@@ -51,8 +56,18 @@ const Navbar = () => {
       <div>
         <ul className="items-center justify-center flex list-none transition-transform duration-300 translate-x-0">
           <li className="pb-5 px-2">
-            <NavLink to="/auth" aria-label="user" className={getNavLinkClass}>
-              <UserRound className="h-7 w-7" />
+            <NavLink
+              to={user ? "/profile" : "/auth/signup"}
+              aria-label="user"
+              className={getNavLinkClass}
+            >
+              {user ? (
+                <Menu>
+                  <CircleUserRound className="h-7 w-7" />
+                </Menu>
+              ) : (
+                <UserRound className="h-7 w-7" />
+              )}
             </NavLink>
           </li>
           <li className="pb-5 px-2">

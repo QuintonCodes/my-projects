@@ -17,7 +17,7 @@ router.post("/login", (req, res) => {
   UserModel.findOne({ email: email }).then((user) => {
     if (user) {
       if (user.password === password) {
-        res.json("Success");
+        res.json({ username: user.username, email: user.email });
       } else {
         res.status(401).send("Wrong Password");
       }

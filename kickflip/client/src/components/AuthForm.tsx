@@ -1,21 +1,52 @@
-import { ComponentType } from "react";
-import { Link } from "react-router-dom";
+import { ComponentType, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import AuthInputField from "./AuthInputField";
 import { Button } from "./ui/button";
 import { LockKeyhole, Mail, UserRound } from "lucide-react";
+import { registerUser } from "../utils/api";
+import Message from "./Message";
+import { useUser } from "../context/UserContext";
 
 interface AuthFormProps {
   isRegistered: boolean;
 }
 
 const AuthForm = ({ isRegistered }: AuthFormProps) => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
+  const navigate = useNavigate();
+
+  const { login } = useUser();
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await registerUser({ username, email, password });
+      setShowMessage(true);
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await login(email, password);
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
+
   return (
     <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] relative w-[550px]">
       <div className="p-10 w-full">
         <h3 className="text-4xl text-center font-semibold">
           {isRegistered ? "Login" : "Signup"}
         </h3>
-        <form action="">
+        <form onSubmit={isRegistered ? handleLogin : handleRegister}>
           {isRegistered ? (
             <>
               <AuthInputField
@@ -23,12 +54,16 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 type="email"
                 id="email-register"
                 label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <AuthInputField
                 icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
                 id="password-register"
                 label="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
                 <label htmlFor="checkbox">
@@ -47,14 +82,16 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                   Forgot Password?
                 </a>
               </div>
+
               <Button className="w-full bg-[#292929] hover:bg-[#7F1310]">
                 Login
               </Button>
+
               <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
                 <p>
                   Don't have an account?{" "}
                   <Link
-                    to="/signup"
+                    to="/auth/signup"
                     className="font-semibold hover:underline hover:underline-offset-4 text-[#7F1310] "
                   >
                     Register
@@ -69,18 +106,24 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 type="text"
                 id="username"
                 label="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <AuthInputField
                 icon={Mail as ComponentType<{ className: string }>}
                 type="email"
                 id="email-register"
                 label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <AuthInputField
                 icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
                 id="password-register"
                 label="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
                 <label htmlFor="checkbox">
@@ -92,14 +135,16 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                   I agree to the terms & conditions
                 </label>
               </div>
+
               <Button className="w-full bg-[#292929] hover:bg-[#7F1310]">
                 Register
               </Button>
+
               <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
                 <p>
                   Already have an account?{" "}
                   <Link
-                    to="/login"
+                    to="/auth/login"
                     className="font-semibold hover:underline hover:underline-offset-4 text-[#7F1310] no-underline"
                   >
                     Login
@@ -109,6 +154,16 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
             </>
           )}
         </form>
+        {showMessage && (
+          <Message
+            title="Registration Successful"
+            description="You have successfully registered. Please log in."
+            cancelButton={false}
+            location="/auth/login"
+            actionText="Go to Login"
+            onClose={() => setShowMessage(false)}
+          />
+        )}
       </div>
     </div>
   );

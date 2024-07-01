@@ -5,6 +5,8 @@ interface AuthInputFieldProps {
   type: string;
   id: string;
   label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const AuthInputField = ({
@@ -12,6 +14,8 @@ const AuthInputField = ({
   type,
   id,
   label,
+  value,
+  onChange,
 }: AuthInputFieldProps) => {
   return (
     <div className="input-box border-b-2 border-solid border-black h-[60px] my-[30px] mx-0 relative w-full">
@@ -22,6 +26,8 @@ const AuthInputField = ({
         type={type}
         required
         id={id}
+        value={value}
+        onChange={onChange}
         className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"
       />
       <label

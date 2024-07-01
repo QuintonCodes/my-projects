@@ -8,6 +8,7 @@ import ProductInfoPage from "./pages/ProductInfoPage";
 import ShopPage from "./pages/ShopPage";
 import AuthPage from "./pages/AuthPage";
 import { ShopProvider } from "./context/ShopContext";
+import { UserProvider } from "./context/UserContext";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
         element: <ContactPage />,
       },
       {
-        path: "/auth",
+        path: "/auth/:tab",
         element: <AuthPage />,
       },
       {
@@ -46,9 +47,11 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ShopProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </ShopProvider>
+      <UserProvider>
+        <ShopProvider>
+          <RouterProvider router={router}></RouterProvider>
+        </ShopProvider>
+      </UserProvider>
     </QueryClientProvider>
   );
 };

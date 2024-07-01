@@ -13,13 +13,13 @@ const Footer = () => {
 
       <div className="items-start flex my-5 text-white gap-10">
         <Link
-          to="/auth"
+          to="/auth/login"
           className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
         >
           Login
         </Link>
         <Link
-          to="/auth"
+          to="/auth/signup"
           className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
         >
           Sign up
@@ -31,7 +31,7 @@ const Footer = () => {
           View Cart
         </Link>
         <Link
-          to="/shop"
+          to="/shop?category=all"
           className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
         >
           Shop Now

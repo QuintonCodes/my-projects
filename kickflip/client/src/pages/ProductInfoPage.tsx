@@ -1,15 +1,7 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useProduct from "../hooks/useProduct";
 import ProductImages from "../components/ProductImages";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../components/ui/select";
+import { SelectItem } from "../components/ui/select";
 import {
   Accordion,
   AccordionContent,
@@ -21,30 +13,27 @@ import { ShoppingCart } from "lucide-react";
 import { cn } from "../lib/utils";
 import { useShop } from "../context/ShopContext";
 import { useState } from "react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../components/ui/alert-dialog";
+import Filter from "../components/Filter";
+import Message from "../components/Message";
 
 const ProductInfoPage = () => {
   const { id } = useParams();
   const { data: product } = useProduct(id);
   const { dispatch } = useShop();
   const [selectedSize, setSelectedSize] = useState<string>("s");
+  const [showMessage, setShowMessage] = useState(false);
 
   const handleAddToCart = () => {
     dispatch({ type: "ADD_TO_CART", product, size: selectedSize });
+    setShowMessage(true);
   };
 
   const handleSizeChange = (value: string) => {
     setSelectedSize(value);
+  };
+
+  const handleCloseMessage = () => {
+    setShowMessage(false);
   };
 
   return (
@@ -68,22 +57,22 @@ const ProductInfoPage = () => {
             </div>
           </div>
 
-          <div className="w-1/5 text-black">
-            <Select value={selectedSize} onValueChange={handleSizeChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select a size" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Sizes</SelectLabel>
-                  {product?.size.map((size) => (
-                    <SelectItem key={size.name} value={size.name.toLowerCase()}>
-                      {size.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+          <div className="w-1/5 text-white">
+            <Filter
+              value={selectedSize}
+              onValueChange={handleSizeChange}
+              label="Sizes"
+            >
+              {product?.size.map((size) => (
+                <SelectItem
+                  key={size.name}
+                  value={size.name.toLowerCase()}
+                  className="cursor-pointer"
+                >
+                  {size.name}
+                </SelectItem>
+              ))}
+            </Filter>
           </div>
 
           <Accordion
@@ -102,39 +91,25 @@ const ProductInfoPage = () => {
               <AccordionContent>75% Cotton and 25% Wool</AccordionContent>
             </AccordionItem>
           </Accordion>
+          <Button
+            className="my-4 bg-[#D6D6D6] hover:bg-[#7F1310] hover:bg-opacity-90 hover:scale-110 transition duration-300 text-black hover:text-white"
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart className="mr-2 h-5 w-5" />
+            Add to Cart
+          </Button>
 
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
-                className="my-4 bg-[#D6D6D6] hover:bg-[#7F1310] hover:bg-opacity-90 hover:scale-110 transition duration-300 text-black hover:text-white"
-                onClick={handleAddToCart}
-              >
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent className="bg-[#292929]">
-              <AlertDialogHeader>
-                <AlertDialogTitle className="text-[#7F1310]">
-                  Successfully added to cart !
-                </AlertDialogTitle>
-                <AlertDialogDescription className="text-white">
-                  Your {product?.name} has been added to your cart. You can
-                  checkout or continue shopping now.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="bg-transparent text-white hover:text-black">
-                  Cancel
-                </AlertDialogCancel>
-                <Link to="/cart">
-                  <AlertDialogAction className="bg-[#D6D6D6] text-black hover:bg-[#7F1310] hover:text-white">
-                    Go to Cart
-                  </AlertDialogAction>
-                </Link>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          {showMessage && (
+            <Message
+              title="Successfully added to cart !"
+              description={`Your ${product?.name} has been added to your cart. You can
+                  checkout or continue shopping now.`}
+              cancelButton={true}
+              location="/cart"
+              actionText="Go to Cart"
+              onClose={handleCloseMessage}
+            />
+          )}
         </div>
       </div>
     </section>

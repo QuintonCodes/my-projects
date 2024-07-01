@@ -80,7 +80,7 @@ const CartItem = ({ item }: CartItemProps) => {
             <input
               value={item.quantity}
               readOnly
-              className="bg-transparent text-lg border-none font-semibold py-[10px] pr-[5px] pl-[15px] w-14 max-[450px]:text-base"
+              className="bg-transparent text-lg border-none font-semibold py-[10px] text-center w-14 max-[450px]:text-base"
             />
             <button
               className="bg-transparent hover:text-[#7F1310] text-xl cursor-pointer border-none font-semibold max-[450px]:text-lg"

@@ -28,3 +28,29 @@ export const fetchProduct = async (
 
   return response.data;
 };
+
+export const registerUser = async (userData: {
+  username: string;
+  email: string;
+  password: string;
+}) => {
+  const response = await axios.post(
+    "http://localhost:4000/auth/register",
+    userData
+  );
+  if (response.status !== 200) {
+    throw new Error("Registration failed");
+  }
+  return response.data;
+};
+
+export const loginUser = async (email: string, password: string) => {
+  const response = await axios.post("http://localhost:4000/auth/login", {
+    email,
+    password,
+  });
+  if (response.status !== 200) {
+    throw new Error("Login failed");
+  }
+  return response.data;
+};
