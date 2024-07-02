@@ -16,9 +16,14 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showMessage, setShowMessage] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
   const { login } = useUser();
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,6 +69,8 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 label="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                togglePasswordVisibility={togglePasswordVisibility}
+                isPasswordVisible={isPasswordVisible}
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
                 <label htmlFor="checkbox">
@@ -124,6 +131,8 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 label="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                togglePasswordVisibility={togglePasswordVisibility}
+                isPasswordVisible={isPasswordVisible}
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
                 <label htmlFor="checkbox">

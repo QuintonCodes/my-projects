@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useShop } from "../context/ShopContext";
-import { CircleUserRound, ShoppingCart, UserRound } from "lucide-react";
+import { ShoppingCart, UserRound } from "lucide-react";
 import { useUser } from "../context/UserContext";
 import Menu from "./Menu";
+import { Avatar } from "./ui/avatar";
 
 const Navbar = () => {
   const { state } = useShop();
@@ -53,22 +54,26 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div>
+      <div className="flex items-center justify-center">
         <ul className="items-center justify-center flex list-none transition-transform duration-300 translate-x-0">
           <li className="pb-5 px-2">
-            <NavLink
-              to={user ? "/profile" : "/auth/signup"}
-              aria-label="user"
-              className={getNavLinkClass}
-            >
-              {user ? (
+            {user ? (
+              <div className="text-base font-semibold mr-2 relative mt-5 text-white">
                 <Menu>
-                  <CircleUserRound className="h-7 w-7" />
+                  <Avatar className="items-center justify-center border border-black bg-gray-600 bg-opacity-50 cursor-pointer">
+                    {user.username.charAt(0)}
+                  </Avatar>
                 </Menu>
-              ) : (
+              </div>
+            ) : (
+              <NavLink
+                to="/auth/signup"
+                aria-label="user"
+                className={getNavLinkClass}
+              >
                 <UserRound className="h-7 w-7" />
-              )}
-            </NavLink>
+              </NavLink>
+            )}
           </li>
           <li className="pb-5 px-2">
             <NavLink

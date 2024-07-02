@@ -15,15 +15,22 @@ import { useShop } from "../context/ShopContext";
 import { useState } from "react";
 import Filter from "../components/Filter";
 import Message from "../components/Message";
+import { useUser } from "../context/UserContext";
 
 const ProductInfoPage = () => {
   const { id } = useParams();
   const { data: product } = useProduct(id);
   const { dispatch } = useShop();
+  const { user } = useUser();
   const [selectedSize, setSelectedSize] = useState<string>("s");
   const [showMessage, setShowMessage] = useState(false);
 
   const handleAddToCart = () => {
+    if (!user) {
+      setShowMessage(true);
+      return;
+    }
+
     dispatch({ type: "ADD_TO_CART", product, size: selectedSize });
     setShowMessage(true);
   };
@@ -99,7 +106,17 @@ const ProductInfoPage = () => {
             Add to Cart
           </Button>
 
-          {showMessage && (
+          {showMessage && !user && (
+            <Message
+              title="Feature Not Available"
+              description="You need to be logged in to add items to the cart."
+              cancelButton={true}
+              location="/auth/signup"
+              actionText="Signup"
+              onClose={handleCloseMessage}
+            />
+          )}
+          {showMessage && user && (
             <Message
               title="Successfully added to cart !"
               description={`Your ${product?.name} has been added to your cart. You can

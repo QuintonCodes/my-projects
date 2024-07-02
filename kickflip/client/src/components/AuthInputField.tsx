@@ -1,3 +1,4 @@
+import { Eye, EyeOff } from "lucide-react";
 import { ComponentType } from "react";
 
 interface AuthInputFieldProps {
@@ -7,6 +8,8 @@ interface AuthInputFieldProps {
   label: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  togglePasswordVisibility?: () => void;
+  isPasswordVisible?: boolean;
 }
 
 const AuthInputField = ({
@@ -16,14 +19,28 @@ const AuthInputField = ({
   label,
   value,
   onChange,
+  togglePasswordVisibility,
+  isPasswordVisible,
 }: AuthInputFieldProps) => {
+  const inputType = type === "password" && isPasswordVisible ? "text" : type;
+
   return (
-    <div className="input-box border-b-2 border-solid border-black h-[60px] my-[30px] mx-0 relative w-full">
-      {Icon && (
-        <Icon className="h-6 w-6 absolute right-2 top-1/4 leading-[67px]" />
+    <div className="input-box border-b-2 border-solid border-black h-[60px] my-[30px] mx-0 relative w-full flex items-center flex-row-reverse">
+      {type === "password" && togglePasswordVisibility && (
+        <div
+          onClick={togglePasswordVisibility}
+          className="cursor-pointer mr-12"
+        >
+          {isPasswordVisible ? (
+            <EyeOff className="w-6 h-6" />
+          ) : (
+            <Eye className="w-6 h-6" />
+          )}
+        </div>
       )}
+      <Icon className="h-6 w-6 absolute right-2 top-1/4 leading-[67px]" />
       <input
-        type={type}
+        type={inputType}
         required
         id={id}
         value={value}

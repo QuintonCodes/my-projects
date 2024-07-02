@@ -9,12 +9,15 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { LogOut, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface MenuProps {
   children: ReactNode;
 }
 
 const Menu = ({ children }: MenuProps) => {
+  const navigate = useNavigate();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
@@ -23,8 +26,11 @@ const Menu = ({ children }: MenuProps) => {
           My Account
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup className="hover:bg-[#7F1310]">
-          <DropdownMenuItem className="cursor-pointer">
+        <DropdownMenuGroup>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => navigate("/profile")}
+          >
             <User className="mr-2 h-5 w-5" />
             <span>Profile</span>
           </DropdownMenuItem>
