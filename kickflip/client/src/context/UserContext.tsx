@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { loginUser } from "../utils/api";
-import { useShop } from "./ShopContext";
+import { loginUser, registerUser } from "../utils/api";
+import { useToast } from "../components/ui/use-toast";
 
 interface User {
   username: string;
@@ -10,6 +10,11 @@ interface User {
 interface UserContextProps {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
+  register: (
+    username: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
   logout: () => void;
 }
 
@@ -21,28 +26,62 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     return userData ? JSON.parse(userData) : null;
   });
 
-  const { dispatch } = useShop();
+  const { toast } = useToast();
 
   const login = async (email: string, password: string) => {
-    const loggedInUser = await loginUser(email, password);
-    setUser(loggedInUser);
-    localStorage.setItem("user", JSON.stringify(loggedInUser));
+    try {
+      const loggedInUser = await loginUser(email, password);
+      setUser(loggedInUser);
+      localStorage.setItem("user", JSON.stringify(loggedInUser));
+      toast({
+        title: "Login Successful",
+        description: "You have successfully logged in!",
+        duration: 2000,
+      });
+    } catch (error) {
+      toast({
+        title: "Login Failed",
+        description: "Invalid credentials.",
+        duration: 2000,
+      });
+      throw error;
+    }
+  };
 
-    const savedCartItems = localStorage.getItem("cartItems");
-    if (savedCartItems) {
-      dispatch({ type: "LOAD_CART", items: JSON.parse(savedCartItems) });
+  const register = async (
+    username: string,
+    email: string,
+    password: string
+  ) => {
+    try {
+      await registerUser({ username, email, password });
+      toast({
+        title: "Registration Successful",
+        description: "You can now log in.",
+        duration: 2000,
+      });
+    } catch (error) {
+      toast({
+        title: "Registration Failed",
+        description: "Please try again.",
+        duration: 2000,
+      });
+      throw error;
     }
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    localStorage.removeItem("cartItems");
-    dispatch({ type: "CLEAR_CART" });
+    toast({
+      title: "Logout Successful",
+      description: "You have successfully logged out.",
+      duration: 2000,
+    });
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, register, logout }}>
       {children}
     </UserContext.Provider>
   );

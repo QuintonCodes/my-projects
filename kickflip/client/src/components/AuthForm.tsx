@@ -3,9 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthInputField from "./AuthInputField";
 import { Button } from "./ui/button";
 import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
-import { registerUser } from "../utils/api";
-import Message from "./Message";
 import { useUser } from "../context/UserContext";
+import { useToast } from "./ui/use-toast";
 
 interface AuthFormProps {
   isRegistered: boolean;
@@ -15,14 +14,12 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showMessage, setShowMessage] = useState(false);
-
   const [loading, setLoading] = useState(false);
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const navigate = useNavigate();
 
-  const { login } = useUser();
+  const navigate = useNavigate();
+  const { login, register } = useUser();
+  const { toast } = useToast();
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -32,10 +29,16 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
     e.preventDefault();
     try {
       setLoading(true);
-      await registerUser({ username, email, password });
+      await register(username, email, password);
       setLoading(false);
-      setShowMessage(true);
+      toast({
+        title: "Registration Successful",
+        description: "Please log in.",
+        duration: 2000,
+      });
+      navigate("/auth/login");
     } catch (error) {
+      setLoading(false);
       console.error("Registration failed:", error);
     }
   };
@@ -48,6 +51,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
       setLoading(false);
       navigate("/");
     } catch (error) {
+      setLoading(false);
       console.error("Login failed:", error);
     }
   };
@@ -88,7 +92,6 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                   />
                   Remember me
                 </label>
-
                 <a
                   href="#"
                   className="hover:underline hover:underline-offset-4 text-[#7F1310]"
@@ -96,7 +99,6 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                   Forgot Password?
                 </a>
               </div>
-
               <Button
                 className="w-full bg-[#292929] hover:bg-[#7F1310]"
                 disabled={loading}
@@ -110,7 +112,6 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                   "Login"
                 )}
               </Button>
-
               <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
                 <p>
                   Don't have an account?{" "}
@@ -190,16 +191,6 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
             </>
           )}
         </form>
-        {showMessage && (
-          <Message
-            title="Registration Successful"
-            description="You have successfully registered. Please log in."
-            cancelButton={false}
-            location="/auth/login"
-            actionText="Go to Login"
-            onClose={() => setShowMessage(false)}
-          />
-        )}
       </div>
     </div>
   );
