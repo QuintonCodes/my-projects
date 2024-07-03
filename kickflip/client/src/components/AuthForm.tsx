@@ -2,7 +2,7 @@ import { ComponentType, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthInputField from "./AuthInputField";
 import { Button } from "./ui/button";
-import { LockKeyhole, Mail, UserRound } from "lucide-react";
+import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { registerUser } from "../utils/api";
 import Message from "./Message";
 import { useUser } from "../context/UserContext";
@@ -16,6 +16,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showMessage, setShowMessage] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -28,7 +31,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await registerUser({ username, email, password });
+      setLoading(false);
       setShowMessage(true);
     } catch (error) {
       console.error("Registration failed:", error);
@@ -38,7 +43,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await login(email, password);
+      setLoading(false);
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
@@ -90,8 +97,18 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 </a>
               </div>
 
-              <Button className="w-full bg-[#292929] hover:bg-[#7F1310]">
-                Login
+              <Button
+                className="w-full bg-[#292929] hover:bg-[#7F1310]"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </>
+                ) : (
+                  "Login"
+                )}
               </Button>
 
               <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">
@@ -145,8 +162,18 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 </label>
               </div>
 
-              <Button className="w-full bg-[#292929] hover:bg-[#7F1310]">
-                Register
+              <Button
+                className="w-full bg-[#292929] hover:bg-[#7F1310]"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </>
+                ) : (
+                  "Register"
+                )}
               </Button>
 
               <div className="mt-[25px] mx-0 mb-[10px] text-center text-base font-medium">

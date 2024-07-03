@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  ReactNode,
+} from "react";
 import { Products } from "../utils/models";
 
 interface ShopItem {
@@ -16,9 +22,12 @@ interface ShopAction {
     | "ADD_TO_CART"
     | "REMOVE_FROM_CART"
     | "INCREMENT_QUANTITY"
-    | "DECREMENT_QUANTITY";
+    | "DECREMENT_QUANTITY"
+    | "LOAD_CART"
+    | "CLEAR_CART";
   product?: Products;
   size?: string;
+  items?: ShopItem[];
 }
 
 const ShopContext = createContext<
@@ -83,6 +92,19 @@ const shopReducer = (state: ShopState, action: ShopAction): ShopState => {
             : item
         ),
       };
+
+    case "LOAD_CART":
+      return {
+        ...state,
+        items: action.items || [],
+      };
+
+    case "CLEAR_CART":
+      return {
+        ...state,
+        items: [],
+      };
+
     default:
       return state;
   }
@@ -90,6 +112,23 @@ const shopReducer = (state: ShopState, action: ShopAction): ShopState => {
 
 export const ShopProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(shopReducer, { items: [] });
+
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      const savedCartItems = localStorage.getItem("cartItems");
+      if (savedCartItems) {
+        dispatch({ type: "LOAD_CART", items: JSON.parse(savedCartItems) });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (state.items.length > 0) {
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
+    }
+  }, [state.items]);
+
   return (
     <ShopContext.Provider value={{ state, dispatch }}>
       {children}
