@@ -1,6 +1,6 @@
-import { Products } from "../utils/models";
-import { useShop } from "../context/ShopContext";
 import { Trash2Icon } from "lucide-react";
+import { useShop } from "../context/ShopContext";
+import { Products } from "../utils/models";
 
 interface CartItem {
   product?: Products;
@@ -92,7 +92,7 @@ const CartItem = ({ item }: CartItemProps) => {
 
           <div className="flex mb-3">
             <Trash2Icon
-              className="h-6 w-6 hover:text-[#7F1310] cursor-pointer hover:animate-pulse transition-transform duration-300 hover:scale-110"
+              className="h-6 w-6 hover:text-[#7F1310] cursor-pointer transition-transform duration-300 hover:scale-110"
               onClick={handleRemove}
             />
           </div>

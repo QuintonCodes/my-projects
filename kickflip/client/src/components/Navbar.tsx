@@ -1,16 +1,14 @@
 import { NavLink } from "react-router-dom";
-import logo from "../assets/logo.png";
-import { useShop } from "../context/ShopContext";
 import { ShoppingCart, UserRound } from "lucide-react";
-import { useUser } from "../context/UserContext";
-import Menu from "./Menu";
+import logo from "../assets/logo.png";
 import { Avatar } from "./ui/avatar";
+import Menu from "./Menu";
+import { useShop } from "../context/ShopContext";
+import { useUser } from "../context/UserContext";
 
 const Navbar = () => {
   const { state } = useShop();
   const { user } = useUser();
-
-  console.log("User info", user);
 
   const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -60,7 +58,7 @@ const Navbar = () => {
             {user ? (
               <div className="text-base font-semibold mr-2 relative mt-5 text-white">
                 <Menu>
-                  <Avatar className="items-center justify-center border border-black bg-gray-600 bg-opacity-50 cursor-pointer">
+                  <Avatar className="items-center justify-center border border-black bg-[#acacac] bg-opacity-50 cursor-pointer">
                     {user.username.charAt(0)}
                   </Avatar>
                 </Menu>

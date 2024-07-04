@@ -1,4 +1,6 @@
 import { ReactNode, useState } from "react";
+import { LogOut, User } from "lucide-react";
+import { Dialog, DialogOverlay } from "./ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,9 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { LogOut, User } from "lucide-react";
 import Profile from "./Profile";
-import { Dialog, DialogContent, DialogOverlay } from "./ui/dialog";
 import { useUser } from "../context/UserContext";
 
 interface MenuProps {
@@ -20,10 +20,6 @@ interface MenuProps {
 const Menu = ({ children }: MenuProps) => {
   const [showProfile, setShowProfile] = useState(false);
   const { logout } = useUser();
-
-  const handleLogout = () => {
-    logout();
-  };
 
   return (
     <>
@@ -42,7 +38,7 @@ const Menu = ({ children }: MenuProps) => {
               <User className="mr-2 h-5 w-5" />
               <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
+            <DropdownMenuItem className="cursor-pointer" onClick={logout}>
               <LogOut className="mr-2 h-5 w-5" />
               <span>Log out</span>
             </DropdownMenuItem>
@@ -52,9 +48,7 @@ const Menu = ({ children }: MenuProps) => {
 
       <Dialog open={showProfile} onOpenChange={setShowProfile}>
         <DialogOverlay />
-        <DialogContent>
-          <Profile />
-        </DialogContent>
+        <Profile />
       </Dialog>
     </>
   );

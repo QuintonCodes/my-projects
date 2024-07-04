@@ -1,5 +1,5 @@
-import { Eye, EyeOff } from "lucide-react";
 import { ComponentType } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 interface AuthInputFieldProps {
   icon: ComponentType<{ className: string }>;

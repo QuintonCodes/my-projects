@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { loginUser, registerUser } from "../utils/api";
 import { useToast } from "../components/ui/use-toast";
+import { loginUser, registerUser } from "../utils/api";
 
 interface User {
   username: string;

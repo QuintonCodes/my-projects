@@ -1,11 +1,11 @@
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Tabs,
+  TabsContent,
   TabsList,
   TabsTrigger,
-  TabsContent,
 } from "../components/ui/tabs";
 import AuthForm from "../components/AuthForm";
-import { useNavigate, useParams } from "react-router-dom";
 
 const AuthPage = () => {
   const { tab } = useParams<{ tab?: string }>();

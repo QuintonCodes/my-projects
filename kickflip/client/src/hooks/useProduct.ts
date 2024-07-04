@@ -7,7 +7,7 @@ const useProduct = (productId: string | undefined) => {
     queryKey: ["product", productId],
     queryFn: () => fetchProduct(productId),
     staleTime: 1000 * 60 * 60 * 6,
-    enabled: !!productId,
+    refetchOnWindowFocus: false,
   });
 };
 

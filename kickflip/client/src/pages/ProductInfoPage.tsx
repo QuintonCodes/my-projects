@@ -1,7 +1,6 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import useProduct from "../hooks/useProduct";
-import ProductImages from "../components/ProductImages";
-import { SelectItem } from "../components/ui/select";
+import { ShoppingCart } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -9,21 +8,23 @@ import {
   AccordionTrigger,
 } from "../components/ui/accordion";
 import { Button } from "../components/ui/button";
-import { ShoppingCart } from "lucide-react";
-import { cn } from "../lib/utils";
-import { useShop } from "../context/ShopContext";
-import { useState } from "react";
+import { SelectItem } from "../components/ui/select";
 import Filter from "../components/Filter";
 import Message from "../components/Message";
+import ProductImages from "../components/ProductImages";
+import { useShop } from "../context/ShopContext";
 import { useUser } from "../context/UserContext";
+import useProduct from "../hooks/useProduct";
+import { cn } from "../lib/utils";
 
 const ProductInfoPage = () => {
+  const [selectedSize, setSelectedSize] = useState<string>("s");
+  const [showMessage, setShowMessage] = useState(false);
+
   const { id } = useParams();
   const { data: product } = useProduct(id);
   const { dispatch } = useShop();
   const { user } = useUser();
-  const [selectedSize, setSelectedSize] = useState<string>("s");
-  const [showMessage, setShowMessage] = useState(false);
 
   const handleAddToCart = () => {
     if (!user) {

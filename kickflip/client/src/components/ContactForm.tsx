@@ -1,5 +1,6 @@
 import ContactInputField from "./ContactInputField";
 import { Button } from "./ui/button";
+import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 import { Textarea } from "./ui/textarea";
 
@@ -21,23 +22,27 @@ const ContactForm = () => {
           label="Phone Number"
           hasColSpan={true}
         />
-        <label
+        <Label
           htmlFor="message"
           className="block text-sm font-semibold leading-6 text-black"
         >
           Message
-        </label>
+        </Label>
         <Textarea
-          className="col-span-2 block bg-[#292929] w-full rounded-md border-0 px-3.5 py-1 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
+          className="col-span-2 block bg-[#292929] w-full rounded-md border-0 px-3.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
           id="message"
+          rows={4}
         />
-        <div className="flex gap-x-4 sm:col-span-2">
-          <div className="flex h-6 items-center">
-            <Switch className="data-[state=unchecked]:bg-[#292929] data-[state=checked]:bg-[#7F1310]" />
+        <div className="flex gap-x-4 sm:col-span-2 items-center">
+          <div className="flex items-center">
+            <Switch
+              className="data-[state=unchecked]:bg-[#292929] data-[state=checked]:bg-[#7F1310]"
+              id="policy"
+            />
           </div>
-          <label htmlFor="">
-            By selecting this, you agree to our privacy&nbsp;policy.
-          </label>
+          <Label htmlFor="policy">
+            By selecting this, you agree to our privacy policy.
+          </Label>
         </div>
         <Button className="col-span-2 bg-[#292929] hover:bg-[#7F1310]">
           Let's Talk

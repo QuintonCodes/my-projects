@@ -1,3 +1,6 @@
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+
 interface ContactInputFieldProps {
   label: string;
   name: string;
@@ -13,14 +16,14 @@ const ContactInputField = ({
 }: ContactInputFieldProps) => {
   return (
     <div className={hasColSpan ? "sm:col-span-2" : ""}>
-      <label
+      <Label
         htmlFor={name}
         className="block text-sm font-semibold leading-6 text-black"
       >
         {label}
-      </label>
+      </Label>
       <div className="mt-2.5">
-        <input
+        <Input
           type={type}
           name={name}
           id={name}

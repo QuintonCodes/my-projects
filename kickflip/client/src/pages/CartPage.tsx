@@ -1,5 +1,4 @@
 import { Ghost } from "lucide-react";
-import CartItem from "../components/CartItem";
 import { ScrollArea } from "../components/ui/scroll-area";
 import {
   Table,
@@ -10,6 +9,7 @@ import {
   TableRow,
   TableFooter,
 } from "../components/ui/table";
+import CartItem from "../components/CartItem";
 import { useShop } from "../context/ShopContext";
 
 const CartPage = () => {

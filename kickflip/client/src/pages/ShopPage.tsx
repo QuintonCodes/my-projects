@@ -1,46 +1,36 @@
-import { useEffect, useState } from "react";
-import ShopItem from "../components/ShopItem";
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert";
 import { SelectItem } from "../components/ui/select";
 import { Skeleton } from "../components/ui/skeleton";
-import useProducts from "../hooks/useProducts";
-import { useSearchParams } from "react-router-dom";
+import ShopItem from "../components/ShopItem";
 import Filter from "../components/Filter";
+import useFilteredProducts from "../hooks/useFilteredProducts";
+import useProducts from "../hooks/useProducts";
+import useSortedProducts from "../hooks/useSortedProducts";
 
 const ShopPage = () => {
-  const { data: products, isLoading: isProductsLoading } = useProducts();
-
   const [sortOption, setSortOption] = useState<string>("alphabetical");
-  const [filteredProducts, setFilteredProducts] = useState(products);
-  const [searchParams] = useSearchParams();
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const categoryFilter = searchParams.get("category") || "all";
 
-  useEffect(() => {
-    const filtered =
-      categoryFilter === "all"
-        ? products
-        : products?.filter(
-            (product) => product.category.toLowerCase() === categoryFilter
-          );
-    setFilteredProducts(filtered);
-  }, [categoryFilter, products]);
+  const {
+    data: products,
+    isLoading: isProductsLoading,
+    error: productsError,
+  } = useProducts({ category: categoryFilter });
+
+  const filteredProducts = useFilteredProducts(products, categoryFilter);
+  const sortedProducts = useSortedProducts(filteredProducts, sortOption);
 
   const handleSortChange = (value: string) => {
     setSortOption(value);
   };
 
   const handleCategoryChange = (value: string) => {
-    window.location.href = `/shop?category=${value}`;
+    setSearchParams({ category: value });
   };
-
-  const sortedProducts = filteredProducts?.slice().sort((a, b) => {
-    if (sortOption === "alphabetical") {
-      return a.name.localeCompare(b.name);
-    } else if (sortOption === "reverse") {
-      return b.name.localeCompare(a.name);
-    }
-    return 0;
-  });
 
   return (
     <section className="bg-[#292929] text-center py-10 text-white min-h-[70vh]">
@@ -81,20 +71,23 @@ const ShopPage = () => {
       </div>
 
       {isProductsLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center gap-10">
-          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
-          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
-          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
-          <Skeleton className="w-3/5 h-[500px] rounded-xl" />
+        <div className="grid grid-cols-3 justify-items-center gap-10">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Skeleton key={index} className="w-4/5 h-[500px] rounded-xl" />
+          ))}
         </div>
-      ) : sortedProducts ? (
+      ) : productsError ? (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{productsError.message}</AlertDescription>
+        </Alert>
+      ) : (
         <div className="grid grid-cols-3 justify-items-center gap-10">
           {sortedProducts.map((product) => (
             <ShopItem key={product.id} products={product} />
           ))}
         </div>
-      ) : (
-        <h2 className="text-2xl">Nothing Found</h2>
       )}
     </section>
   );

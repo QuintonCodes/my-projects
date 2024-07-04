@@ -1,11 +1,11 @@
 import { ComponentType, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthInputField from "./AuthInputField";
-import { Button } from "./ui/button";
 import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
-import { useUser } from "../context/UserContext";
+import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
+import AuthInputField from "./AuthInputField";
+import { useUser } from "../context/UserContext";
 
 interface AuthFormProps {
   isRegistered: boolean;
@@ -18,6 +18,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const navigate = useNavigate();
+
   const { login, register, isLoading } = useUser();
 
   const togglePasswordVisibility = () => {

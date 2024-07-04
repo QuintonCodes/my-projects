@@ -1,9 +1,11 @@
-import ProductImages from "../components/ProductImages";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 import CategoryCard from "../components/CategoryCard";
+import ProductImages from "../components/ProductImages";
 import useProducts from "../hooks/useProducts";
 
 const HomePage = () => {
-  const { data: products } = useProducts();
+  const { data: products } = useProducts({ category: "all" });
 
   const getCategoryImage = (category: string) => {
     const product = products?.find((p) => p.category === category);
@@ -62,20 +64,20 @@ const HomePage = () => {
               id="email-section"
               className="flex max-w-md mt-4 gap-x-2 max-[450px]:flex-col"
             >
-              <input
-                placeholder="Enter your email"
+              <Input
+                placeholder="Email"
                 type="email"
                 name="email"
                 id="email-address"
                 autoComplete="email"
-                className="bg-[#292929] border border-solid border-[#808080] rounded-md text-white flex-auto text-sm outline-none py-2 px-[0.875rem] focus:border focus:border-solid focus:border-[#7F1310] placeholder:text-white"
+                className="bg-[#292929] border border-solid border-[#808080] rounded-md text-white flex-auto text-sm outline-none py-2 px-[0.875rem] placeholder:text-white"
               />
-              <button
+              <Button
                 type="submit"
-                className="bg-[#292929] hover:bg-[#7F1310] transition-colors duration-300 rounded-md border-none text-white cursor-pointer font-semibold text-sm outline-none py-[0.625rem] px-[0.875rem] max-[450px]:m-3"
+                className="bg-[#292929] hover:bg-[#7F1310] transition duration-300 rounded-md border-none text-white cursor-pointer font-semibold text-sm outline-none py-[0.625rem] px-[0.875rem] max-[450px]:m-3 hover:scale-110"
               >
                 Subscribe
-              </button>
+              </Button>
             </div>
           </form>
         </div>

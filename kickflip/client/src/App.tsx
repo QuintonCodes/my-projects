@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MainLayout from "./components/MainLayout";
+import AuthPage from "./pages/AuthPage";
 import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import ProductInfoPage from "./pages/ProductInfoPage";
 import ShopPage from "./pages/ShopPage";
-import AuthPage from "./pages/AuthPage";
 import { ShopProvider } from "./context/ShopContext";
 import { UserProvider } from "./context/UserContext";
 

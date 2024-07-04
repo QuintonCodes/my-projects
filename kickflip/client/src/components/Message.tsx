@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,25 +9,23 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
-import { Link } from "react-router-dom";
 
 interface MessageProps {
-  children?: ReactNode;
-  title: string;
-  description: string;
-  cancelButton: boolean;
-  location: string;
   actionText: string;
+  cancelButton: boolean;
+  description: string;
+  location: string;
   onClose: () => void;
+  title: string;
 }
 
 const Message = ({
-  title,
-  description,
-  cancelButton,
-  location,
   actionText,
+  cancelButton,
+  description,
+  location,
   onClose,
+  title,
 }: MessageProps) => {
   return (
     <AlertDialog open={true} onOpenChange={onClose}>

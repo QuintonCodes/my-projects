@@ -12,8 +12,12 @@ import { useUser } from "../context/UserContext";
 
 const Profile = () => {
   const { user } = useUser();
+
   return (
-    <DialogContent className="max-w-[425px] bg-[#d6d6d6]">
+    <DialogContent
+      className="max-w-[425px] bg-[#d6d6d6]"
+      onOpenAutoFocus={(e: Event) => e.preventDefault}
+    >
       <DialogHeader>
         <DialogTitle className="text-[#7F1310]">Edit Profile</DialogTitle>
         <DialogDescription className="text-black">

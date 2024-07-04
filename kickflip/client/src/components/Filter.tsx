@@ -9,13 +9,13 @@ import {
 } from "./ui/select";
 
 interface FilterProps {
-  value: string;
-  onValueChange: (value: string) => void;
-  label: string;
   children: ReactNode;
+  label: string;
+  onValueChange: (value: string) => void;
+  value: string;
 }
 
-const Filter = ({ value, onValueChange, label, children }: FilterProps) => {
+const Filter = ({ children, label, onValueChange, value }: FilterProps) => {
   return (
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="bg-transparent">

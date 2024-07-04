@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { Products } from "../utils/models";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { cn } from "../lib/utils";
+import { Products } from "../utils/models";
 
 interface ShopItemProps {
   products: Products;
@@ -29,6 +29,7 @@ const ShopItem = ({ products }: ShopItemProps) => {
           </h3>
 
           <div className="flex gap-3 py-2">
+            <h5>{products.color.name}</h5>
             <span
               aria-hidden="true"
               key={products.color.name}

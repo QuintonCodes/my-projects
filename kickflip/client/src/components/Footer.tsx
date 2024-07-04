@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
 import { Instagram, MessageCircle, Youtube } from "lucide-react";
+import logo from "../assets/logo.png";
+import { useUser } from "../context/UserContext";
 
 const Footer = () => {
+  const { user } = useUser();
+
   return (
     <footer className="flex flex-col items-center justify-between px-[50px] border-t-2 border-solid border-black bg-[#282828]">
       <div className="text-white">
@@ -12,18 +15,30 @@ const Footer = () => {
       </div>
 
       <div className="items-start flex my-5 text-white gap-10">
-        <Link
-          to="/auth/login"
-          className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
-        >
-          Login
-        </Link>
-        <Link
-          to="/auth/signup"
-          className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
-        >
-          Sign up
-        </Link>
+        {user ? (
+          <Link
+            to="/"
+            className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
+          >
+            Home
+          </Link>
+        ) : (
+          <>
+            <Link
+              to="/auth/login"
+              className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
+            >
+              Login
+            </Link>
+            <Link
+              to="/auth/signup"
+              className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
+            >
+              Sign up
+            </Link>
+          </>
+        )}
+
         <Link
           to="/cart"
           className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"
