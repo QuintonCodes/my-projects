@@ -1,14 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
 import MainLayout from "./components/MainLayout";
+import { UserProvider } from "./context/UserContext";
 import AuthPage from "./pages/AuthPage";
 import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import ProductInfoPage from "./pages/ProductInfoPage";
 import ShopPage from "./pages/ShopPage";
-import { ShopProvider } from "./context/ShopContext";
-import { UserProvider } from "./context/UserContext";
+import store from "./state/store";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -47,11 +48,11 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <ShopProvider>
+      <Provider store={store}>
+        <UserProvider>
           <RouterProvider router={router}></RouterProvider>
-        </ShopProvider>
-      </UserProvider>
+        </UserProvider>
+      </Provider>
     </QueryClientProvider>
   );
 };

@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { LogOut, User } from "lucide-react";
-import { Dialog, DialogOverlay } from "./ui/dialog";
+import { Dialog } from "./ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,7 +47,6 @@ const Menu = ({ children }: MenuProps) => {
       </DropdownMenu>
 
       <Dialog open={showProfile} onOpenChange={setShowProfile}>
-        <DialogOverlay />
         <Profile />
       </Dialog>
     </>

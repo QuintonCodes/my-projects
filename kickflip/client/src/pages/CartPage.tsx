@@ -10,14 +10,14 @@ import {
   TableFooter,
 } from "../components/ui/table";
 import CartItem from "../components/CartItem";
-import { useShop } from "../context/ShopContext";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const CartPage = () => {
-  const { state } = useShop();
+  const items = useAppSelector((state) => state.cart.items);
 
   const calcSubTotals = () => {
     let total = 0;
-    state.items.forEach((item) => {
+    items.forEach((item) => {
       if (item.product) {
         total += item.quantity * item.product.price;
       }
@@ -27,7 +27,7 @@ const CartPage = () => {
 
   const calcShipping = () => {
     let total = 0;
-    state.items.forEach((item) => {
+    items.forEach((item) => {
       if (item.quantity === 0) {
         total;
       } else if (item.product) {
@@ -46,10 +46,10 @@ const CartPage = () => {
     <section className="bg-[#292929] text-white py-7 px-10 grid grid-cols-2 min-h-[70vh] items-center max-[1024px]:flex max-[1024px]:flex-wrap">
       <div className="my-5 max-[1024px]:w-full">
         <h2 className="mb-5 font-semibold text-4xl py-3">Shopping Cart</h2>
-        {state.items.length > 0 ? (
+        {items.length > 0 ? (
           <ScrollArea className="h-80">
             <ul role="list" className="-my-6 divide-y divide-gray-300">
-              {state.items.map((item) => (
+              {items.map((item) => (
                 <CartItem key={item.product?.id} item={item} />
               ))}
             </ul>

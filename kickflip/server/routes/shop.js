@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const products = require("../products");
 
-router.get("/products", (req, res) => {
+const getProducts = (req, res) => {
   res.json(products);
-});
+};
 
-router.get("/products/:id", (req, res) => {
+const getProductById = (req, res) => {
   const productId = parseInt(req.params.id, 10);
   const product = products.find((product) => product.id === productId);
 
@@ -14,6 +14,9 @@ router.get("/products/:id", (req, res) => {
   }
 
   res.json(product);
-});
+};
+
+router.get("/products", getProducts);
+router.get("/products/:id", getProductById);
 
 module.exports = router;

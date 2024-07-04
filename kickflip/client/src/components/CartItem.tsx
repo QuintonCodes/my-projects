@@ -1,48 +1,59 @@
 import { Trash2Icon } from "lucide-react";
-import { useShop } from "../context/ShopContext";
 import { Products } from "../utils/models";
-
-interface CartItem {
-  product?: Products;
-  quantity: number;
-  size: string;
-}
+import { useAppDispatch } from "../hooks/reduxHooks";
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
+} from "../state/slices/cartSlice";
+import { useState } from "react";
 
 interface CartItemProps {
-  item: CartItem;
+  item: {
+    product?: Products;
+    quantity: number;
+    size: string;
+  };
 }
 
 const CartItem = ({ item }: CartItemProps) => {
-  const { dispatch } = useShop();
+  const dispatch = useAppDispatch();
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const handleIncrement = () => {
-    dispatch({
-      type: "INCREMENT_QUANTITY",
-      product: item.product,
-      size: item.size,
-    });
+    if (item.product) {
+      dispatch(
+        incrementQuantity({ productId: item.product.id, size: item.size })
+      );
+    }
   };
 
   const handleDecrement = () => {
-    if (item.quantity > 1) {
-      dispatch({
-        type: "DECREMENT_QUANTITY",
-        product: item.product,
-        size: item.size,
-      });
+    if (item.product && item.quantity > 1) {
+      dispatch(
+        decrementQuantity({ productId: item.product.id, size: item.size })
+      );
     }
   };
 
   const handleRemove = () => {
-    dispatch({
-      type: "REMOVE_FROM_CART",
-      product: item.product,
-      size: item.size,
-    });
+    setIsRemoving(true);
+
+    setTimeout(() => {
+      if (item.product) {
+        dispatch(
+          removeFromCart({ productId: item.product.id, size: item.size })
+        );
+      }
+    }, 500);
   };
 
   return (
-    <li className="flex py-6 w-[90%] max-[1024px]:w-full text-white">
+    <li
+      className={`flex py-6 w-[90%] max-[1024px]:w-full text-white transition-all duration-500 ${
+        isRemoving ? "animate-slide-out-left" : ""
+      }`}
+    >
       <div className="h-48 w-48 flex-shrink-0 overflow-hidden rounded-md border border-gray-300 max-[450px]:h-28 max-[450px]:w-28">
         <img
           className="h-full w-full object-cover object-center"

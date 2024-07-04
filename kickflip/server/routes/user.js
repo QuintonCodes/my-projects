@@ -2,8 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const UserModel = require("../models/User");
 
-//* Register *//
-router.post("/register", async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -24,10 +23,9 @@ router.post("/register", async (req, res) => {
     console.error("Error during registration:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-});
+};
 
-//* Login *//
-router.post("/login", async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -46,6 +44,9 @@ router.post("/login", async (req, res) => {
     console.error("Error during login:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-});
+};
+
+router.post("/register", registerUser);
+router.post("/login", loginUser);
 
 module.exports = router;

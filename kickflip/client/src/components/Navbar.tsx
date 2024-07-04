@@ -3,14 +3,14 @@ import { ShoppingCart, UserRound } from "lucide-react";
 import logo from "../assets/logo.png";
 import { Avatar } from "./ui/avatar";
 import Menu from "./Menu";
-import { useShop } from "../context/ShopContext";
 import { useUser } from "../context/UserContext";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const Navbar = () => {
-  const { state } = useShop();
   const { user } = useUser();
+  const items = useAppSelector((state) => state.cart.items);
 
-  const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
+  const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
     return `text-base font-semibold ml-10 relative transition duration-500 after:bg-[#7F1310] after:rounded-[5px] after:bottom-[-6px] after:content-[''] after:h-[3px] after:left-0 after:absolute after:origin-right after:transition-transform after:duration-500 after:w-full hover:after:scale-x-100 active:text-[#7F1310] hover:text-[#7F1310] ${
@@ -81,9 +81,11 @@ const Navbar = () => {
             >
               <div className="relative">
                 <ShoppingCart className="h-7 w-7" />
-                <span className="absolute text-white px-2 -top-2 -right-2 bg-[#7F1310] rounded-full opacity-75">
-                  {totalItems}
-                </span>
+                {totalItems > 0 && (
+                  <span className="absolute text-white px-2 -top-2 -right-2 bg-[#7F1310] rounded-full opacity-75">
+                    {totalItems}
+                  </span>
+                )}
               </div>
             </NavLink>
           </li>

@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { useToast } from "../components/ui/use-toast";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { clearCart } from "../state/slices/cartSlice";
 import { loginUser, registerUser } from "../utils/api";
 
 interface User {
@@ -29,6 +31,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
@@ -36,6 +39,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const loggedInUser = await loginUser(email, password);
       setUser(loggedInUser);
       localStorage.setItem("user", JSON.stringify(loggedInUser));
+
       toast({
         title: "Login Successful",
         description: "You have successfully logged in!",
@@ -81,6 +85,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    dispatch(clearCart());
     toast({
       title: "Logout Successful",
       description: "You have successfully logged out.",

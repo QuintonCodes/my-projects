@@ -15,14 +15,17 @@ app.use(
   })
 );
 
-(async () => {
+const connectToDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
     console.log("DB Connection successful");
   } catch (error) {
     console.error("MongoDB connection error:", error);
+    process.exit(1);
   }
-})();
+};
+
+connectToDatabase();
 
 app.get("/", (req, res) => {
   res.send("Welcome to KickFlip server !");
@@ -31,6 +34,7 @@ app.get("/", (req, res) => {
 app.use("/auth", userRoute);
 app.use("/shop", shopRoute);
 
-app.listen(4000, () => {
-  console.log("Server is running on http://localhost:4000");
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
