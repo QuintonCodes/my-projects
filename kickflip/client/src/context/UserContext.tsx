@@ -16,6 +16,7 @@ interface UserContextProps {
     password: string
   ) => Promise<void>;
   logout: () => void;
+  isLoading: boolean;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -25,10 +26,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const userData = localStorage.getItem("user");
     return userData ? JSON.parse(userData) : null;
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const { toast } = useToast();
 
   const login = async (email: string, password: string) => {
+    setIsLoading(true);
     try {
       const loggedInUser = await loginUser(email, password);
       setUser(loggedInUser);
@@ -36,15 +39,17 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       toast({
         title: "Login Successful",
         description: "You have successfully logged in!",
-        duration: 2000,
+        duration: 3000,
       });
     } catch (error) {
       toast({
         title: "Login Failed",
         description: "Invalid credentials.",
-        duration: 2000,
+        duration: 3000,
       });
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,20 +58,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     email: string,
     password: string
   ) => {
+    setIsLoading(true);
     try {
       await registerUser({ username, email, password });
       toast({
         title: "Registration Successful",
         description: "You can now log in.",
-        duration: 2000,
+        duration: 3000,
       });
     } catch (error) {
       toast({
         title: "Registration Failed",
         description: "Please try again.",
-        duration: 2000,
+        duration: 3000,
       });
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,12 +84,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     toast({
       title: "Logout Successful",
       description: "You have successfully logged out.",
-      duration: 2000,
+      duration: 3000,
     });
   };
 
   return (
-    <UserContext.Provider value={{ user, login, register, logout }}>
+    <UserContext.Provider value={{ user, login, register, logout, isLoading }}>
       {children}
     </UserContext.Provider>
   );

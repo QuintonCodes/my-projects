@@ -4,7 +4,8 @@ import AuthInputField from "./AuthInputField";
 import { Button } from "./ui/button";
 import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { useUser } from "../context/UserContext";
-import { useToast } from "./ui/use-toast";
+import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 
 interface AuthFormProps {
   isRegistered: boolean;
@@ -14,12 +15,10 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const navigate = useNavigate();
-  const { login, register } = useUser();
-  const { toast } = useToast();
+  const { login, register, isLoading } = useUser();
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -28,17 +27,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      setLoading(true);
       await register(username, email, password);
-      setLoading(false);
-      toast({
-        title: "Registration Successful",
-        description: "Please log in.",
-        duration: 2000,
-      });
       navigate("/auth/login");
     } catch (error) {
-      setLoading(false);
       console.error("Registration failed:", error);
     }
   };
@@ -46,12 +37,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      setLoading(true);
       await login(email, password);
-      setLoading(false);
       navigate("/");
     } catch (error) {
-      setLoading(false);
       console.error("Login failed:", error);
     }
   };
@@ -84,14 +72,10 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 isPasswordVisible={isPasswordVisible}
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
-                <label htmlFor="checkbox">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    className="accent-[#7F1310] mr-[6px]"
-                  />
-                  Remember me
-                </label>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="terms" />
+                  <Label htmlFor="terms">Remember me</Label>
+                </div>
                 <a
                   href="#"
                   className="hover:underline hover:underline-offset-4 text-[#7F1310]"
@@ -101,9 +85,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               </div>
               <Button
                 className="w-full bg-[#292929] hover:bg-[#7F1310]"
-                disabled={loading}
+                disabled={isLoading}
               >
-                {loading ? (
+                {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Please wait
@@ -153,21 +137,17 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
                 isPasswordVisible={isPasswordVisible}
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
-                <label htmlFor="checkbox">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    className="accent-[#7F1310] mr-[6px]"
-                  />
-                  I agree to the terms & conditions
-                </label>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="terms" className="accent-[#7F1310]" />
+                  <Label htmlFor="terms">Accept terms and conditions</Label>
+                </div>
               </div>
 
               <Button
                 className="w-full bg-[#292929] hover:bg-[#7F1310]"
-                disabled={loading}
+                disabled={isLoading}
               >
-                {loading ? (
+                {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Please wait
