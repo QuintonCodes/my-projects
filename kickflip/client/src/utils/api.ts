@@ -1,32 +1,80 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { Products } from "./models";
 
 const URL = "http://localhost:4000";
 
-export const fetchProducts = async (): Promise<Products[]> => {
-  const response = await axios.get(`${URL}/shop/products`, {
-    withCredentials: true,
-  });
+const axiosInstance = axios.create({
+  baseURL: URL,
+  withCredentials: true,
+});
 
-  if (response.status !== 200) {
-    throw new Error("Failed to fetch products");
+const getRefreshToken = (): string | null => {
+  return Cookies.get("refreshToken") || null;
+};
+
+const setAccessToken = (token: string): void => {
+  axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response.status === 401) {
+      const originalRequest = error.config;
+      const refreshToken = getRefreshToken();
+
+      if (refreshToken) {
+        try {
+          const response = await axios.post(
+            `${URL}/auth/refresh-token`,
+            {},
+            { withCredentials: true }
+          );
+          setAccessToken(response.data.accessToken);
+          originalRequest.headers[
+            "Authorization"
+          ] = `Bearer ${response.data.accessToken}`;
+          return axiosInstance(originalRequest);
+        } catch (error) {
+          console.error("Error refreshing token:", error);
+        }
+      }
+    }
+    return Promise.reject(error);
   }
+);
 
-  return response.data;
+export const fetchProducts = async (): Promise<Products[]> => {
+  try {
+    const response = await axiosInstance.get("/shop/products");
+
+    if (response.status !== 200) {
+      throw new Error("Failed to fetch products");
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
 };
 
 export const fetchProduct = async (
   productId: string | undefined
 ): Promise<Products> => {
-  const response = await axios.get(`${URL}/shop/products/${productId}`, {
-    withCredentials: true,
-  });
+  try {
+    const response = await axiosInstance.get(`/shop/products/${productId}`);
 
-  if (response.status !== 200) {
-    throw new Error("Failed to fetch product");
+    if (response.status !== 200) {
+      throw new Error("Failed to fetch product");
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    throw error;
   }
-
-  return response.data;
 };
 
 export const registerUser = async (userData: {
@@ -34,24 +82,34 @@ export const registerUser = async (userData: {
   email: string;
   password: string;
 }) => {
-  const response = await axios.post(`${URL}/auth/register`, userData);
+  try {
+    const response = await axiosInstance.post("/auth/register", userData);
 
-  if (response.status !== 200) {
-    throw new Error("Registration failed");
+    if (response.status !== 200) {
+      throw new Error("Registration failed");
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error registering user:", error);
+    throw error;
   }
-
-  return response.data;
 };
 
 export const loginUser = async (email: string, password: string) => {
-  const response = await axios.post(`${URL}/auth/login`, {
-    email,
-    password,
-  });
+  try {
+    const response = await axiosInstance.post("/auth/login", {
+      email,
+      password,
+    });
 
-  if (response.status !== 200) {
-    throw new Error("Login failed");
+    if (response.status !== 200) {
+      throw new Error("Login failed");
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw error;
   }
-
-  return response.data;
 };

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const userRoute = require("./routes/user");
 const shopRoute = require("./routes/shop");
 require("dotenv").config();
@@ -8,6 +9,7 @@ require("dotenv").config();
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser(process.env.SECRET));
 app.use(
   cors({
     origin: "http://localhost:5173",
