@@ -77,11 +77,13 @@ const ShopPage = () => {
           ))}
         </div>
       ) : productsError ? (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{productsError.message}</AlertDescription>
-        </Alert>
+        <div className="flex items-center justify-center">
+          <Alert variant="destructive" className="w-96">
+            <AlertCircle className="h-6 w-6" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{productsError.message}</AlertDescription>
+          </Alert>
+        </div>
       ) : (
         <div className="grid grid-cols-3 justify-items-center gap-10">
           {sortedProducts.map((product) => (

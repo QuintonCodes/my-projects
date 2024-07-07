@@ -1,11 +1,11 @@
-const router = require("express").Router();
+const asyncHandler = require("express-async-handler");
 const products = require("../products");
 
-const getProducts = (req, res) => {
+const getProducts = asyncHandler(async (req, res) => {
   res.json(products);
-};
+});
 
-const getProductById = (req, res) => {
+const getProductById = asyncHandler(async (req, res) => {
   const productId = parseInt(req.params.id, 10);
   const product = products.find((product) => product.id === productId);
 
@@ -14,9 +14,9 @@ const getProductById = (req, res) => {
   }
 
   res.json(product);
+});
+
+module.exports = {
+  getProducts,
+  getProductById,
 };
-
-router.get("/products", getProducts);
-router.get("/products/:id", getProductById);
-
-module.exports = router;

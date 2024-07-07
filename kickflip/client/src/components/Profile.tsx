@@ -8,10 +8,10 @@ import {
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useUser } from "../context/UserContext";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const Profile = () => {
-  const { user } = useUser();
+  const user = useAppSelector((state) => state.auth.user);
 
   return (
     <DialogContent
@@ -27,11 +27,11 @@ const Profile = () => {
       <div className="grid gap-4 py-4">
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="username" className="text-right">
-            Username
+            Name
           </Label>
           <Input
             id="username"
-            defaultValue={user?.username || ""}
+            defaultValue={user?.name || ""}
             className="col-span-3"
             readOnly
           />

@@ -5,7 +5,7 @@ import {
   decrementQuantity,
   incrementQuantity,
   removeFromCart,
-} from "../state/slices/cartSlice";
+} from "../features/cart/cartSlice";
 import { useState } from "react";
 
 interface CartItemProps {

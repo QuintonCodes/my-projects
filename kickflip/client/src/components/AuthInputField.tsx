@@ -43,6 +43,7 @@ const AuthInputField = ({
         type={inputType}
         required
         id={id}
+        name={id}
         value={value}
         onChange={onChange}
         className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"

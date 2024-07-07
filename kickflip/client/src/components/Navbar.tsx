@@ -3,12 +3,13 @@ import { ShoppingCart, UserRound } from "lucide-react";
 import logo from "../assets/logo.png";
 import { Avatar } from "./ui/avatar";
 import Menu from "./Menu";
-import { useUser } from "../context/UserContext";
 import { useAppSelector } from "../hooks/reduxHooks";
 
 const Navbar = () => {
-  const { user } = useUser();
+  const user = useAppSelector((state) => state.auth.user);
   const items = useAppSelector((state) => state.cart.items);
+
+  console.log("User details:", user);
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -59,7 +60,7 @@ const Navbar = () => {
               <div className="text-base font-semibold mr-2 relative mt-5 text-white">
                 <Menu>
                   <Avatar className="items-center justify-center border border-black bg-[#acacac] bg-opacity-50 cursor-pointer">
-                    {user.username.charAt(0)}
+                    {user.name.charAt(0)}
                   </Avatar>
                 </Menu>
               </div>

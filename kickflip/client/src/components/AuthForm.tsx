@@ -1,49 +1,93 @@
-import { ComponentType, useState } from "react";
+import { ComponentType, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 import AuthInputField from "./AuthInputField";
-import { useUser } from "../context/UserContext";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { toast } from "./ui/use-toast";
+import { login, register, reset } from "../features/auth/authSlice";
 
 interface AuthFormProps {
   isRegistered: boolean;
 }
 
 const AuthForm = ({ isRegistered }: AuthFormProps) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const navigate = useNavigate();
+  const { name, email, password } = formData;
 
-  const { login, register, isLoading } = useUser();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { user, isLoading, isError, isSuccess, message } = useAppSelector(
+    (state) => state.auth
+  );
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await register(username, email, password);
-      navigate("/auth/login");
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    const userData = {
+      name,
+      email,
+      password,
+    };
+    dispatch(register(userData));
   };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await login(email, password);
-      navigate("/");
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
+    const userData = {
+      email,
+      password,
+    };
+    dispatch(login(userData));
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast({
+        title: "Error",
+        description: message,
+        duration: 3000,
+      });
+    }
+
+    if (isSuccess) {
+      if (user) {
+        toast({
+          title: "Login Successful",
+          description: "You have successfully logged in!",
+          duration: 3000,
+        });
+        navigate("/");
+      } else {
+        toast({
+          title: "Registration Successful",
+          description: "You have successfully registered! Please log in.",
+          duration: 3000,
+        });
+        navigate("/auth/login");
+      }
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   return (
     <div className="items-center flex justify-center bg-transparent border-2 border-solid border-black rounded-[20px] relative w-[550px]">
@@ -57,18 +101,18 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               <AuthInputField
                 icon={Mail as ComponentType<{ className: string }>}
                 type="email"
-                id="email-register"
+                id="email"
                 label="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange}
               />
               <AuthInputField
                 icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
-                id="password-register"
+                id="password"
                 label="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChange}
                 togglePasswordVisibility={togglePasswordVisibility}
                 isPasswordVisible={isPasswordVisible}
               />
@@ -114,26 +158,26 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               <AuthInputField
                 icon={UserRound as ComponentType<{ className: string }>}
                 type="text"
-                id="username"
-                label="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="name"
+                label="Name"
+                value={name}
+                onChange={handleChange}
               />
               <AuthInputField
                 icon={Mail as ComponentType<{ className: string }>}
                 type="email"
-                id="email-register"
+                id="email"
                 label="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange}
               />
               <AuthInputField
                 icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
-                id="password-register"
+                id="password"
                 label="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChange}
                 togglePasswordVisibility={togglePasswordVisibility}
                 isPasswordVisible={isPasswordVisible}
               />

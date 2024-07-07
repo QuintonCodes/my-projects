@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { Instagram, MessageCircle, Youtube } from "lucide-react";
 import logo from "../assets/logo.png";
-import { useUser } from "../context/UserContext";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const Footer = () => {
-  const { user } = useUser();
+  const user = useAppSelector((state) => state.auth.user);
 
   return (
     <footer className="flex flex-col items-center justify-between px-[50px] border-t-2 border-solid border-black bg-[#282828]">

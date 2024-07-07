@@ -12,11 +12,10 @@ import { SelectItem } from "../components/ui/select";
 import Filter from "../components/Filter";
 import Message from "../components/Message";
 import ProductImages from "../components/ProductImages";
-import { useUser } from "../context/UserContext";
 import useProduct from "../hooks/useProduct";
 import { cn } from "../lib/utils";
-import { useAppDispatch } from "../hooks/reduxHooks";
-import { addToCart } from "../state/slices/cartSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { addToCart } from "../features/cart/cartSlice";
 
 const ProductInfoPage = () => {
   const [selectedSize, setSelectedSize] = useState<string>("s");
@@ -25,7 +24,7 @@ const ProductInfoPage = () => {
   const { id } = useParams();
   const { data: product } = useProduct(id);
   const dispatch = useAppDispatch();
-  const { user } = useUser();
+  const user = useAppSelector((state) => state.auth.user);
 
   const handleAddToCart = () => {
     if (!user) {

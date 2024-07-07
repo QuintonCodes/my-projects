@@ -1,10 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const userRoute = require("./routes/user");
-const shopRoute = require("./routes/shop");
+const userRoutes = require("./routes/userRoutes");
+const shopRoute = require("./routes/shopRoutes");
+const connectDB = require("./config/db");
+const errorHandler = require("./middleware/errorMiddleware");
+const port = process.env.PORT || 4000;
 require("dotenv").config();
+
+connectDB();
 
 const app = express();
 
@@ -17,26 +21,15 @@ app.use(
   })
 );
 
-const connectToDatabase = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URL);
-    console.log("DB Connection successful");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
-    process.exit(1);
-  }
-};
-
-connectToDatabase();
-
 app.get("/", (req, res) => {
   res.send("Welcome to KickFlip server !");
 });
 
-app.use("/auth", userRoute);
+app.use("/auth", userRoutes);
 app.use("/shop", shopRoute);
 
-const port = process.env.PORT || 4000;
+app.use(errorHandler);
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

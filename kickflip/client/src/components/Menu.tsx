@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Profile from "./Profile";
-import { useUser } from "../context/UserContext";
+import { logout } from "../features/auth/authSlice";
 
 interface MenuProps {
   children: ReactNode;
@@ -19,7 +19,6 @@ interface MenuProps {
 
 const Menu = ({ children }: MenuProps) => {
   const [showProfile, setShowProfile] = useState(false);
-  const { logout } = useUser();
 
   return (
     <>
@@ -38,7 +37,10 @@ const Menu = ({ children }: MenuProps) => {
               <User className="mr-2 h-5 w-5" />
               <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer" onClick={logout}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => logout()}
+            >
               <LogOut className="mr-2 h-5 w-5" />
               <span>Log out</span>
             </DropdownMenuItem>
