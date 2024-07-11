@@ -1,32 +1,19 @@
 import axios from "axios";
+import { Login, Register, User } from "../../utils/models";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/auth",
   withCredentials: true,
 });
 
-interface UserResponse {
-  id: string;
-  name: string;
-  email: string;
-  token: string;
-}
-
 // Register user
-const register = async (userData: {
-  name: string;
-  email: string;
-  password: string;
-}): Promise<void> => {
+const register = async (userData: Register): Promise<void> => {
   const response = await axiosInstance.post("/register", userData);
   return response.data;
 };
 
 // Login user
-const login = async (userData: {
-  email: string;
-  password: string;
-}): Promise<UserResponse> => {
+const login = async (userData: Login): Promise<User> => {
   const response = await axiosInstance.post("/login", userData);
   return response.data;
 };

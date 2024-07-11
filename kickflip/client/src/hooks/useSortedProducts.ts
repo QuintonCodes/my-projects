@@ -9,7 +9,6 @@ const useSortedProducts = (products: Products[], sortOption: string) => {
       } else {
         return b.name.localeCompare(a.name);
       }
-      return 0;
     });
   }, [products, sortOption]);
 };

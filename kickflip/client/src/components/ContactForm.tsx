@@ -8,17 +8,29 @@ const ContactForm = () => {
   return (
     <form method="POST" className="mx-auto max-w-xl sm:mt-10">
       <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-        <ContactInputField type="text" name="first-name" label="First Name" />
-        <ContactInputField type="text" name="last-name" label="Last Name" />
+        <ContactInputField
+          type="text"
+          name="first-name"
+          autoComplete="first-name"
+          label="First Name"
+        />
+        <ContactInputField
+          type="text"
+          name="last-name"
+          autoComplete="family-name"
+          label="Last Name"
+        />
         <ContactInputField
           type="email"
           name="email"
+          autoComplete="email"
           label="Email"
           hasColSpan={true}
         />
         <ContactInputField
           type="tel"
           name="phone-number"
+          autoComplete="tel"
           label="Phone Number"
           hasColSpan={true}
         />
@@ -38,6 +50,7 @@ const ContactForm = () => {
             <Switch
               className="data-[state=unchecked]:bg-[#292929] data-[state=checked]:bg-[#7F1310]"
               id="policy"
+              name="policy"
             />
           </div>
           <Label htmlFor="policy">

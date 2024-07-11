@@ -1,5 +1,5 @@
 import { Trash2Icon } from "lucide-react";
-import { Products } from "../utils/models";
+import { CartProduct } from "../utils/models";
 import { useAppDispatch } from "../hooks/reduxHooks";
 import {
   decrementQuantity,
@@ -9,11 +9,7 @@ import {
 import { useState } from "react";
 
 interface CartItemProps {
-  item: {
-    product?: Products;
-    quantity: number;
-    size: string;
-  };
+  item: CartProduct;
 }
 
 const CartItem = ({ item }: CartItemProps) => {

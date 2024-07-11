@@ -12,6 +12,7 @@ import {
 } from "./ui/dropdown-menu";
 import Profile from "./Profile";
 import { logout } from "../features/auth/authSlice";
+import { useAppDispatch } from "../hooks/reduxHooks";
 
 interface MenuProps {
   children: ReactNode;
@@ -19,6 +20,7 @@ interface MenuProps {
 
 const Menu = ({ children }: MenuProps) => {
   const [showProfile, setShowProfile] = useState(false);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -39,7 +41,7 @@ const Menu = ({ children }: MenuProps) => {
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => logout()}
+              onClick={() => dispatch(logout())}
             >
               <LogOut className="mr-2 h-5 w-5" />
               <span>Log out</span>

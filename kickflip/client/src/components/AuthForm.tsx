@@ -4,10 +4,10 @@ import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
-import AuthInputField from "./AuthInputField";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { toast } from "./ui/use-toast";
+import AuthInputField from "./AuthInputField";
 import { login, register, reset } from "../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 
 interface AuthFormProps {
   isRegistered: boolean;
@@ -101,7 +101,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               <AuthInputField
                 icon={Mail as ComponentType<{ className: string }>}
                 type="email"
-                id="email"
+                name="email"
                 label="Email"
                 value={email}
                 onChange={handleChange}
@@ -109,7 +109,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               <AuthInputField
                 icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
-                id="password"
+                name="password"
                 label="Password"
                 value={password}
                 onChange={handleChange}
@@ -118,7 +118,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
                 <div className="flex items-center space-x-2">
-                  <Checkbox id="terms" />
+                  <Checkbox id="terms" name="terms" />
                   <Label htmlFor="terms">Remember me</Label>
                 </div>
                 <a
@@ -158,7 +158,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               <AuthInputField
                 icon={UserRound as ComponentType<{ className: string }>}
                 type="text"
-                id="name"
+                name="name"
                 label="Name"
                 value={name}
                 onChange={handleChange}
@@ -166,7 +166,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               <AuthInputField
                 icon={Mail as ComponentType<{ className: string }>}
                 type="email"
-                id="email"
+                name="email"
                 label="Email"
                 value={email}
                 onChange={handleChange}
@@ -174,7 +174,7 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               <AuthInputField
                 icon={LockKeyhole as ComponentType<{ className: string }>}
                 type="password"
-                id="password"
+                name="password"
                 label="Password"
                 value={password}
                 onChange={handleChange}
@@ -183,7 +183,11 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
               />
               <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
                 <div className="flex items-center space-x-2">
-                  <Checkbox id="terms" className="accent-[#7F1310]" />
+                  <Checkbox
+                    id="terms"
+                    name="terms"
+                    className="accent-[#7F1310]"
+                  />
                   <Label htmlFor="terms">Accept terms and conditions</Label>
                 </div>
               </div>

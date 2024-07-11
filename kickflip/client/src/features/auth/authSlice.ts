@@ -1,23 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import authService from "./authService";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  token: string;
-}
-
-interface RegisterProps {
-  name: string;
-  email: string;
-  password: string;
-}
-
-interface LoginProps {
-  email: string;
-  password: string;
-}
+import { Login, Register, User } from "../../utils/models";
 
 export interface AuthState {
   user: User | null;
@@ -38,9 +21,9 @@ const initialState: AuthState = {
 // Async Thunks
 export const register = createAsyncThunk<
   void,
-  RegisterProps,
+  Register,
   { rejectValue: string }
->("auth/register", async (user: RegisterProps, thunkAPI) => {
+>("auth/register", async (user: Register, thunkAPI) => {
   try {
     await authService.register(user);
   } catch (error: unknown) {
@@ -51,27 +34,26 @@ export const register = createAsyncThunk<
   }
 });
 
-export const login = createAsyncThunk<
-  User,
-  LoginProps,
-  { rejectValue: string }
->("auth/login", async (user: LoginProps, thunkAPI) => {
-  try {
-    const response = await authService.login(user);
-    const userData: User = {
-      id: response.id.toString(),
-      name: response.name,
-      email: response.email,
-      token: response.token,
-    };
-    return userData;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return thunkAPI.rejectWithValue(error.message);
+export const login = createAsyncThunk<User, Login, { rejectValue: string }>(
+  "auth/login",
+  async (user: Login, thunkAPI) => {
+    try {
+      const response = await authService.login(user);
+      const userData: User = {
+        id: response.id.toString(),
+        name: response.name,
+        email: response.email,
+        token: response.token,
+      };
+      return userData;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      return thunkAPI.rejectWithValue("An unknown error occurred");
     }
-    return thunkAPI.rejectWithValue("An unknown error occurred");
   }
-});
+);
 
 export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   "auth/logout",

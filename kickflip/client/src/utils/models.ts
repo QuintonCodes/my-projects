@@ -18,3 +18,27 @@ export interface Products {
     inStock: boolean;
   }[];
 }
+
+export interface CartProduct {
+  product?: Products;
+  quantity: number;
+  size: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  token: string;
+}
+
+export interface Register {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface Login {
+  email: string;
+  password: string;
+}

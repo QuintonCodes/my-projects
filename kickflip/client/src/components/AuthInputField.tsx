@@ -3,24 +3,24 @@ import { Eye, EyeOff } from "lucide-react";
 
 interface AuthInputFieldProps {
   icon: ComponentType<{ className: string }>;
-  type: string;
-  id: string;
+  isPasswordVisible?: boolean;
   label: string;
-  value: string;
+  name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   togglePasswordVisibility?: () => void;
-  isPasswordVisible?: boolean;
+  type: string;
+  value: string;
 }
 
 const AuthInputField = ({
   icon: Icon,
-  type,
-  id,
+  isPasswordVisible,
   label,
-  value,
+  name,
   onChange,
   togglePasswordVisibility,
-  isPasswordVisible,
+  type,
+  value,
 }: AuthInputFieldProps) => {
   const inputType = type === "password" && isPasswordVisible ? "text" : type;
 
@@ -40,16 +40,19 @@ const AuthInputField = ({
       )}
       <Icon className="h-6 w-6 absolute right-2 top-1/4 leading-[67px]" />
       <input
-        type={inputType}
-        required
-        id={id}
-        name={id}
-        value={value}
+        autoComplete={
+          type === "password" ? "current-password" : label.toLowerCase()
+        }
+        id={name}
+        name={name}
         onChange={onChange}
+        required
+        type={inputType}
+        value={value}
         className="bg-transparent border-none text-base font-normal h-full outline-none p-[10px] w-full"
       />
       <label
-        htmlFor={id}
+        htmlFor={name}
         className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-300 peer-focus:top-[-5px] peer-focus:text-[0.8em] peer-valid:top-[-5px] peer-valid:text-[0.8em]"
       >
         {label}
