@@ -9,8 +9,6 @@ const Navbar = () => {
   const user = useAppSelector((state) => state.auth.user);
   const items = useAppSelector((state) => state.cart.items);
 
-  console.log("User details:", user);
-
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
 
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {

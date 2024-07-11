@@ -1,12 +1,12 @@
+import { useState } from "react";
 import { Trash2Icon } from "lucide-react";
-import { CartProduct } from "../utils/models";
-import { useAppDispatch } from "../hooks/reduxHooks";
 import {
   decrementQuantity,
   incrementQuantity,
   removeFromCart,
 } from "../features/cart/cartSlice";
-import { useState } from "react";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { CartProduct } from "../utils/models";
 
 interface CartItemProps {
   item: CartProduct;

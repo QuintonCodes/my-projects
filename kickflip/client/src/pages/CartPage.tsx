@@ -3,11 +3,11 @@ import { ScrollArea } from "../components/ui/scroll-area";
 import {
   Table,
   TableBody,
-  TableHead,
   TableCell,
+  TableFooter,
+  TableHead,
   TableHeader,
   TableRow,
-  TableFooter,
 } from "../components/ui/table";
 import CartItem from "../components/CartItem";
 import { useAppSelector } from "../hooks/reduxHooks";
