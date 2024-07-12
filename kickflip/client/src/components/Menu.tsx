@@ -17,7 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { logout } from "../features/auth/authSlice";
+import { logout, updateUser } from "../features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -28,10 +28,38 @@ interface MenuProps {
 }
 
 const Menu = ({ children }: MenuProps) => {
-  const [showProfile, setShowProfile] = useState(false);
-
   const user = useAppSelector((state) => state.auth.user);
+
+  const [showProfile, setShowProfile] = useState(false);
+  const [details, setDetails] = useState({
+    name: user?.name || "",
+    email: user?.email || "",
+  });
+
+  const { name, email } = details;
+
   const dispatch = useAppDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDetails((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSave = () => {
+    try {
+      const userData = {
+        name,
+        email,
+      };
+      dispatch(updateUser(userData));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setShowProfile(false);
+    }
+  };
 
   return (
     <>
@@ -79,9 +107,10 @@ const Menu = ({ children }: MenuProps) => {
               </Label>
               <Input
                 id="name"
-                defaultValue={user?.name || ""}
+                name="name"
+                value={name}
+                onChange={handleChange}
                 className="col-span-3"
-                readOnly
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -90,15 +119,17 @@ const Menu = ({ children }: MenuProps) => {
               </Label>
               <Input
                 id="email"
-                defaultValue={user?.email || ""}
+                name="email"
+                value={email}
+                onChange={handleChange}
                 className="col-span-3"
-                readOnly
               />
             </div>
           </div>
           <DialogFooter>
             <Button
               type="submit"
+              onClick={handleSave}
               className="bg-[#292929] hover:bg-[#7F1310] hover:bg-opacity-90 hover:scale-110 transition duration-300 text-white hover:text-black"
             >
               Save Changes

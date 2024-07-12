@@ -58,10 +58,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
-});
-
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("token", "none", {
     expires: new Date(Date.now() + 10 * 1000),
@@ -69,6 +65,33 @@ const logoutUser = asyncHandler(async (req, res) => {
   });
 
   res.status(200).json({ message: "You have been logged out successfully" });
+});
+
+const getMe = asyncHandler(async (req, res) => {
+  res.status(200).json(req.user);
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+  const { name, email } = req.body;
+
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  user.name = name || user.name;
+  user.email = email || user.email;
+
+  const updatedUser = await user.save();
+
+  res.json({
+    id: updatedUser._id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    token: generateToken(updatedUser._id),
+  });
 });
 
 const generateToken = (id) => {
@@ -82,4 +105,5 @@ module.exports = {
   loginUser,
   logoutUser,
   getMe,
+  updateUser,
 };

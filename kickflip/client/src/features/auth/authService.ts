@@ -23,10 +23,17 @@ const logout = async (): Promise<void> => {
   await axiosInstance.post("/logout");
 };
 
+// Update user details
+const updateUser = async (userData: Partial<User>): Promise<User> => {
+  const response = await axiosInstance.put("/me", userData);
+  return response.data;
+};
+
 const authService = {
   register,
   login,
   logout,
+  updateUser,
 };
 
 export default authService;

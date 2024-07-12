@@ -69,6 +69,21 @@ export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   }
 );
 
+export const updateUser = createAsyncThunk<
+  User,
+  Partial<User>,
+  { rejectValue: string }
+>("auth/updateUser", async (userData: Partial<User>, thunkAPI) => {
+  try {
+    return await authService.updateUser(userData);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+    return thunkAPI.rejectWithValue("An unknown error occurred");
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -116,7 +131,23 @@ const authSlice = createSlice({
       )
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
-      });
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(
+        updateUser.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload ?? "An error occurred";
+        }
+      );
   },
 });
 
