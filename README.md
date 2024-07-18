@@ -1,6 +1,6 @@
 # My-Projects
 
-Welcome to My-Projects, a collection of personal projects showcasing my skills in web development. This repository contains two projects: KickFlip Store E-commerce Website and iOS Calculator Clone.
+Welcome to My-Projects, a collection of personal projects showcasing my skills in web development.
 
 # Table of Contents
 
@@ -12,18 +12,17 @@ Welcome to My-Projects, a collection of personal projects showcasing my skills i
 1. **KickFlip Store E-Commerce Store**
 
    - Description:
-     The KickFlip Store E-commerce website is a fully functional online platform for a made-up skater t-shirt and hoodie shop. This project provides a smooth shopping experience by utilizing the capabilities of Node.js with Express.js for the backend and React.js for the frontend. JavaScript connects everything and allows for dynamic and interactive features, while HTML and CSS work together to create an appealing and simple user experience.
+     The KickFlip Store E-commerce website is a fully functional online platform for a made-up skater t-shirt and hoodie shop. This project provides a smooth shopping experience by utilizing the capabilities of Node.js for the backend with MongoDB as the database and React.js for the frontend. TypeScript connects everything and allows for dynamic and interactive features, while React is used to create an appealing and simple user experience.
    - Features:
-     - Product catalog with detailed descriptions
+     - Product catalog with filters
      - User authentication and authorization
      - Shopping cart functionality
    - Technologies:
      - React.js,
+     - TypeScript
+     - CSS (Tailwind CSS),
      - Node.js,
-     - Express.js,
-     - HTML,
-     - CSS (TailwindCSS),
-     - Javascript and Typescript
+     - MongoDB
 
 2. **iOS Calculator Clone**
    - Description:
@@ -34,9 +33,8 @@ Welcome to My-Projects, a collection of personal projects showcasing my skills i
      - Responsive and user-friendly
    - Technologies:
      - React.js
-     - Javascript
-     - HTML
-     - CSS
+     - TypeScript
+     - CSS (Tailwind CSS)
 
 # Getting Started
 

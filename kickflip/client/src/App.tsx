@@ -9,12 +9,14 @@ import HomePage from "./pages/HomePage";
 import ProductInfoPage from "./pages/ProductInfoPage";
 import ShopPage from "./pages/ShopPage";
 import store from "./features/store";
+import ErrorPage from "./pages/ErrorPage";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
         element: <CartPage />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
 ]);
 
