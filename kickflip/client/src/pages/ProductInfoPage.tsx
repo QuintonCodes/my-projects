@@ -1,6 +1,9 @@
+import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import Filter from "../components/Filter";
+import Message from "../components/Message";
+import ProductImages from "../components/ProductImages";
 import {
   Accordion,
   AccordionContent,
@@ -9,12 +12,9 @@ import {
 } from "../components/ui/accordion";
 import { Button } from "../components/ui/button";
 import { SelectItem } from "../components/ui/select";
-import Filter from "../components/Filter";
-import Message from "../components/Message";
-import ProductImages from "../components/ProductImages";
 import { addToCart } from "../features/cart/cartSlice";
-import useProduct from "../hooks/useProduct";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import useProduct from "../hooks/useProduct";
 import { cn } from "../lib/utils";
 
 const ProductInfoPage = () => {

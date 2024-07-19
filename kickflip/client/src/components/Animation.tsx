@@ -1,5 +1,5 @@
-import { FC } from "react";
 import { useLottie } from "lottie-react";
+import { FC } from "react";
 
 interface AnimationProps {
   animationData: object;

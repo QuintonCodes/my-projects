@@ -1,5 +1,8 @@
-import { ReactNode, useState } from "react";
 import { LogOut, User } from "lucide-react";
+import { ReactNode, useState } from "react";
+import { logout, updateUser } from "../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -17,11 +20,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { logout, updateUser } from "../features/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Label } from "./ui/label";
 
 interface MenuProps {
   children: ReactNode;

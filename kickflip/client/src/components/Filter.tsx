@@ -3,6 +3,7 @@ import {
   Select,
   SelectContent,
   SelectGroup,
+  SelectItem,
   SelectLabel,
   SelectTrigger,
   SelectValue,
@@ -30,5 +31,21 @@ const Filter = ({ children, label, onValueChange, value }: FilterProps) => {
     </Select>
   );
 };
+
+const FilterItem = ({
+  value,
+  children,
+}: {
+  value: string;
+  children: ReactNode;
+}) => {
+  return (
+    <SelectItem value={value} className="cursor-pointer">
+      {children}
+    </SelectItem>
+  );
+};
+
+Filter.FilterItem = FilterItem;
 
 export default Filter;

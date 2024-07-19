@@ -1,9 +1,9 @@
-import { NavLink } from "react-router-dom";
 import { ShoppingCart, UserRound } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { Avatar } from "./ui/avatar";
-import Menu from "./Menu";
 import { useAppSelector } from "../hooks/reduxHooks";
+import Menu from "./Menu";
+import { Avatar } from "./ui/avatar";
 
 const Navbar = () => {
   const user = useAppSelector((state) => state.auth.user);

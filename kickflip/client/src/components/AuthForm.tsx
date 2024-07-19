@@ -1,13 +1,13 @@
+import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { ComponentType, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
+import { login, register, reset } from "../features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import AuthInputField from "./AuthInputField";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 import { toast } from "./ui/use-toast";
-import AuthInputField from "./AuthInputField";
-import { login, register, reset } from "../features/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 
 interface AuthFormProps {
   isRegistered: boolean;

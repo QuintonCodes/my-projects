@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { AlertCircle } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert";
-import { SelectItem } from "../components/ui/select";
-import { Skeleton } from "../components/ui/skeleton";
+import Error from "../components/Error";
 import Filter from "../components/Filter";
 import ShopItem from "../components/ShopItem";
+import { Skeleton } from "../components/ui/skeleton";
 import useFilteredProducts from "../hooks/useFilteredProducts";
 import useProducts from "../hooks/useProducts";
 import useSortedProducts from "../hooks/useSortedProducts";
@@ -42,12 +40,12 @@ const ShopPage = () => {
           onValueChange={handleSortChange}
           label="Sort by"
         >
-          <SelectItem value="alphabetical" className="cursor-pointer">
+          <Filter.FilterItem value="alphabetical">
             Alphabetical (A to Z)
-          </SelectItem>
-          <SelectItem value="reverse" className="cursor-pointer">
+          </Filter.FilterItem>
+          <Filter.FilterItem value="reverse">
             Alphabetical (Z to A)
-          </SelectItem>
+          </Filter.FilterItem>
         </Filter>
 
         <Filter
@@ -55,18 +53,10 @@ const ShopPage = () => {
           onValueChange={handleCategoryChange}
           label="Category Filters"
         >
-          <SelectItem value="all" className="cursor-pointer">
-            All
-          </SelectItem>
-          <SelectItem value="hoodies" className="cursor-pointer">
-            Hoodies
-          </SelectItem>
-          <SelectItem value="t-shirts" className="cursor-pointer">
-            T-Shirts
-          </SelectItem>
-          <SelectItem value="sweatshirts" className="cursor-pointer">
-            Sweatshirts
-          </SelectItem>
+          <Filter.FilterItem value="all">All</Filter.FilterItem>
+          <Filter.FilterItem value="hoodies">Hoodies</Filter.FilterItem>
+          <Filter.FilterItem value="t-shirts">T-Shirts</Filter.FilterItem>
+          <Filter.FilterItem value="sweatshirts">Sweatshirts</Filter.FilterItem>
         </Filter>
       </div>
 
@@ -78,11 +68,7 @@ const ShopPage = () => {
         </div>
       ) : productsError ? (
         <div className="flex items-center justify-center">
-          <Alert variant="destructive" className="w-96">
-            <AlertCircle className="h-6 w-6" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{productsError.message}</AlertDescription>
-          </Alert>
+          <Error productsError={productsError} />
         </div>
       ) : (
         <div className="grid grid-cols-3 justify-items-center gap-10">

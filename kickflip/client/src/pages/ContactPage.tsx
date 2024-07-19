@@ -10,7 +10,35 @@ const ContactPage = () => {
         </p>
       </div>
 
-      <ContactForm />
+      <ContactForm>
+        <ContactForm.InputField
+          type="text"
+          name="first-name"
+          autoComplete="first-name"
+          label="First Name"
+        />
+        <ContactForm.InputField
+          type="text"
+          name="last-name"
+          autoComplete="family-name"
+          label="Last Name"
+        />
+        <ContactForm.InputField
+          type="email"
+          name="email"
+          autoComplete="email"
+          label="Email"
+          hasColSpan={true}
+        />
+        <ContactForm.InputField
+          type="tel"
+          name="phone-number"
+          autoComplete="tel"
+          label="Phone Number"
+          hasColSpan={true}
+        />
+        <ContactForm.InputField type="text" name="message" label="Message" />
+      </ContactForm>
     </section>
   );
 };

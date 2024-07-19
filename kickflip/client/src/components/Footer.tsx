@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { Instagram, MessageCircle, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useAppSelector } from "../hooks/reduxHooks";
 
