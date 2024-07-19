@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { fetchProducts } from "../utils/api";
+import { fetchProducts } from "../features/cart/cartService";
 import { Products } from "../utils/models";
 
 const useProducts = (options: { category: string }) => {

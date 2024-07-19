@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/User");
+const { generateTokens } = require("../controllers/userController");
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -18,14 +19,50 @@ const protect = asyncHandler(async (req, res, next) => {
     } catch (error) {
       console.log(error);
       res.status(401);
-      throw new Error("Not authorized");
+      throw new Error("Not authorized, token failed");
     }
-  }
-
-  if (!token) {
+  } else {
     res.status(401);
     throw new Error("Not authorized, no token");
   }
 });
 
-module.exports = { protect };
+const refresh = asyncHandler(async (req, res, next) => {
+  const { refreshToken } = req.cookies;
+
+  if (!refreshToken) {
+    res.status(401);
+    throw new Error("Not authorized, no refresh token");
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      res.status(401);
+      throw new Error("Not authorized, user not found");
+    }
+
+    const { accessToken, refreshToken: newRefreshToken } = generateTokens(
+      user._id
+    );
+
+    res.cookie("refreshToken", newRefreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    res.json({
+      accessToken,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(401);
+    throw new Error("Not authorized, token failed");
+  }
+});
+
+module.exports = { protect, refresh };

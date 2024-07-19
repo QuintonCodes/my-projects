@@ -29,11 +29,18 @@ const updateUser = async (userData: Partial<User>): Promise<User> => {
   return response.data;
 };
 
+// Refresh token
+const refreshToken = async (): Promise<string> => {
+  const response = await axiosInstance.post("/refresh");
+  return response.data.accessToken;
+};
+
 const authService = {
   register,
   login,
   logout,
   updateUser,
+  refreshToken,
 };
 
 export default authService;

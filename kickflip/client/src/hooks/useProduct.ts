@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchProduct } from "../utils/api";
+import { fetchProduct } from "../features/cart/cartService";
 import { Products } from "../utils/models";
 
 const useProduct = (productId: string | undefined) => {

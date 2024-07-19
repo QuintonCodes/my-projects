@@ -4,6 +4,7 @@ import { Login, Register, User } from "../../utils/models";
 
 export interface AuthState {
   user: User | null;
+  accessToken: string | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -12,6 +13,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
   user: null,
+  accessToken: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -27,10 +29,7 @@ export const register = createAsyncThunk<
   try {
     await authService.register(user);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-    return thunkAPI.rejectWithValue("An unknown error occurred");
+    return thunkAPI.rejectWithValue((error as Error).message);
   }
 });
 
@@ -39,18 +38,9 @@ export const login = createAsyncThunk<User, Login, { rejectValue: string }>(
   async (user: Login, thunkAPI) => {
     try {
       const response = await authService.login(user);
-      const userData: User = {
-        id: response.id.toString(),
-        name: response.name,
-        email: response.email,
-        token: response.token,
-      };
-      return userData;
+      return response;
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-      return thunkAPI.rejectWithValue("An unknown error occurred");
+      return thunkAPI.rejectWithValue((error as Error).message);
     }
   }
 );
@@ -61,10 +51,7 @@ export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
     try {
       await authService.logout();
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-      return thunkAPI.rejectWithValue("An unknown error occurred");
+      return thunkAPI.rejectWithValue((error as Error).message);
     }
   }
 );
@@ -77,10 +64,20 @@ export const updateUser = createAsyncThunk<
   try {
     return await authService.updateUser(userData);
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-    return thunkAPI.rejectWithValue("An unknown error occurred");
+    return thunkAPI.rejectWithValue((error as Error).message);
+  }
+});
+
+export const refreshToken = createAsyncThunk<
+  string,
+  void,
+  { rejectValue: string }
+>("auth/refreshToken", async (_, thunkAPI) => {
+  try {
+    const accessToken = await authService.refreshToken();
+    return accessToken;
+  } catch (error: unknown) {
+    return thunkAPI.rejectWithValue((error as Error).message);
   }
 });
 
@@ -147,7 +144,18 @@ const authSlice = createSlice({
           state.isError = true;
           state.message = action.payload ?? "An error occurred";
         }
-      );
+      )
+      .addCase(
+        refreshToken.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          if (state.user) {
+            state.accessToken = action.payload;
+          }
+        }
+      )
+      .addCase(refreshToken.rejected, (state) => {
+        state.user = null;
+      });
   },
 });
 

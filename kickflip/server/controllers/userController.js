@@ -27,11 +27,20 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    const { accessToken, refreshToken } = generateTokens(user._id);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
     res.status(201).json({
       id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      accessToken,
     });
   } else {
     res.status(400);
@@ -46,11 +55,20 @@ const loginUser = asyncHandler(async (req, res) => {
   const validPassword = await bcrypt.compare(password, user.password);
 
   if (user && validPassword) {
+    const { accessToken, refreshToken } = generateTokens(user._id);
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
     res.json({
       id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      accessToken,
     });
   } else {
     res.status(400);
@@ -59,9 +77,11 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie("token", "none", {
-    expires: new Date(Date.now() + 10 * 1000),
+  res.cookie("refreshToken", "", {
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expires: new Date(0),
   });
 
   res.status(200).json({ message: "You have been logged out successfully" });
@@ -86,18 +106,31 @@ const updateUser = asyncHandler(async (req, res) => {
 
   const updatedUser = await user.save();
 
+  const { accessToken, refreshToken } = generateTokens(updatedUser._id);
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+
   res.json({
     id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    token: generateToken(updatedUser._id),
+    accessToken,
   });
 });
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+const generateTokens = (id) => {
+  const accessToken = jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
   });
+  const refreshToken = jwt.sign({ id }, process.env.JWT_REFRESH_SECRET, {
+    expiresIn: "7d",
+  });
+  return { accessToken, refreshToken };
 };
 
 module.exports = {
@@ -106,4 +139,5 @@ module.exports = {
   logoutUser,
   getMe,
   updateUser,
+  generateTokens,
 };

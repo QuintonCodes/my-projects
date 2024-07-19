@@ -6,11 +6,12 @@ const {
   getMe,
   updateUser,
 } = require("../controllers/userController");
-const { protect } = require("../middleware/authMiddleware");
+const { protect, refresh } = require("../middleware/authMiddleware");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);
+router.post("/refresh", refresh);
 router.get("/me", protect, getMe);
 router.put("/me", protect, updateUser);
 
