@@ -1,5 +1,6 @@
 import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { useParams } from "react-router-dom";
 import Filter from "../components/Filter";
 import Message from "../components/Message";
@@ -13,7 +14,7 @@ import {
 import { Button } from "../components/ui/button";
 import { SelectItem } from "../components/ui/select";
 import { addToCart } from "../features/cart/cartSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch } from "../hooks/reduxHooks";
 import useProduct from "../hooks/useProduct";
 import { cn } from "../lib/utils";
 
@@ -23,11 +24,12 @@ const ProductInfoPage = () => {
 
   const { id } = useParams();
   const { data: product } = useProduct(id);
+  const isAuthenticated = useIsAuthenticated();
+
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.auth.user);
 
   const handleAddToCart = () => {
-    if (!user) {
+    if (!isAuthenticated) {
       setShowMessage(true);
       return;
     }
@@ -107,17 +109,17 @@ const ProductInfoPage = () => {
             Add to Cart
           </Button>
 
-          {showMessage && !user && (
+          {showMessage && !isAuthenticated && (
             <Message
               title="Feature Not Available"
-              description="You need to be logged in to add items to the cart."
+              description="You need to sign up to add items to the cart."
               cancelButton={true}
               location="/auth/signup"
               actionText="Signup"
               onClose={handleCloseMessage}
             />
           )}
-          {showMessage && user && (
+          {showMessage && isAuthenticated && (
             <Message
               title="Successfully added to cart !"
               description={`Your ${product?.name} has been added to your cart. You can

@@ -9,11 +9,6 @@ const store = configureStore({
   },
 });
 
-export const getAccessToken = () => {
-  const state = store.getState();
-  return state.auth.accessToken;
-};
-
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

@@ -1,7 +1,8 @@
-import { LogOut, User } from "lucide-react";
+import { Loader2, LogOut, User } from "lucide-react";
 import { ReactNode, useState } from "react";
-import { logout, updateUser } from "../features/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
+import useAuth from "../hooks/useAuth";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -27,18 +28,24 @@ interface MenuProps {
   children: ReactNode;
 }
 
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+}
+
 const Menu = ({ children }: MenuProps) => {
-  const user = useAppSelector((state) => state.auth.user);
+  const auth = useAuthUser<IUser>();
 
   const [showProfile, setShowProfile] = useState(false);
   const [details, setDetails] = useState({
-    name: user?.name || "",
-    email: user?.email || "",
+    name: auth?.name || "",
+    email: auth?.email || "",
   });
-
   const { name, email } = details;
 
-  const dispatch = useAppDispatch();
+  const signOut = useSignOut();
+  const { error, loading, handleUpdate } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDetails((prev) => ({
@@ -47,18 +54,9 @@ const Menu = ({ children }: MenuProps) => {
     }));
   };
 
-  const handleSave = () => {
-    try {
-      const userData = {
-        name,
-        email,
-      };
-      dispatch(updateUser(userData));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setShowProfile(false);
-    }
+  const handleSave = async () => {
+    handleUpdate(name, email, setDetails);
+    setShowProfile(false);
   };
 
   return (
@@ -80,7 +78,7 @@ const Menu = ({ children }: MenuProps) => {
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => dispatch(logout())}
+              onClick={() => signOut()}
             >
               <LogOut className="mr-2 h-5 w-5" />
               <span>Log out</span>
@@ -125,14 +123,29 @@ const Menu = ({ children }: MenuProps) => {
                 className="col-span-3"
               />
             </div>
+            {error.length > 0 ? (
+              <div className="grid grid-cols-4 items-center gap-4">
+                <p>{error}</p>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
           <DialogFooter>
             <Button
               type="submit"
               onClick={handleSave}
+              disabled={loading}
               className="bg-[#292929] hover:bg-[#7F1310] hover:bg-opacity-90 hover:scale-110 transition duration-300 text-white hover:text-black"
             >
-              Save Changes
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </>
+              ) : (
+                "Save Changes"
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>

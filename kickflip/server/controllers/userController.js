@@ -40,7 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
-      accessToken,
+      token: accessToken,
     });
   } else {
     res.status(400);
@@ -68,7 +68,7 @@ const loginUser = asyncHandler(async (req, res) => {
       id: user._id,
       name: user.name,
       email: user.email,
-      accessToken,
+      token: accessToken,
     });
   } else {
     res.status(400);
@@ -119,7 +119,7 @@ const updateUser = asyncHandler(async (req, res) => {
     id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    accessToken,
+    token: accessToken,
   });
 });
 
