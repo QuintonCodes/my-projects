@@ -1,59 +1,68 @@
-import axios, { AxiosError } from "axios";
-import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { useNavigate } from "react-router-dom";
 import { toast } from "../components/ui/use-toast";
+import authService from "../features/auth/authService";
+import { login, logout } from "../features/auth/authSlice";
+import { User } from "../utils/models";
+import { useAppDispatch } from "./reduxHooks";
 
 const useAuth = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const signIn = useSignIn();
+  const signOut = useSignOut();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleRegister = async (
-    name: string,
-    email: string,
-    password: string
-  ) => {
-    try {
-      setLoading(true);
-      const response = await axios.post("http://localhost:4000/auth/register", {
-        name,
-        email,
-        password,
+  const handleError = (error: unknown) => {
+    if (error instanceof AxiosError) {
+      toast({
+        title: error.name,
+        description: error.response?.data.message,
+        duration: 3000,
       });
-      if (response.status === 201) {
-        toast({
-          title: "Registration Successful",
-          description: "You have successfully registered! Please log in.",
-          duration: 3000,
-        });
-        navigate("/auth/login");
-      }
-    } catch (error) {
-      handleError(error);
-    } finally {
-      setLoading(false);
+    } else if (error instanceof Error) {
+      toast({ title: error.name, description: error.message, duration: 3000 });
     }
   };
 
-  const handleLogin = async (email: string, password: string) => {
-    try {
-      setLoading(true);
-      const response = await axios.post("http://localhost:4000/auth/login", {
-        email,
-        password,
+  const { mutate: handleRegister, isPending: registerLoading } = useMutation({
+    mutationFn: authService.registerUser,
+    onSuccess: () => {
+      toast({
+        title: "Registration Successful",
+        description: "You have successfully registered! Please log in.",
+        duration: 3000,
       });
-      if (response.status === 200 && response.data.token) {
+      navigate("/auth/login");
+    },
+    onError: handleError,
+  });
+
+  const { mutate: handleLogin, isPending: loginLoading } = useMutation({
+    mutationFn: authService.loginUser,
+    onSuccess: (data: User) => {
+      if (data.token) {
+        dispatch(
+          login({
+            user: {
+              id: data.id,
+              name: data.name,
+              email: data.email,
+              token: data.token,
+            },
+          })
+        );
         signIn({
           auth: {
-            token: response.data.token,
+            token: data.token,
             type: "Bearer",
           },
           userState: {
-            id: response.data.id,
-            name: response.data.name,
-            email: response.data.email,
+            id: data.id,
+            name: data.name,
+            email: data.email,
           },
         });
         toast({
@@ -63,58 +72,57 @@ const useAuth = () => {
         });
         navigate("/");
       }
-    } catch (error) {
-      handleError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    onError: handleError,
+  });
 
-  const handleUpdate = async (
-    name: string,
-    email: string,
-    setDetails: (
-      value: React.SetStateAction<{
-        name: string;
-        email: string;
-      }>
-    ) => void
-  ) => {
-    try {
-      setLoading(true);
-      const response = await axios.put("http://localhost:4000/auth/me", {
-        name,
-        email,
-      });
-      if (response.status === 201) {
-        setDetails({
-          name: response.data.name,
-          email: response.data.email,
-        });
-      }
-    } catch (error) {
-      handleError(error);
-    } finally {
-      setError("");
-      setLoading(false);
-    }
-  };
-
-  const handleError = (error: unknown) => {
-    if (error instanceof AxiosError) {
-      setError(error.response?.data.message);
+  const {
+    mutate: handleUpdate,
+    isPending: updateLoading,
+    isError: updateError,
+  } = useMutation({
+    mutationFn: authService.updateUser,
+    onSuccess: (data: User) => {
+      dispatch(
+        login({
+          user: {
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            token: data.token,
+          },
+        })
+      );
       toast({
-        title: error.name,
-        description: error.response?.data.message,
+        title: "Update Successful",
+        description: "Your profile has been updated successfully.",
         duration: 3000,
       });
-    } else if (error instanceof Error) {
-      setError(error.message);
-      toast({ title: error.name, description: error.message, duration: 3000 });
-    }
+    },
+    onError: handleError,
+  });
+
+  const handleLogout = async () => {
+    signOut();
+    dispatch(logout());
+
+    toast({
+      title: "Logout Successful",
+      description: "You have successfully logged out!",
+      duration: 3000,
+    });
   };
 
-  return { handleRegister, handleLogin, handleUpdate, loading, error };
+  return {
+    handleRegister,
+    handleLogin,
+    handleUpdate,
+    handleLogout,
+    loginLoading,
+    registerLoading,
+    updateLoading,
+    updateError,
+  };
 };
 
 export default useAuth;

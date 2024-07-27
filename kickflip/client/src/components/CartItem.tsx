@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Trash2Icon } from "lucide-react";
+import { useState } from "react";
 import {
   decrementQuantity,
   incrementQuantity,
@@ -8,11 +8,7 @@ import {
 import { useAppDispatch } from "../hooks/reduxHooks";
 import { CartProduct } from "../utils/models";
 
-interface CartItemProps {
-  item: CartProduct;
-}
-
-const CartItem = ({ item }: CartItemProps) => {
+const CartItem = ({ item }: { item: CartProduct }) => {
   const dispatch = useAppDispatch();
   const [isRemoving, setIsRemoving] = useState(false);
 

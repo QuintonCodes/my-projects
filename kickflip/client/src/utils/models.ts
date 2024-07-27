@@ -29,6 +29,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  token: string;
 }
 
 export interface Register {
@@ -40,4 +41,9 @@ export interface Register {
 export interface Login {
   email: string;
   password: string;
+}
+
+export interface IUpdate {
+  name: string;
+  email: string;
 }

@@ -76,21 +76,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-const logoutUser = asyncHandler(async (req, res) => {
-  res.cookie("refreshToken", "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    expires: new Date(0),
-  });
-
-  res.status(200).json({ message: "You have been logged out successfully" });
-});
-
-const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
-});
-
 const updateUser = asyncHandler(async (req, res) => {
   const { name, email } = req.body;
 
@@ -136,8 +121,6 @@ const generateTokens = (id) => {
 module.exports = {
   registerUser,
   loginUser,
-  logoutUser,
-  getMe,
   updateUser,
   generateTokens,
 };

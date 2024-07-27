@@ -7,11 +7,7 @@ import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
-interface AuthFormProps {
-  isRegistered: boolean;
-}
-
-const AuthForm = ({ isRegistered }: AuthFormProps) => {
+const AuthForm = ({ isRegistered }: { isRegistered: boolean }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,7 +16,8 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { name, email, password } = formData;
 
-  const { handleRegister, handleLogin, loading } = useAuth();
+  const { handleRegister, handleLogin, loginLoading, registerLoading } =
+    useAuth();
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -36,9 +33,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isRegistered) {
-      await handleLogin(email, password);
+      handleLogin({ email, password });
     } else {
-      await handleRegister(name, email, password);
+      handleRegister({ name, email, password });
     }
   };
 
@@ -95,9 +92,9 @@ const AuthForm = ({ isRegistered }: AuthFormProps) => {
           </div>
           <Button
             className="w-full bg-[#292929] hover:bg-[#7F1310]"
-            disabled={loading}
+            disabled={isRegistered ? loginLoading : registerLoading}
           >
-            {loading ? (
+            {loginLoading || registerLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Please wait

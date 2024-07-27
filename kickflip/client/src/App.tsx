@@ -14,12 +14,14 @@ import ProductInfoPage from "./pages/ProductInfoPage";
 import ShopPage from "./pages/ShopPage";
 
 const queryClient = new QueryClient();
+
 const auth = createStore({
   authName: "_auth",
   authType: "cookie",
   cookieDomain: window.location.hostname,
   cookieSecure: window.location.protocol === "https:",
 });
+
 const router = createBrowserRouter([
   {
     path: "/",

@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardFooter } from "./ui/card";
 import { cn } from "../lib/utils";
 import { Products } from "../utils/models";
+import { Card, CardContent, CardFooter } from "./ui/card";
 
-interface ShopItemProps {
-  products: Products;
-}
-
-const ShopItem = ({ products }: ShopItemProps) => {
+const ShopItem = ({ products }: { products: Products }) => {
   return (
     <Card className="w-4/5 transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-transparent">
       <CardContent className="flex aspect-square items-center justify-center p-6 rounded-lg">

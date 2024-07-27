@@ -1,16 +1,12 @@
 import { ShoppingCart, UserRound } from "lucide-react";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useAppSelector } from "../hooks/reduxHooks";
-import { User } from "../utils/models";
 import Menu from "./Menu";
 import { Avatar } from "./ui/avatar";
 
 const Navbar = () => {
-  const auth = useAuthUser<User>();
-  const isAuthenticated = useIsAuthenticated();
+  const user = useAppSelector((state) => state.auth.user);
   const items = useAppSelector((state) => state.cart.items);
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
@@ -58,11 +54,11 @@ const Navbar = () => {
       <div className="flex items-center justify-center">
         <ul className="items-center justify-center flex list-none transition-transform duration-300 translate-x-0">
           <li className="pb-5 px-2">
-            {isAuthenticated ? (
+            {user ? (
               <div className="text-base font-semibold mr-2 relative mt-5 text-white">
                 <Menu>
                   <Avatar className="items-center justify-center border border-black bg-[#acacac] bg-opacity-50 cursor-pointer">
-                    {auth?.name.charAt(0)}
+                    {user?.name.charAt(0)}
                   </Avatar>
                 </Menu>
               </div>

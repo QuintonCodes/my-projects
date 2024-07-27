@@ -1,7 +1,6 @@
 import { Loader2, LogOut, User } from "lucide-react";
 import { ReactNode, useState } from "react";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import useSignOut from "react-auth-kit/hooks/useSignOut";
+import { useAppSelector } from "../hooks/reduxHooks";
 import useAuth from "../hooks/useAuth";
 import { Button } from "./ui/button";
 import {
@@ -24,28 +23,17 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 
-interface MenuProps {
-  children: ReactNode;
-}
-
-interface IUser {
-  id: string;
-  name: string;
-  email: string;
-}
-
-const Menu = ({ children }: MenuProps) => {
-  const auth = useAuthUser<IUser>();
+const Menu = ({ children }: { children: ReactNode }) => {
+  const user = useAppSelector((state) => state.auth.user);
 
   const [showProfile, setShowProfile] = useState(false);
   const [details, setDetails] = useState({
-    name: auth?.name || "",
-    email: auth?.email || "",
+    name: user?.name || "",
+    email: user?.email || "",
   });
   const { name, email } = details;
 
-  const signOut = useSignOut();
-  const { error, loading, handleUpdate } = useAuth();
+  const { updateError, updateLoading, handleUpdate, handleLogout } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDetails((prev) => ({
@@ -55,7 +43,7 @@ const Menu = ({ children }: MenuProps) => {
   };
 
   const handleSave = async () => {
-    handleUpdate(name, email, setDetails);
+    handleUpdate({ name, email });
     setShowProfile(false);
   };
 
@@ -76,10 +64,7 @@ const Menu = ({ children }: MenuProps) => {
               <User className="mr-2 h-5 w-5" />
               <span>Profile</span>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => signOut()}
-            >
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               <LogOut className="mr-2 h-5 w-5" />
               <span>Log out</span>
             </DropdownMenuItem>
@@ -87,10 +72,13 @@ const Menu = ({ children }: MenuProps) => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Dialog open={showProfile} onOpenChange={setShowProfile}>
+      <Dialog
+        open={updateError ? showProfile === true : showProfile}
+        onOpenChange={setShowProfile}
+      >
         <DialogContent
           className="max-w-[425px] bg-[#d6d6d6]"
-          onOpenAutoFocus={(e: Event) => e.preventDefault}
+          onOpenAutoFocus={(e: Event) => e.preventDefault()}
         >
           <DialogHeader>
             <DialogTitle className="text-[#7f1310]">Edit Profile</DialogTitle>
@@ -123,9 +111,9 @@ const Menu = ({ children }: MenuProps) => {
                 className="col-span-3"
               />
             </div>
-            {error.length > 0 ? (
-              <div className="grid grid-cols-4 items-center gap-4">
-                <p>{error}</p>
+            {updateError ? (
+              <div className="items-center flex justify-center">
+                <p className="text-[#7f1310]">Error, please try again</p>
               </div>
             ) : (
               <></>
@@ -135,10 +123,10 @@ const Menu = ({ children }: MenuProps) => {
             <Button
               type="submit"
               onClick={handleSave}
-              disabled={loading}
+              disabled={updateLoading}
               className="bg-[#292929] hover:bg-[#7F1310] hover:bg-opacity-90 hover:scale-110 transition duration-300 text-white hover:text-black"
             >
-              {loading ? (
+              {updateLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
