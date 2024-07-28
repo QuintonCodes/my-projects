@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { Products } from "../utils/models";
+import { IProducts } from "../utils/models";
 
 const useFilteredProducts = (
-  products: Products[] | undefined,
+  products: IProducts[] | undefined,
   categoryFilter: string
 ) => {
   return useMemo(() => {

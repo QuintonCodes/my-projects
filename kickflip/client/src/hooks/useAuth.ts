@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "../components/ui/use-toast";
 import authService from "../features/auth/authService";
 import { login, logout } from "../features/auth/authSlice";
-import { User } from "../utils/models";
+import { IUser } from "../utils/models";
 import { useAppDispatch } from "./reduxHooks";
 
 const useAuth = () => {
@@ -42,7 +42,7 @@ const useAuth = () => {
 
   const { mutate: handleLogin, isPending: loginLoading } = useMutation({
     mutationFn: authService.loginUser,
-    onSuccess: (data: User) => {
+    onSuccess: (data: IUser) => {
       if (data.token) {
         dispatch(
           login({
@@ -82,7 +82,7 @@ const useAuth = () => {
     isError: updateError,
   } = useMutation({
     mutationFn: authService.updateUser,
-    onSuccess: (data: User) => {
+    onSuccess: (data: IUser) => {
       dispatch(
         login({
           user: {

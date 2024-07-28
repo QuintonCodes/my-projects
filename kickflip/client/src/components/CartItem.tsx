@@ -6,9 +6,9 @@ import {
   removeFromCart,
 } from "../features/cart/cartSlice";
 import { useAppDispatch } from "../hooks/reduxHooks";
-import { CartProduct } from "../utils/models";
+import { ICartProduct } from "../utils/models";
 
-const CartItem = ({ item }: { item: CartProduct }) => {
+const CartItem = ({ item }: { item: ICartProduct }) => {
   const dispatch = useAppDispatch();
   const [isRemoving, setIsRemoving] = useState(false);
 

@@ -1,11 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
+import LoginForm from "../components/LoginForm";
+import RegisterForm from "../components/RegisterForm";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "../components/ui/tabs";
-import AuthForm from "../components/AuthForm";
+// import AuthForm from "../components/AuthForm";
 
 const AuthPage = () => {
   const { tab } = useParams<{ tab?: string }>();
@@ -32,10 +34,12 @@ const AuthPage = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="login">
-          <AuthForm isRegistered={true} />
+          <LoginForm />
+          {/* <AuthForm isRegistered={true} /> */}
         </TabsContent>
         <TabsContent value="signup">
-          <AuthForm isRegistered={false} />
+          <RegisterForm />
+          {/* <AuthForm isRegistered={false} /> */}
         </TabsContent>
       </Tabs>
     </section>

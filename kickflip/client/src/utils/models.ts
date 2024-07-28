@@ -1,4 +1,4 @@
-export interface Products {
+export interface IProducts {
   id: number;
   name: string;
   price: number;
@@ -19,26 +19,26 @@ export interface Products {
   }[];
 }
 
-export interface CartProduct {
-  product?: Products;
+export interface ICartProduct {
+  product?: IProducts;
   quantity: number;
   size: string;
 }
 
-export interface User {
+export interface IUser {
   id: string;
   name: string;
   email: string;
   token: string;
 }
 
-export interface Register {
+export interface IRegister {
   name: string;
   email: string;
   password: string;
 }
 
-export interface Login {
+export interface ILogin {
   email: string;
   password: string;
 }

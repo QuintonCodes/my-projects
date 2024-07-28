@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
 
 interface CategoryCardProps {
-  text: string;
   imageSrc: string;
+  text: string;
 }
 
-const CategoryCard = ({ text, imageSrc }: CategoryCardProps) => {
+const CategoryCard = ({ imageSrc, text }: CategoryCardProps) => {
   return (
     <Card className="w-1/4 transform transition-transform duration-300 hover:scale-105 cursor-pointer bg-transparent relative">
       <Link to={`/shop?category=${text.toLowerCase()}`}>

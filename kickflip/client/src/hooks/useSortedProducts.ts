@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { Products } from "../utils/models";
+import { IProducts } from "../utils/models";
 
-const useSortedProducts = (products: Products[], sortOption: string) => {
+const useSortedProducts = (products: IProducts[], sortOption: string) => {
   return useMemo(() => {
     return products.slice().sort((a, b) => {
       if (sortOption === "alphabetical") {

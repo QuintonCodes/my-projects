@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { fetchProducts } from "../features/cart/cartService";
-import { Products } from "../utils/models";
+import { IProducts } from "../utils/models";
 
 const useProducts = (options: { category: string }) => {
   const { category } = options;
@@ -17,14 +17,14 @@ const useProducts = (options: { category: string }) => {
     );
   };
 
-  const queryOptions: UseQueryOptions<Products[], Error> = {
+  const queryOptions: UseQueryOptions<IProducts[], Error> = {
     queryKey,
     queryFn: fetchProductsByCategory,
     staleTime: 1000 * 60 * 60 * 6,
     refetchOnWindowFocus: false,
   };
 
-  return useQuery<Products[], Error>(queryOptions);
+  return useQuery<IProducts[], Error>(queryOptions);
 };
 
 export default useProducts;

@@ -7,11 +7,11 @@ import { Textarea } from "./ui/textarea";
 
 interface InputFieldProps {
   autoComplete?: string;
+  hasColSpan?: boolean;
   label: string;
+  messageField?: boolean;
   name: string;
   type?: string;
-  hasColSpan?: boolean;
-  messageField?: boolean;
 }
 
 const ContactForm = ({ children }: { children: ReactNode }) => {
@@ -42,11 +42,11 @@ const ContactForm = ({ children }: { children: ReactNode }) => {
 
 const InputField = ({
   autoComplete,
+  hasColSpan,
   label,
+  messageField = false,
   name,
   type,
-  hasColSpan,
-  messageField = false,
 }: InputFieldProps) => {
   return (
     <>

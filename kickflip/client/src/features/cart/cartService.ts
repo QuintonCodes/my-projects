@@ -1,12 +1,12 @@
 import axios from "axios";
-import { Products } from "../../utils/models";
+import { IProducts } from "../../utils/models";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/shop",
   withCredentials: true,
 });
 
-export const fetchProducts = async (): Promise<Products[]> => {
+export const fetchProducts = async (): Promise<IProducts[]> => {
   try {
     const response = await axiosInstance.get("/");
     return response.data;
@@ -18,7 +18,7 @@ export const fetchProducts = async (): Promise<Products[]> => {
 
 export const fetchProduct = async (
   productId: string | undefined
-): Promise<Products> => {
+): Promise<IProducts> => {
   try {
     const response = await axiosInstance.get(`/${productId}`);
     return response.data;

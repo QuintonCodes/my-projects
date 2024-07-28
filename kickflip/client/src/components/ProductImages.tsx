@@ -1,7 +1,7 @@
 import AutoPlay from "embla-carousel-autoplay";
 import { ImageOff } from "lucide-react";
 import { useRef } from "react";
-import { Products } from "../utils/models";
+import { IProducts } from "../utils/models";
 import { Card, CardContent } from "./ui/card";
 import {
   Carousel,
@@ -13,7 +13,7 @@ import {
 
 interface ProductImagesProps {
   includeButtons: boolean;
-  product?: Products;
+  product?: IProducts;
 }
 
 const ProductImages = ({

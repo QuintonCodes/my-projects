@@ -3,21 +3,21 @@ import { FC } from "react";
 
 interface AnimationProps {
   animationData: object;
-  loop?: boolean;
   autoplay?: boolean;
+  loop?: boolean;
   style?: React.CSSProperties;
 }
 
 const Animation: FC<AnimationProps> = ({
   animationData,
-  loop = true,
   autoplay = true,
+  loop = true,
   style,
 }) => {
   const options = {
     animationData: animationData,
-    loop: loop,
     autoplay: autoplay,
+    loop: loop,
   };
 
   const { View } = useLottie(options, style);

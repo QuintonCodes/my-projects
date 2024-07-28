@@ -1,20 +1,47 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Loader2, LockKeyhole, Mail, UserRound } from "lucide-react";
-import React, { ComponentType, useState } from "react";
+import { ComponentType, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { object, string } from "yup";
 import useAuth from "../hooks/useAuth";
 import AuthInputField from "./AuthInputField";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
+const getSchema = (isRegistered: boolean) =>
+  object({
+    name: isRegistered
+      ? string()
+      : string()
+          .required("Name is required")
+          .matches(/^[A-Z][a-zA-Z]{0,19}$/, "Invalid name format"),
+    email: string().required("Email is required").email("Invalid email format"),
+    password: string()
+      .required("Password is required")
+      .matches(
+        /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/,
+        "Invalid password format"
+      ),
+  });
+
 const AuthForm = ({ isRegistered }: { isRegistered: boolean }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
+  const schema = getSchema(isRegistered);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
   });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { name, email, password } = formData;
 
   const { handleRegister, handleLogin, loginLoading, registerLoading } =
     useAuth();
@@ -23,19 +50,19 @@ const AuthForm = ({ isRegistered }: { isRegistered: boolean }) => {
     setIsPasswordVisible((prev) => !prev);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: {
+    name?: string;
+    email: string;
+    password: string;
+  }) => {
     if (isRegistered) {
-      handleLogin({ email, password });
+      handleLogin({ email: data.email, password: data.password });
     } else {
-      handleRegister({ name, email, password });
+      handleRegister({
+        name: data.name as string,
+        email: data.email,
+        password: data.password,
+      });
     }
   };
 
@@ -45,34 +72,55 @@ const AuthForm = ({ isRegistered }: { isRegistered: boolean }) => {
         <h3 className="text-4xl text-center font-semibold">
           {isRegistered ? "Login" : "Signup"}
         </h3>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {!isRegistered && (
-            <AuthInputField
-              icon={UserRound as ComponentType<{ className: string }>}
-              type="text"
+            <Controller
               name="name"
-              label="Name"
-              value={name}
-              onChange={handleChange}
+              control={control}
+              render={({ field }) => (
+                <AuthInputField
+                  {...field}
+                  icon={UserRound as ComponentType<{ className: string }>}
+                  type="text"
+                  label="Name"
+                  isValid={!errors.name}
+                  error={errors.name?.message}
+                  value={field.value || ""}
+                />
+              )}
             />
           )}
-          <AuthInputField
-            icon={Mail as ComponentType<{ className: string }>}
-            type="email"
+          <Controller
             name="email"
-            label="Email"
-            value={email}
-            onChange={handleChange}
+            control={control}
+            render={({ field }) => (
+              <AuthInputField
+                {...field}
+                icon={Mail as ComponentType<{ className: string }>}
+                type="email"
+                label="Email"
+                isValid={!errors.email}
+                error={errors.email?.message}
+                value={field.value || ""}
+              />
+            )}
           />
-          <AuthInputField
-            icon={LockKeyhole as ComponentType<{ className: string }>}
-            type="password"
+          <Controller
             name="password"
-            label="Password"
-            value={password}
-            onChange={handleChange}
-            togglePasswordVisibility={togglePasswordVisibility}
-            isPasswordVisible={isPasswordVisible}
+            control={control}
+            render={({ field }) => (
+              <AuthInputField
+                {...field}
+                icon={LockKeyhole as ComponentType<{ className: string }>}
+                type="password"
+                label="Password"
+                isPasswordVisible={isPasswordVisible}
+                togglePasswordVisibility={togglePasswordVisibility}
+                isValid={!errors.password}
+                error={errors.password?.message}
+                value={field.value || ""}
+              />
+            )}
           />
           <div className="flex text-[0.9em] font-medium justify-between mt-[-15px] mx-0 mb-[15px]">
             <div className="flex items-center space-x-2">

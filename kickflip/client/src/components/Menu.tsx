@@ -42,7 +42,7 @@ const Menu = ({ children }: { children: ReactNode }) => {
     }));
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
     handleUpdate({ name, email });
     setShowProfile(false);
   };
