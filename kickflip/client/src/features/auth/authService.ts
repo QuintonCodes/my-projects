@@ -1,16 +1,11 @@
 import axios from "axios";
+import { getCookie } from "../../utils/helpers";
 import { ILogin, IRegister, IUpdate, IUser } from "../../utils/models";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/auth",
   withCredentials: true,
 });
-
-const getCookie = (name: string) => {
-  const cookies = document.cookie.split("; ");
-  const cookie = cookies.find((cookie) => cookie.startsWith(`${name}=`));
-  return cookie ? cookie.split("=")[1] : null;
-};
 
 const authService = {
   registerUser: async (userData: IRegister): Promise<void> => {
@@ -29,6 +24,10 @@ const authService = {
       },
     };
     const response = await axiosInstance.put("/me", userData, config);
+    return response.data;
+  },
+  logoutUser: async (): Promise<void> => {
+    const response = await axiosInstance.post("/logout");
     return response.data;
   },
 };

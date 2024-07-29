@@ -37,7 +37,12 @@ const ContactPage = () => {
           label="Phone Number"
           hasColSpan={true}
         />
-        <ContactForm.InputField type="text" name="message" label="Message" />
+        <ContactForm.InputField
+          type="text"
+          name="message"
+          label="Message"
+          messageField={true}
+        />
       </ContactForm>
     </section>
   );

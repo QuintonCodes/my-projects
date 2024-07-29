@@ -51,7 +51,7 @@ const InputField = ({
   return (
     <>
       {messageField ? (
-        <div>
+        <div className="sm:col-span-2">
           <Label
             htmlFor={name}
             className="block text-sm font-semibold leading-6 text-black"

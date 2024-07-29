@@ -39,7 +39,7 @@ const refresh = asyncHandler(async (req, res, next) => {
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     const user = await User.findById(decoded.id).select("-password");
 
-    if (!user) {
+    if (!user || user.refreshToken !== refreshToken) {
       res.status(401);
       throw new Error("Not authorized, user not found");
     }
@@ -47,6 +47,9 @@ const refresh = asyncHandler(async (req, res, next) => {
     const { accessToken, refreshToken: newRefreshToken } = generateTokens(
       user._id
     );
+
+    user.refreshToken = newRefreshToken;
+    await user.save();
 
     res.cookie("refreshToken", newRefreshToken, {
       httpOnly: true,

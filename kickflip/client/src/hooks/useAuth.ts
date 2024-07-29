@@ -5,7 +5,13 @@ import useSignOut from "react-auth-kit/hooks/useSignOut";
 import { useNavigate } from "react-router-dom";
 import { toast } from "../components/ui/use-toast";
 import authService from "../features/auth/authService";
-import { login, logout } from "../features/auth/authSlice";
+import {
+  login,
+  logout,
+  setAuthStatus,
+  updateUser,
+} from "../features/auth/authSlice";
+import { getCookie } from "../utils/helpers";
 import { IUser } from "../utils/models";
 import { useAppDispatch } from "./reduxHooks";
 
@@ -50,7 +56,6 @@ const useAuth = () => {
               id: data.id,
               name: data.name,
               email: data.email,
-              token: data.token,
             },
           })
         );
@@ -84,12 +89,11 @@ const useAuth = () => {
     mutationFn: authService.updateUser,
     onSuccess: (data: IUser) => {
       dispatch(
-        login({
+        updateUser({
           user: {
             id: data.id,
             name: data.name,
             email: data.email,
-            token: data.token,
           },
         })
       );
@@ -103,14 +107,32 @@ const useAuth = () => {
   });
 
   const handleLogout = async () => {
-    signOut();
-    dispatch(logout());
+    try {
+      await authService.logoutUser();
+      signOut();
 
-    toast({
-      title: "Logout Successful",
-      description: "You have successfully logged out!",
-      duration: 3000,
-    });
+      dispatch(logout());
+
+      toast({
+        title: "Logout Successful",
+        description: "You have successfully logged out!",
+        duration: 3000,
+      });
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+  const checkAuthStatus = () => {
+    const token = getCookie("_auth");
+    const refreshToken = getCookie("refreshToken");
+    const isAuthenticated = !!token;
+
+    if (isAuthenticated) {
+      dispatch(setAuthStatus(true));
+    } else if (refreshToken) {
+      //! Implement logic
+    }
   };
 
   return {
@@ -122,6 +144,7 @@ const useAuth = () => {
     registerLoading,
     updateLoading,
     updateError,
+    checkAuthStatus,
   };
 };
 

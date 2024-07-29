@@ -60,7 +60,6 @@ const LoginForm = () => {
                 icon={Mail as ComponentType<{ className: string }>}
                 type="email"
                 label="Email"
-                isValid={!errors.email}
                 error={errors.email?.message}
               />
             )}
@@ -76,7 +75,6 @@ const LoginForm = () => {
                 label="Password"
                 isPasswordVisible={isPasswordVisible}
                 togglePasswordVisibility={togglePasswordVisibility}
-                isValid={!errors.password}
                 error={errors.password?.message}
               />
             )}

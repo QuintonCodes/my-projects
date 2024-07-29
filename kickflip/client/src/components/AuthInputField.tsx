@@ -5,7 +5,6 @@ interface AuthInputFieldProps {
   error?: string;
   icon: ComponentType<{ className: string }>;
   isPasswordVisible?: boolean;
-  isValid: boolean;
   label: string;
   name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,7 +19,6 @@ const AuthInputField = forwardRef<HTMLInputElement, AuthInputFieldProps>(
       error,
       icon: Icon,
       isPasswordVisible,
-      isValid,
       label,
       name,
       onChange,
@@ -62,9 +60,7 @@ const AuthInputField = forwardRef<HTMLInputElement, AuthInputFieldProps>(
         />
         <label
           htmlFor={name}
-          className={`text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-300 peer-focus:top-[-5px] peer-focus:text-[0.8em] peer-valid:top-[-5px] peer-valid:text-[0.8em] ${
-            isValid ? "text-green-500" : "text-red-600"
-          }`}
+          className="text-[1.2em] font-medium left-[5px] py-0 px-[5px] pointer-events-none absolute top-1/2 -translate-y-1/2 duration-300 peer-focus:top-[-5px] peer-focus:text-[0.8em] peer-valid:top-[-5px] peer-valid:text-[0.8em]"
         >
           {label}
         </label>

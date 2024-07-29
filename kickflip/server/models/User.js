@@ -14,6 +14,12 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please add a password"],
+      unique: true,
+    },
+    refreshToken: {
+      type: String,
+      select: false,
+      default: null,
     },
     isAdmin: {
       type: Boolean,

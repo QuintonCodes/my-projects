@@ -27,20 +27,11 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    const { accessToken, refreshToken } = generateTokens(user._id);
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-
     res.status(201).json({
       id: user._id,
       name: user.name,
       email: user.email,
-      token: accessToken,
+      message: "User registered successfully",
     });
   } else {
     res.status(400);
@@ -57,11 +48,14 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && validPassword) {
     const { accessToken, refreshToken } = generateTokens(user._id);
 
+    user.refreshToken = refreshToken;
+    await user.save();
+
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     res.json({
@@ -93,10 +87,13 @@ const updateUser = asyncHandler(async (req, res) => {
 
   const { accessToken, refreshToken } = generateTokens(updatedUser._id);
 
+  updatedUser.refreshToken = refreshToken;
+  await updatedUser.save();
+
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    sameSite: "strict",
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
@@ -106,6 +103,26 @@ const updateUser = asyncHandler(async (req, res) => {
     email: updatedUser.email,
     token: accessToken,
   });
+});
+
+const logoutUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+
+  if (user) {
+    user.refreshToken = "";
+    await user.save();
+
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    res.status(200).json({ message: "Logout successful" });
+  } else {
+    res.status(400);
+    throw new Error("User not found");
+  }
 });
 
 const generateTokens = (id) => {
@@ -122,5 +139,6 @@ module.exports = {
   registerUser,
   loginUser,
   updateUser,
+  logoutUser,
   generateTokens,
 };
