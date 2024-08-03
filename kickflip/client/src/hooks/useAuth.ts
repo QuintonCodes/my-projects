@@ -125,13 +125,10 @@ const useAuth = () => {
 
   const checkAuthStatus = () => {
     const token = getCookie("_auth");
-    const refreshToken = getCookie("refreshToken");
     const isAuthenticated = !!token;
 
     if (isAuthenticated) {
       dispatch(setAuthStatus(true));
-    } else if (refreshToken) {
-      //! Implement logic
     }
   };
 

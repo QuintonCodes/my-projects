@@ -1,4 +1,5 @@
 import { ShoppingCart, UserRound } from "lucide-react";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useAppSelector } from "../hooks/reduxHooks";
@@ -6,6 +7,8 @@ import Menu from "./Menu";
 import { Avatar } from "./ui/avatar";
 
 const Navbar = () => {
+  const isAuthenticated = useIsAuthenticated();
+
   const user = useAppSelector((state) => state.auth.user);
   const items = useAppSelector((state) => state.cart.items);
 
@@ -54,7 +57,7 @@ const Navbar = () => {
       <div className="flex items-center justify-center">
         <ul className="items-center justify-center flex list-none transition-transform duration-300 translate-x-0">
           <li className="pb-5 px-2">
-            {user ? (
+            {isAuthenticated ? (
               <div className="text-base font-semibold mr-2 relative mt-5 text-white">
                 <Menu>
                   <Avatar className="items-center justify-center border border-black bg-[#acacac] bg-opacity-50 cursor-pointer">

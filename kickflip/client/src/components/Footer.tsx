@@ -1,11 +1,10 @@
 import { Instagram, MessageCircle, Youtube } from "lucide-react";
-// import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { useAppSelector } from "../hooks/reduxHooks";
 
 const Footer = () => {
-  const user = useAppSelector((state) => state.auth.user);
+  const isAuthenticated = useIsAuthenticated();
 
   return (
     <footer className="flex flex-col items-center justify-between px-[50px] border-t-2 border-solid border-black bg-[#282828]">
@@ -16,7 +15,7 @@ const Footer = () => {
       </div>
 
       <div className="items-start flex my-5 text-white gap-10">
-        {user ? (
+        {isAuthenticated ? (
           <Link
             to="/"
             className="text-[15px] hover:text-[#7F1310] transition-colors duration-300"

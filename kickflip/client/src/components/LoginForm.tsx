@@ -1,12 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Loader2, LockKeyhole, Mail } from "lucide-react";
-import { ComponentType, useState } from "react";
+import { ComponentType } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { object, string } from "yup";
 import useAuth from "../hooks/useAuth";
 import { ILogin } from "../utils/models";
-import AuthInputField from "./AuthInputField";
+import InputField from "./InputField";
+import PasswordInputField from "./PasswordInputField";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
@@ -33,17 +34,10 @@ const LoginForm = () => {
       password: "",
     },
   });
-
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
   const { handleLogin, loginLoading } = useAuth();
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
-
   const onSubmit = async (data: ILogin) => {
-    handleLogin({ email: data.email, password: data.password });
+    handleLogin(data);
   };
 
   return (
@@ -55,7 +49,7 @@ const LoginForm = () => {
             name="email"
             control={control}
             render={({ field }) => (
-              <AuthInputField
+              <InputField
                 {...field}
                 icon={Mail as ComponentType<{ className: string }>}
                 type="email"
@@ -68,13 +62,10 @@ const LoginForm = () => {
             name="password"
             control={control}
             render={({ field }) => (
-              <AuthInputField
+              <PasswordInputField
                 {...field}
                 icon={LockKeyhole as ComponentType<{ className: string }>}
-                type="password"
                 label="Password"
-                isPasswordVisible={isPasswordVisible}
-                togglePasswordVisibility={togglePasswordVisibility}
                 error={errors.password?.message}
               />
             )}

@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { object, string } from "yup";
 import useAuth from "../hooks/useAuth";
-import AuthInputField from "./AuthInputField";
+import AuthInputField from "./InputField";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
