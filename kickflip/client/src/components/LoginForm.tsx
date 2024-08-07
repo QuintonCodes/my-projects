@@ -17,7 +17,7 @@ const schema = object({
   password: string()
     .required("Password is required")
     .matches(
-      /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/,
+      /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*_(),.?":{}|<>]{8,}$/,
       "Invalid password format"
     ),
 });
@@ -83,6 +83,7 @@ const LoginForm = () => {
               Forgot Password?
             </a>
           </div>
+          <p>{errors.root?.message}</p>
           <Button
             className="w-full bg-[#292929] hover:bg-[#7F1310]"
             disabled={loginLoading}

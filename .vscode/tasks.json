@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "path": "kickflip/server",
+      "problemMatcher": [],
+      "label": "KickFlip server",
+      "detail": "nodemon server.js"
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "kickflip/client",
+      "problemMatcher": [],
+      "label": "KickFlip website",
+      "detail": "vite"
+    }
+  ]
+}
