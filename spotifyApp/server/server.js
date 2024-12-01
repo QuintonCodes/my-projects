@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
-const mongoose = require("mongoose");
+const connectDB = require("./config/db");
 const MongoStore = require("connect-mongo");
 require("dotenv").config();
 
@@ -10,23 +10,14 @@ const artistRoutes = require("./routes/artists");
 
 const app = express();
 
+connectDB();
+
 app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
   })
 );
-(async () => {
-  try {
-    await mongoose.connect(process.env.CONNECTION_STRING, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("MongoDB connected");
-  } catch (error) {
-    console.error("MongoDB connection error:", err);
-  }
-})();
 
 app.use(
   session({

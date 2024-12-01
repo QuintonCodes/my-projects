@@ -1,0 +1,44 @@
+[
+  {
+    "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
+    "Method": "GetAccessToken",
+    "RelativePath": "api/SpotifyAuth/get-access-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "csharp_web_api.Controllers.SpotifyAuthRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
+    "Method": "HelloWorld",
+    "RelativePath": "api/SpotifyAuth/hello-world",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/SpotifyAuth/refresh-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "csharp_web_api.Controllers.RefreshTokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

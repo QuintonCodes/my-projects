@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "kW47x5mxo0bxn0UI//uphgXPAy3MNcYUBZ4abDfiB8I=",
+  "Source": "csharp-web-api",
+  "BasePath": "_content/csharp-web-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
