@@ -12,17 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 // Configure SQLite Database
-var connectionString = builder.Configuration.GetConnectionString("SpotifyConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlite(connectionString)
-);
+	options.UseSqlite(builder.Configuration.GetConnectionString("SpotifyConnection")));
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
-builder.Services.AddEndpointsApiExplorer();
-
-// Retrieve Spotify API and JWT values from appsettings.json
+// Services
 var secretKey = builder.Configuration["SecretKey"]
 	?? throw new InvalidOperationException("SecretKey not found in configuration");
 var clientId = builder.Configuration["SpotifyApi:ClientId"]
@@ -32,13 +25,21 @@ var clientSecret = builder.Configuration["SpotifyApi:ClientSecret"]
 var redirectUri = builder.Configuration["SpotifyApi:RedirectUri"]
 	?? throw new InvalidOperationException("RedirectUri not found in configuration");
 
-var issuer = "http://localhost:7185";
-var audience = "http://localhost:5173";
-
-builder.Services.AddSingleton(new JwtTokenHelper(secretKey, issuer, audience));
+builder.Services.AddSingleton(new JwtTokenHelper(secretKey, "http://localhost:7185", "http://localhost:5173"));
 builder.Services.AddSingleton(new SpotifyAuthService(clientId, clientSecret, redirectUri));
 
-// Configure JWT Authentication
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+	options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential = true;
+	options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -52,11 +53,14 @@ builder.Services.AddAuthentication(options =>
 		ValidateAudience = true,
 		ValidateLifetime = true,
 		ValidateIssuerSigningKey = true,
-		ValidIssuer = issuer,
-		ValidAudience = audience,
+		ValidIssuer = "http://localhost:7185",
+		ValidAudience = "http://localhost:5173",
 		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
 	};
 });
+
+builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
@@ -69,6 +73,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthentication();

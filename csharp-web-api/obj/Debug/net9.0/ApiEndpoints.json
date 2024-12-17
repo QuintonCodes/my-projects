@@ -2,7 +2,7 @@
   {
     "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
     "Method": "GetAccessToken",
-    "RelativePath": "api/SpotifyAuth/get-access-token",
+    "RelativePath": "api/spotify-auth/access-token",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -17,8 +17,24 @@
   },
   {
     "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
-    "Method": "HelloWorld",
-    "RelativePath": "api/SpotifyAuth/hello-world",
+    "Method": "Callback",
+    "RelativePath": "api/spotify-auth/callback",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
+    "Method": "Login",
+    "RelativePath": "api/spotify-auth/login",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -27,8 +43,18 @@
   },
   {
     "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
+    "Method": "Logout",
+    "RelativePath": "api/spotify-auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
     "Method": "RefreshToken",
-    "RelativePath": "api/SpotifyAuth/refresh-token",
+    "RelativePath": "api/spotify-auth/refresh-token",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

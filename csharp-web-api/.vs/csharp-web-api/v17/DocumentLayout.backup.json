@@ -11,12 +11,12 @@
       "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:services\\spotifyauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\helpers\\jwttokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:helpers\\jwttokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\helpers\\jwttokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:helpers\\jwttokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,21 +34,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-17T08:40:54.734Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -87,7 +70,7 @@
               "RelativeDocumentMoniker": "Controllers\\SpotifyAuthController.cs",
               "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\SpotifyAuthController.cs",
               "RelativeToolTip": "Controllers\\SpotifyAuthController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACsAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCwAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-16T13:04:46.245Z",
               "EditorCaption": ""
@@ -100,33 +83,33 @@
               "RelativeDocumentMoniker": "Services\\SpotifyAuthService.cs",
               "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Services\\SpotifyAuthService.cs",
               "RelativeToolTip": "Services\\SpotifyAuthService.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAwDUAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAADwvzIAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-16T12:52:47.196Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "JwtTokenHelper.cs",
               "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Helpers\\JwtTokenHelper.cs",
               "RelativeDocumentMoniker": "Helpers\\JwtTokenHelper.cs",
               "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Helpers\\JwtTokenHelper.cs",
               "RelativeToolTip": "Helpers\\JwtTokenHelper.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAIwCUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwBQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-16T12:39:39.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAACAAAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAEUAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-16T12:26:04.461Z",
               "EditorCaption": ""
