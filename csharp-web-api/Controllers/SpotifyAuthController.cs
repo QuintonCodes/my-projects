@@ -31,10 +31,10 @@ namespace csharp_web_api.Controllers
 			try
 			{
 				// Exchange authorization code for access and refresh tokens
-				var accessToken = await _spotifyAuthService.GetAccessTokenAsync(code);
-				HttpContext.Session.SetString("AccessToken", accessToken);
+				var tokenResponse = await _spotifyAuthService.GetAccessTokenAsync(code);
+				HttpContext.Session.SetString("AccessToken", tokenResponse.AccessToken);
 
-				return Ok(new { message = "Authorization successful", accessToken });
+				return Ok(new { message = "Authorization successful", tokenResponse.AccessToken, tokenResponse.RefreshToken });
 			} catch (Exception ex)
 			{
 				return BadRequest(new { error = ex.Message });
@@ -51,9 +51,21 @@ namespace csharp_web_api.Controllers
 
 			try
 			{
-				var accessToken = await _spotifyAuthService.GetAccessTokenAsync(request.Code);
-				HttpContext.Session.SetString("AccessToken", accessToken);
-				return Ok(new { accessToken });
+				var tokenResponse = await _spotifyAuthService.GetAccessTokenAsync(request.Code);
+				HttpContext.Session.SetString("AccessToken", tokenResponse.AccessToken);
+
+				if (!string.IsNullOrEmpty(tokenResponse.RefreshToken))
+				{
+					HttpContext.Session.SetString("RefreshToken", tokenResponse.RefreshToken);
+				}
+
+				return Ok(new 
+				{ 
+					accessToken = tokenResponse.AccessToken, 
+					refreshToken = tokenResponse.RefreshToken, 
+					expiresIn = tokenResponse.ExpiresIn, 
+					tokenType = tokenResponse.TokenType
+				});
 			} catch (Exception ex)
 			{
 				return BadRequest(new { error = ex.Message });
@@ -70,11 +82,17 @@ namespace csharp_web_api.Controllers
 
 			try
 			{
-				var newAccessToken = await _spotifyAuthService.RefreshAccessTokenAsync(request.RefreshToken);
-				HttpContext.Session.SetString("AccessToken", newAccessToken);
-				return Ok(new { accessToken = newAccessToken });
-			}
-			catch (Exception ex)
+				var tokenResponse = await _spotifyAuthService.RefreshAccessTokenAsync(request.RefreshToken);
+
+				HttpContext.Session.SetString("AccessToken", tokenResponse.AccessToken);
+
+				return Ok(new 
+				{ 
+					accessToken = tokenResponse.AccessToken,
+					expiresIn = tokenResponse.ExpiresIn,
+					tokenType = tokenResponse.TokenType
+				});
+			} catch (Exception ex)
 			{
 				return BadRequest(new { error = ex.Message });
 			}

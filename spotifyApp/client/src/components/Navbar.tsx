@@ -1,4 +1,5 @@
-import { FC, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Drawer,
@@ -8,17 +9,16 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import MenuIcon from "@mui/icons-material/Menu";
-import { DrawerEl, NavLinks } from "./NavLinks";
-import UserMenu from "./UserMenu";
-import SearchBar from "./SearchBar";
-import SearchResults from "./SearchResults";
-import useUserEffect from "../hooks/useUserEffect";
-import useAuthService from "../services/AuthService";
+import { FC, useState } from "react";
 import { useAllArtists } from "../hooks/useArtists";
 import useDebouncedSearch from "../hooks/useDebouncedSearch";
 import useFilteredArtists from "../hooks/useFilteredArtists";
+import useUserEffect from "../hooks/useUserEffect";
+import useAuthService from "../services/AuthService";
+import { DrawerEl, NavLinks } from "./NavLinks";
+import SearchBar from "./SearchBar";
+import SearchResults from "./SearchResults";
+import UserMenu from "./UserMenu";
 
 const Navbar: FC = () => {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -42,7 +42,12 @@ const Navbar: FC = () => {
     <div>
       <AppBar
         position="static"
-        sx={{ bgcolor: "#1f1f1f", justifyContent: "center", minHeight: 80 }}
+        sx={{
+          bgcolor: "#1f1f1f",
+          justifyContent: "center",
+          minHeight: 90,
+          width: "100vw",
+        }}
       >
         <Toolbar>
           {isMediumScreenDown && (

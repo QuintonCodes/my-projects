@@ -10,7 +10,7 @@ namespace csharp_web_api.Services
 		public readonly string _redirectUri = redirectUri;
 		private readonly HttpClient _httpClient = new();
 
-		public async Task<string> GetAccessTokenAsync(string code)
+		public async Task<SpotifyTokenResponse> GetAccessTokenAsync(string code)
 		{
 			var requestBody = new FormUrlEncodedContent(
 			[
@@ -26,15 +26,14 @@ namespace csharp_web_api.Services
 			var content = await response.Content.ReadAsStringAsync();
 			if (!response.IsSuccessStatusCode)
 			{
-				throw new Exception($"Error fetching access token: {response.ReasonPhrase}. Response: {content}");
+				throw new Exception($"Error fetching access token: {response.StatusCode} - {response.ReasonPhrase}. Response: {content}");
 			}
 
-			var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(content);
-
-			return tokenResponse?.AccessToken ?? throw new Exception("Access token not found in response.");
+			return JsonSerializer.Deserialize<SpotifyTokenResponse>(content)
+				?? throw new Exception("Failed to deserialize Spotify token response.");
 		}
 
-		public async Task<string> RefreshAccessTokenAsync(string refreshToken)
+		public async Task<SpotifyTokenResponse> RefreshAccessTokenAsync(string refreshToken)
 		{
 			var requestBody = new FormUrlEncodedContent(
 			[
@@ -46,15 +45,14 @@ namespace csharp_web_api.Services
 
 			var response = await _httpClient.PostAsync("https://accounts.spotify.com/api/token", requestBody);
 
+			var content = await response.Content.ReadAsStringAsync();
 			if (!response.IsSuccessStatusCode)
 			{
-				throw new Exception($"Error refreshing access token: {response.ReasonPhrase}");
+				throw new Exception($"Error refreshing access token: {response.StatusCode} - {response.ReasonPhrase}. Response: {content}");
 			}
 
-			var content = await response.Content.ReadAsStringAsync();
-			var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(content);
-
-			return tokenResponse?.AccessToken ?? throw new Exception("Access token not found in response.");
+			return JsonSerializer.Deserialize<SpotifyTokenResponse>(content)
+				?? throw new Exception("Failed to deserialize Spotify token response.");
 		}
 	}
 
