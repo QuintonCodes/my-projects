@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import AlertCard from "../components/AlertCard";
 import GenericList from "../components/GenericList";
 import Loading from "../components/Loading";
 import PaginationComponent from "../components/PaginationComponent";
 import SortFilter from "../components/SortFilter";
+import { useUser } from "../context/UserContext";
 import { useArtists } from "../hooks/useArtists";
-import { useUser } from "../hooks/useContext";
 import useSortArtists from "../hooks/useSortArtists";
-import { useNavigate, useParams } from "react-router-dom";
 
 const ArtistListPage = () => {
   const { page } = useParams();
@@ -20,14 +20,6 @@ const ArtistListPage = () => {
   useEffect(() => {
     setCurrentPage(parseInt(page || "1"));
   }, [page]);
-
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setCurrentPage(value);
-    navigate(`/artists/${value}`, { replace: true });
-  };
 
   const {
     data,
@@ -68,7 +60,11 @@ const ArtistListPage = () => {
       )}
       <PaginationComponent
         currentPage={currentPage}
-        handlePageChange={handlePageChange}
+        handlePageChange={(e, value) => {
+          console.log(e);
+          setCurrentPage(value);
+          navigate(`/artists/${value}`, { replace: true });
+        }}
         totalPages={Math.ceil((data?.total || 0) / itemsPerPage)}
       />
     </div>

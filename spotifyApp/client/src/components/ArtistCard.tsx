@@ -5,15 +5,16 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import Buttons from "./Buttons";
 import { Artist } from "../utils/models";
+import Buttons from "./Buttons";
 
-interface ArtistCardProps {
+const ArtistCard = ({
+  artist,
+  onListen,
+}: {
   artist: Artist;
   onListen: () => void;
-}
-
-const ArtistCard = ({ artist, onListen }: ArtistCardProps) => {
+}) => {
   return (
     <Card
       sx={{

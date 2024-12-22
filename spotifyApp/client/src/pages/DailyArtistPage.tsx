@@ -1,7 +1,7 @@
 import AlertCard from "../components/AlertCard";
 import ArtistCard from "../components/ArtistCard";
 import SkeletonUI from "../components/SkeletonUI";
-import { useUser } from "../hooks/useContext";
+import { useUser } from "../context/UserContext";
 import useDailyArtist from "../hooks/useDailyArtist";
 import { handleListen } from "../utils/helper";
 

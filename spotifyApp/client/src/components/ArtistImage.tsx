@@ -1,20 +1,16 @@
 import { Artist } from "../utils/models";
 
-interface ArtistImageProps {
-  artist: Artist | null | undefined;
-}
-
-const ArtistImage = ({ artist }: ArtistImageProps) => {
+const ArtistImage = ({ artist }: { artist: Artist | null | undefined }) => {
   return (
     <div style={{ width: "100%", overflow: "hidden" }}>
       <img
         src={artist?.image}
         alt={artist?.name}
         style={{
-          height: "auto",
-          width: "100%",
           flexShrink: 0,
+          height: "auto",
           marginRight: "20px",
+          width: "100%",
         }}
       />
     </div>

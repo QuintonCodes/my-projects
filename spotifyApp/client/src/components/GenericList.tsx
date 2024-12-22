@@ -1,8 +1,8 @@
+import { List } from "@mui/material";
 import { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { List } from "@mui/material";
-import ItemList from "./ItemList";
 import { formatDuration } from "../utils/helper";
+import ItemList from "./ItemList";
 
 export interface GenericListItem {
   durationMs?: number | undefined;

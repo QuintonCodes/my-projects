@@ -1,5 +1,5 @@
 import logo from "../assets/Spotify-logo.png";
-import { useUser } from "../hooks/useContext";
+import { useUser } from "../context/UserContext";
 
 const HomePage = () => {
   const { user } = useUser();

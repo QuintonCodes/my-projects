@@ -1,13 +1,8 @@
 import { Grid, Typography } from "@mui/material";
 
-interface GenreCardProps {
-  genre: string;
-  id: number;
-}
-
 const colors = ["#FF5733", "#33C4FF", "#D333FF", "#33FF57", "#FFD633"];
 
-const GenreCard = ({ genre, id }: GenreCardProps) => {
+const GenreCard = ({ genre, id }: { genre: string; id: number }) => {
   return (
     <Grid
       item

@@ -2,24 +2,24 @@ import {
   Avatar,
   ListItem,
   ListItemAvatar,
-  ListItemText,
   ListItemButton,
+  ListItemText,
 } from "@mui/material";
 
 interface ItemListProps {
   id: string;
-  primary: string;
-  secondary?: string;
   image?: string | null;
   onClick?: () => void;
+  primary: string;
+  secondary?: string;
 }
 
 const ItemList = ({
   id,
-  primary,
-  secondary,
   image,
   onClick,
+  primary,
+  secondary,
 }: ItemListProps) => {
   return (
     <ListItem

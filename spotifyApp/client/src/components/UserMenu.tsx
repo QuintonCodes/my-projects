@@ -1,25 +1,18 @@
-import { FC, useState } from "react";
-import { IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { useUser } from "../hooks/useContext";
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import { FC, useState } from "react";
+import { useUser } from "../context/UserContext";
 import AuthService from "../services/AuthService";
 import { handleMenuClose } from "../utils/helper";
 
-interface UserMenuProps {
-  authService: ReturnType<typeof AuthService>;
-}
-
-const UserMenu: FC<UserMenuProps> = ({ authService }) => {
+const UserMenu: FC<{ authService: ReturnType<typeof AuthService> }> = ({
+  authService,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { user } = useUser();
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleClose = () => handleMenuClose(setAnchorEl);
 
-  const handleSignIn = () => authService.signIn();
   const handleSignOut = async () => {
     await authService.signOut();
     handleClose();
@@ -48,7 +41,7 @@ const UserMenu: FC<UserMenuProps> = ({ authService }) => {
         aria-haspopup="true"
         color="inherit"
         edge="end"
-        onClick={handleMenu}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
         size="large"
       >
         {user ? (
@@ -82,7 +75,7 @@ const UserMenu: FC<UserMenuProps> = ({ authService }) => {
             <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
           </div>
         ) : (
-          <MenuItem onClick={handleSignIn}>Sign in</MenuItem>
+          <MenuItem onClick={() => authService.signIn()}>Sign in</MenuItem>
         )}
       </Menu>
     </div>

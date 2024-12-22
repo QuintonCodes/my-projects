@@ -2,11 +2,11 @@ import { useParams } from "react-router-dom";
 import AlertCard from "../components/AlertCard";
 import ArtistImage from "../components/ArtistImage";
 import ArtistInfo from "../components/ArtistInfo";
+import BackButton from "../components/BackButton";
 import GenericList from "../components/GenericList";
 import SkeletonUI from "../components/SkeletonUI";
+import { useUser } from "../context/UserContext";
 import useArtistsInfo from "../hooks/useArtistInfo";
-import { useUser } from "../hooks/useContext";
-import BackButton from "../components/BackButton";
 
 const ArtistInfoPage = () => {
   const { id } = useParams();

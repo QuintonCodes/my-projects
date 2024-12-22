@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from "../hooks/useContext";
+import { useSnackbar } from "../context/SnackBarContext";
 import useAuthService from "../services/AuthService";
 
 const useUserEffect = () => {

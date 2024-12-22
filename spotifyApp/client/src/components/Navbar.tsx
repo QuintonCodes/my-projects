@@ -46,7 +46,7 @@ const Navbar: FC = () => {
           bgcolor: "#1f1f1f",
           justifyContent: "center",
           minHeight: 90,
-          width: "100vw",
+          width: "90vw",
         }}
       >
         <Toolbar>

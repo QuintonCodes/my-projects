@@ -1,11 +1,6 @@
 import { Button } from "@mui/material";
 
-interface ButtonsProps {
-  onClick: () => void;
-  text: string;
-}
-
-const Buttons = ({ onClick, text }: ButtonsProps) => {
+const Buttons = ({ onClick, text }: { onClick: () => void; text: string }) => {
   return (
     <Button
       onClick={onClick}

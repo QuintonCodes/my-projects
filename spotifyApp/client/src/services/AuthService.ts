@@ -1,6 +1,7 @@
-import { useMemo } from "react";
 import axios from "axios";
-import { useUser, useSnackbar } from "../hooks/useContext";
+import { useMemo } from "react";
+import { useSnackbar } from "../context/SnackBarContext";
+import { useUser } from "../context/UserContext";
 
 const BASE_URL = "http://localhost:3000/auth";
 

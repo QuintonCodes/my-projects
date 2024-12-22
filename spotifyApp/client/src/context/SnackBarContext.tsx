@@ -1,9 +1,5 @@
-import React, { createContext, useState, ReactNode } from "react";
 import { Alert, Snackbar } from "@mui/material";
-
-interface SnackbarProviderProps {
-  children: ReactNode;
-}
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface SnackbarContextType {
   showMessage: (
@@ -16,7 +12,7 @@ export const SnackbarContext = createContext<SnackbarContextType | undefined>(
   undefined
 );
 
-export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
+export const SnackbarProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -54,4 +50,12 @@ export const SnackbarProvider: React.FC<SnackbarProviderProps> = ({
       </Snackbar>
     </SnackbarContext.Provider>
   );
+};
+
+export const useSnackbar = () => {
+  const context = useContext(SnackbarContext);
+  if (!context) {
+    throw new Error("useSnackbar must be used within a SnackbarProvider");
+  }
+  return context;
 };

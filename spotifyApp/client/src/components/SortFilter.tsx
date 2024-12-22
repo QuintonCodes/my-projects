@@ -5,17 +5,18 @@ interface SortOption {
   value: string;
 }
 
-interface SortFilterProps {
-  sortOrder: string;
-  setSortOrder: (value: string) => void;
-}
-
 const sortOptions: SortOption[] = [
   { label: "A to Z", value: "az" },
   { label: "Z to A", value: "za" },
 ];
 
-const SortFilter = ({ sortOrder, setSortOrder }: SortFilterProps) => {
+const SortFilter = ({
+  sortOrder,
+  setSortOrder,
+}: {
+  sortOrder: string;
+  setSortOrder: (value: string) => void;
+}) => {
   return (
     <Autocomplete
       getOptionLabel={(option) => option.label}

@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const useDebouncedSearch = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const timeoutRef = useRef<number | undefined>();
+  const timeoutRef = useRef<number | undefined>(undefined);
 
   const debouncedSetSearchQuery = (query: string) => {
-    if (timeoutRef.current) {
+    if (timeoutRef.current !== undefined) {
       clearTimeout(timeoutRef.current);
     }
     timeoutRef.current = window.setTimeout(() => {
@@ -22,7 +22,7 @@ const useDebouncedSearch = () => {
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
+      if (timeoutRef.current !== undefined) {
         clearTimeout(timeoutRef.current);
       }
     };

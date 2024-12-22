@@ -1,11 +1,6 @@
-import { CircularProgress } from "@mui/material";
-import { SxProps, Theme } from "@mui/material";
+import { CircularProgress, SxProps, Theme } from "@mui/material";
 
-interface LoadingProps {
-  sx?: SxProps<Theme> | undefined;
-}
-
-const Loading = ({ sx }: LoadingProps) => {
+const Loading = ({ sx }: { sx?: SxProps<Theme> | undefined }) => {
   return <CircularProgress color="inherit" sx={sx} />;
 };
 

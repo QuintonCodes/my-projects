@@ -2,12 +2,13 @@ import { List, ListItem, ListItemText } from "@mui/material";
 import { Artist } from "../utils/models";
 import Loading from "./Loading";
 
-interface SearchResultsProps {
+const SearchResults = ({
+  isLoading,
+  searchResults,
+}: {
   isLoading: boolean;
   searchResults: Artist[] | undefined;
-}
-
-const SearchResults = ({ isLoading, searchResults }: SearchResultsProps) => {
+}) => {
   if (!searchResults || searchResults.length === 0) {
     return null;
   }
@@ -15,24 +16,24 @@ const SearchResults = ({ isLoading, searchResults }: SearchResultsProps) => {
   return (
     <div
       style={{
-        position: "absolute",
-        top: "90px",
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "50%",
         backgroundColor: "#424242",
         borderRadius: 8,
         boxShadow: "3px",
+        left: "50%",
+        position: "absolute",
+        top: "90px",
+        transform: "translateX(-50%)",
+        width: "50%",
         zIndex: 1300,
       }}
     >
       {isLoading ? (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
             alignItems: "center",
+            display: "flex",
             height: "100px",
+            justifyContent: "center",
           }}
         >
           <Loading />
@@ -40,7 +41,7 @@ const SearchResults = ({ isLoading, searchResults }: SearchResultsProps) => {
       ) : (
         <List>
           {searchResults.map((artist) => (
-            <ListItem key={artist.id} button>
+            <ListItem key={artist.id}>
               <ListItemText primary={artist.name} sx={{ color: "#fff" }} />
             </ListItem>
           ))}

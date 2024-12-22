@@ -1,10 +1,10 @@
 import { Skeleton } from "@mui/material";
 
 interface SkeletonUIProps {
+  animation: false | "wave" | "pulse" | undefined;
   height?: number;
   variant: "circular" | "rectangular" | "rounded" | "text";
   width?: number;
-  animation: false | "wave" | "pulse" | undefined;
 }
 
 const SkeletonUI = ({ animation, height, variant, width }: SkeletonUIProps) => {

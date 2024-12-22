@@ -1,6 +1,9 @@
-import { FC } from "react";
 import { List, ListItem, ListItemText, styled } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { FC } from "react";
+import {
+  // Link,
+  useLocation,
+} from "react-router-dom";
 
 interface NavbarLinkProps {
   active?: boolean;
@@ -52,9 +55,11 @@ export const DrawerEl: FC = () => {
     <List sx={{ bgcolor: "#1f1f1f", width: 250 }}>
       {navigation.map((item) => (
         <ListItem
-          component={Link}
+          // component={Link}
+          dir={item.to}
           key={item.name}
-          to={item.to}
+          // to={item.to}
+          onSelect={() => item.to === location.pathname}
           sx={{
             "&:hover": {
               backgroundColor: "#1DB954",
@@ -63,11 +68,18 @@ export const DrawerEl: FC = () => {
               },
             },
           }}
-          selected={item.to === location.pathname}
+          // selected={item.to === location.pathname}
         >
           <ListItemText
             primary={item.name}
-            primaryTypographyProps={{ style: { color: "#fff" } }}
+            slotProps={{
+              secondary: {
+                style: {
+                  color: "#fff",
+                },
+              },
+            }}
+            // primaryTypographyProps={{ style: { color: "#fff" } }}
           />
         </ListItem>
       ))}
@@ -82,16 +94,18 @@ export const NavLinks: FC<NavbarLinkProps> = ({ isMediumScreenDown }) => {
     <List sx={{ display: isMediumScreenDown ? "none" : "flex" }}>
       {navigation.map((item) => (
         <ListItem
-          component={Link}
+          // component={Link}
+          dir={item.to}
           key={item.name}
-          to={item.to}
+          // to={item.to}
+          onSelect={() => item.to === location.pathname}
           sx={{
             paddingX: 3,
             "&.Mui-selected": {
               backgroundColor: "transparent",
             },
           }}
-          selected={item.to === location.pathname}
+          // selected={item.to === location.pathname}
         >
           <NavbarLink
             active={item.to === location.pathname}
