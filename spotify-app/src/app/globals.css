@@ -14,7 +14,27 @@ body {
 }
 
 h1 {
-  font-size: 64px;
+  font-size: 68px;
+}
+
+h2 {
+  font-size: 56px;
+}
+
+h3 {
+  font-size: 44px;
+}
+
+h4 {
+  font-size: 32px;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 16px;
 }
 
 @layer base {

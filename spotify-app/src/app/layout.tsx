@@ -22,8 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Navbar />
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
+      <head>
+        <link rel="icon" href="icon.ico" type="image/x-icon" />
+      </head>
+      <body className={`${poppins.variable} antialiased`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
