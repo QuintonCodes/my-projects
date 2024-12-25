@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,9 +20,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React from "react";
+import { useSearchParams } from "next/navigation";
 
 const FollowedArtistsPage = () => {
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
+
   return (
     <div className="items-center flex flex-col m-10 space-y-5 w-full">
       <h3>Followed Artists</h3>
@@ -68,19 +73,27 @@ const FollowedArtistsPage = () => {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious
+              href={`/artists/followed?page=${Math.max(1, currentPage - 1)}`}
+            />
           </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">2</PaginationLink>
-          </PaginationItem>
+          {[...Array(5)].map((_, index) => (
+            <PaginationItem key={index}>
+              <PaginationLink
+                href={`/artists/followed?page=${index + 1}`}
+                isActive={currentPage === index + 1}
+              >
+                {index + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext
+              href={`/artists/followed?page=${currentPage + 1}`}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

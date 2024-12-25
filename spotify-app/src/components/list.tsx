@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import ItemList from "./itemlist";
@@ -16,6 +18,7 @@ interface ListProps<T extends ItemList> {
 
 const List: FC<ListProps<ItemList>> = ({ items, itemType }) => {
   const router = useRouter();
+  const currentPage = router.query.page || 1;
 
   const formatDuration = (durationMs: number | undefined) => {
     if (!durationMs) return "";
@@ -32,7 +35,12 @@ const List: FC<ListProps<ItemList>> = ({ items, itemType }) => {
           id={item.id}
           image={item.image}
           onClick={
-            itemType === "track" ? undefined : () => router.push("/artists")
+            itemType === "track"
+              ? undefined
+              : () =>
+                  router.push(
+                    `/artists/followed?page=${currentPage}/${item.id}`
+                  )
           }
           primary={item.name}
           secondary={

@@ -96,7 +96,7 @@ const Navbar = () => {
 
   const artistLinks = [
     {
-      href: "/artists/followed",
+      href: "/artists/followed?page=1",
       label: "Followed Artists",
       description: "View and manage the artists you follow.",
       isActive: pathname === "/artists/followed",
