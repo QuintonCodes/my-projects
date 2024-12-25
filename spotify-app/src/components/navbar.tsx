@@ -52,7 +52,12 @@ const NavItem = ({ href, label, isActive }: NavItemProps) => (
       isActive ? "text-[#1DB954] hover:text-white" : "text-white"
     } hover:bg-[#1DB954]`}
   >
-    <Link href={href} legacyBehavior passHref>
+    <Link
+      href={href}
+      legacyBehavior
+      passHref
+      target={label === "Docs" ? "_blank" : "_self"}
+    >
       <NavigationMenuLink>{label}</NavigationMenuLink>
     </Link>
   </NavigationMenuItem>
