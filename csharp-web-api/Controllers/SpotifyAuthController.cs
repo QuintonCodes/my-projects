@@ -12,7 +12,7 @@ namespace csharp_web_api.Controllers
 		[HttpGet("login")]
 		public IActionResult Login()
 		{
-			var scopes = "user-follow-read user-read-private";
+			var scopes = "user-read-email user-read-private user-top-read playlist-read-private user-follow-read";
 			var authUrl = $"https://accounts.spotify.com/authorize?client_id={_spotifyAuthService._clientId}" +
 				  $"&response_type=code&redirect_uri={Uri.EscapeDataString(_spotifyAuthService._redirectUri)}" +
 				  $"&scope={Uri.EscapeDataString(scopes)}";

@@ -11,7 +11,7 @@ namespace csharp_web_api.Helpers
 		private readonly string _issuer = issuer;
 		private readonly string _audience = audience;
 
-		public string GenerateToken(string userId, string userEmail, int expiryMinutes = 30)
+		public string GenerateToken(string userId, int expiryMinutes = 30)
 		{
 			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
 			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -19,7 +19,6 @@ namespace csharp_web_api.Helpers
 			var claims = new List<Claim>
 			{
 				new(JwtRegisteredClaimNames.Sub, userId),
-				new(JwtRegisteredClaimNames.Email, userEmail),
 				new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 			};
 

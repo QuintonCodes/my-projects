@@ -1,9 +1,11 @@
 using csharp_web_api.Data;
 using csharp_web_api.Helpers;
+using csharp_web_api.Middleware;
 using csharp_web_api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SpotifyAPI.Web;
 using System.Text;
 using System.Text.Json;
 
@@ -41,6 +43,21 @@ builder.Services.AddSession(options =>
 	options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
+builder.Services.AddScoped<ISpotifyClient>(provider =>
+{
+	var spotifyAuthService = provider.GetRequiredService<SpotifyAuthService>();
+	var accessToken = provider.GetService<IHttpContextAccessor>()?.HttpContext?.Session.GetString("AccessToken");
+
+	if (string.IsNullOrEmpty(accessToken))
+	{
+		throw new InvalidOperationException("Access token not found in session.");
+	}
+
+	return new SpotifyClient(accessToken);
+});
+
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -76,6 +93,9 @@ app.UseHttpsRedirection();
 
 app.UseSession();
 app.UseRouting();
+
+app.UseMiddleware<EnsureAuthenticatedMiddleware>();
+app.UseMiddleware<TokenRefreshMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

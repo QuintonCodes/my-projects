@@ -1,5 +1,130 @@
 [
   {
+    "ContainingType": "csharp_web_api.Controllers.ArtistController",
+    "Method": "GetArtist",
+    "RelativePath": "api/artists/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.ArtistController",
+    "Method": "GetArtistTopTracks",
+    "RelativePath": "api/artists/{id}/top-tracks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.ArtistController",
+    "Method": "GetDailyArtist",
+    "RelativePath": "api/artists/daily",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.ArtistController",
+    "Method": "GetFollowedArtists",
+    "RelativePath": "api/artists/followed",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "after",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.UserController",
+    "Method": "GetUserGenres",
+    "RelativePath": "api/me/genres",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.UserController",
+    "Method": "GetUserPlaylists",
+    "RelativePath": "api/me/playlists",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.UserController",
+    "Method": "GetUserProfile",
+    "RelativePath": "api/me/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.UserController",
+    "Method": "GetTopArtists",
+    "RelativePath": "api/me/top/artists",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "timeRange",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.UserController",
+    "Method": "GetTopTracks",
+    "RelativePath": "api/me/top/tracks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "timeRange",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "csharp_web_api.Controllers.SpotifyAuthController",
     "Method": "GetAccessToken",
     "RelativePath": "api/spotify-auth/access-token",
@@ -65,6 +190,36 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.TrackController",
+    "Method": "GetNewAlbums",
+    "RelativePath": "api/tracks/new-albums",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.TrackController",
+    "Method": "GetSavedAlbums",
+    "RelativePath": "api/tracks/saved-albums",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "csharp_web_api.Controllers.TrackController",
+    "Method": "GetTopTracks",
+    "RelativePath": "api/tracks/top",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]
