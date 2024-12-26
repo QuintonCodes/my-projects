@@ -123,16 +123,16 @@ const Navbar = () => {
       isActive: pathname === "/tracks/top",
     },
     {
-      href: "/tracks/recommended",
-      label: "Recommended Tracks",
-      description: "Tracks curated just for you based on your taste.",
-      isActive: pathname === "/tracks/recommended",
+      href: "/tracks/discover-albums",
+      label: "Discover Albums",
+      description: "Discover fresh and hot new albums",
+      isActive: pathname === "/tracks/discover-albums",
     },
     {
-      href: "/tracks/discover-weekly",
-      label: "Discover Weekly",
-      description: "Your personalized weekly playlist.",
-      isActive: pathname === "/tracks/discover-weekly",
+      href: "/tracks/saved-albums",
+      label: "Saved Albums",
+      description: "Browse through your favourite and saved albums",
+      isActive: pathname === "/tracks/saved-albums",
     },
   ];
 
