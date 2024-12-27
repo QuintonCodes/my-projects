@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\controllers\\trackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:controllers\\trackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\controllers\\artistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:controllers\\artistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\services\\userpreferencesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:services\\userpreferencesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\controllers\\spotifyauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:controllers\\spotifyauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\controllers\\trackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:controllers\\trackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +38,96 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAkwM4AAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-26T15:48:59.885Z",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-27T08:16:33.704Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-27T07:50:49.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserPreferencesService.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Services\\UserPreferencesService.cs",
+              "RelativeDocumentMoniker": "Services\\UserPreferencesService.cs",
+              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Services\\UserPreferencesService.cs",
+              "RelativeToolTip": "Services\\UserPreferencesService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-27T07:05:32.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserPreferences.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Models\\UserPreferences.cs",
+              "RelativeDocumentMoniker": "Models\\UserPreferences.cs",
+              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Models\\UserPreferences.cs",
+              "RelativeToolTip": "Models\\UserPreferences.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-26T16:50:04.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ArtistController.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\ArtistController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ArtistController.cs",
+              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\ArtistController.cs",
+              "RelativeToolTip": "Controllers\\ArtistController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwBwAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-26T16:52:16.674Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "TrackController.cs",
               "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\TrackController.cs",
               "RelativeDocumentMoniker": "Controllers\\TrackController.cs",
               "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\TrackController.cs",
               "RelativeToolTip": "Controllers\\TrackController.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAwwEsAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-26T14:21:43.669Z",
+              "WhenOpened": "2024-12-26T14:21:43.669Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SpotifyAuthController.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\SpotifyAuthController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SpotifyAuthController.cs",
+              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\SpotifyAuthController.cs",
+              "RelativeToolTip": "Controllers\\SpotifyAuthController.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAkwG4AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-26T16:51:57.19Z",
               "EditorCaption": ""
             }
           ]

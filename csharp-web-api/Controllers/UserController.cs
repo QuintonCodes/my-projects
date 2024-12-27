@@ -2,6 +2,7 @@
 using csharp_web_api.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.Web;
+using csharp_web_api.Models;
 
 namespace csharp_web_api.Controllers
 {
@@ -21,7 +22,27 @@ namespace csharp_web_api.Controllers
 			try
 			{
 				var profile = await _spotifyClient.UserProfile.Current();
-				var userPreferences = await _userPreferencesService.GetUserPreferences(profile.Id);
+
+				var topArtists = await _spotifyClient.Personalization.GetTopArtists(new PersonalizationTopRequest { Limit = 10 });
+				var topTracks = await _spotifyClient.Personalization.GetTopTracks(new PersonalizationTopRequest { Limit = 10 });
+
+				var topGenres = topArtists?.Items?.SelectMany(artist => artist.Genres).Distinct();
+				var playlists = await _spotifyClient.Playlists.CurrentUsers(new PlaylistCurrentUsersRequest { Limit = 5 });
+
+				var userPreferences = new UserPreferences
+				{
+					SpotifyUserId = profile.Id,
+					DisplayName = profile.DisplayName,
+					Email = profile.Email,
+					TopArtists = topArtists?.Items == null ? string.Empty : string.Join(",", topArtists.Items.Select(artist => artist.Name)),
+					TopTracks = topTracks?.Items == null ? string.Empty : string.Join(",", topTracks.Items.Select(track => track.Name)),
+					TopGenres = topGenres == null ? string.Empty : string.Join(",", topGenres),
+					Playlists = playlists?.Items == null ? string.Empty : string.Join(",", playlists.Items.Select(p => p.Name)),
+					Country = profile.Country,
+					LastLogin = DateTime.UtcNow
+				};
+
+				await _userPreferencesService.SaveOrUpdateUserPreferences(userPreferences);
 
 				return Ok(new
 				{

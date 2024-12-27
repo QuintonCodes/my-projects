@@ -10,6 +10,7 @@
 		public string? TopArtists { get; set; }
 		public string? TopTracks { get; set; }
 		public string? Playlists { get; set; }
+		public string? Country { get; set; }
 		public DateTime LastLogin { get; set; }
 	}
 }
