@@ -7,7 +7,7 @@ import { Download } from "lucide-react";
 const HomePage = () => {
   return (
     <section className="h-full">
-      <div className="container mx-auto">
+      <div className="container px-4 xl:px-8 max-h-screen">
         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
           {/* Text */}
           <div className="text-center xl:text-left order-2 xl:order-none">

@@ -1,11 +1,11 @@
-import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
+import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 const socials = [
-  { icon: <Github />, path: "" },
-  { icon: <Instagram />, path: "" },
-  { icon: <Linkedin />, path: "" },
-  { icon: <Twitter />, path: "" },
+  { icon: <FaGithub />, path: "" },
+  { icon: <FaInstagram />, path: "" },
+  { icon: <FaLinkedinIn />, path: "" },
+  { icon: <FaTwitter />, path: "" },
 ];
 
 const Socials = ({

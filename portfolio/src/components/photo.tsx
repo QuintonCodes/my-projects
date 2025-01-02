@@ -20,13 +20,14 @@ const Photo = () => {
             opacity: 1,
             transition: { delay: 2.4, duration: 0.4, ease: "easeInOut" },
           }}
-          className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten"
+          className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten relative"
         >
           <Image
             src="/potrait.jpg"
-            priority
             quality={100}
+            priority
             fill
+            sizes="(max-width: 400px) 298px, 498px"
             alt=""
             className="object-contain"
           />
