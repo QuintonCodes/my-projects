@@ -79,7 +79,7 @@ const education = {
 };
 
 const ResumePage = () => {
-  return <div>page</div>;
+  return <div>Resume page</div>;
 };
 
 export default ResumePage;
