@@ -5493,11 +5493,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\csharp-web-api.csproj",
+      "projectUniqueName": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\csharp-web-api.csproj",
       "projectName": "csharp-web-api",
-      "projectPath": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\csharp-web-api.csproj",
+      "projectPath": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\csharp-web-api.csproj",
       "packagesPath": "C:\\Users\\kagis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\obj\\",
+      "outputPath": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
