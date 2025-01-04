@@ -16,6 +16,7 @@ export default function Home() {
           priority
         />
       </div>
+      {/* Display UI for logged in users */}
     </div>
   );
 }

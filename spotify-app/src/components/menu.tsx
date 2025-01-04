@@ -1,4 +1,4 @@
-import { LogOut, User } from "lucide-react";
+import { LogIn, LogOut, User } from "lucide-react";
 import React, { ReactNode } from "react";
 import {
   DropdownMenu,
@@ -23,6 +23,11 @@ const Menu = ({ children }: { children: ReactNode }) => {
           <DropdownMenuItem className="cursor-pointer">
             <User className="mr-2 h-5 w-5" />
             <span>Profile</span>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem className="cursor-pointer">
+            <LogIn className="mr-2 h-5 w-5" />
+            <span>Log in</span>
           </DropdownMenuItem>
           <DropdownMenuItem className="cursor-pointer">
             <LogOut className="mr-2 h-5 w-5" />
