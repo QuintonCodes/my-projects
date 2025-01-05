@@ -57,7 +57,7 @@ const about = {
 };
 
 const experience = {
-  icon: "", // Should be a badge
+  icon: "", // Should be a badge icon
   title: "My experience",
   description: "Overview of my experience",
   items: [
