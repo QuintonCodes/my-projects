@@ -7,6 +7,9 @@ body {
 }
 
 @layer base {
+  .container {
+    @apply max-w-7xl mx-auto px-4;
+  }
   :root {
     --radius: 0.5rem;
     --font-jetbrainsMono: "JetBrains Mono", "sans-serif";

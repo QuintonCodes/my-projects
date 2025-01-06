@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -10,7 +11,7 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "15px",
+      padding: "2rem",
     },
     fontFamily: {
       primary: "var(--font-jetbrainsMono)",
@@ -38,5 +39,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

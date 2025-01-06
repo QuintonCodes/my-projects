@@ -41,9 +41,9 @@ const ContactPage = () => {
         opacity: 1,
         transition: { delay: 2.4, duration: 0.4, ease: "easeIn" },
       }}
-      className="py-6"
+      className="py-2"
     >
-      <div className="container mx-auto">
+      <div className="container max-w-7xl mx-auto px-4">
         <div className="flex flex-col xl:flex-row gap-[30px]">
           <div className="xl:w-[54%] order-2 xl:order-none">
             <form className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl">
@@ -69,7 +69,7 @@ const ContactPage = () => {
                 </SelectContent>
               </Select>
               <Textarea
-                className="h-[200px]"
+                className="h-[150px]"
                 placeholder="Type your message here."
               />
               <Button size="lg" className="max-w-40">

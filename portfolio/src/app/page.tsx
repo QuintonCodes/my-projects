@@ -7,8 +7,8 @@ import { Download } from "lucide-react";
 const HomePage = () => {
   return (
     <section className="h-full">
-      <div className="container px-4 xl:px-8 max-h-screen">
-        <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
+      <div className="container max-w-7xl mx-auto px-4">
+        <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-2 xl:pb-8">
           {/* Text */}
           <div className="text-center xl:text-left order-2 xl:order-none">
             <span className="text-xl">Software Engineer</span>
@@ -43,8 +43,8 @@ const HomePage = () => {
             <Photo />
           </div>
         </div>
+        <Stats />
       </div>
-      <Stats />
     </section>
   );
 };
