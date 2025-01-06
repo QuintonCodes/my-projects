@@ -28,7 +28,7 @@ const Photo = () => {
             priority
             fill
             sizes="(max-width: 400px) 298px, 498px"
-            alt=""
+            alt="Kagiso Jiyane"
             className="object-contain"
           />
         </motion.div>

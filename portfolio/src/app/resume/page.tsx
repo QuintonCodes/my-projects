@@ -1,6 +1,8 @@
 "use client";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
+import EducationList from "@/components/education-list";
+import ExperienceList from "@/components/experience-list";
+import SectionHeader from "@/components/section-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Tooltip,
@@ -52,37 +54,6 @@ const about = {
     {
       fieldName: "Languages",
       fieldValue: "English, Afrikaans & Sepedi",
-    },
-  ],
-};
-
-const experience = {
-  icon: "", // Should be a badge icon
-  title: "My experience",
-  description: "Overview of my experience",
-  items: [
-    {
-      company: "San Carlo",
-      position: "Private Tutor",
-      duration: "01-2024 - 11-2024",
-    },
-  ],
-};
-
-const education = {
-  icon: "", // Should be a cap
-  title: "My education",
-  description: "Overview of my education",
-  items: [
-    {
-      institution: "Eduvos",
-      degree: "Bachelor's Degree in IT (Software Engineering)",
-      duration: "2023 - present",
-    },
-    {
-      institution: "Hoerskool Pretoria Wes",
-      degree: "Highschool",
-      duration: "2018 - 2022",
     },
   ],
 };
@@ -161,69 +132,60 @@ const ResumePage = () => {
           </TabsList>
 
           <div className="min-h-[70vh] w-full">
+            {/* Experience Section */}
             <TabsContent value="experience" className="w-full">
               <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{experience.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {experience.description}
-                </p>
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                    {experience.items.map((item, index) => (
-                      <li
-                        key={index}
-                        className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
-                      >
-                        <span className="text-accent">{item.duration}</span>
-                        <h3 className="text-xl max-w-[260px] min-h-[60px] text-center lg:text-left">
-                          {item.position}
-                        </h3>
-                        <div className="flex items-center gap-3">
-                          {/* Dot */}
-                          <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                          <p className="text-white/60">{item.company}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </ScrollArea>
+                <SectionHeader
+                  title="My Experience"
+                  description="Overview of my experience"
+                  icon="/badge.svg"
+                />
+                <ExperienceList
+                  items={[
+                    {
+                      company: "San Carlo",
+                      position: "Private Tutor",
+                      duration: "01-2024 - 11-2024",
+                    },
+                  ]}
+                />
               </div>
             </TabsContent>
+
+            {/* Education Section */}
             <TabsContent value="education" className="w-full">
               <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                <h3 className="text-4xl font-bold">{education.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {education.description}
-                </p>
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
-                    {education.items.map((item, index) => (
-                      <li
-                        key={index}
-                        className="bg-[#232329] h-[184px] py-6 px-10 rounded-xl flex flex-col justify-center items-center lg:items-start gap-1"
-                      >
-                        <span className="text-accent">{item.duration}</span>
-                        <h3 className="text-lg max-w-[260px] min-h-[60px] text-center lg:text-left">
-                          {item.degree}
-                        </h3>
-                        <div className="flex items-center gap-3">
-                          <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
-                          <p className="text-white/60">{item.institution}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </ScrollArea>
+                <SectionHeader
+                  title="My Education"
+                  description="Overview of my education"
+                  icon="/cap.svg"
+                />
+                <EducationList
+                  items={[
+                    {
+                      institution: "Eduvos",
+                      degree: "Bachelor's Degree in IT (Software Engineering)",
+                      duration: "2023 - present",
+                    },
+                    {
+                      institution: "Hoerskool Pretoria Wes",
+                      degree: "Highschool",
+                      duration: "2018 - 2022",
+                    },
+                  ]}
+                />
               </div>
             </TabsContent>
+
+            {/* Skills Section */}
             <TabsContent value="skills" className="w-full h-full">
               <div className="flex flex-col gap-[30px]">
-                <div className="flex flex-col gap-[30px] text-center xl:text-left">
-                  <h3 className="text-4xl font-bold">{skills.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                    {skills.description}
-                  </p>
-                </div>
+                <SectionHeader
+                  title="My Skills"
+                  description="An overview of my best strengths"
+                  icon=""
+                  other={true}
+                />
                 <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 xl:gap-[30px]">
                   {skills.skillList.map((skill, index) => (
                     <li key={index}>
@@ -244,15 +206,19 @@ const ResumePage = () => {
                 </ul>
               </div>
             </TabsContent>
+
+            {/* About Section */}
             <TabsContent
               value="about"
               className="w-full text-center xl:text-left"
             >
               <div className="flex flex-col gap-[30px]">
-                <h3 className="text-4xl font-bold">{about.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {about.description}
-                </p>
+                <SectionHeader
+                  title="About Me"
+                  description="A full description about myself"
+                  icon=""
+                  other={true}
+                />
                 <ul className="grid grid-cols-1 xl:grid-cols-2 gap-y-6 w-full mx-auto xl:mx-0">
                   {about.info.map((item, index) => (
                     <li

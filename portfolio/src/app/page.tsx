@@ -1,48 +1,33 @@
-import Photo from "@/components/photo";
+import Hero from "@/components/hero";
 import Socials from "@/components/socials";
 import Stats from "@/components/stats";
-import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 const HomePage = () => {
+  const heroData = {
+    title: "Hello I'm",
+    subtitle: "Kagiso Jiyane",
+    description:
+      "I excel at crafting elegant digital experiences and I am proficient in various programming languages and technologies.",
+    role: "Software Engineer",
+  };
+
+  const socials = [
+    { icon: <FaGithub />, path: "https://github.com/QuintonCodes" },
+    { icon: <FaInstagram />, path: "https://www.instagram.com/insomiac.ww" },
+    {
+      icon: <FaLinkedinIn />,
+      path: "https://www.linkedin.com/in/kagiso-jiyane",
+    },
+    { icon: <FaTwitter />, path: "" },
+  ];
+
   return (
     <section className="h-full">
       <div className="container max-w-7xl mx-auto px-4">
-        <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-2 xl:pb-8">
-          {/* Text */}
-          <div className="text-center xl:text-left order-2 xl:order-none">
-            <span className="text-xl">Software Engineer</span>
-            <h1 className="h1 mb-6">
-              Hello I`m <br />
-              <span className="text-accent">Kagiso Jiyane</span>
-            </h1>
-            <p className="max-w-[500px] mb-9 text-white/80">
-              I excel at crafting elegant digital experiences and I am
-              proficient in various programming languages and technologies.
-            </p>
-            {/* Button and socials */}
-            <div className="flex flex-col xl:flex-row items-center gap-8">
-              <Button
-                variant="outline"
-                size="lg"
-                className="uppercase flex items-center gap-2"
-              >
-                <span>Download CV</span>
-                <Download />
-              </Button>
-              <div className="mb-8 xl:mb-0">
-                <Socials
-                  containerStyles="flex gap-6"
-                  iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-                />
-              </div>
-            </div>
-          </div>
-          {/* Photo */}
-          <div className="order-1 xl:order-none mb-8 xl:mb-0">
-            <Photo />
-          </div>
-        </div>
+        <Hero data={heroData}>
+          <Socials socials={socials} />
+        </Hero>
         <Stats />
       </div>
     </section>
