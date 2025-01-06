@@ -32,9 +32,9 @@ const projects = [
         name: "Typescript",
       },
     ],
-    image: "", // Image of project
+    image: "/work/thumb1.png",
     live: "",
-    github: "",
+    github: "https://github.com/QuintonCodes/My-Projects/tree/main/kickflip",
   },
   {
     num: "02",
@@ -55,9 +55,9 @@ const projects = [
         name: "Next.js",
       },
     ],
-    image: "", // Image of project
+    image: "/work/thumb2.png",
     live: "",
-    github: "",
+    github: "https://github.com/QuintonCodes/My-Projects/tree/main/spotify-app",
   },
   {
     num: "03",
@@ -78,9 +78,10 @@ const projects = [
         name: "SQL",
       },
     ],
-    image: "", // Image of project
+    image: "/work/thumb3.png",
     live: "",
-    github: "",
+    github:
+      "https://github.com/QuintonCodes/My-Projects/tree/main/csharp-web-api",
   },
 ];
 

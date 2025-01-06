@@ -4,7 +4,7 @@ import Image from "next/image";
 interface SectionHeaderProps {
   title: string;
   description: string;
-  icon: string | StaticImport; // Icon path for the section
+  icon: string | StaticImport;
   other?: boolean;
 }
 

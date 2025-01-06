@@ -10,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { educationData, experienceData } from "@/data/info-date";
 import { motion } from "motion/react";
 import {
   FaCss3,
@@ -138,17 +139,9 @@ const ResumePage = () => {
                 <SectionHeader
                   title="My Experience"
                   description="Overview of my experience"
-                  icon="/badge.svg"
+                  icon="/resume/badge.svg"
                 />
-                <ExperienceList
-                  items={[
-                    {
-                      company: "San Carlo",
-                      position: "Private Tutor",
-                      duration: "01-2024 - 11-2024",
-                    },
-                  ]}
-                />
+                <ExperienceList items={experienceData} />
               </div>
             </TabsContent>
 
@@ -158,22 +151,9 @@ const ResumePage = () => {
                 <SectionHeader
                   title="My Education"
                   description="Overview of my education"
-                  icon="/cap.svg"
+                  icon="/resume/cap.svg"
                 />
-                <EducationList
-                  items={[
-                    {
-                      institution: "Eduvos",
-                      degree: "Bachelor's Degree in IT (Software Engineering)",
-                      duration: "2023 - present",
-                    },
-                    {
-                      institution: "Hoerskool Pretoria Wes",
-                      degree: "Highschool",
-                      duration: "2018 - 2022",
-                    },
-                  ]}
-                />
+                <EducationList items={educationData} />
               </div>
             </TabsContent>
 
