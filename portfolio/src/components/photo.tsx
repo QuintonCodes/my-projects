@@ -20,10 +20,10 @@ const Photo = () => {
             opacity: 1,
             transition: { delay: 2.4, duration: 0.4, ease: "easeInOut" },
           }}
-          className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten relative"
+          className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute"
         >
           <Image
-            src="/potrait.jpg"
+            src="/potrait.png"
             quality={100}
             priority
             fill
@@ -34,7 +34,7 @@ const Photo = () => {
         </motion.div>
 
         {/* Circle: add absolute class to first div under image comment */}
-        {/* <motion.svg
+        <motion.svg
           className="w-[300px] xl:w-[506px] h-[300px] xl:h-[506px]"
           fill="transparent"
           viewBox="0 0 506 506"
@@ -59,7 +59,7 @@ const Photo = () => {
               repeatType: "reverse",
             }}
           />
-        </motion.svg> */}
+        </motion.svg>
       </motion.div>
     </div>
   );

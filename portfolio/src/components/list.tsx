@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import { JSX } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import {
   Tooltip,

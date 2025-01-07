@@ -1,32 +1,10 @@
 "use client";
 
+import { linksData } from "@/data/info-data";
 import { AlignRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
-
-const links = [
-  {
-    name: "home",
-    path: "/",
-  },
-  {
-    name: "services",
-    path: "/services",
-  },
-  {
-    name: "resume",
-    path: "/resume",
-  },
-  {
-    name: "work",
-    path: "/work",
-  },
-  {
-    name: "contact",
-    path: "/contact",
-  },
-];
 
 const MobileNav = () => {
   const pathname = usePathname();
@@ -46,7 +24,7 @@ const MobileNav = () => {
         </div>
 
         <nav className="flex flex-col justify-center items-center gap-8">
-          {links.map((link, index) => (
+          {linksData.map((link, index) => (
             <Link
               href={link.path}
               key={index}

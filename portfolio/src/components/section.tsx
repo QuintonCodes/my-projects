@@ -3,8 +3,8 @@ import {
   educationData,
   experienceData,
   skillsData,
-} from "@/data/info-date";
-import React, { ReactNode } from "react";
+} from "@/data/info-data";
+import { ReactNode } from "react";
 import List from "./list";
 import SectionHeader from "./section-header";
 

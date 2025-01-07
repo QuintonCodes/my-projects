@@ -1,7 +1,7 @@
 import Hero from "@/components/hero";
 import Socials from "@/components/socials";
 import Stats from "@/components/stats";
-import { heroData, socialsData } from "@/data/info-date";
+import { heroData, socialsData } from "@/data/info-data";
 
 const HomePage = () => {
   return (

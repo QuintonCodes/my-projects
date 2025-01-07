@@ -1,25 +1,8 @@
 "use client";
 
-import ServiceCard, { Service } from "@/components/service-card";
+import ServiceCard from "@/components/service-card";
+import { servicesData } from "@/data/info-data";
 import { motion } from "motion/react";
-
-const services: Service[] = [
-  {
-    num: "01",
-    title: "Web Development",
-    description: "Developing the frontend and backend for websites",
-  },
-  {
-    num: "02",
-    title: "Logo Design",
-    description: "Creating logos for businesses for any use case",
-  },
-  {
-    num: "03",
-    title: "Software Development",
-    description: "Writing and maintaining software code for applications",
-  },
-];
 
 const ServicesPage = () => {
   return (
@@ -33,7 +16,7 @@ const ServicesPage = () => {
           }}
           className="grid grid-cols-1 md:grid-cols-2 gap-[60px]"
         >
-          {services.map((service) => (
+          {servicesData.map((service) => (
             <ServiceCard key={service.num} service={service} />
           ))}
         </motion.div>
