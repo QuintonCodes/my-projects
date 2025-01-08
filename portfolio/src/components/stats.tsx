@@ -1,9 +1,11 @@
 "use client";
 
-import { statsData } from "@/data/info-data";
+import useStats from "@/hooks/useStats";
 import CountUp from "react-countup";
 
 const Stats = () => {
+  const statsData = useStats();
+
   return (
     <section className="pt-4 pb-12 xl:pt-0 xl:pb-0">
       <div className="container mx-auto">

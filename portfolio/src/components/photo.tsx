@@ -35,9 +35,9 @@ const Photo = () => {
 
         {/* Circle: add absolute class to first div under image comment */}
         <motion.svg
-          className="w-[300px] xl:w-[506px] h-[300px] xl:h-[506px]"
+          className="w-[300px] xl:w-[513px] h-[300px] xl:h-[513px]"
           fill="transparent"
-          viewBox="0 0 506 506"
+          viewBox="0 0 513 513"
           xmlns="http://www.w3.org/2000/svg"
         >
           <motion.circle
@@ -45,7 +45,7 @@ const Photo = () => {
             cy="253"
             r="250"
             stroke="#00ff99"
-            strokeWidth="4"
+            strokeWidth="5"
             strokeLinecap="round"
             strokeLinejoin="round"
             initial={{ strokeDasharray: "24 10 0 0" }}

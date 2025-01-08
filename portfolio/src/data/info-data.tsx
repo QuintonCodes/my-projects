@@ -60,25 +60,6 @@ export const socialsData = [
   { icon: <FaTwitter />, path: "https://x.com/insom1ac1" },
 ];
 
-export const statsData = [
-  {
-    num: 3,
-    text: "Years of experience",
-  },
-  {
-    num: 4,
-    text: "Projects completed",
-  },
-  {
-    num: 10,
-    text: "Technologies mastered",
-  },
-  {
-    num: 230,
-    text: "Code commits",
-  },
-];
-
 // Resume Page
 export const skillsData = {
   title: "My skills",
