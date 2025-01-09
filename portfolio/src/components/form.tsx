@@ -86,89 +86,106 @@ const Form = () => {
     }
   };
 
+  const renderError = (field: keyof FormData) => {
+    return errors[field] ? (
+      <p className="text-red-500">{errors[field]?.message}</p>
+    ) : null;
+  };
+
   return (
     <div className="xl:w-[54%] order-2 xl:order-none">
       <form
         className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h3 className="text-4xl text-accent">Let`s work together</h3>
-        <p className="text-white/60">Contact me using this form</p>
+        {/* Header Section */}
+        <header>
+          <h3 className="text-4xl text-accent">Get in Touch</h3>
+          <p className="text-white/60">
+            Fill out the form below, and I’ll get back to you as soon as
+            possible.
+          </p>
+        </header>
+
+        {/* Contact Information Inputs */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Input
-            type="text"
-            placeholder="First Name"
-            {...register("firstname")}
-          />
-          {errors.firstname && (
-            <p className="text-red-500">{errors.firstname.message}</p>
-          )}
-          <Input
-            type="text"
-            placeholder="Last Name"
-            {...register("lastname")}
-          />
-          {errors.lastname && (
-            <p className="text-red-500">{errors.lastname.message}</p>
-          )}
-          <Input
-            type="email"
-            placeholder="Email Address"
-            {...register("email")}
-          />
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
-          <Input
-            type="text"
-            placeholder="Phone Number"
-            {...register("phone")}
-          />
-          {errors.phone && (
-            <p className="text-red-500">{errors.phone.message}</p>
-          )}
+          <div>
+            <Input
+              type="text"
+              placeholder="First Name"
+              {...register("firstname")}
+            />
+            {renderError("firstname")}
+          </div>
+          <div>
+            <Input
+              type="text"
+              placeholder="Last Name"
+              {...register("lastname")}
+            />
+            {renderError("lastname")}
+          </div>
+          <div>
+            <Input
+              type="email"
+              placeholder="Email Address"
+              {...register("email")}
+            />
+            {renderError("email")}
+          </div>
+          <div>
+            <Input
+              type="text"
+              placeholder="Phone Number"
+              {...register("phone")}
+            />
+            {renderError("phone")}
+          </div>
         </div>
 
-        <Controller
-          name="service"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Select
-              onValueChange={(value) => field.onChange(value)}
-              value={field.value}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select a service" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Select a service</SelectLabel>
-                  <SelectItem value="Web Development">
-                    Web Development
-                  </SelectItem>
-                  <SelectItem value="Software Development">
-                    Software Development
-                  </SelectItem>
-                  <SelectItem value="Logo Design">Logo Design</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          )}
-        />
-        {errors.service && (
-          <p className="text-red-500">{errors.service.message}</p>
-        )}
+        {/* Service Selection */}
+        <div>
+          <Controller
+            name="service"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <Select
+                onValueChange={(value) => field.onChange(value)}
+                value={field.value}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a service" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select a service</SelectLabel>
+                    <SelectItem value="Web Development">
+                      Web Development
+                    </SelectItem>
+                    <SelectItem value="Software Development">
+                      Software Development
+                    </SelectItem>
+                    <SelectItem value="Logo Design">Logo Design</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
+          {renderError("service")}
+        </div>
 
-        <Textarea
-          className="h-[150px]"
-          placeholder="Type your message here."
-          {...register("message")}
-        />
-        {errors.message && (
-          <p className="text-red-500">{errors.message.message}</p>
-        )}
+        {/* Message Textarea */}
+        <div>
+          <Textarea
+            className="h-[150px]"
+            placeholder="Type your message here."
+            {...register("message")}
+          />
+          {renderError("message")}
+        </div>
 
+        {/* Submit Button and Status Message */}
         <div className="flex gap-6">
           <Button
             size="lg"
