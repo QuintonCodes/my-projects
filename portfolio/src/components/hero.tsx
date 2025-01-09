@@ -23,14 +23,17 @@ const Hero = ({ data, children }: { data: HeroData; children: ReactNode }) => {
         <p className="max-w-[500px] mb-9 text-white/80">{data.description}</p>
         {/* Button and socials */}
         <div className="flex flex-col xl:flex-row items-center gap-8">
-          <Button
-            variant="outline"
-            size="lg"
-            className="uppercase flex items-center gap-2"
-          >
-            <span>Download CV</span>
-            <Download />
-          </Button>
+          <a href="/resume.pdf" download="Quinton's Resume">
+            <Button
+              variant="outline"
+              size="lg"
+              className="uppercase flex items-center gap-2"
+            >
+              <span>Download CV</span>
+              <Download />
+            </Button>
+          </a>
+          {/* Socials */}
           <div className="mb-8 xl:mb-0">{children}</div>
         </div>
       </div>

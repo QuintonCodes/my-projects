@@ -8,26 +8,32 @@ export const fetchTotalCommits = async (
   let totalCommits = 0;
 
   for (const repo of repos) {
-    const response = await fetch(
-      `${GITHUB_API_BASE_URL}/repos/${username}/${repo}/commits`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    let page = 1;
+    let commitsOnPage;
 
-    if (!response.ok) {
-      console.error(
-        `Failed to fetch commits for ${repo}: HTTP ${response.status} - ${
-          response.statusText || "Unknown error"
-        }`
+    do {
+      const response = await fetch(
+        `${GITHUB_API_BASE_URL}/repos/${username}/${repo}/commits?per_page=100&page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      continue;
-    }
 
-    const commits = await response.json();
-    totalCommits += commits.length;
+      if (!response.ok) {
+        console.error(
+          `Failed to fetch commits for ${repo}: HTTP ${response.status} - ${
+            response.statusText || "Unknown error"
+          }`
+        );
+        break;
+      }
+
+      commitsOnPage = await response.json();
+      totalCommits += commitsOnPage.length;
+      page++;
+    } while (commitsOnPage.length === 100);
   }
 
   return totalCommits;

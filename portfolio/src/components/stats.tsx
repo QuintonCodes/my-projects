@@ -23,7 +23,7 @@ const Stat = ({ number, text }: { number: number; text: string }) => (
   <div className="flex-1 flex gap-4 items-center justify-center xl:justify-start">
     <CountUp
       end={number}
-      duration={5}
+      duration={10}
       delay={2}
       className="text-4xl xl:text-6xl font-extrabold"
     />

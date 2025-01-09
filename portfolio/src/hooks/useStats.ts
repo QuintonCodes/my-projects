@@ -1,5 +1,6 @@
+import { projectsData, skillsData } from "@/data/info-data";
 import { fetchTotalCommits } from "@/services/githubService";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 interface Stat {
   num: number;
@@ -9,14 +10,14 @@ interface Stat {
 const initialStats: Stat[] = [
   {
     num: 3,
-    text: "Years of experience",
+    text: "Years of coding experience",
   },
   {
-    num: 4,
+    num: 0,
     text: "Projects completed",
   },
   {
-    num: 10,
+    num: 0,
     text: "Technologies mastered",
   },
   {
@@ -26,34 +27,39 @@ const initialStats: Stat[] = [
 ];
 
 const useStats = () => {
-  const [stats, setStats] = useState<Stat[]>(initialStats);
+  const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN || "";
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const { data: commitCount = 0 } = useQuery({
+    queryKey: [
+      "githubCommits",
+      { username: "QuintonCodes", repos: ["My-Projects"] },
+    ],
+    queryFn: async () => {
       const username = "QuintonCodes";
       const repos = ["My-Projects"];
-      const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN || "";
+      return await fetchTotalCommits(username, repos, token);
+    },
+    staleTime: 1000 * 60 * 60, // Data is considered fresh for 1 hour
+    enabled: !!token,
+    refetchInterval: 1000 * 60 * 25,
+    placeholderData: 0,
+  });
 
-      if (!token) {
-        console.error("No GitHub token found");
-        return;
-      }
+  const projectCount = projectsData.length;
+  const techCount = skillsData.skillList.length;
 
-      try {
-        const commitCount = await fetchTotalCommits(username, repos, token);
-
-        setStats((prevStats) =>
-          prevStats.map((stat) =>
-            stat.text === "Code commits" ? { ...stat, num: commitCount } : stat
-          )
-        );
-      } catch (error) {
-        console.error("Error fetching GitHub stats:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const stats: Stat[] = initialStats.map((stat) => {
+    switch (stat.text) {
+      case "Projects completed":
+        return { ...stat, num: projectCount };
+      case "Technologies mastered":
+        return { ...stat, num: techCount };
+      case "Code commits":
+        return { ...stat, num: commitCount };
+      default:
+        return stat;
+    }
+  });
 
   return stats;
 };

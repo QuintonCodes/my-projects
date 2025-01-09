@@ -32,9 +32,9 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             <Image
               src={icon}
               alt={`${title} Icon`}
-              width={20}
-              height={20}
-              className="ml-3 mt-2"
+              width={15}
+              height={15}
+              className="ml-3 mt-2 w-auto h-auto"
             />
           </div>
           <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">

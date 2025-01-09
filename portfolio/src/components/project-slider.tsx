@@ -28,6 +28,7 @@ const ProjectSlider = ({
             <div className="relative w-full h-full">
               <Image
                 src={project.image}
+                quality={100}
                 fill
                 className="object-cover"
                 alt={`Project ${index}`}

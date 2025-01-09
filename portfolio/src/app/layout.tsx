@@ -1,5 +1,6 @@
 import Header from "@/components/header";
 import PageTransition from "@/components/pagetransition";
+import ReactQueryProvider from "@/components/provider";
 import StairTransition from "@/components/stairtransition";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
@@ -24,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jetbrainsMono.variable} antialiased`}>
-        <Header />
-        <StairTransition />
-        <PageTransition>{children}</PageTransition>
+        <ReactQueryProvider>
+          <Header />
+          <StairTransition />
+          <PageTransition>{children}</PageTransition>
+        </ReactQueryProvider>
       </body>
     </html>
   );

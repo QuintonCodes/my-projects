@@ -16,7 +16,7 @@ const ProjectLink = ({
   icon: JSX.Element;
   tooltip: string;
 }) => (
-  <Link href={href}>
+  <Link href={href} target="_blank" rel="noopener noreferrer">
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
