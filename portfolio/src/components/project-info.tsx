@@ -12,9 +12,9 @@ const ProjectInfo = ({ project }: { project: (typeof projectsData)[0] }) => (
         {project.category} project
       </h2>
       <p className="text-white/60">{project.description}</p>
-      <ul className="flex gap-4">
+      <ul className="flex gap-4 flex-wrap">
         {project.stack.map((item, index) => (
-          <li key={index} className="text-xl text-accent">
+          <li key={index} className="text-xl text-accent text-wrap">
             {item.name}
             {index !== project.stack.length - 1 && ","}
           </li>

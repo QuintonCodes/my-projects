@@ -106,7 +106,7 @@ export const aboutData = {
   info: [
     { fieldName: "Name", fieldValue: "Kagiso Jiyane" },
     { fieldName: "Phone", fieldValue: "(+27) 69 787 4817" },
-    { fieldName: "Experience", fieldValue: "2+ Years" },
+    { fieldName: "Experience", fieldValue: "1 Year" },
     { fieldName: "Nationality", fieldValue: "South African" },
     { fieldName: "Email", fieldValue: "kagisojiyane28@gmail.com" },
     { fieldName: "Freelance", fieldValue: "Available" },
@@ -142,13 +142,16 @@ export const projectsData = [
     description: "An E-Commerce website for a clothing store",
     stack: [
       {
-        name: "Html 5",
+        name: "React",
       },
       {
-        name: "Tailwind css",
+        name: "TypeScript",
       },
       {
-        name: "Typescript",
+        name: "Tailwind.css",
+      },
+      {
+        name: "Node.js",
       },
     ],
     image: "/work/thumb1.png",
@@ -162,16 +165,13 @@ export const projectsData = [
     description: "A website using spotify's APIs",
     stack: [
       {
-        name: "Html 5",
-      },
-      {
-        name: "Tailwind css",
-      },
-      {
-        name: "Typescript",
-      },
-      {
         name: "Next.js",
+      },
+      {
+        name: "Tailwind.css",
+      },
+      {
+        name: "TypeScript",
       },
     ],
     image: "/work/thumb2.png",
@@ -189,9 +189,6 @@ export const projectsData = [
       },
       {
         name: "ASP.NET Core",
-      },
-      {
-        name: "SQL Server",
       },
       {
         name: "SQL",

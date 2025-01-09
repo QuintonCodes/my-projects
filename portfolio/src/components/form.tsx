@@ -32,6 +32,7 @@ const schema = yup.object({
   message: yup.string().required("Message is required"),
 });
 
+// Form data interface
 interface FormData {
   firstname: string;
   lastname: string;

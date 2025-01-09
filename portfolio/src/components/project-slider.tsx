@@ -30,7 +30,7 @@ const ProjectSlider = ({
                 src={project.image}
                 quality={100}
                 fill
-                className="object-cover"
+                className="object-contain"
                 alt={`Project ${index}`}
               />
             </div>
