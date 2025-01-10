@@ -1,3 +1,4 @@
+import ErrorBoundary from "@/components/error-boundary";
 import Header from "@/components/header";
 import PageTransition from "@/components/pagetransition";
 import ReactQueryProvider from "@/components/provider";
@@ -26,9 +27,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${jetbrainsMono.variable} antialiased`}>
         <ReactQueryProvider>
-          <Header />
-          <StairTransition />
-          <PageTransition>{children}</PageTransition>
+          <ErrorBoundary>
+            <Header />
+            <StairTransition />
+            <PageTransition>{children}</PageTransition>
+          </ErrorBoundary>
         </ReactQueryProvider>
       </body>
     </html>
