@@ -1,9 +1,10 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-
-# from supabase
+from supabase import create_client, Client
 import os
 from dotenv import load_dotenv
 
@@ -42,3 +43,25 @@ if not SUPABASE_URL or not SUPABASE_KEY:
     raise ValueError("Supabase credentials are not set in environment variables")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+
+# Database example model
+class Player(Base):
+    __tablename__ = "players"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(nullable=False)
+    team = Column(String, nullable=False)
+
+
+# Initialize database tables
+@asynccontextmanager
+async def lifespan():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    print("Database tables created successfully!")
+
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to GamePulse Backend!"}
