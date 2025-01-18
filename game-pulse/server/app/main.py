@@ -1,14 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
-from dotenv import load_dotenv
-from sqlalchemy import create_engine
-from sqlalchemy.exc import SQLAlchemyError
+from core.database import init_db
+from api.routes import auth
+from core.config import settings
 
-# Load environment variables
-load_dotenv()
-
-app = FastAPI()
+app = FastAPI(title=settings.PROJECT_NAME)
 
 app.add_middleware(
     CORSMiddleware,
@@ -18,21 +14,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Fetch DATABASE_URL from .env
-DATABASE_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL environment variable is not set")
 
-# Create the SQLAlchemy engine
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
-# Test the connection
-try:
-    engine = create_engine(DATABASE_URL, connect_args={"sslmode": "require"})
-    with engine.connect() as connection:
-        print("Connection successful!")
-except SQLAlchemyError as e:
-    print(f"Failed to connect: {e}")
-    raise
+
+app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 
 
 @app.get("/")
