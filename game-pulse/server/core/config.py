@@ -10,6 +10,7 @@ class Settings:
     DATABASE_URL: str = os.getenv("DATABASE_URL", "")
     SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
     SUPABASE_KEY: str = os.getenv("SUPABASE_KEY", "")
+    API_KEY: str = os.getenv("API_KEY", "")
 
     if not DATABASE_URL:
         raise ValueError("DATABASE_URL environment variable is required.")

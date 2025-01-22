@@ -17,19 +17,15 @@ def get_db():
 router = APIRouter()
 
 
-# Teams
-@router.post("/teams", response_model=TeamResponse, status_code=201)
-def create_team(team: TeamCreate, db: Session = Depends(get_db)):
-    existing_team = db.query(Team).filter(Team.name == team.name).first()
-    if existing_team:
-        raise HTTPException(status_code=400, detail="Team already exists")
-    new_team = Team(**team.dict())
+@router.get("/", response_model=List[TeamResponse])
+def get_teams(db: Session = Depends(get_db)):
+    return db.query(Team).all()
+
+
+@router.post("/", response_model=TeamResponse)
+def add_team(team: TeamCreate, db: Session = Depends(get_db)):
+    new_team = Team(name=team.name, league=team.league, logo_url=team.logo_url)
     db.add(new_team)
     db.commit()
     db.refresh(new_team)
     return new_team
-
-
-@router.get("/teams", response_model=List[TeamResponse])
-def get_teams(db: Session = Depends(get_db)):
-    return db.query(Team).all()
