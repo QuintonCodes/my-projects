@@ -18,7 +18,9 @@ def get_db():
 @router.post("/register", status_code=201, response_model=Dict[str, UserResponse])
 async def register(user: UserCreate, db=Depends(get_db)):
     try:
-        new_user = await register_user(db, user.email, user.password)
+        new_user = await register_user(
+            db, user.email, user.password, user.favourite_team
+        )
         return {
             "message": "User registered successfully",
             "data": UserResponse(**new_user),

@@ -6,6 +6,7 @@ from typing import Optional
 class UserCreate(BaseModel):
     email: EmailStr
     password: str = Field(..., min_length=8)
+    favourite_team: Optional[str | None]
 
 
 class UserResponse(BaseModel):

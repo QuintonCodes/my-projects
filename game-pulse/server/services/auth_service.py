@@ -8,7 +8,7 @@ import uuid
 API_FOOTBALL_URL = "https://v3.football.api-sports.io"
 API_FOOTBALL_HEADERS = {
     "x-rapidapi-host": "v3.football.api-sports.io",
-    "x-rapidapi-key": settings.API_KEY,
+    "x-rapidapi-key": settings.FOOTBALL_API_KEY,
 }
 
 
