@@ -71,14 +71,19 @@ async def login_user(db: Session, email: str, password: str) -> dict:
 
 
 async def update_user(db: Session, user_id: str, update_data: dict) -> dict:
+    valid_fields = ["email", "favourite_team"]
+    update_data = {k: v for k, v in update_data.items() if k in valid_fields}
+
+    if not update_data:
+        raise ValueError("No valid fields to update")
+
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise ValueError("User not found")
 
     # Update allowed fields dynamically
     for key, value in update_data.items():
-        if hasattr(user, key):
-            setattr(user, key, value)
+        setattr(user, key, value)
 
     db.commit()
     db.refresh(user)

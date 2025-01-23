@@ -1,4 +1,3 @@
-# import jwt
 from fastapi import Request, HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt as jose_jwt
@@ -12,13 +11,15 @@ security = HTTPBearer()
 
 JWKS_CACHE = TTLCache(maxsize=1, ttl=3600)
 
+
 def get_jwks():
     """Fetch JWKS dynamically and cache it."""
     if not JWKS_CACHE.get("jwks"):
         jwks_url = f"{settings.AUTH0_DOMAIN}/.well-known/jwks.json"
         response = urlopen(jwks_url)
         JWKS_CACHE["jwks"] = json.loads(response.read())
-    response JWKS_CACHE["jwks"]
+    return JWKS_CACHE["jwks"]
+
 
 def verify_permissions(required_scopes: list, token_scopes: list):
     """Verify that required scopes exist in the token scopes."""
@@ -26,6 +27,7 @@ def verify_permissions(required_scopes: list, token_scopes: list):
         raise HTTPException(
             status_code=403, detail="Insufficient permissions for this action"
         )
+
 
 async def authorize_request(
     request: Request, credentials: HTTPAuthorizationCredentials = Depends(security)
@@ -35,7 +37,7 @@ async def authorize_request(
 
     try:
         # Decode token dynamically using JWKS
-        unverifiedd_header = jose_jwt.get_unverified_header(token)
+        unverified_header = jose_jwt.get_unverified_header(token)
         rsa_key = next(
             (
                 {
@@ -46,7 +48,7 @@ async def authorize_request(
                     "e": key["e"],
                 }
                 for key in jwks["keys"]
-                if key["kid"] == unverifiedd_header["kid"]
+                if key["kid"] == unverified_header["kid"]
             ),
             None,
         )
