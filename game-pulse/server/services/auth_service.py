@@ -1,6 +1,7 @@
 import requests
 from core.config import settings
 from models.user import User
+from models.team import Team
 from core.security import hash_password, verify_password
 from sqlalchemy.orm import Session
 import uuid
@@ -12,17 +13,47 @@ API_FOOTBALL_HEADERS = {
 }
 
 
-async def fetch_team_id_by_name(team_name: str) -> int:
+async def ensure_team_exists(db: Session, team_details: dict):
+    """Ensure the team exists in the Teams table."""
+    existing_team = db.query(Team).filter(Team.id == team_details["id"]).first()
+    if not existing_team:
+        new_team = Team(
+            id=team_details["id"],
+            name=team_details["name"],
+            league=team_details["league"],
+            logo_url=team_details["logo_url"],
+        )
+        db.add(new_team)
+        db.commit()
+        db.refresh(new_team)
+
+
+async def fetch_team_details_by_name(team_name: str) -> int:
     """Fetch the team ID from API-Football by name."""
     response = requests.get(
         f"{API_FOOTBALL_URL}/teams",
         params={"search": team_name},
         headers=API_FOOTBALL_HEADERS,
     )
-    if response.status_code != 200 or response.json().get("response"):
+    if response.status_code != 200:
+        raise ValueError("Failed to connect to the football API.")
+
+    data = response.json()
+    if not data.get("response"):
         raise ValueError("Team not found or invalid API response.")
-    team = response.json()["response"][0]["teams"]
-    return team["id"]
+
+    try:
+        team_data = data["response"][0]["team"]
+        return {
+            "id": team_data["id"],
+            "name": team_data["name"],
+            "logo_url": team_data["logo"],
+            "league": data["response"][0]
+            .get("league", {})
+            .get("name"),  #! Change this to use league API
+        }
+    except KeyError as e:
+        raise ValueError(f"Unexpected API response format: {data}")
 
 
 async def register_user(
@@ -37,7 +68,9 @@ async def register_user(
 
     if favourite_team_name:
         try:
-            favourite_team_id = await fetch_team_id_by_name(favourite_team_name)
+            team_details = await fetch_team_details_by_name(favourite_team_name)
+            await ensure_team_exists(db, team_details)
+            favourite_team_id = team_details["id"]
         except ValueError as e:
             raise ValueError(f"Error fetching favourite team: {str(e)}")
 

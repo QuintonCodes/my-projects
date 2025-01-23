@@ -10,12 +10,17 @@ class UserCreate(BaseModel):
 
 
 class UserResponse(BaseModel):
-    id: int
+    id: UUID4
     email: EmailStr
-    favourite_team: str | None
+    favourite_team: Optional[int]
 
     class Config:
         from_attributes = True
+
+
+class RegisterResponse(BaseModel):
+    message: str
+    data: UserResponse
 
 
 # Teams

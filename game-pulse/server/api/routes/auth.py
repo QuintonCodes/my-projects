@@ -1,7 +1,7 @@
 import requests
 from fastapi import APIRouter, HTTPException, Depends, Body
 from services.auth_service import register_user, login_user, update_user, delete_user
-from api.schemas import UserCreate, UserResponse
+from api.schemas import UserCreate, UserResponse, RegisterResponse
 from core.database import SessionLocal
 from core.config import settings
 from typing import Dict
@@ -17,7 +17,7 @@ def get_db():
         db.close()
 
 
-@router.post("/register", status_code=201, response_model=Dict[str, UserResponse])
+@router.post("/register", status_code=201, response_model=RegisterResponse)
 async def register(user: UserCreate, db=Depends(get_db)):
     try:
         new_user = await register_user(

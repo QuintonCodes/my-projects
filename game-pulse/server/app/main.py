@@ -16,11 +16,11 @@ app.add_middleware(
 )
 
 
-@app.middleware("http")
-async def auth_middleware(request: Request, call_next):
-    if request.url.path not in ["/auth/register", "/auth/login", "/"]:
-        await authorize_request(request)
-    return await call_next(request)
+# @app.middleware("http")
+# async def auth_middleware(request: Request, call_next):
+#     if request.url.path not in ["/auth/register", "/auth/login", "/"]:
+#         await authorize_request(request)
+#     return await call_next(request)
 
 
 @app.on_event("startup")
