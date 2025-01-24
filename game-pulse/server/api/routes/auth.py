@@ -1,7 +1,21 @@
 import requests
 from fastapi import APIRouter, HTTPException, Depends, Body
-from services.auth_service import register_user, login_user, update_user, delete_user
-from api.schemas import UserCreate, UserResponse, RegisterResponse
+from services.auth_service import (
+    ensure_team_exists,
+    fetch_team_details_by_name,
+    register_user,
+    login_user,
+    update_user,
+    delete_user,
+)
+from api.schemas import (
+    UserCreate,
+    UserLogin,
+    UserResponse,
+    RegisterResponse,
+    LoginResponse,
+    UpdateResponse,
+)
 from core.database import SessionLocal
 from core.config import settings
 from typing import Dict
@@ -31,8 +45,8 @@ async def register(user: UserCreate, db=Depends(get_db)):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.post("/login", response_model=Dict[str, UserResponse])
-async def login(user: UserCreate, db=Depends(get_db)):
+@router.post("/login", response_model=LoginResponse)
+async def login(user: UserLogin, db=Depends(get_db)):
     try:
         logged_in_user = await login_user(db, user.email, user.password)
         return {"message": "Login successful", "data": UserResponse(**logged_in_user)}
@@ -40,9 +54,15 @@ async def login(user: UserCreate, db=Depends(get_db)):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.put("/update", response_model=Dict[str, UserResponse])
+@router.put("/update", response_model=UpdateResponse)
 async def update(user_id: str, update_data: dict = Body(...), db=Depends(get_db)):
     try:
+        if "favourite_team" in update_data:
+            favourite_team_name = update_data.get("favourite_team")
+            team_details = await fetch_team_details_by_name(favourite_team_name)
+            await ensure_team_exists(db, team_details)
+            update_data["favourite_team"] = team_details["id"]
+
         updated_user = await update_user(db, user_id, update_data)
         return {
             "message": "User updated successfully",

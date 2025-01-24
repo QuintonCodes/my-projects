@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, UUID4, AnyUrl
 from typing import Optional
+from datetime import datetime
 
 
 # User
@@ -9,16 +10,32 @@ class UserCreate(BaseModel):
     favourite_team: Optional[str | None]
 
 
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=8)
+
+
 class UserResponse(BaseModel):
     id: UUID4
     email: EmailStr
     favourite_team: Optional[int]
+    updated_at: Optional[datetime]
 
     class Config:
         from_attributes = True
 
 
 class RegisterResponse(BaseModel):
+    message: str
+    data: UserResponse
+
+
+class LoginResponse(BaseModel):
+    message: str
+    data: UserResponse
+
+
+class UpdateResponse(BaseModel):
     message: str
     data: UserResponse
 
