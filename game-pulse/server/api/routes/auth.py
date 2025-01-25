@@ -1,23 +1,19 @@
 import requests
-from fastapi import APIRouter, HTTPException, Depends, Body
+from fastapi import APIRouter, HTTPException, Depends, Body, Query, Request
+from fastapi.responses import JSONResponse, RedirectResponse
 from services.auth_service import (
     ensure_team_exists,
     fetch_team_details_by_name,
-    register_user,
-    login_user,
     update_user,
     delete_user,
 )
 from api.schemas import (
-    UserCreate,
-    UserLogin,
     UserResponse,
-    RegisterResponse,
-    LoginResponse,
     UpdateResponse,
 )
 from core.database import SessionLocal
 from core.config import settings
+from core.security import get_auth_url, exchange_code_for_token
 from typing import Dict
 
 router = APIRouter()
@@ -31,27 +27,34 @@ def get_db():
         db.close()
 
 
-@router.post("/register", status_code=201, response_model=RegisterResponse)
-async def register(user: UserCreate, db=Depends(get_db)):
+@router.get("/callback")
+async def callback(request: Request, code: str = Query(...)):
+    """Handle callback and exchange code for tokens."""
     try:
-        new_user = await register_user(
-            db, user.email, user.password, user.favourite_team
-        )
-        return {
-            "message": "User registered successfully",
-            "data": UserResponse(**new_user),
-        }
-    except ValueError as e:
+        # Retrieve verifier (e.g., from session or DB)
+        verifier = request.session.get("verifier")
+        if not verifier:
+            raise HTTPException(status_code=400, detail="Verifier not found")
+        token_data = await exchange_code_for_token(code, verifier)
+        return {"message": "Authentication successful", "tokens": token_data}
+    except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.post("/login", response_model=LoginResponse)
-async def login(user: UserLogin, db=Depends(get_db)):
-    try:
-        logged_in_user = await login_user(db, user.email, user.password)
-        return {"message": "Login successful", "data": UserResponse(**logged_in_user)}
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+@router.post("/register", status_code=201)
+async def register(request: Request):
+    """Redirect to Auth0 registration page."""
+    auth_url, verifier = await get_auth_url()
+    request.session["verifier"] = verifier
+    return RedirectResponse(auth_url)
+
+
+@router.post("/login", status_code=302)
+async def login(request: Request):
+    """Redirect user to Auth0 login page"""
+    auth_url, verifier = await get_auth_url()
+    request.session["verifier"] = verifier
+    return RedirectResponse(auth_url)
 
 
 @router.put("/update", response_model=UpdateResponse)
@@ -95,7 +98,18 @@ async def refresh_token(refresh_token: str = Body(...)):
 
         response = requests.post(url, json=payload, headers=headers)
         response.raise_for_status()
-        return response.json()  # Returns new access token
+        token_data = response.json()
+
+        # Set httpOnly cookie for access token
+        response = JSONResponse({"access_token": token_data["access_token"]})
+        response.set_cookie(
+            key="refresh_token",
+            value=token_data["refresh_token"],
+            httponly=True,
+            secure=True,
+            samesite="Lax",
+        )
+        return response
     except requests.RequestException as e:
         raise HTTPException(
             status_code=400, detail=f"Failed to refresh token: {str(e)}"

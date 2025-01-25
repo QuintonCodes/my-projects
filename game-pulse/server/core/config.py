@@ -6,11 +6,17 @@ load_dotenv()
 
 
 class Settings:
+    APP_BASE_URL: str = os.getenv("APP_BASE_URL" "")
     PROJECT_NAME: str = "GamePulse Server"
+
     DATABASE_URL: str = os.getenv("DATABASE_URL", "")
     SUPABASE_URL: str = os.getenv("SUPABASE_URL", "")
     SUPABASE_KEY: str = os.getenv("SUPABASE_KEY", "")
+
     FOOTBALL_API_KEY: str = os.getenv("FOOTBALL_API_KEY", "")
+
+    AUTH0_CLIENT_ID: str = os.getenv("AUTH0_CLIENT_ID", "")
+    AUTH0_CLIENT_SECRET: str = os.getenv("AUTH0_CLIENT_SECRET", "")
     AUTH0_DOMAIN: str = os.getenv("AUTH0_DOMAIN", "")
     AUTH0_AUDIENCE: str = os.getenv("AUTH0_AUDIENCE", "")
     AUTH0_ISSUER: str = os.getenv("AUTH0_ISSUER", "")

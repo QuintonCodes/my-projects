@@ -39,37 +39,26 @@ async def authorize_request(
         # Decode token dynamically using JWKS
         unverified_header = jose_jwt.get_unverified_header(token)
         rsa_key = next(
-            (
-                {
-                    "kty": key["kty"],
-                    "kid": key["kid"],
-                    "use": key["use"],
-                    "n": key["n"],
-                    "e": key["e"],
-                }
-                for key in jwks["keys"]
-                if key["kid"] == unverified_header["kid"]
-            ),
+            (key for key in jwks["keys"] if key["kid"] == unverified_header["kid"]),
             None,
         )
 
         if not rsa_key:
-            raise HTTPException(status_code=403, detail="Invalid token header")
+            raise HTTPException(status_code=401, detail="Invalid token header")
 
-        decoded_token = jose_jwt.decode(
+        payload = jose_jwt.decode(
             token,
             rsa_key,
             algorithms=["RS256"],
             audience=settings.AUTH0_AUDIENCE,
-            issuer=f"{settings.AUTH0_ISSUER}",
+            issuer=settings.AUTH0_ISSUER,
         )
 
-        # Attach decoded token to request state
-        request.state.user = decoded_token
+        token_scopes = payload.get("scope", "").split()
+        verify_permissions("read:protected", token_scopes)
+        # Attach decoded token to request stateK
+        request.state.user = payload
 
         # Check permissions for protected routes
-        required_scopes = request.scope.get("permissions", [])
-        verify_permissions(required_scopes, decoded_token.get("scopes", "").split())
-
     except JWTError as e:
         raise HTTPException(status_code=403, detail=f"Invalid token: {str(e)}")

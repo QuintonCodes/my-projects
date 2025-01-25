@@ -2,9 +2,7 @@ import requests
 from core.config import settings
 from models.user import User
 from models.team import Team
-from core.security import hash_password, verify_password
 from sqlalchemy.orm import Session
-import uuid
 from datetime import datetime
 
 API_FOOTBALL_URL = "https://v3.football.api-sports.io"
@@ -30,7 +28,6 @@ async def ensure_team_exists(db: Session, team_details: dict):
             logo_url=team_details["logo_url"],
         )
         db.add(new_team)
-
     db.commit()
 
 
@@ -48,20 +45,15 @@ async def fetch_team_details_by_name(team_name: str) -> int:
     if not data.get("response"):
         raise ValueError("Team not found or invalid API response.")
 
-    try:
-        team_data = data["response"][0]["team"]
-        team_id = team_data["id"]
+    team_data = data["response"][0]["team"]
+    league_name = await fetch_league_by_team_id(team_data["id"])
 
-        league_name = await fetch_league_by_team_id(team_id)
-
-        return {
-            "id": team_data["id"],
-            "name": team_data["name"],
-            "logo_url": team_data["logo"],
-            "league": league_name,
-        }
-    except KeyError as e:
-        raise ValueError(f"Unexpected API response format: {data}")
+    return {
+        "id": team_data["id"],
+        "name": team_data["name"],
+        "logo_url": team_data["logo"],
+        "league": league_name,
+    }
 
 
 async def fetch_league_by_team_id(team_id: int) -> str:
@@ -78,36 +70,28 @@ async def fetch_league_by_team_id(team_id: int) -> str:
     if not data.get("response"):
         raise ValueError("League information not found.")
 
-    try:
-        # Extract the first league name from the response
-        league_name = data["response"][0]["league"]["name"]
-        return league_name
-    except KeyError:
-        raise ValueError("Unexpected league API response format.")
+    league_name = data["response"][0]["league"]["name"]
+    return league_name
 
 
 async def register_user(
-    db: Session, email: str, password: str, favourite_team_name: str = None
+    db: Session, user_id: str, email: str, favourite_team_name: str = None
 ) -> dict:
+    """Register user metadata in Supabase."""
     existing_user = db.query(User).filter(User.email == email).first()
     if existing_user:
         raise ValueError("User already exists")
 
-    hashed_password = hash_password(password)
     favourite_team_id = None
 
     if favourite_team_name:
-        try:
-            team_details = await fetch_team_details_by_name(favourite_team_name)
-            await ensure_team_exists(db, team_details)
-            favourite_team_id = team_details["id"]
-        except ValueError as e:
-            raise ValueError(f"Error fetching favourite team: {str(e)}")
+        team_details = await fetch_team_details_by_name(favourite_team_name)
+        await ensure_team_exists(db, team_details)
+        favourite_team_id = team_details["id"]
 
     new_user = User(
-        id=str(uuid.uuid4()),
+        id=user_id,
         email=email,
-        password=hashed_password,
         favourite_team=favourite_team_id,
     )
     db.add(new_user)
@@ -122,15 +106,28 @@ async def register_user(
 
 
 async def login_user(db: Session, email: str, password: str) -> dict:
-    user = db.query(User).filter(User.email == email).first()
-    if not user:
+    url = f"https://{settings.AUTH0_DOMAIN}/oauth/token"
+    headers = {"Content-Type": "application/json"}
+    payload = {
+        "grant_type": "password",
+        "username": email,
+        "password": password,
+        "client_id": settings.AUTH0_CLIENT_ID,
+        "client_secret": settings.AUTH0_CLIENT_SECRET,
+        "scope": "openid profile email",
+    }
+    response = requests.post(url, json=payload, headers=headers)
+    response.raise_for_status()
+    token_data = response.json()
+    existing_user = db.query(User).filter(User.email == email).first()
+    if not existing_user:
         raise ValueError("Invalid email or password")
 
-    # Verify password
-    if not verify_password(password, user.password):
-        raise ValueError("Invalid email or password")
-
-    return {"id": user.id, "email": user.email, "favourite_team": user.favourite_team}
+    return {
+        "id": existing_user.id,
+        "email": existing_user.email,
+        "favourite_team": existing_user.favourite_team,
+    }
 
 
 #! Update this logic to make sure favourite team can be updated

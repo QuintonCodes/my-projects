@@ -6,13 +6,13 @@ from datetime import datetime
 # User
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str = Field(..., min_length=8)
-    favourite_team: Optional[str | None]
+    password: str = Field(..., min_length=8, max_length=128)
+    favourite_team: str = Field(default=None, max_length=50)
 
 
 class UserLogin(BaseModel):
     email: EmailStr
-    password: str = Field(..., min_length=8)
+    password: str
 
 
 class UserResponse(BaseModel):
