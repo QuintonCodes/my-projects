@@ -16,34 +16,27 @@ async def ensure_team_exists(db: Session, team_details: dict):
     """Ensure the team exists in the Teams table."""
     existing_team = db.query(Team).filter(Team.id == team_details["id"]).first()
     if existing_team:
-        # Update the existing team's details
         existing_team.name = team_details["name"]
         existing_team.league = team_details["league"]
         existing_team.logo_url = team_details["logo_url"]
     else:
-        new_team = Team(
-            id=team_details["id"],
-            name=team_details["name"],
-            league=team_details["league"],
-            logo_url=team_details["logo_url"],
-        )
+        new_team = Team(**team_details)
         db.add(new_team)
     db.commit()
 
 
-async def fetch_team_details_by_name(team_name: str) -> int:
+async def fetch_team_details_by_name(team_name: str) -> dict:
     """Fetch the team ID from API-Football by name."""
     response = requests.get(
         f"{API_FOOTBALL_URL}/teams",
         params={"search": team_name},
         headers=API_FOOTBALL_HEADERS,
     )
-    if response.status_code != 200:
-        raise ValueError("Failed to connect to the football API.")
-
+    response.raise_for_status()
     data = response.json()
+
     if not data.get("response"):
-        raise ValueError("Team not found or invalid API response.")
+        raise ValueError("Team not found")
 
     team_data = data["response"][0]["team"]
     league_name = await fetch_league_by_team_id(team_data["id"])
@@ -63,10 +56,9 @@ async def fetch_league_by_team_id(team_id: int) -> str:
         params={"team": team_id},
         headers=API_FOOTBALL_HEADERS,
     )
-    if response.status_code != 200:
-        raise ValueError("Failed to fetch league information.")
-
+    response.raise_for_status()
     data = response.json()
+
     if not data.get("response"):
         raise ValueError("League information not found.")
 
@@ -80,7 +72,11 @@ async def register_user(
     """Register user metadata in Supabase."""
     existing_user = db.query(User).filter(User.email == email).first()
     if existing_user:
-        raise ValueError("User already exists")
+        return {
+            "id": existing_user.id,
+            "email": existing_user.email,
+            "favourite_team": existing_user.favourite_team,
+        }
 
     favourite_team_id = None
 
@@ -105,28 +101,15 @@ async def register_user(
     }
 
 
-async def login_user(db: Session, email: str, password: str) -> dict:
-    url = f"https://{settings.AUTH0_DOMAIN}/oauth/token"
-    headers = {"Content-Type": "application/json"}
-    payload = {
-        "grant_type": "password",
-        "username": email,
-        "password": password,
-        "client_id": settings.AUTH0_CLIENT_ID,
-        "client_secret": settings.AUTH0_CLIENT_SECRET,
-        "scope": "openid profile email",
-    }
-    response = requests.post(url, json=payload, headers=headers)
-    response.raise_for_status()
-    token_data = response.json()
-    existing_user = db.query(User).filter(User.email == email).first()
-    if not existing_user:
-        raise ValueError("Invalid email or password")
+async def login_user(db: Session, email: str) -> dict:
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise ValueError("User not found. Please register.")
 
     return {
-        "id": existing_user.id,
-        "email": existing_user.email,
-        "favourite_team": existing_user.favourite_team,
+        "id": user.id,
+        "email": user.email,
+        "favourite_team": user.favourite_team,
     }
 
 
@@ -147,8 +130,6 @@ async def update_user(db: Session, user_id: str, update_data: dict) -> dict:
         team_details = await fetch_team_details_by_name(update_data["favourite_team"])
         await ensure_team_exists(db, team_details)
         update_data["favourite_team"] = team_details["id"]
-
-        # user.favourite_team = team_details["id"]
 
     # Update allowed fields dynamically
     for key, value in update_data.items():

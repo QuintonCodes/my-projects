@@ -1,58 +1,68 @@
 from pydantic import BaseModel, EmailStr, Field, UUID4, AnyUrl
-from typing import Optional
+from typing import Optional, TypeVar, Generic
 from datetime import datetime
 
+# Generic Response Model
+T = TypeVar("T")
 
-# User
-class UserCreate(BaseModel):
+
+class ResponseModel(Generic[T], BaseModel):
+    message: str
+    data: T
+
+
+# Common Config
+class BaseConfig:
+    from_attributes = True
+
+
+# Base User Models
+class UserBase(BaseModel):
     email: EmailStr
+
+
+class UserWithFavouriteTeam(UserBase):
+    favourite_team: int
+
+
+# User Schemas
+class UserCreate(UserBase):
     password: str = Field(..., min_length=8, max_length=128)
     favourite_team: str = Field(default=None, max_length=50)
 
 
-class UserLogin(BaseModel):
-    email: EmailStr
+class UserLogin(UserBase):
     password: str
 
 
 class UserResponse(BaseModel):
     id: UUID4
-    email: EmailStr
-    favourite_team: Optional[int]
     updated_at: Optional[datetime]
 
-    class Config:
-        from_attributes = True
+    class Config(BaseConfig):
+        pass
 
 
-class RegisterResponse(BaseModel):
-    message: str
-    data: UserResponse
+# User Response Varients
+RegisterResponse = ResponseModel[UserResponse]
+LoginResponse = ResponseModel[UserResponse]
+UpdateResponse = ResponseModel[UserResponse]
 
 
-class LoginResponse(BaseModel):
-    message: str
-    data: UserResponse
-
-
-class UpdateResponse(BaseModel):
-    message: str
-    data: UserResponse
-
-
-# Teams
-class TeamCreate(BaseModel):
+# Teams Schemas
+class TeamBase(BaseModel):
     name: str = Field(..., max_length=100)
     league: str = Field(..., max_length=50)
-    logo_url: Optional[AnyUrl]
+    logo_url: Optional[AnyUrl] = None
+
+
+class TeamCreate(TeamBase):
+    pass
 
 
 class TeamResponse(BaseModel):
     id: UUID4
-    name: str
-    league: str
-    logo_url: Optional[AnyUrl]
     created_at: str
 
-    class Config:
-        from_attributes = True
+    class Config(BaseConfig):
+        pass

@@ -4,6 +4,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from services.auth_service import (
     ensure_team_exists,
     fetch_team_details_by_name,
+    register_user,
     update_user,
     delete_user,
 )
@@ -19,6 +20,7 @@ from typing import Dict
 router = APIRouter()
 
 
+# Dependenct for database session
 def get_db():
     db = SessionLocal()
     try:
@@ -31,12 +33,29 @@ def get_db():
 async def callback(request: Request, code: str = Query(...)):
     """Handle callback and exchange code for tokens."""
     try:
-        # Retrieve verifier (e.g., from session or DB)
         verifier = request.session.get("verifier")
         if not verifier:
             raise HTTPException(status_code=400, detail="Verifier not found")
+
         token_data = await exchange_code_for_token(code, verifier)
-        return {"message": "Authentication successful", "tokens": token_data}
+
+        user_info_response = requests.get(
+            f"https://{settings.AUTH0_DOMAIN}/userinfo",
+            headers={"Authorization": f"Bearer {token_data['access_token']}"},
+        )
+        user_info_response.raise_for_status()
+        user_info = user_info_response.json()
+
+        db = next(get_db())
+        user = await register_user(
+            db=db,
+            user_id=user_info["sub"],
+            email=user_info["email"],
+        )
+
+        return JSONResponse(
+            {"message": "User authenticated successfully", "data": user}
+        )
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
