@@ -1,26 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\",
+  "WorkspaceRootPath": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\my-projects\\csharp-web-api\\migrations\\20250126193336_updateuserdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:migrations\\20250126193336_updateuserdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\my-projects\\csharp-web-api\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\onedrive\\documents\\code\\my-projects\\csharp-web-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\my-projects\\csharp-web-api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\my-projects\\csharp-web-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\my-projects\\csharp-web-api\\models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:models\\userpreferences.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|c:\\users\\kagis\\my-projects\\csharp-web-api\\csharp-web-api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{58AA9B39-B447-45A4-ACAB-B60FD07D0434}|csharp-web-api.csproj|solutionrelative:csharp-web-api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,54 +34,67 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20250126193336_UpdateUserData.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Migrations\\20250126193336_UpdateUserData.cs",
+              "RelativeDocumentMoniker": "Migrations\\20250126193336_UpdateUserData.cs",
+              "ToolTip": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Migrations\\20250126193336_UpdateUserData.cs",
+              "RelativeToolTip": "Migrations\\20250126193336_UpdateUserData.cs",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAYwL4AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-26T19:34:52.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "csharp-web-api",
+              "DocumentMoniker": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\csharp-web-api.csproj",
+              "RelativeDocumentMoniker": "csharp-web-api.csproj",
+              "ToolTip": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\csharp-web-api.csproj",
+              "RelativeToolTip": "csharp-web-api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-01-26T18:49:43.255Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\appsettings.json",
+              "ToolTip": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-12-27T16:00:58.044Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAgwMYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-27T15:58:28.516Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Program.cs",
+              "ToolTip": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAUwFkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-27T15:57:54.132Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "UserPreferences.cs",
-              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Models\\UserPreferences.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Models\\UserPreferences.cs",
               "RelativeDocumentMoniker": "Models\\UserPreferences.cs",
-              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Models\\UserPreferences.cs",
+              "ToolTip": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Models\\UserPreferences.cs",
               "RelativeToolTip": "Models\\UserPreferences.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -86,13 +103,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Data\\ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\kagis\\OneDrive\\Documents\\Code\\My-Projects\\csharp-web-api\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\kagis\\My-Projects\\csharp-web-api\\Data\\ApplicationDbContext.cs",
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAIwC8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAUwCYAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-27T15:57:13.41Z",
               "EditorCaption": ""

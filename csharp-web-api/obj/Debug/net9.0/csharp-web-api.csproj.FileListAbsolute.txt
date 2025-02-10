@@ -357,3 +357,15 @@ C:\Users\kagis\My-Projects\csharp-web-api\obj\Debug\net9.0\refint\csharp-web-api
 C:\Users\kagis\My-Projects\csharp-web-api\obj\Debug\net9.0\csharp-web-api.pdb
 C:\Users\kagis\My-Projects\csharp-web-api\obj\Debug\net9.0\csharp-web-api.genruntimeconfig.cache
 C:\Users\kagis\My-Projects\csharp-web-api\obj\Debug\net9.0\ref\csharp-web-api.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Npgsql.dll
+C:\Users\kagis\My-Projects\csharp-web-api\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\kagis\My-Projects\csharp-web-api\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

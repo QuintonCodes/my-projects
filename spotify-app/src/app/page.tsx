@@ -1,22 +1,21 @@
-import Image from "next/image";
+import Header from "@/components/header";
+import ListItem from "@/components/listitem";
 
 export default function Home() {
   return (
-    <div className="m-10 flex flex-col items-center">
-      <h1>
-        Welcome to Vibe Voyage where you can discover new artists everyday
-      </h1>
-      <div className="flex items-center pt-5">
-        <h5 className="pr-[15px]">Content provided by: </h5>
-        <Image
-          src="/logo.png"
-          alt="Spotify App"
-          width={180}
-          height={100}
-          priority
-        />
-      </div>
-      {/* Display UI for logged in users */}
+    <div className="bg-neutral-900 rounded-xl h-[90.5vh] mt-2 mr-3 overflow-hidden overflow-y-auto">
+      <Header>
+        <div className="mb-2">
+          <h1 className="text-white text-3xl font-semibold">Welcome back</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 mt-4">
+            {/* Implement more  */}
+            <ListItem image="/liked.jpg" name="Liked Songs" href="liked" />
+            <ListItem image="/liked.jpg" name="Liked Songs" href="liked" />
+            <ListItem image="/liked.jpg" name="Liked Songs" href="liked" />
+            <ListItem image="/liked.jpg" name="Liked Songs" href="liked" />
+          </div>
+        </div>
+      </Header>
     </div>
   );
 }

@@ -16,7 +16,7 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 
 // Configure SQLite Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlite(builder.Configuration.GetConnectionString("SpotifyConnection")));
+	options.UseNpgsql(builder.Configuration.GetConnectionString("SpotifyConnection")));
 
 // Services
 var secretKey = builder.Configuration["SecretKey"]
