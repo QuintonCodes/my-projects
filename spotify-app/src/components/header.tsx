@@ -10,8 +10,6 @@ interface HeaderProps {
 }
 
 const Header = ({ children, className }: HeaderProps) => {
-  // const handleLogout = () => {};
-
   return (
     <div
       className={twMerge(

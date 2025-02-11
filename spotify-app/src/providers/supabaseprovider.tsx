@@ -8,6 +8,7 @@ import { Database } from "../../database.types";
 interface SupabaseContextProps {
   supabase: SupabaseClient<Database>;
   session: Session | null;
+  isLoading: boolean;
 }
 
 const SupabaseContext = createContext<SupabaseContextProps | undefined>(
@@ -28,11 +29,13 @@ interface SupabaseProviderProps {
 
 const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSession = async () => {
       const { data } = await supabase.auth.getSession();
       setSession(data.session);
+      setIsLoading(false);
     };
 
     fetchSession();
@@ -49,7 +52,7 @@ const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
   }, []);
 
   return (
-    <SupabaseContext.Provider value={{ supabase, session }}>
+    <SupabaseContext.Provider value={{ supabase, session, isLoading }}>
       {children}
     </SupabaseContext.Provider>
   );

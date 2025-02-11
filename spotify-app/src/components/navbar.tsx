@@ -1,14 +1,32 @@
 "use client";
 
+import useAuthModal from "@/hooks/use-authmodal";
+import { useUser } from "@/hooks/use-user";
+import { useSupabase } from "@/providers/supabaseprovider";
 import { CircleUserRound, Home } from "lucide-react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { FaUserAlt } from "react-icons/fa";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import Btn from "./btn";
 import Menu from "./menu";
 import SearchBar from "./searchbar";
 
 const Navbar = () => {
+  const authModal = useAuthModal();
   const router = useRouter();
+  const { supabase } = useSupabase();
+  const { user } = useUser();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    router.refresh();
+
+    if (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <header className="relative bg-[#1f1f1f] flex items-center min-h-[50px] w-full mt-2 mr-4 rounded-lg overflow-hidden overflow-y-auto">
@@ -36,21 +54,33 @@ const Navbar = () => {
         </div>
 
         <div className="flex justify-between items-center gap-x-4">
-          <>
+          {user ? (
             <div>
-              <Btn
-                onClick={() => {}}
-                className="bg-transparent text-neutral-300 font-medium"
-              >
-                Sign up
+              <Btn onClick={handleLogout} className="bg-white px-6 py-2">
+                Logout
+              </Btn>
+              {/* TODO: Change button later */}
+              <Btn onClick={() => router.push("/account")} className="bg-white">
+                <FaUserAlt />
               </Btn>
             </div>
-            <div>
-              <Btn onClick={() => {}} className="bg-white px-6 py-2">
-                Log in
-              </Btn>
-            </div>
-          </>
+          ) : (
+            <>
+              <div>
+                <Btn
+                  onClick={authModal.onOpen}
+                  className="bg-transparent text-neutral-300 font-medium"
+                >
+                  Sign up
+                </Btn>
+              </div>
+              <div>
+                <Btn onClick={() => {}} className="bg-white px-6 py-2">
+                  Log in
+                </Btn>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="hidden">
