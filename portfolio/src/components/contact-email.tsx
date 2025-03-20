@@ -110,7 +110,7 @@ const emailHeader = {
 };
 
 const message = {
-  backgroundColor: "#d1d5dc",
+  backgroundColor: "#27272c",
   padding: "16px",
   border: "1px solid #00ff99",
   borderRadius: "4px",
