@@ -1,135 +1,104 @@
-"use client";
-
+import EducationCard from "@/components/education-card";
 import ExperienceCard from "@/components/experience-card";
 import ProjectCard from "@/components/project-card";
 import Section from "@/components/section";
 import SkillItem from "@/components/skill-item";
+import Stats from "@/components/stats";
 import ThemeToggle from "@/components/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import VerticalNav from "@/components/vertical-nav";
-import { backend, experience, frontend, projects, tools } from "@/lib/data";
-import { ChevronDown } from "lucide-react";
-import { motion } from "motion/react";
+import { details, education, experience, projects, skills } from "@/lib/data";
+import { Download } from "lucide-react";
+import Link from "next/link";
 
 export default function HomePage() {
-  const scrollToNextSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop,
-        behavior: "smooth",
-      });
-    }
-  };
-
   return (
     <main className="relative">
       <div className="fixed z-50 top-4 left-4">
         <ThemeToggle />
       </div>
 
-      <VerticalNav />
-      {/* <MobileNav /> */}
+      <div className="hidden md:block">
+        <VerticalNav />
+      </div>
 
-      <Section id="hero" className="relative flex items-center">
-        <div className="flex flex-col items-center max-w-4xl gap-8 mx-auto md:flex-row">
-          {/* Profile image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="mb-6 md:mb-0"
-          >
-            <Avatar className="w-48 h-48 border-4 shadow-xl border-primary/20">
-              <AvatarImage src="/potrait.webp" alt="Alex Chen" />
-              <AvatarFallback>KQ</AvatarFallback>
-            </Avatar>
-          </motion.div>
-
-          {/* Text content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <h1 className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl">
-              Hello, I&apos;m <span className="text-primary">Alex Chen</span>
-            </h1>
-            <h2 className="mb-6 text-2xl font-medium md:text-3xl lg:text-4xl text-muted-foreground">
-              Full Stack Developer
-            </h2>
-            <p className="max-w-2xl mb-8 text-lg">
-              I build accessible, user-friendly web applications with modern
-              technologies. Focused on creating clean, efficient, and
-              maintainable code.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" asChild>
-                <a href="#contact">Get In Touch</a>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="#projects">View My Work</a>
-              </Button>
-            </div>
-          </motion.div>
+      <Section
+        id="hero"
+        nextSectionId="experience"
+        className="flex flex-col items-center gap-8 md:flex-row"
+      >
+        {/* Profile image */}
+        <div className="animate-fade-in-scale">
+          <Avatar className="w-48 h-48 border-4 shadow-xl border-primary/20">
+            <AvatarImage src={details.imageURL} alt={details.name} />
+            <AvatarFallback>KQ</AvatarFallback>
+          </Avatar>
         </div>
 
-        <motion.div
-          className="absolute transform -translate-x-1/2 cursor-pointer bottom-8 left-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          onClick={() => scrollToNextSection("about")}
-        >
-          <ChevronDown size={24} />
-        </motion.div>
+        {/* Text content */}
+        <div className="animate-fade-in-up [animation-delay:200ms]">
+          <h1 className="mb-2 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl">
+            {details.title}{" "}
+            <span className="dark:text-primary text-accent">
+              {details.name}
+            </span>
+          </h1>
+          <h2 className="mb-4 text-xl font-medium sm:text-2xl md:text-3xl lg:text-4xl text-muted-foreground">
+            {details.role}
+          </h2>
+          <p className="max-w-xl mb-6 text-base sm:text-lg">
+            {details.hero_description}
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <a download="Quinton's Resume" href="/resume.pdf">
+              <Button size="lg" className="rounded-full">
+                <span>Download Resume</span>
+                <Download />
+              </Button>
+            </a>
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="w-full rounded-full sm:w-auto dark:hover:bg-accent hover:bg-primary/20"
+            >
+              <a href="#projects">View My Work</a>
+            </Button>
+          </div>
+        </div>
+
+        <div className="hidden md:block">
+          <Stats />
+        </div>
       </Section>
 
-      <Section id="about">
+      <Section id="experience" nextSectionId="skills">
         <div className="max-w-4xl mx-auto">
-          <h2 className="inline-block pb-2 mb-8 text-3xl font-bold border-b-2 border-primary">
-            About Me
+          <h2 className="inline-block pb-1 mb-6 text-2xl font-bold border-b-2 border-primary sm:text-3xl">
+            Experience
           </h2>
-          <div className="space-y-6 text-lg">
-            <p>
-              I&apos;m a passionate software developer with over 5 years of
-              experience building web applications. My journey in tech started
-              when I was 15, tinkering with HTML and CSS to create my first
-              website.
-            </p>
-            <p>
-              After graduating with a degree in Computer Science, I&apos;ve
-              worked with startups and established companies to deliver robust,
-              scalable solutions that solve real-world problems.
-            </p>
-            <p>
-              When I&apos;m not coding, you&apos;ll find me hiking in the
-              mountains, reading sci-fi novels, or experimenting with new
-              cooking recipes. I believe in continuous learning and regularly
-              attend tech conferences and workshops to stay updated with the
-              latest industry trends.
-            </p>
-            <p>
-              My approach to development focuses on writing clean, maintainable
-              code and creating intuitive user experiences. I&apos;m
-              particularly interested in performance optimization and
-              accessibility.
-            </p>
+
+          <div className="space-y-4">
+            {experience.map((exp, index) => (
+              <ExperienceCard key={index} {...exp} />
+            ))}
           </div>
         </div>
       </Section>
 
-      <Section id="skills">
+      <Section id="skills" nextSectionId="projects">
         <div className="max-w-4xl mx-auto">
-          <h2 className="inline-block pb-2 mb-8 text-3xl font-bold border-b-2 border-primary">
+          <h2 className="inline-block pb-1 mb-6 text-2xl font-bold border-b-2 sm:text-3xl border-primary">
             Skills
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <h3 className="mb-6 text-xl font-bold">Frontend</h3>
-              <div className="space-y-4">
-                {frontend.map((skill, index) => (
+              <h3 className="mb-4 text-lg font-bold">Frontend</h3>
+              <div className="space-y-3">
+                {skills.frontend.map((skill, index) => (
                   <SkillItem
                     key={index}
                     name={skill.title}
@@ -140,9 +109,9 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h3 className="mb-6 text-xl font-bold">Backend</h3>
-              <div className="space-y-4">
-                {backend.map((skill, index) => (
+              <h3 className="mb-4 text-lg font-bold">Backend</h3>
+              <div className="space-y-3">
+                {skills.backend.map((skill, index) => (
                   <SkillItem
                     key={index}
                     name={skill.title}
@@ -153,29 +122,29 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-12">
-            <h3 className="mb-6 text-xl font-bold">Tools & Practices</h3>
-            <div className="flex flex-wrap gap-3">
-              {tools.map((tool) => (
-                <div
+          <div className="mt-8">
+            <h3 className="mb-4 text-lg font-bold">Tools & Practices</h3>
+            <div className="flex flex-wrap gap-2">
+              {skills.tools.map((tool) => (
+                <Badge
                   key={tool}
-                  className="px-4 py-2 rounded-md bg-secondary text-secondary-foreground"
+                  className="px-3 py-1 text-sm bg-accent/10 text-primary border-accent/20"
                 >
                   {tool}
-                </div>
+                </Badge>
               ))}
             </div>
           </div>
         </div>
       </Section>
 
-      <Section id="projects">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="inline-block pb-2 mb-8 text-3xl font-bold border-b-2 border-primary">
+      <Section id="projects" nextSectionId="education">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="inline-block pb-1 mb-6 text-2xl font-bold border-b-2 sm:text-3xl border-primary">
             Projects
           </h2>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {projects.map((project, index) => (
               <ProjectCard
                 key={index}
@@ -190,61 +159,62 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section id="experience">
+      <Section id="education" nextSectionId="contact">
         <div className="max-w-4xl mx-auto">
-          <h2 className="inline-block pb-2 mb-8 text-3xl font-bold border-b-2 border-primary">
-            Experience
+          <h2 className="inline-block pb-1 mb-6 text-2xl font-bold border-b-2 sm:text-3xl border-primary">
+            Education
           </h2>
-
-          <div className="space-y-6">
-            {experience.map((exp, index) => (
-              <ExperienceCard key={index} {...exp} />
-            ))}
+          <div className="space-y-4">
+            <EducationCard {...education} />
           </div>
         </div>
       </Section>
 
       <Section id="contact">
         <div className="max-w-4xl mx-auto">
-          <h2 className="inline-block pb-2 mb-8 text-3xl font-bold border-b-2 border-primary">
+          <h2 className="inline-block pb-1 mb-6 text-2xl font-bold border-b-2 sm:text-3xl border-primary">
             Get In Touch
           </h2>
 
-          <div className="mb-10">
-            <p className="mb-6 text-lg">
+          <div className="mb-8 space-y-6">
+            <p className="text-base sm:text-lg">
               I&apos;m currently open to freelance projects and full-time
               opportunities. If you&apos;d like to work together or just want to
               say hello, feel free to reach out!
             </p>
 
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button size="lg" asChild>
-                <a href="mailto:hello@example.com">Email Me</a>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button
+                size="lg"
+                asChild
+                variant="outline"
+                className="w-full rounded-full sm:w-auto"
+              >
+                <a href={`mailto:${details.email}`}>Email Me</a>
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
+              {details.links.map(({ path, icon: Icon }, index) => (
+                <Link
+                  className="flex items-center justify-center text-base duration-500 border rounded-full size-9 border-primary text-primary hover:bg-accent hover:text-primary hover:transition-all"
+                  href={path}
+                  key={index}
                   rel="noopener noreferrer"
-                >
-                  LinkedIn
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a
-                  href="https://github.com"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  aria-label={`Link to ${path}`}
                 >
-                  GitHub
-                </a>
-              </Button>
+                  <Icon />
+                </Link>
+              ))}
+            </div>
+
+            <div className="space-y-1 text-sm text-muted-foreground">
+              <p>Phone: {details.phone}</p>
+              <p>Location: {details.location}</p>
             </div>
           </div>
 
-          <div className="mt-20 text-center text-muted-foreground">
-            <p>© 2025 Alex Chen. All rights reserved.</p>
-          </div>
+          <p className="mt-10 text-sm text-center text-muted-foreground">
+            © {new Date().getFullYear()} {details.name}. All rights reserved.
+          </p>
         </div>
       </Section>
     </main>

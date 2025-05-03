@@ -45,7 +45,7 @@ export default function ProjectCard({
               <Badge
                 key={tech}
                 variant="outline"
-                className="bg-accent/10 text-accent-foreground border-accent/20"
+                className="bg-accent/10 text-primary border-accent/20"
               >
                 {tech}
               </Badge>
@@ -57,7 +57,7 @@ export default function ProjectCard({
             <Button
               variant="default"
               size="sm"
-              className="bg-accent hover:bg-accent/80 text-accent-foreground"
+              className="rounded-full bg-accent hover:bg-accent/80 text-accent-foreground"
               asChild
             >
               <a href={liveLink} target="_blank" rel="noopener noreferrer">
@@ -69,7 +69,7 @@ export default function ProjectCard({
             <Button
               variant="outline"
               size="sm"
-              className="border-accent/30 hover:bg-accent/10"
+              className="rounded-full hover:bg-accent/10"
               asChild
             >
               <a href={codeLink} target="_blank" rel="noopener noreferrer">

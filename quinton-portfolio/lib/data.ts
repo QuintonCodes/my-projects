@@ -1,60 +1,113 @@
-export const tools = [
-  "Git",
-  "GitHub Actions",
-  "Jest",
-  "Cypress",
-  "Figma",
-  "AWS",
-  "CI/CD",
-  "Agile",
-  "TDD",
+import {
+  FaGithub,
+  FaLinkedinIn,
+  FaStackOverflow,
+  FaTwitter,
+} from "react-icons/fa";
+
+export const details = {
+  title: "Hello I'm",
+  role: "Full Stack Developer",
+  name: "Kagiso Jiyane",
+  phone: "+27697874817",
+  location: "Pretoria, Gauteng",
+  hero_description:
+    "I build accessible, user-friendly web applications with modern technologies. Focused on creating clean, efficient, and maintainable code",
+  links: [
+    {
+      icon: FaGithub,
+      path: "https://github.com/QuintonCodes",
+    },
+    {
+      icon: FaStackOverflow,
+      path: "https://stackoverflow.com/users/21905567/quinton",
+    },
+    {
+      icon: FaLinkedinIn,
+      path: "https://www.linkedin.com/in/kagiso-jiyane",
+    },
+    {
+      icon: FaTwitter,
+      path: "https://x.com/quinton_dev",
+    },
+  ],
+  imageURL: "/potrait.webp",
+  email: "kagisojiyane28@gmail.com",
+};
+
+export const initialStats = [
+  { num: 0, text: "Projects completed" },
+  { num: 0, text: "Technologies mastered" },
+  { num: 0, text: "Code commits" },
 ];
 
-export const frontend = [
-  {
-    title: "React",
-    level: 9,
-  },
-  {
-    title: "TypeScript",
-    level: 8,
-  },
-  {
-    title: "Next.js",
-    level: 9,
-  },
-  {
-    title: "Tailwind CSS",
-    level: 9,
-  },
-  {
-    title: "Framer Motion",
-    level: 7,
-  },
+export const sections = [
+  "hero",
+  "experience",
+  "skills",
+  "projects",
+  "education",
+  "contact",
 ];
 
-export const backend = [
-  {
-    title: "Node.js",
-    level: 8,
-  },
-  {
-    title: "Express",
-    level: 8,
-  },
-  {
-    title: "PostgreSQL",
-    level: 7,
-  },
-  {
-    title: "GraphQL",
-    level: 6,
-  },
-  {
-    title: "Docker",
-    level: 7,
-  },
-];
+export const skills = {
+  frontend: [
+    {
+      title: "Next.js",
+      level: 8,
+    },
+    {
+      title: "TypeScript",
+      level: 8,
+    },
+    {
+      title: "HTML/CSS",
+      level: 10,
+    },
+    {
+      title: "Tailwind CSS",
+      level: 9,
+    },
+    {
+      title: "Framer Motion",
+      level: 6,
+    },
+  ],
+  backend: [
+    {
+      title: "Node.js",
+      level: 8,
+    },
+    {
+      title: "C#",
+      level: 7,
+    },
+    {
+      title: "PostgreSQL",
+      level: 6,
+    },
+    {
+      title: "SQL",
+      level: 8,
+    },
+    {
+      title: "Express.js",
+      level: 9,
+    },
+  ],
+  tools: [
+    "Git",
+    "ASP.NET Core",
+    "ShadCN/UI",
+    "Prisma",
+    "Postman",
+    "GitHub Actions",
+    "Jest",
+    "Figma",
+    "CI/CD",
+    "Agile",
+  ],
+};
 
 export const projects = [
   {
@@ -93,3 +146,23 @@ export const experience = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
   },
 ];
+
+export const education = {
+  institution: "Eduvos",
+  location: "Pretoria, Gauteng",
+  description:
+    "Pursuing a Bachelor of Science in Information Technology with a specialization in Software Engineering at Eduvos, Pretoria. The program emphasizes practical skills in software development, covering areas such as programming in C#, data structures and algorithms, mobile app development, and software architecture design. Through a blend of theoretical knowledge and hands-on projects, I am building a strong foundation to contribute effectively to the tech industry.",
+  degree: "BSc in Information Technology (Software Engineering)",
+  duration: "Feb 2023 - Present",
+  modules: [
+    "Programming in C#",
+    "Data Structures and Algorithms in C#",
+    "Mobile App Development",
+    "Database Systems",
+    "Software Architecture Design",
+    "Web Development & e-Commerce",
+    "IT Project Management",
+    "Object-Oriented Systems Analysis and Design",
+  ],
+  gpa: 3.74,
+};

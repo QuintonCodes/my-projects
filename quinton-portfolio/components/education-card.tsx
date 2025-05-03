@@ -7,21 +7,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-interface ExperienceCardProps {
-  title: string;
-  company: string;
+type EducationProps = {
+  institution: string;
+  degree: string;
+  location: string;
   duration: string;
   description: string;
-  technologies: string[];
-}
+  gpa: number;
+  modules: string[];
+};
 
-export default function ExperienceCard({
-  title,
-  company,
+export default function EducationCard({
+  institution,
+  degree,
+  location,
+  gpa,
   duration,
   description,
-  technologies,
-}: ExperienceCardProps) {
+  modules,
+}: EducationProps) {
   return (
     <div className="animate-fade-in-up will-change-transform">
       <Card className="mb-6 glass-card border-accent/20">
@@ -29,11 +33,14 @@ export default function ExperienceCard({
           <div className="flex flex-col gap-2 md:flex-row md:justify-between md:items-start">
             <div>
               <CardTitle className="text-lg font-bold text-foreground">
-                {title}
+                {institution} - {location}
               </CardTitle>
               <CardDescription className="text-base font-medium text-foreground/80">
-                {company}
+                {degree}
               </CardDescription>
+              <span className="text-sm text-muted-foreground whitespace-nowrap">
+                GPA: {gpa}/4.0
+              </span>
             </div>
             <span className="text-sm text-muted-foreground whitespace-nowrap">
               {duration}
@@ -43,12 +50,12 @@ export default function ExperienceCard({
         <CardContent>
           <p className="mb-4 text-foreground/90">{description}</p>
           <div className="flex flex-wrap gap-2">
-            {technologies.map((tech) => (
+            {modules.map((mod) => (
               <Badge
-                key={tech}
-                className="bg-secondary text-accent-foreground border-accent/20"
+                key={mod}
+                className="bg-accent/10 text-primary border-accent/20"
               >
-                {tech}
+                {mod}
               </Badge>
             ))}
           </div>

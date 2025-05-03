@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
-import { motion } from "motion/react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -19,10 +18,10 @@ export default function ThemeToggle() {
   const next = theme === "light" ? "dark" : "light";
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
+    <div
+      className={`transition-opacity duration-300 ${
+        mounted ? "opacity-100" : "opacity-0"
+      }`}
     >
       <Button
         variant="ghost"
@@ -37,6 +36,6 @@ export default function ThemeToggle() {
           <Sun className="w-5 h-5" />
         )}
       </Button>
-    </motion.div>
+    </div>
   );
 }

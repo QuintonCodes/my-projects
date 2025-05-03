@@ -1,5 +1,52 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@tailwind utilities;
+
+@layer utilities {
+  .animate-fade-in-scale {
+    animation: fadeInScale 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-bounce-slow {
+    animation: bounceSlow 2s infinite;
+  }
+
+  @keyframes fadeinScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounceSlow {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -120,10 +167,14 @@
   body {
     @apply leading-loose text-foreground bg-background font-jetbrains;
   }
+  html {
+    @apply scroll-smooth;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 
 @keyframes gradientShift {
@@ -151,4 +202,65 @@ html {
   animation: gradientShift 20s ease infinite;
   backdrop-filter: blur(10px);
   opacity: 0.9;
+}
+
+.glass-card {
+  @apply border shadow-lg backdrop-blur-md bg-card/40 border-white/10;
+}
+
+/* Vertical line animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.line-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Reusable animation utility */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-fade-in-slide {
+  animation: fadeInSlide 0.5s ease 0.2s forwards;
+}
+
+/* Project card hover effect */
+.project-card {
+  @apply transition-all duration-300 hover:shadow-xl;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Glow hover button effect */
+.glow-on-hover {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.glow-on-hover::after {
+  @apply content-[''] absolute inset-0 bg-gradient-to-r from-accent to-accent/50 blur-xl opacity-0 transition-opacity duration-300;
+}
+
+.glow-on-hover:hover::after {
+  @apply opacity-70;
+}
+
+/* Section transitions */
+.section-transition {
+  transition: all 0.5s ease-in-out;
 }
