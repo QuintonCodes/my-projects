@@ -14,7 +14,9 @@ export default function SkillItem({ name, level }: SkillItemProps) {
     <div className="mb-4">
       <div className="flex items-center justify-between mb-1">
         <span className="font-medium">{name}</span>
-        <span className="text-sm text-muted-foreground">{percentage}</span>
+        <span className="text-sm text-primary dark:text-muted-foreground">
+          {percentage}
+        </span>
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-secondary">
         <motion.div

@@ -38,11 +38,11 @@ export default function EducationCard({
               <CardDescription className="text-base font-medium text-foreground/80">
                 {degree}
               </CardDescription>
-              <span className="text-sm text-muted-foreground whitespace-nowrap">
+              <span className="text-sm text-primary dark:text-muted-foreground whitespace-nowrap">
                 GPA: {gpa}/4.0
               </span>
             </div>
-            <span className="text-sm text-muted-foreground whitespace-nowrap">
+            <span className="text-sm text-primary dark:text-muted-foreground whitespace-nowrap">
               {duration}
             </span>
           </div>

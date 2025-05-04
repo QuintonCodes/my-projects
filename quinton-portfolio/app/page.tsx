@@ -45,13 +45,13 @@ export default function HomePage() {
               {details.name}
             </span>
           </h1>
-          <h2 className="mb-4 text-xl font-medium sm:text-2xl md:text-3xl lg:text-4xl text-muted-foreground">
+          <h2 className="mb-4 text-xl font-medium sm:text-2xl md:text-3xl lg:text-4xl text-primary dark:text-muted-foreground">
             {details.role}
           </h2>
           <p className="max-w-xl mb-6 text-base sm:text-lg">
             {details.hero_description}
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+          <div className="flex gap-3 sm:gap-4">
             <a download="Quinton's Resume" href="/resume.pdf">
               <Button size="lg" className="rounded-full">
                 <span>Download Resume</span>
@@ -62,7 +62,7 @@ export default function HomePage() {
               size="lg"
               variant="outline"
               asChild
-              className="w-full rounded-full sm:w-auto dark:hover:bg-accent hover:bg-primary/20"
+              className="rounded-full dark:hover:bg-accent hover:bg-primary/20"
             >
               <a href="#projects">View My Work</a>
             </Button>
@@ -192,27 +192,29 @@ export default function HomePage() {
               >
                 <a href={`mailto:${details.email}`}>Email Me</a>
               </Button>
-              {details.links.map(({ path, icon: Icon }, index) => (
-                <Link
-                  className="flex items-center justify-center text-base duration-500 border rounded-full size-9 border-primary text-primary hover:bg-accent hover:text-primary hover:transition-all"
-                  href={path}
-                  key={index}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  aria-label={`Link to ${path}`}
-                >
-                  <Icon />
-                </Link>
-              ))}
+              <div className="flex items-center gap-3">
+                {details.links.map(({ path, icon: Icon }, index) => (
+                  <Link
+                    className="flex items-center justify-center text-base duration-500 border rounded-full size-9 border-primary text-primary hover:bg-accent hover:text-primary hover:transition-all"
+                    href={path}
+                    key={index}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    aria-label={`Link to ${path}`}
+                  >
+                    <Icon />
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-1 text-sm text-muted-foreground">
+            <div className="space-y-1 text-sm text-primary dark:text-muted-foreground">
               <p>Phone: {details.phone}</p>
               <p>Location: {details.location}</p>
             </div>
           </div>
 
-          <p className="mt-10 text-sm text-center text-muted-foreground">
+          <p className="mt-10 text-sm text-center text-primary dark:text-muted-foreground">
             © {new Date().getFullYear()} {details.name}. All rights reserved.
           </p>
         </div>

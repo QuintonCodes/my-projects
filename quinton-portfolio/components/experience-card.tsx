@@ -35,7 +35,7 @@ export default function ExperienceCard({
                 {company}
               </CardDescription>
             </div>
-            <span className="text-sm text-muted-foreground whitespace-nowrap">
+            <span className="text-sm text-primary dark:text-muted-foreground whitespace-nowrap">
               {duration}
             </span>
           </div>
