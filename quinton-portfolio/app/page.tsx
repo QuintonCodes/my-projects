@@ -31,8 +31,12 @@ export default function HomePage() {
       >
         {/* Profile image */}
         <div className="animate-fade-in-scale">
-          <Avatar className="w-48 h-48 border-4 shadow-xl border-primary/20">
-            <AvatarImage src={details.imageURL} alt={details.name} />
+          <Avatar className="w-56 h-56 border-4 shadow-xl border-primary/20">
+            <AvatarImage
+              src={details.imageURL}
+              alt={details.name}
+              className="object-cover aspect-auto"
+            />
             <AvatarFallback>KQ</AvatarFallback>
           </Avatar>
         </div>

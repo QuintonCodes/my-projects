@@ -31,7 +31,7 @@ export const details = {
       path: "https://x.com/quinton_dev",
     },
   ],
-  imageURL: "/potrait.webp",
+  imageURL: "/me.webp",
   email: "kagisojiyane28@gmail.com",
 };
 
