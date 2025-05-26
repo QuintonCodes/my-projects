@@ -21,7 +21,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useAddProduct } from "@/lib/products";
 
 // Define the schema for the entire form
 const productSchema = z.object({
@@ -60,8 +59,6 @@ export default function SellPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("details");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const { mutateAsync: addProduct } = useAddProduct();
 
   const methods = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
@@ -108,8 +105,7 @@ export default function SellPage() {
         shippingOptions: data.shippingOptions,
       };
 
-      // Submit to API
-      await addProduct(productData);
+      console.log(productData)
 
       toast.success("Product listed successfully!", {
         description: "Your product has been listed for sale.",
