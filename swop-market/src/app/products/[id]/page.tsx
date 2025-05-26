@@ -6,13 +6,14 @@ import RelatedProducts from "@/components/related-products";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { products } from "@/lib/products";
+import { use } from "react";
 
-export default async function ProductPage({
+export default function ProductPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  const { id } = use(params);
 
   if (!id || isNaN(Number(id))) {
     notFound();
