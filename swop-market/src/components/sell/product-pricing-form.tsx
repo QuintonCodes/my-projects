@@ -61,9 +61,9 @@ export default function ProductPricingForm() {
                 <Input
                   type="number"
                   min="0"
-                  step="0.01"
+                  step="10.00"
                   className="pl-8"
-                  placeholder="0.00"
+                  // placeholder="0.00"
                   {...field}
                   onChange={(e) =>
                     field.onChange(Number.parseFloat(e.target.value) || 0)
