@@ -1,19 +1,22 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { MapPin, Trash2, User } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useCartStore } from "@/context/cart-provider";
-import { formatCurrency } from "@/lib/utils";
+import type { CartItem } from "@/lib/types/cart";
+import { formatCondition, formatCurrency } from "@/lib/utils";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 
-export default function CartItems() {
-  const { items, removeItem, updateQuantity } = useCartStore();
+type CartItemsProps = {
+  items: CartItem[];
+  removeItem: (id: string) => void;
+};
 
+export default function CartItems({ items, removeItem }: CartItemsProps) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <AnimatePresence>
         {items.map((item) => (
           <motion.div
@@ -23,64 +26,57 @@ export default function CartItems() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col gap-4 pb-6 border-b sm:flex-row"
+            className="flex flex-col gap-4 p-4 border rounded-lg bg-card sm:flex-row"
           >
             <div className="relative w-24 h-24 overflow-hidden rounded-md sm:h-32 sm:w-32">
               <Image
-                src={item.image || "/placeholder.svg?height=128&width=128"}
+                src={item.imageUrl || "/placeholder.svg?"}
                 alt={item.name}
                 fill
+                sizes="96px"
                 className="object-cover"
               />
             </div>
-            <div className="flex flex-col flex-1">
-              <div className="flex flex-col sm:flex-row sm:justify-between">
-                <div>
-                  <h3 className="text-lg font-medium">{item.name}</h3>
-                  <p className="mb-2 text-sm text-muted-foreground">
-                    Seller: {item.seller || "Unknown"}
-                  </p>
-                </div>
-                <div className="font-semibold">
-                  {formatCurrency(item.price)}
+            <div className="flex flex-col justify-between flex-1">
+              <div className="space-y-2">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
+                  <div className="space-y-1">
+                    <h3 className="text-lg font-semibold leading-tight">
+                      {item.name}
+                    </h3>
+
+                    {item.seller && (
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <User className="w-3 h-3" />
+                        <span>{item.seller}</span>
+                      </div>
+                    )}
+
+                    {item.location && (
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <MapPin className="w-3 h-3" />
+                        <span>{item.location}</span>
+                      </div>
+                    )}
+
+                    {item.condition && (
+                      <Badge variant="secondary" className="w-fit">
+                        {formatCondition(item.condition)}
+                      </Badge>
+                    )}
+                  </div>
+
+                  <div className="mt-2 text-right sm:mt-0">
+                    <div className="text-xl font-bold text-teal-700">
+                      {formatCurrency(item.price)}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between mt-auto">
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="w-8 h-8"
-                    onClick={() =>
-                      updateQuantity(item.id, Math.max(1, item.quantity - 1))
-                    }
-                    disabled={item.quantity <= 1}
-                  >
-                    <span>-</span>
-                    <span className="sr-only">Decrease quantity</span>
-                  </Button>
-                  <Input
-                    type="number"
-                    min="1"
-                    value={item.quantity}
-                    onChange={(e) =>
-                      updateQuantity(
-                        item.id,
-                        Number.parseInt(e.target.value) || 1
-                      )
-                    }
-                    className="h-8 text-center w-14"
-                  />
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="w-8 h-8"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  >
-                    <span>+</span>
-                    <span className="sr-only">Increase quantity</span>
-                  </Button>
+              <div className="flex items-center justify-between mt-4">
+                <div className="text-sm text-muted-foreground">
+                  Unique item - Only 1 available
                 </div>
 
                 <Button
@@ -92,12 +88,6 @@ export default function CartItems() {
                   <Trash2 className="w-4 h-4 mr-1" />
                   Remove
                 </Button>
-              </div>
-
-              <div className="mt-2 text-sm text-right">
-                <span className="font-medium">
-                  Total: {formatCurrency(item.price * item.quantity)}
-                </span>
               </div>
             </div>
           </motion.div>

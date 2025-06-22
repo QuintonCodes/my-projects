@@ -20,14 +20,11 @@ interface UseFilterPersistenceProps {
 
 export const useFilterPersistence = ({
   key,
-  defaultFilters,
   autoApplyOnFirstLoad = false,
 }: UseFilterPersistenceProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [isInitialized, setIsInitialized] = useState(false);
-
-  console.log(defaultFilters);
 
   // Function to get current filters from URL
   const getCurrentFilters = useCallback((): FilterState => {

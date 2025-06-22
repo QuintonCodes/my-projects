@@ -1,7 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/@prisma-client"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -9,17 +7,261 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum userRoles {
+  user
+  seller
+  admin
+}
+
+enum productStatus {
+  active
+  sold
+  draft
+}
+
+enum productCondition {
+  new
+  used_new
+  used_good
+  used_fair
+  for_parts
+}
+
+enum deliveryOptions {
+  pickup
+  courier
+  local_delivery
+  meet_in_person
+}
+
+enum orderStatus {
+  pending
+  completed
+  cancelled
+  refunded
+}
+
+enum paymentMethod {
+  creditCard
+  bankTransfer
+  cashOnDelivery
+}
+
+enum paymentStatus {
+  pending
+  completed
+  failed
+  refunded
+}
+
 model User {
-  id           String   @id @default(cuid())
-  username    String   @unique
+  id          String    @id @default(cuid())
+  firstName   String
+  lastName    String
+  username    String? @unique
   password    String
-  email       String   @unique
-  firstName        String?
-  lastName        String?
+  email       String @unique
   avatarUrl   String?
-  accountStatus String   @default("active")
-  emailVerified Boolean  @default(false)
+  phoneNumber String? @unique
+  bio         String?
+  role        userRoles @default(user)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lastLogin   DateTime?
+
+  cart          Cart?          @relation("UserCart")
+  sellerProfile Seller?        @relation("SellerProfile")
+  orders        Order[]        @relation("BuyerOrders")
+  reviews       Review[]       @relation("BuyerReviews")
+  favourites    Favourite[]    @relation("UserFavourites")
+  payments      Payment[]      @relation("UserPayments")
+  notifications Notification[] @relation("UserNotifications")
+  addresses     Address[]      @relation("UserAddresses")
+
+  // @@unique([username, email, phoneNumber])
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  userId     String
+  street     String
+  city       String
+  state      String?
+  postalCode String
+  country    String
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  user   User    @relation("UserAddresses", fields: [userId], references: [id], onDelete: Cascade)
+  orders Order[] @relation("OrderShippingAddress")
+
+  @@unique([userId, isDefault])
+}
+
+model Seller {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  storeName        String
+  storeDescription String?
+  contactEmail     String?
+  contactNumber    String?
+  location         String?
+  isVerified       Boolean  @default(false)
+  rating           Float    @default(0)
+  totalSales       Int      @default(0)
+  productCount     Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  orders   Order[]   @relation("SellerOrders")
+  user     User      @relation("SellerProfile", fields: [userId], references: [id], onDelete: Cascade)
+  products Product[] @relation("SellerProducts")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  buyerId   String
+  user String
+  rating    Int      @default(0) /// Between 1 and 5
+  comment   String?
+  createdAt DateTime @default(now())
+
+  product Product @relation("ProductReviews", fields: [productId], references: [id], onDelete: Cascade)
+  buyer   User    @relation("BuyerReviews", fields: [buyerId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, buyerId])
+  @@index([productId])
+}
+
+model Product {
+  id              String            @id @default(cuid())
+  sellerId        String
+  name            String
+  description     String
+  imageUrl        String[]
+  category        String
+  condition       productCondition
+  location        String?
+  deliveryOptions deliveryOptions[]
+  price           Decimal           @default(0)
+  originalPrice   Decimal?
+  views           Int?              @default(0)
+  likes           Int?              @default(0)
+  status          productStatus     @default(draft)
+  brand           String?
+  model           String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  isDeleted       Boolean           @default(false)
+  deletedAt       DateTime?
+
+  seller     Seller      @relation("SellerProducts", fields: [sellerId], references: [id], onDelete: Cascade)
+  order      Order[]     @relation("ProductOrder")
+  cartItems  CartItem[]  @relation("ProductCartItems")
+  favourites Favourite[] @relation("ProductFavourites")
+  reviews    Review[]    @relation("ProductReviews")
+
+  @@index([name, category])
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  buyerId           String
+  productId         String
+  shippingAddressId String?
+  sellerId          String
+  totalPrice        Decimal     @default(0)
+  status            orderStatus @default(pending)
+  orderDate         DateTime    @default(now())
+
+  buyer           User           @relation("BuyerOrders", fields: [buyerId], references: [id], onDelete: Cascade)
+  product         Product        @relation("ProductOrder", fields: [productId], references: [id], onDelete: Cascade)
+  seller          Seller         @relation("SellerOrders", fields: [sellerId], references: [id], onDelete: Cascade)
+  paymentOrders   PaymentOrder[] @relation("PaymentOrders")
+  shippingAddress Address?       @relation("OrderShippingAddress", fields: [shippingAddressId], references: [id], onDelete: SetNull)
+
+  @@index([buyerId, status])
+  @@index([productId, status])
+  @@index([sellerId, status])
+}
+
+model Payment {
+  id                   String        @id @default(cuid())
+  userId               String
+  amount               Decimal       @default(0)
+  paymentMethod        paymentMethod @default(creditCard)
+  status               paymentStatus @default(pending)
+  transactionReference String?       @unique
+  currency             String        @default("ZAR")
+  paymentDate          DateTime      @default(now())
+
+  user          User           @relation("UserPayments", fields: [userId], references: [id], onDelete: Cascade)
+  paymentOrders PaymentOrder[] @relation("PaymentOrders")
+}
+
+model PaymentOrder {
+  id        String   @id @default(cuid())
+  orderId   String
+  paymentId String
+  amount    Decimal  @default(0)
+  createdAt DateTime @default(now())
+
+  payment Payment @relation("PaymentOrders", fields: [paymentId], references: [id], onDelete: Cascade)
+  order   Order   @relation("PaymentOrders", fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@unique([orderId, paymentId])
+  @@index([orderId])
+  @@index([paymentId])
+}
+
+model Cart {
+  id         String   @id @default(cuid())
+  userId     String?  @unique
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  lastLogin   DateTime?
+  totalPrice Decimal  @default(0)
+  totalItems Int      @default(0)
+
+  items CartItem[] @relation("CartItems")
+  user  User?      @relation("UserCart", fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CartItem {
+  id        String        @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int           @default(1)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  status    productStatus @default(active)
+
+  cart    Cart    @relation("CartItems", fields: [cartId], references: [id], onDelete: Cascade)
+  product Product @relation("ProductCartItems", fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+model Favourite {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User    @relation("UserFavourites", fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation("ProductFavourites", fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
 }

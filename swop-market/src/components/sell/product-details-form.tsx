@@ -1,7 +1,15 @@
 "use client";
 
+import { Package, Tag } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -19,129 +27,175 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-
-const categories = [
-  { id: "electronics", name: "Electronics" },
-  { id: "furniture", name: "Furniture" },
-  { id: "clothing", name: "Clothing" },
-  { id: "vehicles", name: "Vehicles" },
-  { id: "property", name: "Property" },
-  { id: "services", name: "Services" },
-  { id: "home-garden", name: "Home & Garden" },
-  { id: "sports", name: "Sports & Leisure" },
-  { id: "toys-games", name: "Toys & Games" },
-  { id: "books-music-movies", name: "Books, Music & Movies" },
-];
-
-const conditions = [
-  { id: "new", name: "New" },
-  { id: "used-like-new", name: "Used - Like New" },
-  { id: "used-good", name: "Used - Good" },
-  { id: "used-fair", name: "Used - Fair" },
-  { id: "for-parts", name: "For Parts or Not Working" },
-];
+import { categories, conditionOptions } from "@/lib/data";
 
 export default function ProductDetailsForm() {
   const { control } = useFormContext();
 
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <h2 className="text-xl font-semibold">Product Details</h2>
-        <p className="text-sm text-muted-foreground">
-          Provide basic information about your product.
-        </p>
-      </div>
-
-      <FormField
-        control={control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Product Name</FormLabel>
-            <FormControl>
-              <Input placeholder="e.g., Samsung Galaxy S22" {...field} />
-            </FormControl>
-            <FormDescription>
-              Choose a clear, descriptive title for your product.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={control}
-        name="description"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Description</FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder="Describe your product in detail..."
-                className="min-h-[120px]"
-                {...field}
-              />
-            </FormControl>
-            <FormDescription>
-              Include details like features, condition, age, and any defects.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <FormField
-          control={control}
-          name="category"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Category</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Package className="w-5 h-5" />
+            Basic Information
+          </CardTitle>
+          <CardDescription>Tell us about your product</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <FormField
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Product Name</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a category" />
-                  </SelectTrigger>
+                  <Input placeholder="e.g., iPhone 13 Pro Max" {...field} />
                 </FormControl>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.id}>
-                      {category.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormDescription>
+                  Choose a clear, descriptive name for your product
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={control}
-          name="condition"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Condition</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <FormField
+            control={control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select condition" />
-                  </SelectTrigger>
+                  <Textarea
+                    placeholder="Describe your product in detail. Include condition, features, and any defects..."
+                    className="min-h-[120px]"
+                    {...field}
+                  />
                 </FormControl>
-                <SelectContent>
-                  {conditions.map((condition) => (
-                    <SelectItem key={condition.id} value={condition.id}>
-                      {condition.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
+                <FormDescription>
+                  Be honest and detailed to attract the right buyers
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <FormField
+              control={control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id} value={category.name}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="condition"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Condition</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select condition" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {conditionOptions.map((condition) => (
+                        <SelectItem
+                          key={condition.value}
+                          value={condition.value}
+                        >
+                          {condition.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Tag className="w-5 h-5" />
+            Product Details
+          </CardTitle>
+          <CardDescription>
+            Additional product information (optional)
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2">
+            <FormField
+              control={control}
+              name="brand"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Brand</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="e.g., Apple, Samsung, Nike"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Product brand or manufacturer
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="model"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Model</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="e.g., iPhone 13 Pro Max, Galaxy S22"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>Specific model or version</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

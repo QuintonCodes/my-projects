@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/context/cart-provider";
 import { formatCurrency } from "@/lib/utils";
@@ -20,7 +19,7 @@ export default function OrderSummary({
   editable = false,
   condensed = false,
 }: OrderSummaryProps) {
-  const { items, removeItem, updateQuantity } = useCartStore();
+  const { items, removeItem } = useCartStore();
   const [subtotal, setSubtotal] = useState(0);
   const [shipping, setShipping] = useState(0);
   const [tax, setTax] = useState(0);
@@ -29,7 +28,7 @@ export default function OrderSummary({
   // Calculate order totals
   useEffect(() => {
     const calculatedSubtotal = items.reduce(
-      (sum, item) => sum + item.price * item.quantity,
+      (sum, item) => sum + (Number(item.price) || 0),
       0
     );
 
@@ -48,12 +47,6 @@ export default function OrderSummary({
     setTax(calculatedTax);
     setTotal(calculatedTotal);
   }, [items]);
-
-  // Handle quantity change
-  const handleQuantityChange = (id: string, newQuantity: number) => {
-    if (newQuantity < 1) return;
-    updateQuantity(id, newQuantity);
-  };
 
   // Handle item removal
   const handleRemoveItem = (id: string) => {
@@ -89,7 +82,7 @@ export default function OrderSummary({
               } overflow-hidden rounded-md flex-shrink-0`}
             >
               <Image
-                src={item.image || "/placeholder.svg?height=80&width=80"}
+                src={item.imageUrl || "/placeholder.svg?height=80&width=80"}
                 alt={item.name}
                 fill
                 className="object-cover"
@@ -114,7 +107,7 @@ export default function OrderSummary({
                   )}
                 </div>
                 <div className={`font-semibold ${condensed ? "text-sm" : ""}`}>
-                  {formatCurrency(item.price * item.quantity)}
+                  {formatCurrency(item.price)}
                 </div>
               </div>
 
@@ -123,47 +116,9 @@ export default function OrderSummary({
                   condensed ? "mt-1" : "mt-2"
                 }`}
               >
-                {editable ? (
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="h-7 w-7"
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity - 1)
-                      }
-                      disabled={item.quantity <= 1}
-                    >
-                      <span>-</span>
-                    </Button>
-                    <Input
-                      type="number"
-                      min="1"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(
-                          item.id,
-                          Number.parseInt(e.target.value) || 1
-                        )
-                      }
-                      className="w-12 text-center h-7"
-                    />
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="h-7 w-7"
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity + 1)
-                      }
-                    >
-                      <span>+</span>
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="text-sm">
-                    Qty: {item.quantity} × {formatCurrency(item.price)}
-                  </div>
-                )}
+                <div className="text-sm">
+                  Qty: 1 x {formatCurrency(item.price)}
+                </div>
 
                 {editable && (
                   <Button

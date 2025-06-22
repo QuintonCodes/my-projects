@@ -1,14 +1,14 @@
-import { products as allProducts } from "@/lib/products";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { FilterState, useFilterPersistence } from "./use-filter-persistence";
+import { useProducts } from "./use-products";
 
 export function useProductList() {
   const { currentFilters } = useFilterPersistence({
     key: "swopmarket-filters",
     autoApplyOnFirstLoad: true,
   });
-
+  const { products: allProducts, isLoading, error } = useProducts();
   const params = useSearchParams();
 
   const filters: FilterState = useMemo(() => {
@@ -51,11 +51,11 @@ export function useProductList() {
       list = list.filter((product) => {
         const meetsMin =
           filters.minPrice !== undefined
-            ? product.price >= filters.minPrice
+            ? Number(product.price) >= filters.minPrice
             : true;
         const meetsMax =
           filters.maxPrice !== undefined
-            ? product.price <= filters.maxPrice
+            ? Number(product.price) <= filters.maxPrice
             : true;
         return meetsMin && meetsMax;
       });
@@ -69,26 +69,28 @@ export function useProductList() {
 
     switch (filters.sort) {
       case "price_asc":
-        list.sort((a, b) => a.price - b.price);
+        list.sort((a, b) => Number(a.price) - Number(b.price));
         break;
       case "price_desc":
-        list.sort((a, b) => b.price - a.price);
+        list.sort((a, b) => Number(b.price) - Number(a.price));
         break;
       case "newest":
         list.sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            new Date(b.createdAt || "").getTime() -
+            new Date(a.createdAt || "").getTime()
         );
         break;
       default:
         list.sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            new Date(b.createdAt || "").getTime() -
+            new Date(a.createdAt || "").getTime()
         );
     }
 
     return list;
-  }, [filters]);
+  }, [allProducts, filters]);
 
-  return { products, filters };
+  return { products, filters, isLoading, error };
 }

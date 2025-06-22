@@ -1,13 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Camera, Loader2, Save } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
+import { Save, Store, User } from "lucide-react";
+import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { updateProfile } from "@/app/actions/profile";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,7 +20,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,195 +27,316 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { UserWithSeller } from "@/context/auth-provider";
 
 const profileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email"),
-  phone: z.string().optional(),
-  location: z.string().min(2, "Please enter your location"),
-  bio: z.string().max(500, "Bio must be less than 500 characters").optional(),
+  phoneNumber: z.string().optional(),
+  username: z.string().optional(),
+
+  storeName: z.string().optional(),
+  storeDescription: z.string().optional(),
+  storeLocation: z.string().optional(),
+  contactEmail: z
+    .string()
+    .email("Please enter a valid email address")
+    .optional()
+    .or(z.literal("")),
+  contactPhone: z.string().optional(),
 });
 
 type ProfileFormValues = z.infer<typeof profileSchema>;
 
-export default function AccountProfile() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+export default function AccountProfile({
+  user,
+  setUser,
+}: {
+  user: UserWithSeller | null;
+  setUser: (user?: UserWithSeller | null) => void;
+}) {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: "John Doe",
-      email: "john.doe@example.com",
-      phone: "+27 12 345 6789",
-      location: "Cape Town, South Africa",
-      bio: "I'm a tech enthusiast who loves buying and selling gadgets. I always ensure my items are in great condition and accurately described.",
+      name: user?.firstName + " " + user?.lastName || "",
+      email: user?.email || "",
+      phoneNumber: user?.phoneNumber || "",
+      username: user?.username || "",
+      storeName: user?.sellerProfile?.storeName || "",
+      storeDescription: user?.sellerProfile?.storeDescription || "",
+      storeLocation: user?.sellerProfile?.location || "",
+      contactEmail: user?.email || "",
+      contactPhone: user?.phoneNumber || "",
     },
   });
 
-  function onSubmit() {
-    setIsSubmitting(true);
+  const isSeller = user?.role === "seller" || user?.role === "admin";
 
-    // Simulate API call
-    setTimeout(() => {
+  const {
+    formState: { isSubmitting },
+  } = form;
+
+  async function onSubmit(data: ProfileFormValues) {
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value.toString() ?? "");
+      });
+
+      const result = await updateProfile(formData);
+
+      if (!result.success) {
+        toast.error("Profile update failed", {
+          description: result?.error || "An error occurred.",
+        });
+        return;
+      }
+
+      // Update local auth state
+      setUser(result.user);
+
       toast.success("Profile updated", {
         description: "Your profile has been updated successfully.",
       });
-      setIsSubmitting(false);
-    }, 1500);
+    } catch {
+      toast.error("Profile update failed", {
+        description: "An unexpected error occurred.",
+      });
+    }
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Profile Information</CardTitle>
-        <CardDescription>
-          Update your personal information and public profile
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-            <div className="relative">
-              <div className="relative w-24 h-24 overflow-hidden rounded-full">
-                <Image
-                  src="/placeholder.svg?height=96&width=96&text=JD"
-                  alt="Profile"
-                  fill
-                  className="object-cover"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="space-y-6">
+        {/* Profile Picture */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <User className="w-5 h-5" />
+              Profile Picture
+            </CardTitle>
+            <CardDescription>Update your profile picture</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-4">
+              <Avatar className="w-20 h-20">
+                <AvatarImage
+                  src={user?.avatarUrl || "/placeholder.svg"}
+                  alt={user?.firstName}
                 />
+                <AvatarFallback className="text-lg">
+                  {user?.firstName.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <Button variant="outline" size="sm">
+                  Change Picture
+                </Button>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  JPG, PNG or GIF. Max size 2MB.
+                </p>
               </div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-background"
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Personal Information */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <User className="w-5 h-5" />
+              Personal Information
+            </CardTitle>
+            <CardDescription>Update your personal details</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
               >
-                <Camera className="w-4 h-4" />
-                <span className="sr-only">Change profile picture</span>
-              </Button>
-            </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Full Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter your full name"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-            <div className="flex-1 text-center sm:text-left">
-              <h3 className="text-lg font-semibold">John Doe</h3>
-              <p className="text-sm text-muted-foreground">
-                Member since May 2024
-              </p>
-              <div className="flex flex-wrap justify-center gap-2 mt-2 sm:justify-start">
-                <div className="px-2 py-1 text-xs rounded-full bg-muted">
-                  24 Sales
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email Address</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="Enter your email"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-                <div className="px-2 py-1 text-xs rounded-full bg-muted">
-                  15 Purchases
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="+27 12 345 6789" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input placeholder="johnsmith123" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-                <div className="px-2 py-1 text-xs rounded-full bg-muted">
-                  4.8/5 Rating
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                {/* Seller Information */}
+                {isSeller && (
+                  <>
+                    <div className="pt-6 border-t">
+                      <h3 className="flex items-center gap-2 mb-4 text-lg font-semibold">
+                        <Store className="w-5 h-5" />
+                        Store Information
+                      </h3>
+                    </div>
 
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                    <FormField
+                      control={form.control}
+                      name="storeName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Store Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your store name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                    <FormField
+                      control={form.control}
+                      name="storeDescription"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Store Description</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Describe your store and what you sell..."
+                              className="min-h-[100px]"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-                <FormField
-                  control={form.control}
-                  name="location"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Location</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+                    <FormField
+                      control={form.control}
+                      name="storeLocation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Store Location</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Store location" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-              <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Bio</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        {...field}
-                        placeholder="Tell potential buyers about yourself..."
-                        className="min-h-[120px]"
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <FormField
+                        control={form.control}
+                        name="contactEmail"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Store Contact Email</FormLabel>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                placeholder="store@example.com"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
-                    </FormControl>
-                    <FormDescription>
-                      This will be displayed on your public profile. Max 500
-                      characters.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
-              <Button
-                type="submit"
-                className="bg-teal-700 hover:bg-teal-800"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Saving...
-                  </>
-                ) : (
-                  <>
-                    <Save className="w-4 h-4 mr-2" />
-                    Save Changes
+                      <FormField
+                        control={form.control}
+                        name="contactPhone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Store Contact Phone</FormLabel>
+                            <FormControl>
+                              <Input placeholder="+27 12 345 6789" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </>
                 )}
-              </Button>
-            </form>
-          </Form>
-        </div>
-      </CardContent>
-    </Card>
+
+                <Button
+                  type="submit"
+                  className="bg-teal-700 hover:bg-teal-800"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    "Saving..."
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4 mr-2" />
+                      Save Changes
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
+    </motion.div>
   );
 }

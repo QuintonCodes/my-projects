@@ -1,22 +1,15 @@
+import type { CartItem } from "@/lib/types/cart";
 import { createContext, useContext, useState } from "react";
 import { createStore, StoreApi, useStore } from "zustand";
 import { persist } from "zustand/middleware";
-
-type CartItem = {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  image?: string;
-  seller?: string;
-};
 
 type CartStore = {
   items: CartItem[];
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
+  isInCart: (id: string) => boolean;
+  getCartTotal: () => number;
   fetchCartItems: () => void;
   initializeCart: () => void;
 };
@@ -39,16 +32,10 @@ export default function CartProvider({
             const existingItem = items.find((i) => i.id === item.id);
 
             if (existingItem) {
-              set({
-                items: items.map((i) =>
-                  i.id === item.id
-                    ? { ...i, quantity: i.quantity + item.quantity }
-                    : i
-                ),
-              });
-            } else {
-              set({ items: [...items, item] });
+              return;
             }
+
+            set({ items: [...items, item] });
           },
 
           removeItem: (id) => {
@@ -56,17 +43,18 @@ export default function CartProvider({
             set({ items: items.filter((item) => item.id !== id) });
           },
 
-          updateQuantity: (id, quantity) => {
-            const { items } = get();
-            set({
-              items: items.map((item) =>
-                item.id === id ? { ...item, quantity } : item
-              ),
-            });
-          },
-
           clearCart: () => {
             set({ items: [] });
+          },
+
+          isInCart: (id) => {
+            const { items } = get();
+            return items.some((item) => item.id === id);
+          },
+
+          getCartTotal: () => {
+            const { items } = get();
+            return items.reduce((total, item) => total + Number(item.price), 0);
           },
 
           fetchCartItems: () => {
@@ -93,6 +81,7 @@ export default function CartProvider({
 
 export function useCartStore() {
   const store = useContext(CartContext);
-  if (!store) throw new Error("CartProvider is missing");
+  if (!store)
+    throw new Error("useCartStore must be used within a CartProvider");
   return useStore(store);
 }

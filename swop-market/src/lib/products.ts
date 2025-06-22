@@ -1,75 +1,22 @@
-import { Product } from "./types/product";
+import { db } from "./prisma";
+import { Seller } from "./types/product";
 
-export const categories = [
-  {
-    id: "electronics",
-    name: "Electronics",
-    image: "/products/samsung.webp",
-    count: 4,
-  },
-  {
-    id: "sports",
-    name: "Sports",
-    image: "/products/skateboard.webp",
-    count: 2,
-  },
-  {
-    id: "fashion",
-    name: "Fashion",
-    image: "/products/jersey.webp",
-    count: 2,
-  },
-  {
-    id: "vehicles",
-    name: "Vehicles",
-    image: "/products/car.webp",
-    count: 1,
-  },
-  {
-    id: "gaming",
-    name: "Gaming & Media",
-    image: "/products/ps5.webp",
-    count: 1,
-  },
-  {
-    id: "home",
-    name: "Home",
-    image: "/products/kettle.webp",
-    count: 4,
-  },
-];
-
-export const priceDistributionData = [
-  { range: "0-1k", count: 2 },
-  { range: "1k-5k", count: 5 },
-  { range: "5k-10k", count: 3 },
-  { range: "10k-20k", count: 2 },
-  { range: "20k-50k+", count: 2 },
-];
-
-export const conditionOptions = [
-  { id: "new", label: "New" },
-  { id: "used-like-new", label: "Used - Like New" },
-  { id: "used-good", label: "Used - Good" },
-  { id: "used-fair", label: "Used - Fair" },
-  { id: "for-parts", label: "For Parts or Not Working" },
-];
-
-export const products: Product[] = [
+export const products = [
   {
     id: "1",
     name: "Vintage Leather Sofa",
     description:
       "Beautiful vintage leather sofa in excellent condition. Perfect for any living room.",
     price: 4500,
-    image: "/products/vintage-sofa.webp",
+    images: ["/products/vintage-sofa.webp"],
     seller: "FurnitureFinds",
     category: "Home",
-    condition: "used-like-new",
+    condition: "used_new",
     location: "Cape Town",
-    createdAt: "2023-12-15T10:30:00Z",
+    deliveryOptions: ["pickup", "local_delivery"],
+    createdAt: new Date("2024-06-01T10:00:00Z"),
     originalPrice: 8000,
-    stock: 5,
+    status: "active",
     brand: "VintageCo",
     reviews: [
       {
@@ -77,7 +24,7 @@ export const products: Product[] = [
         user: "Alice",
         rating: 5,
         comment: "Absolutely love this sofa! It's so comfortable and stylish.",
-        date: "2024-01-10",
+        date: new Date("2024-06-05"),
       },
       {
         id: "2",
@@ -85,7 +32,7 @@ export const products: Product[] = [
         rating: 4,
         comment:
           "Great quality, but the color is slightly darker than in the pictures.",
-        date: "2024-01-12",
+        date: new Date("2024-06-07"),
       },
     ],
   },
@@ -95,14 +42,15 @@ export const products: Product[] = [
     description:
       "Samsung Galaxy S22 in perfect condition. Includes charger and original box.",
     price: 8999,
-    image: "/products/samsung.webp",
+    images: ["/products/samsung.webp"],
     seller: "TechTraders",
     category: "Electronics",
-    condition: "used-good",
+    condition: "used_good",
     location: "Johannesburg",
-    createdAt: "2024-01-20T14:45:00Z",
+    deliveryOptions: ["pickup", "courier", "local_delivery"],
+    createdAt: new Date("2024-06-02T09:00:00Z"),
     originalPrice: 12000,
-    stock: 10,
+    status: "active",
     brand: "Samsung",
     model: "S22",
     reviews: [
@@ -111,7 +59,7 @@ export const products: Product[] = [
         user: "Charlie",
         rating: 5,
         comment: "Great phone! Fast and reliable. Highly recommend.",
-        date: "2024-01-25",
+        date: new Date("2024-06-10"),
       },
       {
         id: "2",
@@ -119,7 +67,7 @@ export const products: Product[] = [
         rating: 4,
         comment:
           "Good phone, but the battery life could be better. Overall satisfied.",
-        date: "2024-01-28",
+        date: new Date("2024-06-12"),
       },
     ],
   },
@@ -129,14 +77,15 @@ export const products: Product[] = [
     description:
       "Trek mountain bike with front suspension. Great for trails and city riding.",
     price: 6500,
-    image: "/products/bicycle.webp",
+    images: ["/products/bicycle.webp"],
     seller: "OutdoorGear",
     category: "Sports",
-    condition: "used-fair",
+    condition: "used_fair",
     location: "Durban",
-    createdAt: "2024-02-05T09:15:00Z",
+    deliveryOptions: ["pickup", "courier"],
+    createdAt: new Date("2024-06-03T09:15:00Z"),
     originalPrice: 9000,
-    stock: 3,
+    status: "active",
     brand: "Trek",
     model: "X-Caliber 8",
     reviews: [
@@ -145,7 +94,7 @@ export const products: Product[] = [
         user: "Ethan",
         rating: 4,
         comment: "Good bike for the price. A bit heavy but rides well.",
-        date: "2024-02-10",
+        date: new Date("2024-06-13"),
       },
       {
         id: "2",
@@ -153,7 +102,7 @@ export const products: Product[] = [
         rating: 3,
         comment:
           "Decent bike, but had to replace the tires after a month. Not the best quality.",
-        date: "2024-02-12",
+        date: new Date("2024-06-15"),
       },
     ],
   },
@@ -163,13 +112,14 @@ export const products: Product[] = [
     description:
       "Beautiful handmade ceramic vase. Perfect for flowers or as a decorative piece.",
     price: 350,
-    image: "/products/vase.webp",
+    images: ["/products/vase.webp"],
     seller: "ArtisanCrafts",
     category: "Home",
     condition: "new",
     location: "Pretoria",
-    createdAt: "2024-03-10T16:20:00Z",
-    stock: 20,
+    deliveryOptions: ["pickup", "local_delivery"],
+    createdAt: new Date("2024-06-04T16:20:00Z"),
+    status: "active",
     brand: "Artisan",
   },
   {
@@ -178,14 +128,15 @@ export const products: Product[] = [
     description:
       "Collection of 20 vintage vinyl records from the 70s and 80s. Various artists.",
     price: 1200,
-    image: "/products/vinyl.webp",
+    images: ["/products/vinyl.webp"],
     seller: "MusicMasters",
     category: "Electronics",
-    condition: "used-good",
+    condition: "used_fair",
     location: "Port Elizabeth",
-    createdAt: "2024-04-01T11:30:00Z",
+    deliveryOptions: ["pickup", "courier"],
+    createdAt: new Date("2024-06-05T11:30:00Z"),
     originalPrice: 2000,
-    stock: 8,
+    status: "sold",
     brand: "Various",
     reviews: [
       {
@@ -193,7 +144,7 @@ export const products: Product[] = [
         user: "Jack",
         rating: 5,
         comment: "Great collection! Love the classic hits.",
-        date: "2024-04-05",
+        date: new Date("2024-06-16"),
       },
       {
         id: "2",
@@ -201,7 +152,7 @@ export const products: Product[] = [
         rating: 4,
         comment:
           "Good condition, but a few records have scratches. Still a great buy.",
-        date: "2024-04-08",
+        date: new Date("2024-06-18"),
       },
     ],
   },
@@ -211,14 +162,15 @@ export const products: Product[] = [
     description:
       "Canon EOS 5D Mark IV with 24-70mm lens. Perfect for professional photography.",
     price: 15000,
-    image: "/products/camera.webp",
+    images: ["/products/camera.webp"],
     seller: "PhotoPro",
     category: "Electronics",
-    condition: "used-like-new",
+    condition: "used_new",
     location: "Bloemfontein",
-    createdAt: "2024-04-15T13:45:00Z",
+    deliveryOptions: ["pickup", "courier", "local_delivery"],
+    createdAt: new Date("2024-06-06T13:45:00Z"),
     originalPrice: 25000,
-    stock: 2,
+    status: "active",
     brand: "Canon",
     model: "EOS 5D Mark IV",
     reviews: [
@@ -228,7 +180,7 @@ export const products: Product[] = [
         rating: 5,
         comment:
           "Amazing camera! The image quality is stunning. Highly recommend for professionals.",
-        date: "2024-04-20",
+        date: new Date("2024-06-19"),
       },
       {
         id: "2",
@@ -236,7 +188,7 @@ export const products: Product[] = [
         rating: 4,
         comment:
           "Great camera, but the battery life could be better. Overall very satisfied.",
-        date: "2024-04-22",
+        date: new Date("2024-06-20"),
       },
     ],
   },
@@ -246,14 +198,15 @@ export const products: Product[] = [
     description:
       "iPhone 12 with cracked screen and battery issues. Good for parts or repair.",
     price: 2500,
-    image: "/products/broken-iphone.webp",
+    images: ["/products/broken-iphone.webp"],
     seller: "PhoneRepair",
     category: "Electronics",
-    condition: "for-parts",
+    condition: "for_parts",
     location: "Johannesburg",
-    createdAt: "2024-02-18T09:30:00Z",
+    deliveryOptions: ["pickup", "courier", "meet_in_person"],
+    createdAt: new Date("2024-06-07T09:30:00Z"),
     originalPrice: 12000,
-    stock: 1,
+    status: "draft",
     brand: "Apple",
     model: "iPhone 12",
     reviews: [
@@ -263,7 +216,7 @@ export const products: Product[] = [
         rating: 3,
         comment:
           "Good for parts, but I expected more. The battery was completely dead.",
-        date: "2024-02-20",
+        date: new Date("2024-06-21"),
       },
       {
         id: "2",
@@ -271,7 +224,7 @@ export const products: Product[] = [
         rating: 2,
         comment:
           "Not worth it. The screen was more damaged than described. Disappointed.",
-        date: "2024-02-22",
+        date: new Date("2024-06-22"),
       },
     ],
   },
@@ -281,13 +234,14 @@ export const products: Product[] = [
     description:
       "Sealed PlayStation 5 Disc Edition. Never opened, with full warranty.",
     price: 13999,
-    image: "/products/ps5.webp",
+    images: ["/products/ps5.webp"],
     seller: "GameZone",
     category: "Gaming",
     condition: "new",
     location: "Cape Town",
-    createdAt: "2024-04-20T15:45:00Z",
-    stock: 10,
+    deliveryOptions: ["pickup", "courier", "local_delivery"],
+    createdAt: new Date("2024-06-08T15:45:00Z"),
+    status: "active",
     brand: "Sony",
     model: "PlayStation 5",
   },
@@ -297,14 +251,15 @@ export const products: Product[] = [
     description:
       "Beautiful antique wooden desk from the 1920s. Some wear but in good condition.",
     price: 7500,
-    image: "/products/desk.webp",
+    images: ["/products/desk.webp"],
     seller: "VintageFinds",
     category: "Home",
-    condition: "used-good",
+    condition: "used_good",
     location: "Durban",
-    createdAt: "2024-03-05T11:20:00Z",
+    deliveryOptions: ["pickup", "local_delivery"],
+    createdAt: new Date("2024-06-09T11:20:00Z"),
     originalPrice: 12000,
-    stock: 1,
+    status: "active",
     brand: "AntiqueCo",
     reviews: [
       {
@@ -313,7 +268,7 @@ export const products: Product[] = [
         rating: 5,
         comment:
           "Absolutely love this desk! It's a perfect addition to my home office.",
-        date: "2024-03-10",
+        date: new Date("2024-06-23"),
       },
     ],
   },
@@ -323,14 +278,15 @@ export const products: Product[] = [
     description:
       "Authentic designer handbag, barely used. Comes with dust bag and authenticity card.",
     price: 25000,
-    image: "/products/handbag.webp",
+    images: ["/products/handbag.webp"],
     seller: "LuxuryItems",
     category: "Fashion",
-    condition: "used-like-new",
+    condition: "used_new",
     location: "Sandton",
-    createdAt: "2024-04-10T14:15:00Z",
+    deliveryOptions: ["pickup", "courier", "local_delivery"],
+    createdAt: new Date("2024-06-10T14:15:00Z"),
     originalPrice: 40000,
-    stock: 3,
+    status: "active",
     brand: "Gucci",
     reviews: [
       {
@@ -339,7 +295,7 @@ export const products: Product[] = [
         rating: 5,
         comment:
           "Gorgeous handbag! The quality is amazing and it looks brand new.",
-        date: "2024-04-15",
+        date: new Date("2024-06-24"),
       },
       {
         id: "2",
@@ -347,7 +303,7 @@ export const products: Product[] = [
         rating: 4,
         comment:
           "Very stylish and practical. A bit pricey, but worth it for the brand.",
-        date: "2024-04-18",
+        date: new Date("2024-06-25"),
       },
     ],
   },
@@ -357,14 +313,15 @@ export const products: Product[] = [
     description:
       "2018 Toyota Corolla, 50,000 km, full service history. Excellent condition.",
     price: 85000,
-    image: "/products/car.webp",
+    images: ["/products/car.webp"],
     seller: "CarDeals",
     category: "Vehicles",
-    condition: "used-good",
+    condition: "used_good",
     location: "Cape Town",
-    createdAt: "2024-04-25T10:00:00Z",
+    deliveryOptions: ["pickup", "local_delivery", "meet_in_person"],
+    createdAt: new Date("2024-06-11T10:00:00Z"),
     originalPrice: 150000,
-    stock: 1,
+    status: "active",
     brand: "Toyota",
     model: "Corolla",
     reviews: [
@@ -374,7 +331,7 @@ export const products: Product[] = [
         rating: 5,
         comment:
           "Great car! Very reliable and fuel-efficient. Highly recommend.",
-        date: "2024-04-30",
+        date: new Date("2024-06-26"),
       },
     ],
   },
@@ -384,28 +341,30 @@ export const products: Product[] = [
     description:
       "Stylish quarter zip jersey from KickFlip. Perfect for casual wear.",
     price: 500,
-    image: "/products/jersey.webp",
+    images: ["/products/jersey.webp"],
     seller: "FashionHub",
     category: "Fashion",
     condition: "new",
     location: "Johannesburg",
-    createdAt: "2024-04-30T12:30:00Z",
+    deliveryOptions: ["pickup", "courier", "local_delivery"],
+    createdAt: new Date("2024-06-12T12:30:00Z"),
+    status: "active",
     brand: "KickFlip",
-    stock: 15,
   },
   {
     id: "13",
     name: "Smeg Kettle",
     description: "Stylish Smeg kettle in pastel blue. Perfect for any kitchen.",
     price: 1500,
-    image: "/products/kettle.webp",
+    images: ["/products/kettle.webp"],
     seller: "HomeEssentials",
     category: "Home",
     condition: "new",
     location: "Pretoria",
-    createdAt: "2024-05-01T09:00:00Z",
+    deliveryOptions: ["pickup", "courier", "local_delivery"],
+    createdAt: new Date("2024-06-13T09:00:00Z"),
     brand: "Smeg",
-    stock: 25,
+    status: "active",
   },
   {
     id: "14",
@@ -413,13 +372,76 @@ export const products: Product[] = [
     description:
       "High-quality skateboard with custom design. Perfect for tricks and cruising.",
     price: 1200,
-    image: "/products/skateboard.webp",
+    images: ["/products/skateboard.webp"],
     seller: "SkateShop",
     category: "Sports",
     condition: "new",
     location: "Durban",
-    createdAt: "2024-05-02T11:00:00Z",
+    deliveryOptions: ["pickup", "courier", "local_delivery"],
+    createdAt: new Date("2024-06-14T11:00:00Z"),
     brand: "SkateCo",
-    stock: 30,
+    status: "active",
   },
 ];
+
+type ProductPayload = {
+  name: string;
+  description: string;
+  images: string[];
+  category: string;
+  condition: "new" | "used_new" | "used_good" | "used_fair" | "for_parts";
+  location?: string;
+  deliveryOptions?: (
+    | "pickup"
+    | "courier"
+    | "local_delivery"
+    | "meet_in_person"
+  )[];
+  price: number;
+  originalPrice?: number;
+  brand?: string;
+  model?: string;
+  seller: Seller;
+};
+
+export async function createProduct(product: ProductPayload) {
+  return await db.product.create({
+    data: {
+      name: product.name,
+      description: product.description,
+      imageUrl: product.images,
+      category: product.category,
+      condition: product.condition,
+      location: product.location ?? undefined,
+      deliveryOptions: product.deliveryOptions ?? undefined,
+      price: product.price,
+      originalPrice: product.originalPrice ?? undefined,
+      status: "active", // Default status
+      brand: product.brand ?? undefined,
+      model: product.model ?? undefined,
+      seller: {
+        connectOrCreate: {
+          where: { id: product.seller.id },
+          create: {
+            storeName: product.seller.storeName,
+            storeDescription: product.seller.storeDescription ?? undefined,
+            contactEmail: product.seller.contactEmail ?? undefined,
+            contactNumber: product.seller.contactNumber ?? undefined,
+            location: product.seller.location ?? undefined,
+            user: {
+              connectOrCreate: {
+                where: { id: product.seller.user.id },
+                create: {
+                  firstName: product.seller.user.firstName,
+                  lastName: product.seller.user.lastName ?? "",
+                  email: product.seller.user.email,
+                  password: product.seller.user.password, // Ensure this is hashed before saving
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+}

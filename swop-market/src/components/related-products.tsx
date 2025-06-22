@@ -7,7 +7,6 @@ import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
 import { useRelatedProducts } from "@/hooks/use-related-products";
-import { Product } from "@/lib/types/product";
 
 export default function RelatedProducts({ productId }: { productId: string }) {
   const {
@@ -54,7 +53,7 @@ export default function RelatedProducts({ productId }: { productId: string }) {
             transform: translateX,
           }}
         >
-          {relatedProducts.map((product: Product) => (
+          {relatedProducts.map((product) => (
             <motion.div
               key={product.id}
               className="flex-none w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/4"

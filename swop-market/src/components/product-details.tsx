@@ -1,10 +1,14 @@
 "use client";
 
 import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
   Heart,
   MapPin,
-  MessageSquare,
+  Package,
   Share2,
+  Shield,
   ShoppingCart,
   Star,
   Truck,
@@ -12,80 +16,100 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCartStore } from "@/context/cart-provider";
-import { formatCurrency } from "@/lib/utils";
-import { toast } from "sonner";
+import { useFavouritesStore } from "@/lib/stores/favourites-store";
+import { ProductWithSeller } from "@/lib/types/product";
+import {
+  formatCondition,
+  formatCurrency,
+  formatDeliveryOption,
+  getConditionColor,
+} from "@/lib/utils";
+import ContactSellerModal from "./contact-seller-modal";
 
-interface ProductDetailsProps {
-  product: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    seller: string;
-    category: string;
-    condition: string;
-    location: string;
-    createdAt: string;
-    originalPrice?: number;
-    stock?: number;
-    brand?: string;
-    model?: string;
-  };
-}
+export default function ProductDetails({
+  product,
+}: {
+  product: ProductWithSeller;
+}) {
+  const { addItem, isInCart } = useCartStore();
+  const { addToFavourites, removeFromFavourites, isFavourite } =
+    useFavouritesStore();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-// Map condition IDs to display labels
-const conditionLabels: Record<string, string> = {
-  new: "New",
-  "used-like-new": "Like New",
-  "used-good": "Good",
-  "used-fair": "Fair",
-  "for-parts": "For Parts",
-};
+  const isProductFavourite = isFavourite(product.id);
+  const isProductInCart = isInCart(product.id);
 
-export default function ProductDetails({ product }: ProductDetailsProps) {
-  const [quantity, setQuantity] = useState(1);
-  const { addItem } = useCartStore();
+  const savings = product.originalPrice
+    ? product.originalPrice - product.price
+    : 0;
+  const savingsPercentage = product.originalPrice
+    ? Math.round((savings / product.originalPrice) * 100)
+    : 0;
 
-  const handleAddToCart = () => {
+  const reviews = product.reviews ?? [];
+  const avgRating =
+    reviews.length > 0
+      ? reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / reviews.length
+      : 0;
+  const fullStars = Math.floor(avgRating);
+  const hasHalfStar =
+    avgRating - fullStars >= 0.25 && avgRating - fullStars < 0.75;
+  const totalStars = 5;
+
+  function handleAddToCart() {
     addItem({
       id: product.id,
       name: product.name,
-      price: product.price,
-      quantity,
-      image: product.image,
-      seller: product.seller,
+      price: Number(product.price),
+      imageUrl: (product.imageUrl || [])[0],
+      seller: product.seller?.storeName,
+      sellerId: product.seller?.id,
+      condition: product.condition,
+      location: product.location,
     });
 
     toast.success("Added to cart", {
       description: `${product.name} has been added to your cart.`,
     });
-  };
+  }
 
-  const handleAddToWishlist = () => {
-    toast.success("Added to wishlist", {
-      description: `${product.name} has been added to your wishlist.`,
-    });
-  };
+  function handleAddToFavourites() {
+    if (isProductFavourite) {
+      removeFromFavourites(product.id);
+      toast.info("Removed from favourites", {
+        description: `${product.name} has been removed from your favourites.`,
+      });
+    } else {
+      addToFavourites(product.id);
+      toast.success("Added to favourites", {
+        description: `${product.name} has been added to your favourites.`,
+      });
+    }
+  }
 
-  const handleShare = () => {
-    // In a real app, you would implement sharing functionality
-    // For now, we'll just show a toast
+  function handleShare() {
     toast.success("Share product", {
       description: "Product link copied to clipboard!",
     });
-  };
+  }
 
-  // Get the display label for the condition
-  const conditionDisplay = product.condition
-    ? conditionLabels[product.condition] || product.condition
-    : undefined;
+  function handlePrevImage() {
+    const images = product.imageUrl ?? [];
+    if (images.length === 0) return;
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }
+
+  function handleNextImage() {
+    const images = product.imageUrl ?? [];
+    if (images.length === 0) return;
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }
 
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -98,208 +122,249 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="w-full h-full"
+              className="relative w-full h-full"
             >
               <Image
-                src={product.image}
-                alt={product.name}
+                src={
+                  (product.imageUrl ?? [])[currentImageIndex] ||
+                  "/placeholder.svg"
+                }
+                alt={`${product.name} - Image ${currentImageIndex + 1}`}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
                 priority
               />
             </motion.div>
           </AnimatePresence>
 
-          {conditionDisplay && (
-            <Badge
-              className={`absolute top-2 left-2 ${
-                product.condition === "new"
-                  ? "bg-green-600"
-                  : product.condition === "used-like-new"
-                  ? "bg-teal-700"
-                  : product.condition === "used-good"
-                  ? "bg-amber-500"
-                  : product.condition === "used-fair"
-                  ? "bg-orange-500"
-                  : "bg-red-500"
-              }`}
-            >
-              {conditionDisplay}
-            </Badge>
+          {(product.imageUrl ?? []).length > 1 && (
+            <>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute w-8 h-8 -translate-y-1/2 rounded-full left-2 top-1/2 bg-background/80 hover:bg-background"
+                onClick={handlePrevImage}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute w-8 h-8 -translate-y-1/2 rounded-full right-2 top-1/2 bg-background/80 hover:bg-background"
+                onClick={handleNextImage}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </>
           )}
         </div>
+
+        {(product.imageUrl ?? []).length > 1 && (
+          <div className="grid grid-cols-4 gap-2">
+            {(product.imageUrl ?? []).map((image, index) => (
+              <div
+                key={index}
+                className={`relative aspect-square rounded-md overflow-hidden border cursor-pointer ${
+                  index === currentImageIndex ? "ring-2 ring-teal-700" : ""
+                }`}
+                onClick={() => setCurrentImageIndex(index)}
+              >
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={`${product.name} thumbnail ${index + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 25vw, 10vw"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Product Info */}
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold">{product.name}</h1>
-          <div className="flex items-center gap-2 mt-2">
-            <div className="flex items-center">
-              <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
-              <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
-              <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
-              <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
-              <Star className="w-4 h-4 fill-amber-500/50 text-amber-500" />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="space-y-6"
+      >
+        <div className="flex items-start justify-between mb-4">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold">{product.name}</h1>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center">
+                {[...Array(fullStars)].map((_, i) => (
+                  <Star
+                    key={`star-full-${i}`}
+                    className="w-4 h-4 fill-amber-500 text-amber-500"
+                  />
+                ))}
+                {hasHalfStar && (
+                  <Star
+                    key="star-half"
+                    className="w-4 h-4 fill-amber-300 text-amber-500"
+                    style={{ clipPath: "inset(0 50% 0 0)" }}
+                  />
+                )}
+                {[
+                  ...Array(
+                    Math.max(0, totalStars - fullStars - (hasHalfStar ? 1 : 0))
+                  ),
+                ].map((_, i) => (
+                  <Star
+                    key={`star-empty-${i}`}
+                    className="w-4 h-4 fill-amber-500/50 text-amber-500"
+                  />
+                ))}
+                <span className="ml-1 text-sm font-medium text-foreground">
+                  {avgRating.toFixed(1)}/5
+                </span>
+              </div>
+              <span className="text-sm text-muted-foreground">
+                {reviews.length} {reviews.length === 1 ? "review" : "reviews"}
+              </span>
+
+              <Badge className={`${getConditionColor(product.condition)}`}>
+                {formatCondition(product.condition)}
+              </Badge>
+              {product.brand && (
+                <Badge variant="outline">{product.brand}</Badge>
+              )}
             </div>
-            <span className="text-sm text-muted-foreground">(24 reviews)</span>
+          </div>
+
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleAddToFavourites}
+            >
+              <Heart
+                className={`h-4 w-4 ${
+                  isProductFavourite ? "fill-current text-red-500" : ""
+                }`}
+              />
+            </Button>
+            <Button variant="outline" size="icon" onClick={handleShare}>
+              <Share2 className="w-4 h-4" />
+            </Button>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-3xl font-bold text-teal-700">
-            {formatCurrency(product.price)}
-          </span>
-          {/* If there's a discount, show original price */}
-          {product.originalPrice && (
-            <span className="text-lg line-through text-muted-foreground">
-              {formatCurrency(product.originalPrice)}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="text-3xl font-bold text-teal-700">
+              {formatCurrency(product.price)}
             </span>
+            {product.originalPrice && (
+              <span className="text-lg line-through text-muted-foreground">
+                {formatCurrency(product.originalPrice)}
+              </span>
+            )}
+          </div>
+          {savings > 0 && (
+            <div className="flex items-center gap-2">
+              <Badge className="text-green-800 bg-green-100">
+                Save {formatCurrency(savings)}
+              </Badge>
+              <span className="text-sm text-green-600">
+                ({savingsPercentage}% off)
+              </span>
+            </div>
           )}
         </div>
 
         <Separator />
 
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 text-sm">
-            <MapPin className="w-4 h-4 text-muted-foreground" />
-            <span>{product.location}</span>
-          </div>
+        {/* Description */}
+        <div>
+          <h3 className="mb-2 font-semibold">Description</h3>
+          <p className="leading-relaxed text-muted-foreground">
+            {product.description}
+          </p>
+        </div>
 
-          <div className="flex items-center gap-2 text-sm">
-            <Truck className="w-4 h-4 text-muted-foreground" />
-            <span>Shipping available</span>
+        {/* Product Details */}
+        <div className="grid grid-cols-2 gap-4 text-sm">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-muted-foreground" />
+              <span className="font-medium">Location:</span>
+              <span className="text-muted-foreground">{product.location}</span>
+            </div>
+            {product.brand && (
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4 text-muted-foreground" />
+                <span className="font-medium">Brand:</span>
+                <span className="text-muted-foreground">{product.brand}</span>
+              </div>
+            )}
           </div>
-
-          <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-muted">
-              <span className="text-xs font-medium">
-                {product.seller?.charAt(0) || "S"}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Star className="w-4 h-4 text-muted-foreground" />
+              <span className="font-medium">Seller:</span>
+              <span className="text-muted-foreground">
+                {product.seller?.storeName}
               </span>
             </div>
-            <div>
-              <p className="text-sm font-medium">{product.seller}</p>
-              <p className="text-xs text-muted-foreground">Member since 2023</p>
-            </div>
+            {product.model && (
+              <div className="flex items-center gap-2">
+                <Package className="w-4 h-4 text-muted-foreground" />
+                <span className="font-medium">Model:</span>
+                <span className="text-muted-foreground">{product.model}</span>
+              </div>
+            )}
           </div>
         </div>
 
+        {/* Delivery Options */}
+        {product.deliveryOptions && product.deliveryOptions.length > 0 && (
+          <div className="text-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <Truck className="w-4 h-4 text-muted-foreground" />
+              <span className="font-medium">Delivery Options:</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {product.deliveryOptions.map((option) => (
+                <Badge key={option} variant="outline">
+                  {formatDeliveryOption(option)}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        )}
+
         <Separator />
 
-        <div className="space-y-4">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center">
-              <Button
-                variant="outline"
-                size="icon"
-                className="w-8 h-8 rounded-r-none"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                disabled={quantity <= 1}
-              >
-                -
-              </Button>
-              <div className="flex items-center justify-center h-8 px-4 border-y">
-                <span className="text-sm font-medium">{quantity}</span>
-              </div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="w-8 h-8 rounded-l-none"
-                onClick={() => setQuantity(quantity + 1)}
-                disabled={
-                  product.stock !== undefined
-                    ? quantity >= product.stock
-                    : false
-                }
-              >
-                +
-              </Button>
-            </div>
-            <span className="text-sm text-muted-foreground">
-              {product.stock ? `${product.stock} available` : "In stock"}
-            </span>
-          </div>
+        <div className="flex items-center gap-3">
+          <Button
+            className="flex-1 bg-amber-500 hover:bg-amber-600"
+            size="lg"
+            onClick={handleAddToCart}
+          >
+            {isProductInCart ? (
+              <>
+                <Check className="w-4 h-4 mr-2" />
+                <span>In Cart</span>
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                <span>Add to Cart</span>
+              </>
+            )}
+          </Button>
 
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Button
-              className="flex-1 bg-amber-500 hover:bg-amber-600"
-              size="lg"
-              onClick={handleAddToCart}
-            >
-              <ShoppingCart className="w-5 h-5 mr-2" />
-              Add to Cart
-            </Button>
-            <Button variant="outline" size="lg" onClick={handleAddToWishlist}>
-              <Heart className="w-5 h-5 mr-2" />
-              <span className="hidden sm:inline">Add to Wishlist</span>
-              <span className="sm:hidden">Wishlist</span>
-            </Button>
-          </div>
-
-          <div className="flex justify-between">
-            <Button variant="ghost" size="sm" onClick={handleShare}>
-              <Share2 className="w-4 h-4 mr-2" />
-              Share
-            </Button>
-            <Button variant="ghost" size="sm">
-              <MessageSquare className="w-4 h-4 mr-2" />
+          <ContactSellerModal product={product}>
+            <Button variant="outline" size="lg" className="flex-1">
               Contact Seller
             </Button>
-          </div>
+          </ContactSellerModal>
         </div>
-
-        <Separator />
-
-        <Tabs defaultValue="description" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="description">Description</TabsTrigger>
-            <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="shipping">Shipping</TabsTrigger>
-          </TabsList>
-          <TabsContent value="description" className="pt-4">
-            <div className="space-y-4 text-sm">
-              <p>{product.description}</p>
-              {/* Additional description paragraphs would go here */}
-            </div>
-          </TabsContent>
-          <TabsContent value="details" className="pt-4">
-            <div className="space-y-2 text-sm">
-              <div className="grid grid-cols-2 gap-2">
-                <div className="text-muted-foreground">Condition</div>
-                <div>{conditionDisplay}</div>
-                <div className="text-muted-foreground">Category</div>
-                <div>{product.category}</div>
-                <div className="text-muted-foreground">Brand</div>
-                <div>{product.brand || "Not specified"}</div>
-                <div className="text-muted-foreground">Model</div>
-                <div>{product.model || "Not specified"}</div>
-                <div className="text-muted-foreground">Listed</div>
-                <div>
-                  {product.createdAt
-                    ? new Date(product.createdAt).toLocaleDateString()
-                    : "Recently"}
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-          <TabsContent value="shipping" className="pt-4">
-            <div className="space-y-4 text-sm">
-              <p>
-                This item can be shipped nationwide. The seller typically ships
-                within 2-3 business days.
-              </p>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="text-muted-foreground">Standard Shipping</div>
-                <div>3-5 business days</div>
-                <div className="text-muted-foreground">Express Shipping</div>
-                <div>1-2 business days (additional fee)</div>
-                <div className="text-muted-foreground">Local Pickup</div>
-                <div>Available in {product.location}</div>
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div>
+      </motion.div>
     </div>
   );
 }

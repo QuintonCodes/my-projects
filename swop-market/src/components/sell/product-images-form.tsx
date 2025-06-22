@@ -1,12 +1,20 @@
 "use client";
 
-import { ImagePlus, Trash2, UploadCloud } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import axios from "axios";
+import { ImageIcon, Upload, X } from "lucide-react";
 import Image from "next/image";
-import { useCallback, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   FormControl,
   FormDescription,
@@ -15,201 +23,187 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { generateId } from "@/lib/utils";
 
-type ImageType = {
+const generateId = () =>
+  typeof crypto !== "undefined" && crypto.randomUUID
+    ? crypto.randomUUID()
+    : Math.random().toString(36).slice(2, 11);
+
+type Image = {
   id: string;
   url: string;
-  file?: File;
+  file: File;
 };
 
 export default function ProductImagesForm() {
-  const { control, setValue, watch } = useFormContext();
+  const { control, setValue, getValues, watch } = useFormContext();
   const watchedImages = watch("images");
-  const images: ImageType[] = useMemo(
-    () => watchedImages || [],
-    [watchedImages]
-  );
 
-  const handleImageUpload = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files && e.target.files.length > 0) {
-        const newImages = Array.from(e.target.files).map((file) => {
-          // In a real app, you would upload the file to a server and get a URL
-          // For this demo, we'll create a local object URL
-          const imageUrl = URL.createObjectURL(file);
-          return {
+  const images = useMemo(() => watchedImages || [], [watchedImages]);
+  const [uploading, setUploading] = useState(false);
+
+  async function handleFileUpload(files: FileList) {
+    if (!files.length) return;
+
+    setUploading(true);
+    const currentImages = getValues("images") || [];
+
+    try {
+      for (const file of Array.from(files)) {
+        // Validate file type
+        if (!file.type.startsWith("image/")) {
+          toast.error("Invalid file type", {
+            description: "Please upload only image files.",
+          });
+          continue;
+        }
+
+        // Validate file size (5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+          toast.error("File too large", {
+            description: "Please upload images smaller than 5MB.",
+          });
+          continue;
+        }
+
+        // Create FormData for upload
+        const formData = new FormData();
+        formData.append("file", file);
+
+        // Upload to API
+        const response = await axios.post("/api/upload", formData);
+
+        if (response.status !== 200 || !response.data.success) {
+          toast.error("Upload failed");
+          continue;
+        }
+
+        const result = await response.data;
+
+        if (result) {
+          const newImage = {
             id: generateId(),
-            url: imageUrl,
+            url: result.url,
             file: file,
           };
-        });
 
-        setValue("images", [...images, ...newImages], { shouldValidate: true });
+          setValue("images", [...currentImages, newImage]);
+        }
       }
-    },
-    [images, setValue]
-  );
 
-  const removeImage = useCallback(
-    (id: string) => {
-      setValue(
-        "images",
-        images.filter((img) => img.id !== id),
-        { shouldValidate: true }
-      );
-    },
-    [images, setValue]
-  );
-
-  // For demo purposes, add placeholder images
-  const addPlaceholderImage = useCallback(() => {
-    const placeholderImages = [
-      "/placeholder.svg?height=500&width=500",
-      "/placeholder.svg?height=500&width=500&text=Product+Image+2",
-      "/placeholder.svg?height=500&width=500&text=Product+Image+3",
-      "/placeholder.svg?height=500&width=500&text=Product+Image+4",
-    ];
-
-    const existingCount = images.length;
-    if (existingCount < placeholderImages.length) {
-      const newImage = {
-        id: generateId(),
-        url: placeholderImages[existingCount],
-      };
-
-      setValue("images", [...images, newImage], { shouldValidate: true });
+      toast("Images uploaded", {
+        description: "Your images have been uploaded successfully.",
+      });
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast("Upload failed", {
+        description:
+          "There was an error uploading your images. Please try again.",
+      });
+    } finally {
+      setUploading(false);
     }
-  }, [images, setValue]);
+  }
+
+  const removeImage = (imageId: string) => {
+    const currentImages = getValues("images") || [];
+    const updatedImages = currentImages.filter(
+      (img: Image) => img.id !== imageId
+    );
+    setValue("images", updatedImages);
+  };
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <h2 className="text-xl font-semibold">Product Images</h2>
-        <p className="text-sm text-muted-foreground">
-          Add up to 8 images of your product. The first image will be the main
-          image.
-        </p>
-      </div>
-
-      <FormField
-        control={control}
-        name="images"
-        render={() => (
-          <FormItem>
-            <FormLabel>Images</FormLabel>
-            <FormControl>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                  <AnimatePresence>
-                    {images.map((image, index) => (
-                      <motion.div
-                        key={image.id}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        className="relative overflow-hidden border rounded-md aspect-square"
-                      >
-                        <Image
-                          src={image.url || "/placeholder.svg"}
-                          alt={`Product image ${index + 1}`}
-                          fill
-                          className="object-cover"
-                        />
-                        {index === 0 && (
-                          <div className="absolute px-2 py-1 text-xs text-white bg-teal-700 rounded top-2 left-2">
-                            Main
-                          </div>
-                        )}
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="icon"
-                          className="absolute w-8 h-8 top-2 right-2 opacity-80 hover:opacity-100"
-                          onClick={() => removeImage(image.id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-
-                  {images.length < 8 && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="relative flex flex-col items-center justify-center transition-colors border border-dashed rounded-md cursor-pointer aspect-square hover:bg-muted/50"
-                      onClick={() =>
-                        document.getElementById("image-upload")?.click()
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <ImageIcon className="w-5 h-5" />
+          Product Images
+        </CardTitle>
+        <CardDescription>
+          Upload photos of your product (up to 8 images)
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <FormField
+          control={control}
+          name="images"
+          render={() => (
+            <FormItem>
+              <FormLabel>Images</FormLabel>
+              <FormControl>
+                <div className="space-y-4">
+                  {/* Upload Area */}
+                  <div
+                    className="p-8 text-center transition-colors border-2 border-dashed rounded-lg cursor-pointer border-muted-foreground/25 hover:border-muted-foreground/50"
+                    onClick={() =>
+                      document.getElementById("file-upload")?.click()
+                    }
+                  >
+                    <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                    <p className="mb-2 text-sm text-muted-foreground">
+                      {uploading
+                        ? "Uploading..."
+                        : "Click to upload or drag and drop"}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      PNG, JPG, GIF up to 5MB each
+                    </p>
+                    <input
+                      id="file-upload"
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        e.target.files && handleFileUpload(e.target.files)
                       }
-                    >
-                      <ImagePlus className="w-8 h-8 mb-2 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">
-                        Add Image
-                      </span>
-                      <input
-                        id="image-upload"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        className="hidden"
-                        onChange={handleImageUpload}
-                      />
-                    </motion.div>
+                      disabled={uploading || images.length >= 8}
+                    />
+                  </div>
+
+                  {/* Image Preview Grid */}
+                  {images.length > 0 && (
+                    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                      {images.map((image: Image, index: number) => (
+                        <div key={image.id} className="relative group">
+                          <div className="overflow-hidden border rounded-lg aspect-square">
+                            <Image
+                              src={image.url || "/placeholder.svg"}
+                              alt={`Product image ${index + 1}`}
+                              className="object-cover w-full h-full"
+                              fill
+                            />
+                          </div>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="icon"
+                            className="absolute w-6 h-6 transition-opacity opacity-0 top-2 right-2 group-hover:opacity-100"
+                            onClick={() => removeImage(image.id)}
+                          >
+                            <X className="w-3 h-3" />
+                          </Button>
+                          {index === 0 && (
+                            <div className="absolute px-2 py-1 text-xs text-white rounded bottom-2 left-2 bg-black/75">
+                              Main
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
-
-                {images.length === 0 && (
-                  <div className="p-8 text-center border border-dashed rounded-lg">
-                    <div className="flex flex-col items-center justify-center mx-auto">
-                      <UploadCloud className="w-12 h-12 mb-4 text-muted-foreground" />
-                      <h3 className="mb-1 text-lg font-semibold">
-                        Upload Images
-                      </h3>
-                      <p className="mb-4 text-sm text-muted-foreground">
-                        Drag and drop your images here, or click to browse
-                      </p>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() =>
-                          document.getElementById("image-upload")?.click()
-                        }
-                      >
-                        <ImagePlus className="w-4 h-4 mr-2" />
-                        Browse Files
-                      </Button>
-                      <input
-                        id="image-upload"
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        className="hidden"
-                        onChange={handleImageUpload}
-                      />
-
-                      {/* For demo purposes only */}
-                      <Button
-                        type="button"
-                        variant="link"
-                        className="mt-2"
-                        onClick={addPlaceholderImage}
-                      >
-                        Add Demo Image
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </FormControl>
-            <FormDescription>
-              Clear, high-quality images from multiple angles will help your
-              item sell faster.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+              </FormControl>
+              <FormDescription>
+                The first image will be used as the main product image. You can
+                upload up to 8 images.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </CardContent>
+    </Card>
   );
 }

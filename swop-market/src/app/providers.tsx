@@ -1,5 +1,6 @@
 "use client";
 
+import AuthProvider from "@/context/auth-provider";
 import CartProvider from "@/context/cart-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -15,7 +16,9 @@ const queryClient = new QueryClient({
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>{children}</CartProvider>
+      <AuthProvider>
+        <CartProvider>{children}</CartProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

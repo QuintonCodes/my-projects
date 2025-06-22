@@ -1,45 +1,24 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, MapPin, Package, User } from "lucide-react";
-import { motion } from "motion/react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
+  Package,
+  Shield,
+  Star,
+} from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useAuthStore } from "@/context/auth-provider";
+import { categories, conditionOptions } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
-
-// Map condition IDs to display labels
-const conditionLabels: Record<string, string> = {
-  new: "New",
-  "used-like-new": "Like New",
-  "used-good": "Good",
-  "used-fair": "Fair",
-  "for-parts": "For Parts",
-};
-
-// Map shipping option IDs to display labels
-const shippingLabels: Record<string, string> = {
-  pickup: "Local Pickup",
-  courier: "Courier Delivery",
-  post: "Postal Service",
-  meet: "Meet in Person",
-};
-
-// Map category IDs to display labels
-const categoryLabels: Record<string, string> = {
-  electronics: "Electronics",
-  furniture: "Furniture",
-  clothing: "Clothing",
-  vehicles: "Vehicles",
-  property: "Property",
-  services: "Services",
-  "home-garden": "Home & Garden",
-  sports: "Sports & Leisure",
-  "toys-games": "Toys & Games",
-  "books-music-movies": "Books, Music & Movies",
-};
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Separator } from "../ui/separator";
 
 type ImageType = {
   id: string;
@@ -50,17 +29,28 @@ type ImageType = {
 export default function ProductPreview() {
   const { watch } = useFormContext();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { user } = useAuthStore();
 
   // Get form values
   const name = watch("name");
   const description = watch("description");
   const price = watch("price");
-  const category = watch("category");
-  const condition = watch("condition");
+  const originalPrice = watch("originalPrice");
+  const category =
+    (Array.isArray(categories)
+      ? conditionOptions.find((opt) => opt.value === watch("category"))?.label
+      : undefined) || watch("category");
+  const condition =
+    (Array.isArray(conditionOptions)
+      ? conditionOptions.find((opt) => opt.value === watch("condition"))?.label
+      : undefined) || watch("condition");
   const images: ImageType[] = watch("images") || [];
   const location = watch("location");
-  const shippingOptions = watch("shippingOptions") || [];
-  const sellerName = watch("sellerName");
+  const deliveryOptions = watch("deliveryOptions") || [];
+
+  const getDeliveryLabel = (id: string) =>
+    deliveryOptions.find((opt: typeof deliveryOptions) => opt.id === id)
+      ?.label || id;
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -69,6 +59,11 @@ export default function ProductPreview() {
   const handleNextImage = () => {
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
+  const hasDiscount = originalPrice && originalPrice > price;
+  const discountPercentage = hasDiscount
+    ? Math.round(((originalPrice - price) / originalPrice) * 100)
+    : 0;
 
   return (
     <div className="space-y-6">
@@ -79,16 +74,24 @@ export default function ProductPreview() {
         </p>
       </div>
 
-      <div className="overflow-hidden border rounded-lg">
-        <div className="p-4 border-b bg-muted/30">
-          <h3 className="text-lg font-semibold">Preview Mode</h3>
+      <div className="overflow-hidden bg-white border rounded-lg shadow-sm">
+        <div className="p-4 border-b bg-gradient-to-r from-teal-50 to-blue-50">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <h3 className="text-lg font-semibold text-teal-800">
+              Live Preview
+            </h3>
+            <Badge variant="secondary" className="text-xs">
+              Draft
+            </Badge>
+          </div>
         </div>
 
         <div className="p-4">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {/* Product Images */}
             <div className="space-y-4">
-              <div className="relative overflow-hidden border rounded-md aspect-square">
+              <div className="relative overflow-hidden border-2 border-gray-100 rounded-lg aspect-square">
                 {images.length > 0 ? (
                   <>
                     <Image
@@ -121,20 +124,31 @@ export default function ProductPreview() {
                           {images.map((_, index) => (
                             <div
                               key={index}
-                              className={`h-1.5 rounded-full ${
+                              className={`h-2 rounded-full transition-all ${
                                 index === currentImageIndex
-                                  ? "w-4 bg-white"
-                                  : "w-1.5 bg-white/60"
+                                  ? "w-6 bg-white"
+                                  : "w-2 bg-white/60"
                               }`}
                             />
                           ))}
                         </div>
                       </>
                     )}
+
+                    {hasDiscount && (
+                      <div className="absolute top-3 left-3">
+                        <Badge className="font-semibold text-white bg-red-500">
+                          -{discountPercentage}%
+                        </Badge>
+                      </div>
+                    )}
                   </>
                 ) : (
-                  <div className="flex items-center justify-center w-full h-full bg-muted">
-                    <p className="text-muted-foreground">No images added</p>
+                  <div className="flex items-center justify-center w-full h-full bg-gray-50">
+                    <div className="text-center">
+                      <Package className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+                      <p className="text-sm text-gray-400">No images added</p>
+                    </div>
                   </div>
                 )}
               </div>
@@ -144,10 +158,10 @@ export default function ProductPreview() {
                   {images.slice(0, 5).map((image, index) => (
                     <div
                       key={image.id}
-                      className={`relative aspect-square rounded-md overflow-hidden border cursor-pointer ${
+                      className={`relative aspect-square rounded-md overflow-hidden border-2 cursor-pointer transition-all ${
                         index === currentImageIndex
-                          ? "ring-2 ring-teal-700"
-                          : ""
+                          ? "ring-2 ring-teal-200 border-teal-500"
+                          : "border-gray-200 hover:border-gray-300"
                       }`}
                       onClick={() => setCurrentImageIndex(index)}
                     >
@@ -165,44 +179,51 @@ export default function ProductPreview() {
 
             {/* Product Details */}
             <div className="space-y-6">
-              <div>
+              <div className="space-y-3">
                 <h1 className="text-2xl font-bold">{name || "Product Name"}</h1>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-2xl font-bold text-teal-700">
-                    {formatCurrency(price || 0)}
-                  </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-3xl font-bold text-teal-700">
+                      {formatCurrency(price || 0)}
+                    </span>
+                    {hasDiscount && (
+                      <span className="text-lg text-gray-500 line-through">
+                        {formatCurrency(originalPrice)}
+                      </span>
+                    )}
+                  </div>
+                </div>
 
+                <div className="flex flex-wrap items-center gap-2">
                   {condition && (
                     <Badge
                       className={
                         condition === "new"
                           ? "bg-green-600"
-                          : condition === "used-like-new"
+                          : condition === "used_new"
                           ? "bg-teal-700"
-                          : condition === "used-good"
+                          : condition === "used_good"
                           ? "bg-amber-500"
-                          : condition === "used-fair"
+                          : condition === "used_fair"
                           ? "bg-orange-500"
                           : "bg-red-500"
                       }
                     >
-                      {conditionLabels[condition] || condition}
+                      {condition}
                     </Badge>
                   )}
 
-                  {category && (
-                    <Badge variant="outline">
-                      {categoryLabels[category] || category}
-                    </Badge>
-                  )}
+                  {category && <Badge variant="outline">{category}</Badge>}
                 </div>
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-semibold">Description</h3>
-                <p className="text-sm whitespace-pre-line">
-                  {description || "No description provided."}
-                </p>
+                <h3 className="font-semibold text-gray-900">Description</h3>
+                <div className="prose-sm prose max-w-none">
+                  <p className="leading-relaxed text-gray-700 whitespace-pre-line">
+                    {description || "No description provided."}
+                  </p>
+                </div>
               </div>
 
               <div className="space-y-4">
@@ -214,14 +235,14 @@ export default function ProductPreview() {
                 <div className="space-y-2">
                   <h3 className="text-sm font-semibold">Shipping Options</h3>
                   <div className="flex flex-wrap gap-2">
-                    {shippingOptions.length > 0 ? (
-                      shippingOptions.map((option: string) => (
+                    {deliveryOptions.length > 0 ? (
+                      deliveryOptions.map((option: string) => (
                         <div
                           key={option}
-                          className="flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-muted"
+                          className="flex items-center gap-3 p-2 text-xs rounded-full bg-muted"
                         >
                           <Package className="w-3 h-3" />
-                          <span>{shippingLabels[option] || option}</span>
+                          <span>{getDeliveryLabel(option)}</span>
                         </div>
                       ))
                     ) : (
@@ -232,33 +253,60 @@ export default function ProductPreview() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 pt-4 border-t">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-muted">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">
-                      {sellerName || "Seller"}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      Member since May 2024
-                    </p>
+                <Separator />
+
+                {/* Seller Information */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-semibold text-gray-900">
+                    Seller Information
+                  </h3>
+                  <div className="flex items-start gap-3 p-4 rounded-lg bg-gray-50">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage
+                        src={user?.avatarUrl || "/placeholder.svg"}
+                        alt={user?.sellerProfile?.storeName}
+                      />
+                      <AvatarFallback className="text-teal-700 bg-teal-100">
+                        {user?.sellerProfile?.storeName
+                          ?.split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase() || "U"}
+                      </AvatarFallback>
+                    </Avatar>
+
+                    <div className="flex-1 space-y-2">
+                      <div>
+                        <p className="font-semibold text-gray-900">
+                          {user?.sellerProfile?.storeName || "Seller"}
+                        </p>
+                        {user?.sellerProfile?.storeName && (
+                          <p className="text-sm text-gray-600">
+                            {user.firstName}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-4 text-xs text-gray-500">
+                        <div className="flex items-center gap-1">
+                          <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                          <span>4.8 (127 reviews)</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Shield className="w-3 h-3 text-green-500" />
+                          <span>Verified Seller</span>
+                        </div>
+                      </div>
+
+                      {user?.sellerProfile?.storeDescription && (
+                        <p className="text-xs text-gray-600 line-clamp-2">
+                          {user.sellerProfile.storeDescription}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <Button
-                  className="w-full bg-amber-500 hover:bg-amber-600"
-                  disabled
-                >
-                  Contact Seller
-                </Button>
-              </motion.div>
             </div>
           </div>
         </div>

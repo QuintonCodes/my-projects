@@ -1,9 +1,10 @@
 "use client";
 
-import { categories } from "@/lib/products";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { categories } from "@/lib/data";
 
 export default function CategoryGrid() {
   return (
@@ -20,7 +21,7 @@ export default function CategoryGrid() {
             href={`/products?category=${category.id}`}
             className="flex flex-col items-center p-4 text-center transition-colors border rounded-lg bg-background hover:border-teal-700"
           >
-            <div className="relative w-16 h-16 mb-3">
+            <div className="relative mb-3 size-16">
               <Image
                 src={category.image || "/placeholder.svg"}
                 alt={category.name}

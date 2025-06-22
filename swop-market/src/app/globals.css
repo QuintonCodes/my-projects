@@ -118,6 +118,6 @@
     @apply box-border border-border outline-ring/50;
   }
   body {
-    @apply flex flex-col min-h-screen bg-background text-foreground font-inter;
+    @apply flex flex-col min-h-screen bg-background text-foreground font-inter mx-auto;
   }
 }

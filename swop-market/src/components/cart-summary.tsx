@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,9 +24,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useCartStore } from "@/context/cart-provider";
+import type { CartItem } from "@/lib/types/cart";
 import { formatCurrency } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { ShoppingBag } from "lucide-react";
 
 const promoCodeSchema = z.object({
   code: z.string().min(1, "Promo code is required"),
@@ -33,11 +34,8 @@ const promoCodeSchema = z.object({
 
 type PromoCodeForm = z.infer<typeof promoCodeSchema>;
 
-export default function CartSummary() {
+export default function CartSummary({ items }: { items: CartItem[] }) {
   const router = useRouter();
-
-  const { items } = useCartStore();
-
   const [discount, setDiscount] = useState(0);
 
   const form = useForm<PromoCodeForm>({
@@ -52,11 +50,12 @@ export default function CartSummary() {
   };
 
   const subtotal = items.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + (Number(item.price) || 0),
     0
   );
+  const itemCount = items.length;
   const shipping = 0; // Free shipping for now
-  const total = subtotal - discount + shipping;
+  const total = subtotal - (Number(discount) || 0) + shipping;
 
   function onSubmit(data: PromoCodeForm) {
     // In a real app, you would validate the promo code with an API
@@ -75,12 +74,17 @@ export default function CartSummary() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Order Summary</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <ShoppingBag className="w-5 h-5" />
+          Order Summary
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <div className="flex justify-between">
-            <span className="text-muted-foreground">Subtotal</span>
+            <span className="text-muted-foreground">
+              Items ({itemCount} {itemCount === 1 ? "item" : "items"})
+            </span>
             <span>{formatCurrency(subtotal)}</span>
           </div>
 
@@ -88,7 +92,7 @@ export default function CartSummary() {
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
-              className="flex justify-between text-green-600"
+              className="flex justify-between text-sm text-green-600"
             >
               <span>Discount</span>
               <span>-{formatCurrency(discount)}</span>
@@ -102,7 +106,7 @@ export default function CartSummary() {
 
           <div className="flex justify-between pt-2 text-lg font-bold border-t">
             <span>Total</span>
-            <span>{formatCurrency(total)}</span>
+            <span className="text-teal-700">{formatCurrency(total)}</span>
           </div>
         </div>
 
@@ -129,8 +133,10 @@ export default function CartSummary() {
           </form>
         </Form>
 
-        <div className="text-xs text-muted-foreground">
-          <p>Try code: WELCOME10 for 10% off</p>
+        <div className="p-2 text-xs rounded text-muted-foreground bg-muted/50">
+          <p>
+            Try code: <strong>WELCOME10</strong> for 10% off
+          </p>
         </div>
       </CardContent>
       <CardFooter>

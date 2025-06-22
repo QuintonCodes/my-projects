@@ -1,14 +1,17 @@
-import { products } from "@/lib/products";
+// import { products } from "@/lib/products";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useProducts } from "./use-products";
 
 export function useRelatedProducts(productId: string) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [visibleItems, setVisibleItems] = useState(4);
 
+  const { products, isLoading, error } = useProducts();
+
   const relatedProducts = useMemo(() => {
     return products.filter((product) => product.id !== productId).slice(0, 8);
-  }, [productId]);
+  }, [productId, products]);
 
   const calcVisibleItems = useCallback(() => {
     const width = window.innerWidth;
@@ -32,6 +35,8 @@ export function useRelatedProducts(productId: string) {
 
   return {
     relatedProducts,
+    isLoading,
+    error,
     containerRef,
     translateX: `translateX(-${currentIndex * (100 / visibleItems)}%)`,
     canScrollLeft: currentIndex > 0,
