@@ -30,6 +30,18 @@ const productSchema = z.object({
   deliveryOptions: z.array(z.string()).min(1),
 });
 
+const updateProductSchema = z.object({
+  name: z.string().min(3),
+  description: z.string().min(10),
+  category: z.string().min(1),
+  condition: z.enum(["new", "used_new", "used_good", "used_fair", "for_parts"]),
+  brand: z.string().optional(),
+  model: z.string().optional(),
+  price: z.coerce.number().min(1),
+  originalPrice: z.coerce.number().optional(),
+  location: z.string().min(1),
+});
+
 const validConditions = [
   "new",
   "used_new",
@@ -121,5 +133,44 @@ export async function createProduct(formData: FormData) {
       return { error: error.errors[0].message };
     }
     return { success: false, error: "Failed to create product" };
+  }
+}
+
+export async function updateProduct(productId: string, formData: FormData) {
+  try {
+    const raw: Record<string, unknown> = {};
+    for (const [key, value] of formData.entries()) {
+      raw[key] = value;
+    }
+    const parsed = updateProductSchema.safeParse(raw);
+    if (!parsed.success) {
+      return {
+        success: false,
+        error: parsed.error.errors.map((e) => e.message).join(", "),
+      };
+    }
+    const data = parsed.data;
+
+    const updated = await db.product.update({
+      where: { id: productId },
+      data: {
+        name: data.name,
+        description: data.description,
+        category: data.category,
+        condition: data.condition,
+        brand: data.brand || undefined,
+        model: data.model || undefined,
+        price: data.price,
+        originalPrice: data.originalPrice || undefined,
+        location: data.location,
+      },
+    });
+
+    return { success: true, product: updated };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { error: error.errors[0].message };
+    }
+    return { success: false, error: "Failed to update product" };
   }
 }

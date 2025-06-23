@@ -13,8 +13,8 @@ import {
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { notFound, useRouter } from "next/navigation";
+import { use, useState } from "react";
 import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
@@ -24,20 +24,29 @@ import { Separator } from "@/components/ui/separator";
 import { useProductList } from "@/hooks/use-product-list";
 import { formatCurrency, getStatusColor } from "@/lib/utils";
 
-export default function MarketItemPage() {
-  const params = useParams();
+export default function MarketItemPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const { products } = useProductList();
 
-  const product = products.find((p) => p.id === params.id);
+  const { id } = use(params);
+
+  if (!id) {
+    notFound();
+  }
+
+  const product = products.find((p) => p.id === id);
 
   if (!product) {
     return (
-      <div className="container px-4 md:px-6 py-8">
-        <div className="text-center py-12">
-          <h2 className="text-2xl font-bold mb-4">Product Not Found</h2>
-          <p className="text-muted-foreground mb-6">
+      <div className="container px-4 py-8 md:px-6">
+        <div className="py-12 text-center">
+          <h2 className="mb-4 text-2xl font-bold">Product Not Found</h2>
+          <p className="mb-6 text-muted-foreground">
             The product you&apos;re looking for doesn&apos;t exist.
           </p>
           <Link href="/market">
@@ -61,7 +70,7 @@ export default function MarketItemPage() {
   };
 
   return (
-    <div className="container px-4 md:px-6 py-8">
+    <div className="container px-4 py-8 md:px-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -70,7 +79,7 @@ export default function MarketItemPage() {
         <div className="flex items-center gap-4 mb-6">
           <Link href="/market">
             <Button variant="ghost" size="icon">
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="w-4 h-4" />
             </Button>
           </Link>
           <div>
@@ -79,16 +88,18 @@ export default function MarketItemPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Product Image */}
           <div className="lg:col-span-1">
             <Card>
               <CardContent className="p-0">
                 <div className="relative aspect-square">
                   <Image
-                    src={product.images[0] || "/placeholder.svg"}
+                    src={(product.imageUrl || [])[0] || "/placeholder.svg"}
                     alt={product.name}
                     className="object-cover w-full h-full rounded-t-lg"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <Badge
                     className={`absolute top-2 left-2 ${getStatusColor(
@@ -103,17 +114,17 @@ export default function MarketItemPage() {
           </div>
 
           {/* Product Details */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="space-y-6 lg:col-span-2">
             <Card>
               <CardHeader>
-                <div className="flex justify-between items-start">
+                <div className="flex items-start justify-between">
                   <div>
                     <CardTitle className="text-2xl">{product.name}</CardTitle>
-                    <p className="text-3xl font-bold text-teal-700 mt-2">
+                    <p className="mt-2 text-3xl font-bold text-teal-700">
                       {formatCurrency(product.price)}
                     </p>
                     {product.originalPrice && (
-                      <p className="text-lg text-muted-foreground line-through">
+                      <p className="text-lg line-through text-muted-foreground">
                         {formatCurrency(product.originalPrice)}
                       </p>
                     )}
@@ -121,7 +132,7 @@ export default function MarketItemPage() {
                   <div className="flex gap-2">
                     <Link href={`/market/${product.id}/edit`}>
                       <Button variant="outline" size="sm">
-                        <Edit className="h-4 w-4 mr-2" />
+                        <Edit className="w-4 h-4 mr-2" />
                         Edit
                       </Button>
                     </Link>
@@ -132,7 +143,7 @@ export default function MarketItemPage() {
                       disabled={isDeleting}
                       className="text-red-600 hover:text-red-700"
                     >
-                      <Trash2 className="h-4 w-4 mr-2" />
+                      <Trash2 className="w-4 h-4 mr-2" />
                       {isDeleting ? "Deleting..." : "Delete"}
                     </Button>
                   </div>
@@ -140,7 +151,7 @@ export default function MarketItemPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h3 className="font-semibold mb-2">Description</h3>
+                  <h3 className="mb-2 font-semibold">Description</h3>
                   <p className="text-muted-foreground">{product.description}</p>
                 </div>
 
@@ -190,14 +201,14 @@ export default function MarketItemPage() {
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
                     <div className="flex items-center justify-center gap-1 text-2xl font-bold">
-                      <Eye className="h-5 w-5 text-muted-foreground" />
+                      <Eye className="w-5 h-5 text-muted-foreground" />
                       {product.views}
                     </div>
                     <p className="text-sm text-muted-foreground">Views</p>
                   </div>
                   <div>
                     <div className="flex items-center justify-center gap-1 text-2xl font-bold">
-                      <Heart className="h-5 w-5 text-muted-foreground" />
+                      <Heart className="w-5 h-5 text-muted-foreground" />
                       {product.likes}
                     </div>
                     <p className="text-sm text-muted-foreground">Favourites</p>
@@ -215,16 +226,16 @@ export default function MarketItemPage() {
                 <div className="flex flex-wrap gap-2">
                   <Link href={`/products/${product.id}`}>
                     <Button variant="outline" size="sm">
-                      <Eye className="h-4 w-4 mr-2" />
+                      <Eye className="w-4 h-4 mr-2" />
                       View Public Page
                     </Button>
                   </Link>
                   <Button variant="outline" size="sm">
-                    <Share2 className="h-4 w-4 mr-2" />
+                    <Share2 className="w-4 h-4 mr-2" />
                     Share Product
                   </Button>
                   <Button variant="outline" size="sm">
-                    <MessageSquare className="h-4 w-4 mr-2" />
+                    <MessageSquare className="w-4 h-4 mr-2" />
                     View Messages
                   </Button>
                 </div>

@@ -44,7 +44,7 @@ export default function FavouritesPage() {
   }
 
   return (
-    <div className="container gap-8 px-4 md:px-6 py-8">
+    <div className="w-full gap-8 px-4 py-8 md:px-6">
       <div className="flex flex-col space-y-6">
         <div className="flex items-center justify-between">
           <div className="space-y-1">

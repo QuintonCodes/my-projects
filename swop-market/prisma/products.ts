@@ -1,7 +1,33 @@
-import { db } from "./prisma";
-import { Seller } from "./types/product";
+import {
+  deliveryOptions,
+  productCondition,
+  productStatus,
+} from "@prisma/client";
 
-export const products = [
+export const products: Array<{
+  id: string;
+  name: string;
+  description: string;
+  images: string[];
+  seller: string;
+  category: string;
+  condition: productCondition;
+  location: string;
+  deliveryOptions: deliveryOptions[];
+  price: number;
+  originalPrice?: number;
+  status: productStatus;
+  brand?: string;
+  model?: string;
+  createdAt: Date;
+  reviews?: Array<{
+    id: string;
+    user: string;
+    rating: number;
+    comment?: string;
+    date: Date;
+  }>;
+}> = [
   {
     id: "1",
     name: "Vintage Leather Sofa",
@@ -383,65 +409,3 @@ export const products = [
     status: "active",
   },
 ];
-
-type ProductPayload = {
-  name: string;
-  description: string;
-  images: string[];
-  category: string;
-  condition: "new" | "used_new" | "used_good" | "used_fair" | "for_parts";
-  location?: string;
-  deliveryOptions?: (
-    | "pickup"
-    | "courier"
-    | "local_delivery"
-    | "meet_in_person"
-  )[];
-  price: number;
-  originalPrice?: number;
-  brand?: string;
-  model?: string;
-  seller: Seller;
-};
-
-export async function createProduct(product: ProductPayload) {
-  return await db.product.create({
-    data: {
-      name: product.name,
-      description: product.description,
-      imageUrl: product.images,
-      category: product.category,
-      condition: product.condition,
-      location: product.location ?? undefined,
-      deliveryOptions: product.deliveryOptions ?? undefined,
-      price: product.price,
-      originalPrice: product.originalPrice ?? undefined,
-      status: "active", // Default status
-      brand: product.brand ?? undefined,
-      model: product.model ?? undefined,
-      seller: {
-        connectOrCreate: {
-          where: { id: product.seller.id },
-          create: {
-            storeName: product.seller.storeName,
-            storeDescription: product.seller.storeDescription ?? undefined,
-            contactEmail: product.seller.contactEmail ?? undefined,
-            contactNumber: product.seller.contactNumber ?? undefined,
-            location: product.seller.location ?? undefined,
-            user: {
-              connectOrCreate: {
-                where: { id: product.seller.user.id },
-                create: {
-                  firstName: product.seller.user.firstName,
-                  lastName: product.seller.user.lastName ?? "",
-                  email: product.seller.user.email,
-                  password: product.seller.user.password, // Ensure this is hashed before saving
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
-}

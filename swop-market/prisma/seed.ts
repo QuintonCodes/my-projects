@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { products } from "../src/lib/products";
+import { products } from "./products";
 
 const db = new PrismaClient();
 
@@ -53,13 +53,20 @@ async function main() {
               comment: review.comment ?? undefined,
               createdAt: review.date,
               buyer: {
-                create: {
-                  firstName: review.user,
-                  lastName: "",
-                  password: "",
-                  email: `${review.user
-                    ?.toLowerCase()
-                    .replace(/\s+/g, "")}@example.com`,
+                connectOrCreate: {
+                  where: {
+                    email: `${review.user
+                      ?.toLowerCase()
+                      .replace(/\s+/g, "")}@example.com`,
+                  },
+                  create: {
+                    firstName: review.user,
+                    lastName: "",
+                    password: "",
+                    email: `${review.user
+                      ?.toLowerCase()
+                      .replace(/\s+/g, "")}@example.com`,
+                  },
                 },
               },
             })) ?? [],

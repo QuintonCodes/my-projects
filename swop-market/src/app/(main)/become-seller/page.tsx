@@ -95,7 +95,7 @@ export default function BecomeSellerPage() {
 
   if (!user) {
     return (
-      <div className="container px-4 py-8 mx-auto">
+      <div className="w-full px-4 py-8 mx-auto">
         <Card className="max-w-md mx-auto">
           <CardHeader className="text-center">
             <CardTitle>Login Required</CardTitle>
@@ -115,7 +115,7 @@ export default function BecomeSellerPage() {
 
   if (user.role === "seller" || user.role === "admin") {
     return (
-      <div className="container px-4 py-8 mx-auto">
+      <div className="w-full px-4 py-8 mx-auto">
         <Card className="max-w-md mx-auto">
           <CardHeader className="text-center">
             <CheckCircle className="w-12 h-12 mx-auto mb-4 text-green-500" />
@@ -135,7 +135,7 @@ export default function BecomeSellerPage() {
   }
 
   return (
-    <div className="container px-4 py-8 mx-auto">
+    <div className="w-full px-4 py-8 mx-auto">
       <div className="max-w-2xl mx-auto">
         <div className="mb-6">
           <Button

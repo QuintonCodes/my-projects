@@ -26,7 +26,7 @@ export default function AccountPage() {
 
   if (!user) {
     return (
-      <div className="container px-4 py-8 md:px-6">
+      <div className="w-full px-4 py-8 md:px-6">
         <div className="py-12 text-center">
           <h2 className="mb-4 text-2xl font-bold">Please log in</h2>
           <p className="text-muted-foreground">
@@ -40,7 +40,7 @@ export default function AccountPage() {
   const isSeller = user.role === "seller" || user.role === "admin";
 
   return (
-    <div className="container px-4 py-8 md:px-6">
+    <div className="w-full px-4 py-8 md:px-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
