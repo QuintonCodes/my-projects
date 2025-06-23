@@ -30,7 +30,7 @@ export default function CartItems({ items, removeItem }: CartItemsProps) {
           >
             <div className="relative w-24 h-24 overflow-hidden rounded-md sm:h-32 sm:w-32">
               <Image
-                src={item.imageUrl || "/placeholder.svg?"}
+                src={item.imageUrl || "/placeholder.svg"}
                 alt={item.name}
                 fill
                 sizes="96px"
