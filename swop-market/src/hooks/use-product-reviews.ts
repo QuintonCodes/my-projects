@@ -15,8 +15,9 @@ export function useProductReviews(productId: string) {
   useEffect(() => {
     if (
       product &&
-      product.reviews &&
-      (!reviews[productId] || reviews[productId].length === 0)
+      Array.isArray(product.reviews) &&
+      product.reviews.length > 0 &&
+      !reviews[productId]
     ) {
       setReviews(productId, product.reviews);
     }

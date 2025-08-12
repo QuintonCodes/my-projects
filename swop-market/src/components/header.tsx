@@ -105,6 +105,7 @@ export default function Header() {
           />
 
           <CartButton
+            user={user}
             items={items}
             removeItem={removeItem}
             getCartTotal={getCartTotal}
@@ -115,7 +116,7 @@ export default function Header() {
               <UserMenu user={user} logout={logout} />
             </div>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/login">Log in</Link>
               </Button>

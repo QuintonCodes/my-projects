@@ -24,6 +24,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuthStore } from "@/context/auth-provider";
 import { useCartStore } from "@/context/cart-provider";
 import { useFavouritesStore } from "@/lib/stores/favourites-store";
 import { ProductWithSeller } from "@/lib/types/product";
@@ -52,6 +53,7 @@ export function ProductCard({
   const { addItem, isInCart } = useCartStore();
   const { addToFavourites, removeFromFavourites, isFavourite } =
     useFavouritesStore();
+  const { isAuthenticated } = useAuthStore();
 
   const isProductFavourite = isFavourite(product?.id || "");
   const isProductInCart = isInCart(product?.id || "");
@@ -75,6 +77,11 @@ export function ProductCard({
   }
 
   function handleToggleFavourite() {
+    if (!isAuthenticated) {
+      toast.info("Please log in to add favourites.");
+      return;
+    }
+
     if (isProductFavourite) {
       removeFromFavourites(product?.id || "");
       toast.info("Removed from favourites", {

@@ -4,7 +4,6 @@ import { Heart, LogOut, Settings, Store } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { logout } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserWithSeller } from "@/context/auth-provider";
+import { deleteSession } from "@/lib/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 type UserMenuProps = {
@@ -27,7 +27,7 @@ export default function UserMenu({ user, logout: logoutStore }: UserMenuProps) {
 
   async function handleLogout() {
     try {
-      await logout(); // server-side session removal
+      await deleteSession();
       await logoutStore(); // local store update
       toast.success("You have logged out.");
       router.refresh();

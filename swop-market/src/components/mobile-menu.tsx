@@ -60,26 +60,6 @@ export default function MobileMenu({
     setIsMobileMenuOpen(false);
   }, [pathname, setIsMobileMenuOpen]);
 
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      y: -20,
-      transition: {
-        duration: 0.2,
-        ease: "easeInOut",
-      },
-    },
-    open: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut",
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
   const itemVariants = {
     closed: { opacity: 0, x: -20 },
     open: { opacity: 1, x: 0 },
@@ -119,10 +99,28 @@ export default function MobileMenu({
           </motion.div>
         </Button>
       </SheetTrigger>
-      <SheetContent className="p-0 border-l w-72 bg-background">
+      <SheetContent className="p-0">
         <SheetTitle className="sr-only">Main menu</SheetTitle>
         <motion.div
-          variants={menuVariants}
+          variants={{
+            closed: {
+              opacity: 0,
+              y: -20,
+              transition: {
+                duration: 0.2,
+                ease: "easeInOut",
+              },
+            },
+            open: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.3,
+                ease: "easeOut",
+                staggerChildren: 0.05,
+              },
+            },
+          }}
           initial="closed"
           animate="open"
           exit="closed"
@@ -217,20 +215,37 @@ export default function MobileMenu({
                   </Link>
                 </motion.div>
 
-                <motion.div variants={itemVariants}>
-                  <Link
-                    href="/sell"
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors hover:bg-accent ${
-                      pathname === "/sell"
-                        ? "bg-teal-50 text-teal-700 border border-teal-200"
-                        : ""
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Package className="w-5 h-5" />
-                    <span>Sell Item</span>
-                  </Link>
-                </motion.div>
+                {user && user.sellerProfile ? (
+                  <motion.div variants={itemVariants}>
+                    <Link
+                      href="/sell"
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors hover:bg-accent ${
+                        pathname === "/sell"
+                          ? "bg-teal-50 text-teal-700 border border-teal-200"
+                          : ""
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Package className="w-5 h-5" />
+                      <span>Sell Item</span>
+                    </Link>
+                  </motion.div>
+                ) : (
+                  <motion.div variants={itemVariants}>
+                    <Link
+                      href="/become-seller"
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors hover:bg-accent ${
+                        pathname === "/become-seller"
+                          ? "bg-teal-50 text-teal-700 border border-teal-200"
+                          : ""
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Package className="w-5 h-5" />
+                      <span>Become A Seller</span>
+                    </Link>
+                  </motion.div>
+                )}
               </div>
 
               <Separator className="my-4" />

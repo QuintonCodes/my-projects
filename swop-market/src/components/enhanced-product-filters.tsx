@@ -34,8 +34,12 @@ export default function EnhancedProductFilters() {
         <FilterContent {...productFilters} />
       </div>
 
+      <div className="block md:hidden p-4 py-6">
+        <FilterContent {...productFilters} />
+      </div>
+
       {activeFilterCount === 0 && (
-        <div className="mt-4 mb-2 text-sm text-muted-foreground">
+        <div className="mt-4 mb-2 text-sm text-muted-foreground px-4 md:px-0">
           <p>Showing all products. Apply filters to refine results.</p>
         </div>
       )}

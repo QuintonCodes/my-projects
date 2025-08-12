@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart } from "lucide-react";
+import { BarChart as BarChartIcon } from "lucide-react";
 
 import {
   Accordion,
@@ -16,7 +16,16 @@ import { Slider } from "@/components/ui/slider";
 import { MAX_PRICE, useProductFilters } from "@/hooks/use-product-filters";
 import { conditionOptions } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
-import PriceRangeHistogram from "./price-range-histogram";
+// import PriceRangeHistogram from "./price-range-histogram";
+
+import {
+  Bar,
+  BarChart,
+  Cell,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 type FilterContentProps = ReturnType<typeof useProductFilters>;
 
@@ -39,6 +48,11 @@ export default function FilterContent({
   handleMinPriceChange,
   resetFilters,
 }: FilterContentProps) {
+  const isInRange = (range: string): boolean => {
+    const [min, max] = range.split("-").map(Number);
+    return !(priceRange[1] < min || priceRange[0] > max);
+  };
+
   return (
     <form onSubmit={handleSubmit(applyFilters)} className="space-y-6">
       <Accordion
@@ -57,7 +71,7 @@ export default function FilterContent({
                   setShowPriceDistribution(!showPriceDistribution);
                 }}
               >
-                <BarChart className="w-4 h-4 mr-1" />
+                <BarChartIcon className="w-4 h-4 mr-1" />
                 {showPriceDistribution ? "Hide" : "Show"} Distribution
               </div>
             </div>
@@ -65,11 +79,36 @@ export default function FilterContent({
           <AccordionContent>
             <div className="space-y-4">
               {showPriceDistribution && (
-                <div className="mb-4">
-                  <PriceRangeHistogram
-                    data={priceDistributionData}
-                    selectedRange={priceRange}
-                  />
+                <div className="h-[120px] w-full mb-4">
+                  <ResponsiveContainer
+                    width="100%"
+                    height={120}
+                    minWidth={100}
+                    minHeight={100}
+                  >
+                    <BarChart
+                      data={priceDistributionData}
+                      margin={{ top: 5, right: 5, left: 5, bottom: 20 }}
+                    >
+                      <XAxis
+                        dataKey="range"
+                        tick={{ fontSize: 10 }}
+                        tickLine={false}
+                        axisLine={false}
+                      />
+                      <YAxis hide />
+                      <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                        {priceDistributionData.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={
+                              isInRange(entry.range) ? "#0F766E" : "#e5e7eb"
+                            }
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
               )}
 

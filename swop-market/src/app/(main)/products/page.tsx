@@ -7,7 +7,12 @@ import EnhancedProductFilters from "@/components/enhanced-product-filters";
 import ProductGrid from "@/components/product-grid";
 import ProductSort from "@/components/product-sort";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export default function ProductsPage() {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
@@ -41,10 +46,9 @@ export default function ProductsPage() {
                     Filters
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-80">
-                  <div className="py-4">
-                    <EnhancedProductFilters />
-                  </div>
+                <SheetContent side="left" className="p-0">
+                  <SheetTitle className="sr-only">Filters Menu</SheetTitle>
+                  <EnhancedProductFilters />
                 </SheetContent>
               </Sheet>
               <ProductSort />

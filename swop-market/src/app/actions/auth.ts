@@ -3,26 +3,13 @@
 import {
   createSession,
   createUser,
-  deleteSession,
   getUserByEmail,
   verifyPassword,
 } from "@/lib/auth";
+import { loginSchema, registerSchema } from "@/lib/types/auth";
 import { z } from "zod";
 
-const registerSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
-  email: z.string().email("Invalid email address"),
-  phoneNumber: z.string().max(12, "Exceeded max length"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
-
-const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
-});
-
-export async function register(formData: FormData) {
+export async function registerUser(formData: FormData) {
   const data = {
     firstName: formData.get("firstName")?.toString() || "",
     lastName: formData.get("lastName")?.toString() || "",
@@ -57,7 +44,7 @@ export async function register(formData: FormData) {
   }
 }
 
-export async function login(formData: FormData) {
+export async function loginUser(formData: FormData) {
   const data = {
     email: formData.get("email")?.toString() || "",
     password: formData.get("password")?.toString() || "",
@@ -89,8 +76,4 @@ export async function login(formData: FormData) {
     }
     return { error: "Login failed. Please try again." };
   }
-}
-
-export async function logout() {
-  await deleteSession();
 }

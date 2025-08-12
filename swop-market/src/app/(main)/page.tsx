@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowRight, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
@@ -5,11 +7,14 @@ import CategoryGrid from "@/components/category-grid";
 import FeaturedProducts from "@/components/featured-products";
 import HeroSection from "@/components/hero-section";
 import { Button } from "@/components/ui/button";
+import { useAuthStore } from "@/context/auth-provider";
 
 export default function HomePage() {
+  const { user } = useAuthStore();
+
   return (
-    <main className="flex-1">
-      <HeroSection />
+    <main className="w-full">
+      <HeroSection user={user} />
       <div className="px-4 py-8 md:px-6">
         <section className="py-12">
           <div className="mb-12 text-center">
@@ -56,9 +61,13 @@ export default function HomePage() {
               size="lg"
               className="bg-amber-500 hover:bg-amber-600"
             >
-              <Link href="/sell">
+              <Link
+                href={user && user.sellerProfile ? "/sell" : "/become-seller"}
+              >
                 <ShoppingBag className="w-5 h-5 mr-2" />
-                Create Your Shop
+                {user && user.sellerProfile
+                  ? "Create Your Shop"
+                  : "Become A Seller"}
               </Link>
             </Button>
           </div>

@@ -14,18 +14,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { UserWithSeller } from "@/context/auth-provider";
 import { CartItem } from "@/lib/types/cart";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 
 type CartButtonProps = {
+  user: UserWithSeller | null;
   items: CartItem[];
   removeItem: (id: string) => void;
   getCartTotal: () => number;
 };
 
 export default function CartButton({
+  user,
   items,
   removeItem,
   getCartTotal,
@@ -57,7 +60,7 @@ export default function CartButton({
           <span className="sr-only">Cart</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-full sm:max-w-md">
+      <SheetContent>
         <SheetHeader className="pb-0">
           <SheetTitle>Shopping Cart ({items.length})</SheetTitle>
         </SheetHeader>
@@ -131,16 +134,31 @@ export default function CartButton({
                   <span>{formatCurrency(subtotal)}</span>
                 </div>
                 <div className="flex items-center w-full gap-4">
-                  <Link href="/cart" onClick={onClose}>
-                    <Button className="w-full bg-teal-700 hover:bg-teal-800">
-                      View Cart
-                    </Button>
-                  </Link>
-                  <Link href="/checkout" onClick={onClose}>
-                    <Button className="w-full bg-amber-500 hover:bg-amber-600">
-                      Checkout
-                    </Button>
-                  </Link>
+                  {user ? (
+                    <>
+                      <Link href="/cart" onClick={onClose}>
+                        <Button className="w-full bg-teal-700 hover:bg-teal-800">
+                          View Cart
+                        </Button>
+                      </Link>
+                      <Link href="/checkout" onClick={onClose}>
+                        <Button className="w-full bg-amber-500 hover:bg-amber-600">
+                          Checkout
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <div className="w-full space-y-2">
+                      <div className="text-xs text-center text-muted-foreground px-2">
+                        Only logged in users can view or checkout their cart.
+                      </div>
+                      <Link href="/login" onClick={onClose}>
+                        <Button className="w-full bg-teal-700 hover:bg-teal-800">
+                          Login
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </>

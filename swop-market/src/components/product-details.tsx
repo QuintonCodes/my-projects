@@ -93,10 +93,19 @@ export default function ProductDetails({
     }
   }
 
-  function handleShare() {
-    toast.success("Share product", {
-      description: "Product link copied to clipboard!",
-    });
+  async function handleShare() {
+    if (navigator.share) {
+      await navigator.share({
+        title: product.name,
+        text: product.description,
+        url: window.location.href,
+      });
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      toast.success("Link copied", {
+        description: "Product link has been copied to your clipboard.",
+      });
+    }
   }
 
   function handlePrevImage() {
@@ -176,6 +185,7 @@ export default function ProductDetails({
                   fill
                   sizes="(max-width: 768px) 25vw, 10vw"
                   className="object-cover"
+                  priority
                 />
               </div>
             ))}
@@ -222,7 +232,7 @@ export default function ProductDetails({
                   {avgRating.toFixed(1)}/5
                 </span>
               </div>
-              <span className="text-sm text-muted-foreground">
+              <span className="text-sm text-muted-foreground whitespace-nowrap">
                 {reviews.length} {reviews.length === 1 ? "review" : "reviews"}
               </span>
 

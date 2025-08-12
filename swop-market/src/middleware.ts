@@ -4,16 +4,19 @@ import { decrypt } from "./lib/auth";
 const protectedRoutes = [
   "/account",
   "/admin",
+  "/become-seller",
   "/cart",
   "/checkout",
-  "/favourite",
+  "/favourites",
   "/market",
   "/sell",
 ];
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path);
+  const isProtectedRoute = protectedRoutes.some(
+    (route) => path === route || path.startsWith(route + "/")
+  );
 
   const cookie = req.cookies.get("session")?.value;
   const session = await decrypt(cookie);
@@ -36,9 +39,10 @@ export const config = {
   matcher: [
     "/account/:path*",
     "/admin/:path*",
+    "/become-seller/:path*",
     "/cart/:path*",
     "/checkout/:path*",
-    "/favourite/:path*",
+    "/favourites/:path*",
     "/market/:path*",
     "/sell/:path*",
   ],

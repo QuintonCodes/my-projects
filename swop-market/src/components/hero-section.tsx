@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { UserWithSeller } from "@/context/auth-provider";
 import { categories } from "@/lib/data";
 
 const stats = [
@@ -50,7 +51,7 @@ const features = [
   },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ user }: { user: UserWithSeller | null }) {
   return (
     <section className="overflow-hidden text-white bg-gradient-to-br from-teal-700 via-teal-800 px-4 py-16 md:px-6 md:py-24">
       <div className="grid items-center gap-8 md:grid-cols-2">
@@ -79,7 +80,13 @@ export default function HeroSection() {
               size="lg"
               className="text-background bg-amber-500 hover:bg-amber-600"
             >
-              <Link href="/sell">Start Selling</Link>
+              <Link
+                href={user && user.sellerProfile ? "/sell" : "/become-seller"}
+              >
+                {user && user.sellerProfile
+                  ? "Start Selling"
+                  : "Become A Seller"}
+              </Link>
             </Button>
             <Button
               asChild
