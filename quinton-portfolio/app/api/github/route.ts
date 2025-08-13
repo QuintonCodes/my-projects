@@ -8,7 +8,7 @@ const headers = {
   Authorization: `Bearer ${GITHUB_TOKEN}`,
 };
 
-const fetchUserRepos = async (username: string): Promise<string[]> => {
+async function fetchUserRepos(username: string): Promise<string[]> {
   try {
     const response = await axios.get(
       `${GITHUB_API_BASE_URL}/users/${username}/repos`,
@@ -18,12 +18,12 @@ const fetchUserRepos = async (username: string): Promise<string[]> => {
   } catch (error) {
     throw new Error(`Failed to fetch repositories: ${error}`);
   }
-};
+}
 
-const fetchTotalCommits = async (
+async function fetchTotalCommits(
   username: string,
   repo: string
-): Promise<number> => {
+): Promise<number> {
   let totalCommits = 0;
   let page = 1;
   let hasMorePages = true;
@@ -52,7 +52,7 @@ const fetchTotalCommits = async (
   }
 
   return totalCommits;
-};
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

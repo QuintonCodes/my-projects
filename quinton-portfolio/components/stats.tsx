@@ -1,7 +1,8 @@
 "use client";
 
-import { useStats } from "@/hooks/useStats";
 import CountUp from "react-countup";
+
+import { useStats } from "@/hooks/use-stats";
 
 export default function Stats() {
   const statsData = useStats();

@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "motion/react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,23 +12,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { motion } from "motion/react";
-
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  technologies: string[];
-  liveLink?: string;
-  codeLink?: string;
-}
+import { Project } from "@/lib/data";
 
 export default function ProjectCard({
   title,
   description,
-  technologies,
-  liveLink,
-  codeLink,
-}: ProjectCardProps) {
+  stack,
+  live,
+  gitHub,
+}: Project) {
   return (
     <motion.div
       whileHover={{ y: -5 }}
@@ -41,7 +35,7 @@ export default function ProjectCard({
             {description}
           </CardDescription>
           <div className="flex flex-wrap gap-2 mt-4">
-            {technologies.map((tech) => (
+            {stack.map((tech) => (
               <Badge
                 key={tech}
                 variant="outline"
@@ -53,26 +47,26 @@ export default function ProjectCard({
           </div>
         </CardContent>
         <CardFooter className="flex justify-start gap-3">
-          {liveLink && (
+          {live && (
             <Button
               variant="default"
               size="sm"
               className="rounded-full bg-accent hover:bg-accent/80 text-accent-foreground"
               asChild
             >
-              <a href={liveLink} target="_blank" rel="noopener noreferrer">
+              <a href={live} target="_blank" rel="noopener noreferrer">
                 Live Demo
               </a>
             </Button>
           )}
-          {codeLink && (
+          {gitHub && (
             <Button
               variant="outline"
               size="sm"
               className="rounded-full hover:bg-accent/10"
               asChild
             >
-              <a href={codeLink} target="_blank" rel="noopener noreferrer">
+              <a href={gitHub} target="_blank" rel="noopener noreferrer">
                 View Code
               </a>
             </Button>

@@ -2,12 +2,12 @@
 
 import { ChevronDown } from "lucide-react";
 
-interface SectionProps {
+type SectionProps = {
   id: string;
   children: React.ReactNode;
   className?: string;
   nextSectionId?: string;
-}
+};
 
 export default function Section({
   id,
@@ -15,7 +15,7 @@ export default function Section({
   className = "",
   nextSectionId,
 }: SectionProps) {
-  const scrollToNextSection = (sectionId: string) => {
+  function scrollToNextSection(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {
       window.scrollTo({
@@ -23,7 +23,7 @@ export default function Section({
         behavior: "smooth",
       });
     }
-  };
+  }
 
   return (
     <section

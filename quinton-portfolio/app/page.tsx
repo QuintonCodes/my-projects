@@ -1,3 +1,6 @@
+import { Download } from "lucide-react";
+import Link from "next/link";
+
 import EducationCard from "@/components/education-card";
 import ExperienceCard from "@/components/experience-card";
 import ProjectCard from "@/components/project-card";
@@ -10,8 +13,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import VerticalNav from "@/components/vertical-nav";
 import { details, education, experience, projects, skills } from "@/lib/data";
-import { Download } from "lucide-react";
-import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -103,11 +104,7 @@ export default function HomePage() {
               <h3 className="mb-4 text-lg font-bold">Frontend</h3>
               <div className="space-y-3">
                 {skills.frontend.map((skill, index) => (
-                  <SkillItem
-                    key={index}
-                    name={skill.title}
-                    level={skill.level}
-                  />
+                  <SkillItem key={index} {...skill} />
                 ))}
               </div>
             </div>
@@ -116,11 +113,7 @@ export default function HomePage() {
               <h3 className="mb-4 text-lg font-bold">Backend</h3>
               <div className="space-y-3">
                 {skills.backend.map((skill, index) => (
-                  <SkillItem
-                    key={index}
-                    name={skill.title}
-                    level={skill.level}
-                  />
+                  <SkillItem key={index} {...skill} />
                 ))}
               </div>
             </div>
@@ -150,14 +143,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {projects.map((project, index) => (
-              <ProjectCard
-                key={index}
-                title={project.title}
-                description={project.description}
-                technologies={project.stack}
-                liveLink={project.live}
-                codeLink={project.gihub}
-              />
+              <ProjectCard key={index} {...project} />
             ))}
           </div>
         </div>

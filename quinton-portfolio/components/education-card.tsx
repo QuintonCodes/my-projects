@@ -6,16 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-type EducationProps = {
-  institution: string;
-  degree: string;
-  location: string;
-  duration: string;
-  description: string;
-  gpa: number;
-  modules: string[];
-};
+import { Education } from "@/lib/data";
 
 export default function EducationCard({
   institution,
@@ -25,7 +16,7 @@ export default function EducationCard({
   duration,
   description,
   modules,
-}: EducationProps) {
+}: Education) {
   return (
     <div className="animate-fade-in-up will-change-transform">
       <Card className="mb-6 glass-card border-accent/20">

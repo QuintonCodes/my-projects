@@ -2,18 +2,19 @@
 
 import { motion } from "motion/react";
 
-interface SkillItemProps {
-  name: string;
-  level: number; // 1-10
-}
-
-export default function SkillItem({ name, level }: SkillItemProps) {
+export default function SkillItem({
+  title,
+  level,
+}: {
+  title: string;
+  level: number;
+}) {
   const percentage = `${level * 10}%`;
 
   return (
     <div className="mb-4">
       <div className="flex items-center justify-between mb-1">
-        <span className="font-medium">{name}</span>
+        <span className="font-medium">{title}</span>
         <span className="text-sm text-primary dark:text-muted-foreground">
           {percentage}
         </span>

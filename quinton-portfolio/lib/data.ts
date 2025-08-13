@@ -54,7 +54,7 @@ export const skills = {
   frontend: [
     {
       title: "Next.js",
-      level: 8,
+      level: 9,
     },
     {
       title: "TypeScript",
@@ -69,21 +69,21 @@ export const skills = {
       level: 9,
     },
     {
-      title: "Framer Motion",
+      title: "React.js",
       level: 6,
     },
   ],
   backend: [
     {
       title: "Node.js",
-      level: 8,
+      level: 9,
     },
     {
       title: "C#",
-      level: 7,
+      level: 8,
     },
     {
-      title: "PostgreSQL",
+      title: "Python",
       level: 6,
     },
     {
@@ -91,44 +91,61 @@ export const skills = {
       level: 8,
     },
     {
-      title: "Express.js",
-      level: 9,
+      title: "ASP.NET Core",
+      level: 7,
     },
   ],
   tools: [
     "Git",
-    "ASP.NET Core",
-    "ShadCN/UI",
-    "Prisma",
-    "Postman",
+    "GitHub",
     "GitHub Actions",
+    "MetaMask",
+    "Jest",
+    "Postman",
     "Jest",
     "Figma",
     "CI/CD",
     "Agile",
+    "Blockchain APIs",
   ],
 };
 
-export const projects = [
+export type Project = {
+  title: string;
+  description: string;
+  stack: string[];
+  gitHub: string;
+  live: string;
+};
+
+export const projects: Project[] = [
   {
-    title: "KickFlip e-Commerce Website",
+    title: "SwopMarket e-Commerce Website",
     description:
-      "A full-featured online store with shopping cart, payment processing, and admin dashboard.",
-    stack: ["Next.js", "PostgreSQL", "Stripe", "TailwindCSS"],
-    gihub: "https://github.com/QuintonCodes/My-Projects/tree/main/kickflip",
-    live: "",
+      "A full-featured online store with shopping cart, payment processing, and admin dashboard i built for my 3rd year project.",
+    stack: ["Next.js", "PostgreSQL", "Prisma", "TailwindCSS"],
+    gitHub: "https://github.com/QuintonCodes/my-projects/tree/main/swop-market",
+    live: "https://swop-market.vercel.app",
   },
   {
-    title: "Spotify Clone",
+    title: "Improved Spotify Clone (In Progress)",
     description:
-      "A fully functional spotify clone with advanced music features",
+      "A fully functional spotify clone with advanced music features, including playlists, search, and user authentication.",
     stack: ["Next.js", "PostgreSQL", "TailwindCSS"],
-    gihub: "https://github.com/QuintonCodes/My-Projects/tree/main/spotify-2.0",
+    gitHub: "https://github.com/QuintonCodes/My-Projects/tree/main/spotify-2.0",
     live: "",
   },
 ];
 
-export const experience = [
+export type Experience = {
+  title: string;
+  company: string;
+  duration: string;
+  description: string;
+  technologies: string[];
+};
+
+export const experience: Experience[] = [
   {
     title: "Web Developer",
     company: "Freelance - Takalani Lubrication Supplier",
@@ -140,14 +157,24 @@ export const experience = [
   {
     title: "Web Developer",
     company: "Freelance - UniLink",
-    duration: "Apr 2025 - Present",
+    duration: "May 2025 - Present",
     description:
       "Resolved UX pain points, reducing authentication-related support tickets by over 70%. Designed and implemented key UI components (home, login, register) achieving a 100% approval rating on first client review. Configured automated Vercel preview deployments to streamline iteration cycles across a team of 2+ collaborators, reducing staging delays by 50%",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MetaMask"],
   },
 ];
 
-export const education = {
+export type Education = {
+  institution: string;
+  degree: string;
+  location: string;
+  duration: string;
+  description: string;
+  gpa: number;
+  modules: string[];
+};
+
+export const education: Education = {
   institution: "Eduvos",
   location: "Pretoria, Gauteng",
   description:
@@ -164,5 +191,5 @@ export const education = {
     "IT Project Management",
     "Object-Oriented Systems Analysis and Design",
   ],
-  gpa: 3.74,
+  gpa: 3.22,
 };

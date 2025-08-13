@@ -6,14 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-interface ExperienceCardProps {
-  title: string;
-  company: string;
-  duration: string;
-  description: string;
-  technologies: string[];
-}
+import { Experience } from "@/lib/data";
 
 export default function ExperienceCard({
   title,
@@ -21,7 +14,7 @@ export default function ExperienceCard({
   duration,
   description,
   technologies,
-}: ExperienceCardProps) {
+}: Experience) {
   return (
     <div className="animate-fade-in-up will-change-transform">
       <Card className="mb-6 glass-card border-accent/20">

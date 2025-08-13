@@ -1,28 +1,29 @@
-import { experience, initialStats, skills } from "@/lib/data";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
+import { experience, initialStats, skills } from "@/lib/data";
 
 type StatsProps = {
   num: number;
   text: string;
 };
 
-const fetchUserRepos = async (username: string): Promise<string[]> => {
+async function fetchUserRepos(username: string): Promise<string[]> {
   const response = await axios.get(`/api/github?username=${username}`);
   return response.data.repositories || [];
-};
+}
 
-const fetchTotalCommits = async (
+async function fetchTotalCommits(
   username: string,
   repo: string
-): Promise<number> => {
+): Promise<number> {
   const response = await axios.get(
     `/api/github?username=${username}&repo=${repo}`
   );
   return response.data.totalCommits || 0;
-};
+}
 
-export const useStats = () => {
+export function useStats() {
   const username = "QuintonCodes";
 
   const { data: repositories = [] } = useQuery({
@@ -66,4 +67,4 @@ export const useStats = () => {
   });
 
   return stats;
-};
+}

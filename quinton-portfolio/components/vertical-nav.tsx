@@ -1,7 +1,8 @@
 "use client";
 
-import { sections } from "@/lib/data";
 import { useEffect, useState } from "react";
+
+import { sections } from "@/lib/data";
 
 export default function VerticalNav() {
   const [activeSection, setActiveSection] = useState(sections[0]);
