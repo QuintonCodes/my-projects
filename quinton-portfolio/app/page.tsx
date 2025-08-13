@@ -122,9 +122,9 @@ export default function HomePage() {
           <div className="mt-8">
             <h3 className="mb-4 text-lg font-bold">Tools & Practices</h3>
             <div className="flex flex-wrap gap-2">
-              {skills.tools.map((tool) => (
+              {skills.tools.map((tool, index) => (
                 <Badge
-                  key={tool}
+                  key={index}
                   className="px-3 py-1 text-sm bg-accent/10 text-primary border-accent/20"
                 >
                   {tool}

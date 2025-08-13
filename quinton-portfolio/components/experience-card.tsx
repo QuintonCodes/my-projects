@@ -3,10 +3,12 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Experience } from "@/lib/data";
+import { Button } from "./ui/button";
 
 export default function ExperienceCard({
   title,
@@ -14,6 +16,7 @@ export default function ExperienceCard({
   duration,
   description,
   technologies,
+  links,
 }: Experience) {
   return (
     <div className="animate-fade-in-up will-change-transform">
@@ -46,6 +49,21 @@ export default function ExperienceCard({
             ))}
           </div>
         </CardContent>
+        <CardFooter className="flex justify-start gap-3">
+          {links.map((link, index) => (
+            <Button
+              key={index}
+              className="rounded-full hover:bg-accent/10"
+              variant="outline"
+              size="sm"
+              asChild
+            >
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.name}
+              </a>
+            </Button>
+          ))}
+        </CardFooter>
       </Card>
     </div>
   );

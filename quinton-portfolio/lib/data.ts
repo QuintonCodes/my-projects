@@ -70,7 +70,7 @@ export const skills = {
     },
     {
       title: "React.js",
-      level: 6,
+      level: 8,
     },
   ],
   backend: [
@@ -84,7 +84,7 @@ export const skills = {
     },
     {
       title: "Python",
-      level: 6,
+      level: 7,
     },
     {
       title: "SQL",
@@ -100,7 +100,6 @@ export const skills = {
     "GitHub",
     "GitHub Actions",
     "MetaMask",
-    "Jest",
     "Postman",
     "Jest",
     "Figma",
@@ -120,7 +119,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "SwopMarket e-Commerce Website",
+    title: "SwopMarket Website",
     description:
       "A full-featured online store with shopping cart, payment processing, and admin dashboard i built for my 3rd year project.",
     stack: ["Next.js", "PostgreSQL", "Prisma", "TailwindCSS"],
@@ -128,7 +127,7 @@ export const projects: Project[] = [
     live: "https://swop-market.vercel.app",
   },
   {
-    title: "Improved Spotify Clone (In Progress)",
+    title: "Spotify Clone (In Progress)",
     description:
       "A fully functional spotify clone with advanced music features, including playlists, search, and user authentication.",
     stack: ["Next.js", "PostgreSQL", "TailwindCSS"],
@@ -143,24 +142,31 @@ export type Experience = {
   duration: string;
   description: string;
   technologies: string[];
+  links: { name: string; href: string }[];
 };
 
 export const experience: Experience[] = [
   {
-    title: "Web Developer",
-    company: "Freelance - Takalani Lubrication Supplier",
-    duration: "Feb 2025 - Mar 2025",
+    title: "Full Stack Web Developer",
+    company: "Freelance",
+    duration: "Feb 2025 - Present",
     description:
-      "Solely developed and deployed a full-stack business website using Next.js and Tailwind CSS. Built and integrated a chatbot assistant handling up to 30+ daily customer inquiries, cutting manual intervention by over 80%. Designed a UI consistent with the client’s branding, improving average session duration and engagement by 30%",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
-  },
-  {
-    title: "Web Developer",
-    company: "Freelance - UniLink",
-    duration: "May 2025 - Present",
-    description:
-      "Resolved UX pain points, reducing authentication-related support tickets by over 70%. Designed and implemented key UI components (home, login, register) achieving a 100% approval rating on first client review. Configured automated Vercel preview deployments to streamline iteration cycles across a team of 2+ collaborators, reducing staging delays by 50%",
+      "Developed and deployed Takalani Lubrication Suppliers website, integrating a chatbot to handle 30+ daily inquiries and reduce manual work by 80%. Built Karanka Multiverse which accepts fiat cash and KRKUNI cryptocurrency with MetaMask. Improved UniLink authentication UX, reducing related support tickets by 70%, and implemented automated Vercel preview deployments",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MetaMask"],
+    links: [
+      {
+        name: "Karanka Multiverse",
+        href: "https://karanka-multiverse.vercel.app",
+      },
+      {
+        name: "UniLink",
+        href: "https://unilink-seven.vercel.app",
+      },
+      {
+        name: "Takalani Lubrications",
+        href: "https://takalanilubesupplier.co.za",
+      },
+    ],
   },
 ];
 
@@ -180,16 +186,13 @@ export const education: Education = {
   description:
     "Pursuing a Bachelor of Science in Information Technology with a specialization in Software Engineering at Eduvos, Pretoria. The program emphasizes practical skills in software development, covering areas such as programming in C#, data structures and algorithms, mobile app development, and software architecture design. Through a blend of theoretical knowledge and hands-on projects, I am building a strong foundation to contribute effectively to the tech industry.",
   degree: "BSc in Information Technology (Software Engineering)",
-  duration: "Feb 2023 - Present",
+  duration: "Feb 2023 - May 2026 (Expected)",
   modules: [
     "Programming in C#",
     "Data Structures and Algorithms in C#",
     "Mobile App Development",
     "Database Systems",
-    "Software Architecture Design",
     "Web Development & e-Commerce",
-    "IT Project Management",
-    "Object-Oriented Systems Analysis and Design",
   ],
   gpa: 3.22,
 };
