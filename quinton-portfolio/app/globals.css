@@ -156,16 +156,3 @@
   backdrop-filter: blur(10px);
   opacity: 0.9;
 }
-
-/* Glow hover button effect */
-.glow-on-hover {
-  @apply relative overflow-hidden transition-all duration-300;
-}
-
-.glow-on-hover::after {
-  @apply content-[''] absolute inset-0 bg-linear-to-r from-accent to-accent/50 blur-xl opacity-0 transition-opacity duration-300;
-}
-
-.glow-on-hover:hover::after {
-  @apply opacity-70;
-}
