@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "motion/react";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -19,8 +23,13 @@ export default function ExperienceCard({
   links,
 }: Experience) {
   return (
-    <div className="animate-fade-in-up will-change-transform">
-      <Card className="mb-6 glass-card border-accent/20">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <Card className="h-full mb-6 border shadow-lg backdrop-blur-md bg-card/40 border-white/10">
         <CardHeader>
           <div className="flex flex-col gap-2 md:flex-row md:justify-between md:items-start">
             <div>
@@ -31,12 +40,12 @@ export default function ExperienceCard({
                 {company}
               </CardDescription>
             </div>
-            <span className="text-sm text-primary dark:text-muted-foreground whitespace-nowrap">
+            <span className="text-sm text-primary dark:text-muted-foreground md:whitespace-nowrap">
               {duration}
             </span>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="grow">
           <p className="mb-4 text-foreground/90">{description}</p>
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech) => (
@@ -49,7 +58,7 @@ export default function ExperienceCard({
             ))}
           </div>
         </CardContent>
-        <CardFooter className="flex justify-start gap-3">
+        <CardFooter className="flex flex-wrap justify-start w-full gap-3">
           {links.map((link, index) => (
             <Button
               key={index}
@@ -65,6 +74,6 @@ export default function ExperienceCard({
           ))}
         </CardFooter>
       </Card>
-    </div>
+    </motion.div>
   );
 }

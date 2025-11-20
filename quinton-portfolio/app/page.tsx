@@ -1,4 +1,7 @@
+"use client";
+
 import { Download } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 
 import EducationCard from "@/components/education-card";
@@ -31,7 +34,12 @@ export default function HomePage() {
         className="flex flex-col items-center gap-8 md:flex-row"
       >
         {/* Profile image */}
-        <div className="animate-fade-in-scale">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <Avatar className="w-56 h-56 border-4 shadow-xl border-primary/20">
             <AvatarImage
               src={details.imageURL}
@@ -40,10 +48,15 @@ export default function HomePage() {
             />
             <AvatarFallback>KQ</AvatarFallback>
           </Avatar>
-        </div>
+        </motion.div>
 
         {/* Text content */}
-        <div className="animate-fade-in-up [animation-delay:200ms]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
           <h1 className="mb-2 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl">
             {details.title}{" "}
             <span className="dark:text-primary text-accent">
@@ -72,7 +85,7 @@ export default function HomePage() {
               <a href="#projects">View My Work</a>
             </Button>
           </div>
-        </div>
+        </motion.div>
 
         <div className="hidden md:block">
           <Stats />
@@ -80,12 +93,12 @@ export default function HomePage() {
       </Section>
 
       <Section id="experience" nextSectionId="skills">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <h2 className="inline-block pb-1 mb-6 text-2xl font-bold border-b-2 border-primary sm:text-3xl">
             Experience
           </h2>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 gap-6">
             {experience.map((exp, index) => (
               <ExperienceCard key={index} {...exp} />
             ))}
@@ -184,7 +197,7 @@ export default function HomePage() {
               </Button>
               <div className="flex items-center gap-3">
                 {details.links.map(({ path, icon: Icon }, index) => (
-                  <Link
+                  <a
                     className="flex items-center justify-center text-base duration-500 border rounded-full size-9 border-primary text-primary hover:bg-accent hover:text-primary hover:transition-all"
                     href={path}
                     key={index}
@@ -193,7 +206,7 @@ export default function HomePage() {
                     aria-label={`Link to ${path}`}
                   >
                     <Icon />
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>

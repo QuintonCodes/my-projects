@@ -69,8 +69,8 @@ export const skills = {
       level: 9,
     },
     {
-      title: "React.js",
-      level: 8,
+      title: "React Native (Expo)",
+      level: 7,
     },
   ],
   backend: [
@@ -99,8 +99,10 @@ export const skills = {
     "Git",
     "GitHub",
     "GitHub Actions",
+    "Vite",
     "MetaMask",
     "Postman",
+    "PostgreSQL (Neon)",
     "Jest",
     "Figma",
     "CI/CD",
@@ -119,6 +121,20 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "EduLite - Mobile LMS",
+    description:
+      "Full-stack mobile LMS engineered for collaborative studying and resource sharing. Features a scalable Next.js backend, robust data management with Prisma, and Jest unit testing for reliability.",
+    stack: [
+      "React Native (Expo)",
+      "Next.js",
+      "Prisma",
+      "PostgreSQL (Neon)",
+      "Jest",
+    ],
+    gitHub: "https://github.com/QuintonCodes/edulite",
+    live: "",
+  },
+  {
     title: "SwopMarket Website",
     description:
       "A full-featured online store with shopping cart, payment processing, and admin dashboard i built for my 3rd year project.",
@@ -127,11 +143,11 @@ export const projects: Project[] = [
     live: "https://swop-market.vercel.app",
   },
   {
-    title: "Spotify Clone (In Progress)",
+    title: "Chordify - Spotify Music Manager",
     description:
-      "A fully functional spotify clone with advanced music features, including playlists, search, and user authentication.",
+      "A modern UI overhaul of a music streaming platform, implementing a custom 'Daily Artist' algorithm to boost playlist diversity and improve album recommendation logic.",
     stack: ["Next.js", "PostgreSQL", "TailwindCSS"],
-    gitHub: "https://github.com/QuintonCodes/My-Projects/tree/main/spotify-2.0",
+    gitHub: "https://github.com/QuintonCodes/My-Projects/tree/main/chordify",
     live: "",
   },
 ];
@@ -147,20 +163,36 @@ export type Experience = {
 
 export const experience: Experience[] = [
   {
+    title: "Part-Time Web Developer",
+    company: "Caledon Code",
+    duration: "October 2025",
+    description:
+      "Engaged in a short-term contract role, collaborating with a dedicated team to enhance the company’s services page. Delivered a responsive and highly-performant front-end component using React (Vite).",
+    technologies: ["React (Vite)", "Tailwind CSS"],
+    links: [
+      {
+        name: "Caledon Code",
+        href: "https://caledon-code-services.vercel.app",
+      },
+    ],
+  },
+  {
     title: "Full Stack Web Developer",
     company: "Freelance",
-    duration: "Feb 2025 - Present",
+    duration: "Feb 2025 - Sept 2025",
     description:
-      "Developed and deployed Takalani Lubrication Suppliers website, integrating a chatbot to handle 30+ daily inquiries and reduce manual work by 80%. Built Karanka Multiverse which accepts fiat cash and KRKUNI cryptocurrency with MetaMask. Improved UniLink authentication UX, reducing related support tickets by 70%, and implemented automated Vercel preview deployments",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "MetaMask"],
+      "Developed and deployed Takalani Lubrication Suppliers website, integrating a chatbot to handle 30+ daily inquiries and reduce manual work by 80%. Built Karanka Multiverse which accepts fiat cash and KRKUNI cryptocurrency with MetaMask.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "MetaMask",
+      "Vercel",
+    ],
     links: [
       {
         name: "Karanka Multiverse",
         href: "https://karanka-multiverse.vercel.app",
-      },
-      {
-        name: "UniLink",
-        href: "https://unilink-seven.vercel.app",
       },
       {
         name: "Takalani Lubrications",

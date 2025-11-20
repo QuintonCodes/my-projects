@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "motion/react";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -18,8 +22,13 @@ export default function EducationCard({
   modules,
 }: Education) {
   return (
-    <div className="animate-fade-in-up will-change-transform">
-      <Card className="mb-6 glass-card border-accent/20">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <Card className="mb-6 border shadow-lg backdrop-blur-md bg-card/40 border-white/10">
         <CardHeader>
           <div className="flex flex-col gap-2 md:flex-row md:justify-between md:items-start">
             <div>
@@ -52,6 +61,6 @@ export default function EducationCard({
           </div>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 }

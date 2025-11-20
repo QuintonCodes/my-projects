@@ -26,11 +26,11 @@ export default function ProjectCard({
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      <Card className="flex flex-col h-full project-card glass-card border-accent/20">
+      <Card className="flex flex-col h-full border shadow-lg transition-all duration-300 hover:shadow-xl backdrop-blur-md bg-card/40 border-white/10 hover:translate-y-[5px]">
         <CardHeader>
           <CardTitle className="text-foreground">{title}</CardTitle>
         </CardHeader>
-        <CardContent className="flex-grow">
+        <CardContent className="grow">
           <CardDescription className="mb-4 text-base text-foreground/80">
             {description}
           </CardDescription>
@@ -63,7 +63,7 @@ export default function ProjectCard({
             <Button
               variant="outline"
               size="sm"
-              className="rounded-full hover:bg-accent/10"
+              className="rounded-full hover:bg-accent/10 glow-on-hover"
               asChild
             >
               <a href={gitHub} target="_blank" rel="noopener noreferrer">
