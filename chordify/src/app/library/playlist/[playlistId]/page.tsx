@@ -90,14 +90,14 @@ export default function PlaylistDetailPage({
   const filteredSongs = songs.filter(
     (song) =>
       song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      song.artist.toLowerCase().includes(searchQuery.toLowerCase())
+      song.artist.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const toggleSong = (songId: number) => {
     setSelectedSongs((prev) =>
       prev.includes(songId)
         ? prev.filter((id) => id !== songId)
-        : [...prev, songId]
+        : [...prev, songId],
     );
   };
 
@@ -171,7 +171,7 @@ export default function PlaylistDetailPage({
       </div>
 
       {/* Search and Controls */}
-      <div className="glass-card rounded-2xl p-4">
+      <div className="glass rounded-2xl p-4">
         <div className="flex items-center gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -204,7 +204,7 @@ export default function PlaylistDetailPage({
       </div>
 
       {/* Songs List */}
-      <div className="glass-card rounded-2xl overflow-hidden">
+      <div className="glass rounded-2xl overflow-hidden">
         <div className="p-4">
           <h2 className="text-xl font-bold text-foreground mb-4">Songs</h2>
           <div className="space-y-1">
