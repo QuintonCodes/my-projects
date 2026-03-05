@@ -1,6 +1,6 @@
 # My-Projects
 
-Welcome to My-Projects, a collection of personal projects showcasing my skills in web development.
+Welcome to My Projects, a collection of personal web development projects showcasing my skills in building full-stack applications and modern user interfaces.
 
 ## Table of Contents
 
@@ -9,32 +9,35 @@ Welcome to My-Projects, a collection of personal projects showcasing my skills i
 
 ## Projects
 
-### 1. KickFlip Store E-Commerce Store
+### 1. Swop Market (C2C E-Commerce Platform)
 
 - **Description**:
-  The KickFlip Store E-commerce website is a fully functional online platform for a made-up skater t-shirt and hoodie shop. This project provides a smooth shopping experience by utilizing the capabilities of Node.js for the backend with MongoDB as the database and React.js for the frontend. TypeScript connects everything and allows for dynamic and interactive features, while React is used to create an appealing and simple user experience.
+  Swop Market is a fully functional consumer-to-consumer (C2C) e-commerce marketplace. It allows users to browse, buy, and sell products seamlessly. The platform features robust product filtering, cart management, and a dedicated seller dashboard to manage listings.
 - **Features**:
-  - Product catalog with filters
-  - User authentication and authorization
-  - Shopping cart functionality
+  - Product catalog with enhanced filtering and search
+  - User authentication and profile management
+  - Shopping cart and secure checkout flow
+  - Seller capabilities (uploading product details, images, and pricing)
 - **Technologies**:
-  - React.js,
+  - Next.js (App Router)
   - TypeScript
-  - CSS (Tailwind CSS),
-  - Node.js,
-  - MongoDB
+  - Tailwind CSS & shadcn/ui
+  - Prisma ORM & Database Integration
 
-### 2. Spotify API Website
+### 2. Chordify (Music Dashboard)
 
 - **Description**:
-  The Spotify API Website is a web application that integrates with the Spotify API to fetch and display data about songs, albums, and artists. This project emphasizes modern frontend technologies and a clean UI.
+  Chordify is a modern web application that integrates with the Spotify API to provide a rich music browsing experience. Users can log in with their Spotify accounts to view their playlists, liked songs, recent activity, and discover new artists and albums.
 - **Features**:
-  - Browse and search for Spotify content
-  - Responsive and intuitive design
+  - Spotify API integration and authentication
+  - Browse and search for songs, albums, and artists
+  - Playlist and library management
+  - Responsive, clean UI with modern design principles
 - **Technologies**:
-  - Next.js
+  - Next.js (App Router)
   - TypeScript
-  - CSS (TailwindCSS)
+  - Tailwind CSS & shadcn/ui
+  - Spotify Web API
 
 ### 3. ASP.NET Core API
 
@@ -51,60 +54,41 @@ Welcome to My-Projects, a collection of personal projects showcasing my skills i
 
 To run these projects locally, follow these steps:
 
-### Spotify API Website
+### Swop Market
 
 ```bash
 # Clone the repository
-git clone https://github.com/CodeQ09/My-Projects.git
-cd My-Projects/spotify-app
+git clone https://github.com/QuintonCodes/my-projects.git
+cd my-projects/swop-market
 
 # Install dependencies
 npm install
 
+# Set up the database (requires a .env file with your database URL)
+npx prisma generate
+npx prisma db push
+
 # Start the development server
 npm run dev
 
-# Open your browser and navigate to http://localhost:3000 to view the Spotify API Website.
+# Open your browser and navigate to http://localhost:3000
 ```
 
-### KickFlip Store E-Commerce Website
+### Chordify
 
 ```bash
 # Clone the repository
-git clone https://github.com/CodeQ09/My-Projects.git
-cd My-Projects/kickflip
+# Clone the repository (if not already cloned)
+git clone https://github.com/QuintonCodes/my-projects.git
+cd my-projects/chordify
 
-# Navigate to the backend folder and install backend dependencies.
-cd server
+# Install dependencies
 npm install
 
-# Run the backend server.
-npm start
+# Start the development server (requires a .env.local file with Spotify API credentials)
+npm run dev
 
-# Open another terminal window, navigate to the frontend folder, and install frontend dependencies.
-cd ../client
-npm install
-
-# Run the frontend development server.
-npm start
-
-# Open your browser and navigate to http://localhost:3000 to explore the KickFlip Store E-Commerce Website.
-```
-
-### ASP.NET Core API
-
-```bash
-# Clone the repository
-git clone https://github.com/CodeQ09/My-Projects.git
-cd My-Projects/csharp-web-api
-
-# Build the project
-dotnet build
-
-# Run the API
-dotnet run
-
-# The API will be available at http://localhost:5000 (or a configured port).
+# Open your browser and navigate to http://localhost:3000
 ```
 
 ## Contribution

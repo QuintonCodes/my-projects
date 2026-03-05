@@ -1,137 +1,147 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import { Sidebar } from '@/components/sidebar'
-import { AchievementCard } from '@/components/achievement-card'
-import { Progress } from '@/components/ui/progress'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Trophy, Star, Zap, Target, Award, TrendingUp } from 'lucide-react'
+import { Award, Star, Target, TrendingUp, Trophy, Zap } from "lucide-react";
+
+import {
+  AchievementCard,
+  AchievementCardProps,
+} from "@/components/achievement-card";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AchievementsPage() {
-  const userLevel = 12
-  const currentXP = 850
-  const nextLevelXP = 1000
-  const xpProgress = (currentXP / nextLevelXP) * 100
+  const userLevel = 12;
+  const currentXP = 850;
+  const nextLevelXP = 1000;
+  const xpProgress = (currentXP / nextLevelXP) * 100;
 
   const stats = [
-    { label: 'Total Achievements', value: '24', icon: Trophy },
-    { label: 'Points Earned', value: '3,450', icon: Star },
-    { label: 'Current Streak', value: '7 days', icon: Zap },
-    { label: 'Next Milestone', value: '150 XP', icon: Target },
-  ]
+    { label: "Total Achievements", value: "24", icon: Trophy },
+    { label: "Points Earned", value: "3,450", icon: Star },
+    { label: "Current Streak", value: "7 days", icon: Zap },
+    { label: "Next Milestone", value: "150 XP", icon: Target },
+  ];
 
-  const unlockedAchievements = [
+  const unlockedAchievements: AchievementCardProps[] = [
     {
-      id: 1,
-      title: 'First Steps',
-      description: 'Create your first playlist',
-      icon: '🎵',
+      id: "1",
+      title: "First Steps",
+      description: "Create your first playlist",
+      icon: "🎵",
       xp: 50,
-      rarity: 'common',
-      unlockedDate: '2024-01-15',
-      category: 'playlists',
+      rarity: "common",
+      isLocked: false,
+      unlockedDate: "2024-01-15",
+      category: "playlists",
     },
     {
-      id: 2,
-      title: 'Music Explorer',
-      description: 'Listen to 100 different artists',
-      icon: '🧭',
+      id: "2",
+      title: "Music Explorer",
+      description: "Listen to 100 different artists",
+      icon: "🧭",
       xp: 100,
-      rarity: 'rare',
-      unlockedDate: '2024-02-20',
-      category: 'listening',
+      rarity: "rare",
+      isLocked: false,
+      unlockedDate: "2024-02-20",
+      category: "listening",
     },
     {
-      id: 3,
-      title: 'Playlist Master',
-      description: 'Create 10 playlists',
-      icon: '👑',
+      id: "3",
+      title: "Playlist Master",
+      description: "Create 10 playlists",
+      icon: "👑",
       xp: 200,
-      rarity: 'epic',
-      unlockedDate: '2024-03-01',
-      category: 'playlists',
+      rarity: "epic",
+      isLocked: false,
+      unlockedDate: "2024-03-01",
+      category: "playlists",
     },
     {
-      id: 4,
-      title: 'Night Owl',
-      description: 'Listen to music past midnight for 7 days',
-      icon: '🦉',
+      id: "4",
+      title: "Night Owl",
+      description: "Listen to music past midnight for 7 days",
+      icon: "🦉",
       xp: 150,
-      rarity: 'rare',
-      unlockedDate: '2024-03-10',
-      category: 'listening',
+      rarity: "rare",
+      isLocked: false,
+      unlockedDate: "2024-03-10",
+      category: "listening",
     },
     {
-      id: 5,
-      title: 'Social Butterfly',
-      description: 'Share 50 songs with friends',
-      icon: '🦋',
+      id: "5",
+      title: "Social Butterfly",
+      description: "Share 50 songs with friends",
+      icon: "🦋",
       xp: 100,
-      rarity: 'rare',
-      unlockedDate: '2024-03-12',
-      category: 'social',
+      rarity: "rare",
+      isLocked: false,
+      unlockedDate: "2024-03-12",
+      category: "social",
     },
-  ]
+  ];
 
-  const lockedAchievements = [
+  const lockedAchievements: AchievementCardProps[] = [
     {
-      id: 6,
-      title: 'Legendary Curator',
-      description: 'Create 50 playlists',
-      icon: '🏆',
+      id: "6",
+      title: "Legendary Curator",
+      description: "Create 50 playlists",
+      icon: "🏆",
       xp: 500,
-      rarity: 'legendary',
+      rarity: "legendary",
+      isLocked: true,
       progress: 10,
       total: 50,
-      category: 'playlists',
+      category: "playlists",
     },
     {
-      id: 7,
-      title: 'Marathon Listener',
-      description: 'Listen to music for 1000 hours',
-      icon: '⚡',
+      id: "7",
+      title: "Marathon Listener",
+      description: "Listen to music for 1000 hours",
+      icon: "⚡",
       xp: 300,
-      rarity: 'epic',
+      rarity: "epic",
+      isLocked: true,
       progress: 156,
       total: 1000,
-      category: 'listening',
+      category: "listening",
     },
     {
-      id: 8,
-      title: 'Genre Hopper',
-      description: 'Listen to songs from 20 different genres',
-      icon: '🎭',
+      id: "8",
+      title: "Genre Hopper",
+      description: "Listen to songs from 20 different genres",
+      icon: "🎭",
       xp: 150,
-      rarity: 'rare',
+      rarity: "rare",
+      isLocked: true,
       progress: 12,
       total: 20,
-      category: 'discovery',
+      category: "discovery",
     },
     {
-      id: 9,
-      title: 'Daily Devotee',
-      description: 'Listen to music every day for 30 days',
-      icon: '📅',
+      id: "9",
+      title: "Daily Devotee",
+      description: "Listen to music every day for 30 days",
+      icon: "📅",
       xp: 250,
-      rarity: 'epic',
+      rarity: "epic",
+      isLocked: true,
       progress: 7,
       total: 30,
-      category: 'listening',
+      category: "listening",
     },
-  ]
+  ];
 
   const milestones = [
-    { level: 5, reward: 'Custom Profile Badge', unlocked: true },
-    { level: 10, reward: 'Exclusive Theme Colors', unlocked: true },
-    { level: 15, reward: 'Priority Artist Discovery', unlocked: false },
-    { level: 20, reward: 'Advanced Analytics', unlocked: false },
-    { level: 25, reward: 'VIP Status', unlocked: false },
-  ]
+    { level: 5, reward: "Custom Profile Badge", unlocked: true },
+    { level: 10, reward: "Exclusive Theme Colors", unlocked: true },
+    { level: 15, reward: "Priority Artist Discovery", unlocked: false },
+    { level: 20, reward: "Advanced Analytics", unlocked: false },
+    { level: 25, reward: "VIP Status", unlocked: false },
+  ];
 
   return (
     <div className="min-h-screen">
-      <Sidebar />
-      <main className="ml-[320px] p-8">
+      <main className="ml-80 p-8">
         <div className="max-w-7xl mx-auto space-y-8">
           {/* Header with Level Progress */}
           <div className="glass-card rounded-3xl p-8">
@@ -148,7 +158,7 @@ export default function AchievementsPage() {
                     Keep going to unlock more rewards
                   </p>
                 </div>
-                
+
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
                     <span className="font-medium text-foreground">
@@ -167,7 +177,7 @@ export default function AchievementsPage() {
                       key={stat.label}
                       className="glass-dark rounded-xl p-4 flex items-center gap-3"
                     >
-                      <stat.icon className="h-5 w-5 text-primary flex-shrink-0" />
+                      <stat.icon className="h-5 w-5 text-primary shrink-0" />
                       <div className="min-w-0">
                         <p className="text-xs text-muted-foreground truncate">
                           {stat.label}
@@ -258,21 +268,19 @@ export default function AchievementsPage() {
                   <div
                     key={milestone.level}
                     className={`glass-card rounded-2xl p-6 flex items-center gap-6 ${
-                      !milestone.unlocked && 'opacity-60'
+                      !milestone.unlocked && "opacity-60"
                     }`}
                   >
                     <div
                       className={`glass-dark rounded-xl p-4 flex items-center justify-center ${
-                        milestone.unlocked
-                          ? 'bg-primary/20'
-                          : 'bg-muted/20'
+                        milestone.unlocked ? "bg-primary/20" : "bg-muted/20"
                       }`}
                     >
                       <Award
                         className={`h-8 w-8 ${
                           milestone.unlocked
-                            ? 'text-primary'
-                            : 'text-muted-foreground'
+                            ? "text-primary"
+                            : "text-muted-foreground"
                         }`}
                       />
                     </div>
@@ -308,5 +316,5 @@ export default function AchievementsPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

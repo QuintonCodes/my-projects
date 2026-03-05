@@ -10,6 +10,7 @@ import {
   Shuffle,
   Trash2,
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -23,7 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Image from "next/image";
 
 export default function FavouritesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -263,7 +263,7 @@ export default function FavouritesPage() {
             />
           </div>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-[200px] glass backdrop-blur-xl border-border/50">
+            <SelectTrigger className="w-50 glass backdrop-blur-xl border-border/50">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent className="glass backdrop-blur-xl">

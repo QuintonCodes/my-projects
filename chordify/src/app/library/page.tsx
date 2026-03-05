@@ -2,6 +2,7 @@
 
 import { FolderOpen, LayoutGrid, LayoutList, Plus, Search } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { CreateFolderModal } from "@/components/create-folder-modal";
@@ -16,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
 
 export default function LibraryPage() {
   const [view, setView] = useState<"grid" | "list">("list");
@@ -110,7 +110,7 @@ export default function LibraryPage() {
   }
 
   const filteredPlaylists = playlists.filter((playlist) =>
-    playlist.name.toLowerCase().includes(searchQuery.toLowerCase())
+    playlist.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -177,7 +177,7 @@ export default function LibraryPage() {
           </div>
           <div className="flex items-center gap-2">
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-[180px] glass border-border/50">
+              <SelectTrigger className="w-45 glass border-border/50">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent className="glass backdrop-blur-xl">

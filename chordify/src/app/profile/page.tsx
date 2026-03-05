@@ -14,7 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<{
+  const [user] = useState<{
     name: string;
     email: string;
     imageUrl: string;

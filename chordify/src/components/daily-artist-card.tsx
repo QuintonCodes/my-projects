@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import { Play, Users, Music } from 'lucide-react'
+import { Music, Play, Users } from "lucide-react";
+import Image from "next/image";
 
-interface DailyArtistCardProps {
-  name: string
-  genre: string
-  followers: string
-  imageUrl: string
-  bio: string
-  topTracks: Array<{ id: number; name: string; plays: string }>
-}
+import { Button } from "@/components/ui/button";
+
+type DailyArtistCardProps = {
+  name: string;
+  genre: string;
+  followers: string;
+  imageUrl: string;
+  bio: string;
+  topTracks: Array<{ id: number; name: string; plays: string }>;
+};
 
 export function DailyArtistCard({
   name,
@@ -22,8 +22,8 @@ export function DailyArtistCard({
   bio,
   topTracks,
 }: DailyArtistCardProps) {
-  const handlePlayOnSpotify = () => {
-    window.open('https://open.spotify.com', '_blank')
+  function handlePlayOnSpotify() {
+    window.open("https://open.spotify.com", "_blank");
   }
 
   return (
@@ -37,7 +37,7 @@ export function DailyArtistCard({
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <Button
             size="lg"
             className="absolute bottom-6 right-6 h-14 w-14 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -68,9 +68,7 @@ export function DailyArtistCard({
             </div>
           </div>
 
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {bio}
-          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed">{bio}</p>
 
           {/* Top Tracks */}
           <div className="space-y-2">
@@ -111,5 +109,5 @@ export function DailyArtistCard({
         </div>
       </div>
     </div>
-  )
+  );
 }

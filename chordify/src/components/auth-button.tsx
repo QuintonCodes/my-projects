@@ -3,7 +3,7 @@
 import { LogIn, LogOut, Settings, User } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import * as React from "react";
+import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,22 +23,23 @@ type AuthButtonProps = {
 };
 
 export function AuthButton({ isCollapsed }: AuthButtonProps) {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const [user, setUser] = React.useState<{
+  const [user, setUser] = useState<{
     name: string;
     email: string;
     imageUrl: string;
     spotifyId: string;
   } | null>(null);
-  const [showLoginModal, setShowLoginModal] = React.useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [, startTransition] = useTransition();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const storedUser = localStorage.getItem("spotify_user");
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
-        setUser(userData);
-        setIsAuthenticated(true);
+        startTransition(() => {
+          setUser(userData);
+        });
       } catch (error) {
         console.error("Failed to parse user data:", error);
         localStorage.removeItem("spotify_user");
@@ -46,18 +47,17 @@ export function AuthButton({ isCollapsed }: AuthButtonProps) {
     }
   }, []);
 
-  const handleLogin = () => {
+  function handleLogin() {
     setShowLoginModal(true);
-  };
+  }
 
-  const handleLogout = () => {
+  function handleLogout() {
     localStorage.removeItem("spotify_user");
-    setIsAuthenticated(false);
     setUser(null);
     toast.success("Logged out successfully");
-  };
+  }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <>
         <Button

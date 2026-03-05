@@ -21,7 +21,7 @@ export function CreateFolderModal({ trigger }: { trigger?: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [folderName, setFolderName] = useState("");
 
-  const handleCreateFolder = () => {
+  function handleCreateFolder() {
     if (!folderName.trim()) {
       toast.error("Please enter a folder name");
       return;
@@ -30,7 +30,7 @@ export function CreateFolderModal({ trigger }: { trigger?: React.ReactNode }) {
     toast.success(`Created folder "${folderName}"`);
     setOpen(false);
     setFolderName("");
-  };
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

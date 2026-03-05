@@ -9,6 +9,7 @@ import {
   Shuffle,
   Trash2,
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -22,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Image from "next/image";
 
 export default function LikedSongsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -111,7 +111,7 @@ export default function LikedSongsPage() {
     (song) =>
       song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       song.artist.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      song.album.toLowerCase().includes(searchQuery.toLowerCase())
+      song.album.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const totalDuration = likedSongs.reduce((acc, song) => {
@@ -254,7 +254,7 @@ export default function LikedSongsPage() {
             />
           </div>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-[200px] glass backdrop-blur-xl border-border/50">
+            <SelectTrigger className="w-50 glass backdrop-blur-xl border-border/50">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent className="glass backdrop-blur-xl">
@@ -295,7 +295,7 @@ export default function LikedSongsPage() {
                         setSelectedSongs([...selectedSongs, song.id]);
                       } else {
                         setSelectedSongs(
-                          selectedSongs.filter((id) => id !== song.id)
+                          selectedSongs.filter((id) => id !== song.id),
                         );
                       }
                     }}

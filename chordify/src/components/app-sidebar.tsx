@@ -18,7 +18,6 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -66,7 +65,7 @@ export function AppSidebar({
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={cn(
         "fixed left-4 top-4 bottom-4 z-50 glass backdrop-blur-[1px] rounded-2xl overflow-hidden shadow-xl",
-        className
+        className,
       )}
     >
       <div className="flex h-full flex-col">
@@ -112,7 +111,7 @@ export function AppSidebar({
                     className={cn(
                       "w-full justify-start gap-3 hover:bg-primary/10 hover:text-primary transition-colors",
                       isCollapsed && "justify-center px-2",
-                      isActive && "bg-primary/10 text-primary"
+                      isActive && "bg-primary/10 text-primary",
                     )}
                   >
                     <item.icon className="h-5 w-5 shrink-0" />
@@ -152,7 +151,7 @@ export function AppSidebar({
                       className={cn(
                         "w-full justify-start gap-3 hover:bg-primary/10 hover:text-primary relative transition-colors",
                         isCollapsed && "justify-center px-2",
-                        isActive && "bg-primary/10 text-primary"
+                        isActive && "bg-primary/10 text-primary",
                       )}
                     >
                       <item.icon className="h-5 w-5 shrink-0" />

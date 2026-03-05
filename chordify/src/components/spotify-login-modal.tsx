@@ -1,5 +1,9 @@
 "use client";
 
+import { Loader2, Music } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,22 +12,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Loader2, Music } from "lucide-react";
-import * as React from "react";
-import { toast } from "sonner";
 
-interface SpotifyLoginModalProps {
+type SpotifyLoginModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-}
+};
 
 export function SpotifyLoginModal({
   open,
   onOpenChange,
 }: SpotifyLoginModalProps) {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSpotifyLogin = () => {
+  function handleSpotifyLogin() {
     setIsLoading(true);
 
     // Simulate OAuth flow
@@ -41,7 +42,7 @@ export function SpotifyLoginModal({
           email: "user@example.com",
           imageUrl: "/placeholder.svg?height=100&width=100",
           spotifyId: "user123",
-        })
+        }),
       );
 
       setIsLoading(false);
@@ -51,7 +52,7 @@ export function SpotifyLoginModal({
       // Reload to update auth state
       window.location.reload();
     }, 2000);
-  };
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

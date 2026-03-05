@@ -2,11 +2,11 @@
 
 import { Play, Plus } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 type AlbumCardProps = {
   id: number;
