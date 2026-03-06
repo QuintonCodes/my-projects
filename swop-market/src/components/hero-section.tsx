@@ -53,7 +53,7 @@ const features = [
 
 export default function HeroSection({ user }: { user: UserWithSeller | null }) {
   return (
-    <section className="overflow-hidden text-white bg-gradient-to-br from-teal-700 via-teal-800 px-4 py-16 md:px-6 md:py-24">
+    <section className="overflow-hidden text-white bg-linear-to-br from-teal-700 via-teal-800 px-4 py-16 md:px-6 md:py-24">
       <div className="grid items-center gap-8 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -20 }}

@@ -8,11 +8,11 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-interface ProductImageGalleryProps {
+type ProductImageGalleryProps = {
   images: string[];
   productName: string;
   condition?: string;
-}
+};
 
 // Map condition IDs to display labels
 const conditionLabels: Record<string, string> = {
@@ -30,13 +30,13 @@ export function ProductImageGallery({
 }: ProductImageGalleryProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const handlePrevImage = () => {
+  function handlePrevImage() {
     setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+  }
 
-  const handleNextImage = () => {
+  function handleNextImage() {
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
+  }
 
   // Get the display label for the condition
   const conditionDisplay = condition
@@ -88,12 +88,12 @@ export function ProductImageGallery({
               condition === "new"
                 ? "bg-green-600"
                 : condition === "used-like-new"
-                ? "bg-teal-700"
-                : condition === "used-good"
-                ? "bg-amber-500"
-                : condition === "used-fair"
-                ? "bg-orange-500"
-                : "bg-red-500"
+                  ? "bg-teal-700"
+                  : condition === "used-good"
+                    ? "bg-amber-500"
+                    : condition === "used-fair"
+                      ? "bg-orange-500"
+                      : "bg-red-500"
             }`}
           >
             {conditionDisplay}

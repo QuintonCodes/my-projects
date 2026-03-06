@@ -60,7 +60,7 @@ export default function NotificationsPage() {
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-3">
                       {notification.unread && (
-                        <div className="flex-shrink-0 w-2 h-2 mt-2 bg-blue-500 rounded-full" />
+                        <div className="shrink-0 w-2 h-2 mt-2 bg-blue-500 rounded-full" />
                       )}
                       <div>
                         <CardTitle className="text-base">

@@ -168,7 +168,7 @@ export default function EditProductPage() {
                         <FormControl>
                           <Textarea
                             placeholder="Describe your product..."
-                            className="min-h-[120px]"
+                            className="min-h-30"
                             {...field}
                           />
                         </FormControl>

@@ -36,7 +36,7 @@ export default function ProductSort() {
         defaultValue={searchParams.get("sort") || "newest"}
         onValueChange={handleSortChange}
       >
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-45">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
         <SelectContent>

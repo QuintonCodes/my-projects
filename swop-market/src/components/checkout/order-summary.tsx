@@ -79,7 +79,7 @@ export default function OrderSummary({
             <div
               className={`relative ${
                 condensed ? "h-12 w-12" : "h-20 w-20"
-              } overflow-hidden rounded-md flex-shrink-0`}
+              } overflow-hidden rounded-md shrink-0`}
             >
               <Image
                 src={item.imageUrl || "/placeholder.svg?height=80&width=80"}

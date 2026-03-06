@@ -69,7 +69,7 @@ export default function ProductDetailsForm() {
                 <FormControl>
                   <Textarea
                     placeholder="Describe your product in detail. Include condition, features, and any defects..."
-                    className="min-h-[120px]"
+                    className="min-h-30"
                     {...field}
                   />
                 </FormControl>

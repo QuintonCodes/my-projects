@@ -13,7 +13,7 @@ export default function FeaturedProducts() {
     return (
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-[340px] w-full rounded-lg" />
+          <Skeleton key={i} className="h-85 w-full rounded-lg" />
         ))}
       </div>
     );

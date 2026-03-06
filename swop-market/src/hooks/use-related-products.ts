@@ -1,5 +1,5 @@
-// import { products } from "@/lib/products";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
 import { useProducts } from "./use-products";
 
 export function useRelatedProducts(productId: string) {

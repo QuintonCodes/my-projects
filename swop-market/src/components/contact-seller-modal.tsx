@@ -142,7 +142,7 @@ export default function ContactSellerModal({
                     <Textarea
                       placeholder="Hi, I'm interested in your product..."
                       {...field}
-                      className="min-h-[120px]"
+                      className="min-h-30"
                     />
                   </FormControl>
                   <FormMessage />

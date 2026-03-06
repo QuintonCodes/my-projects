@@ -141,7 +141,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
                     <FormControl>
                       <Textarea
                         placeholder="Share your thoughts about this product..."
-                        className="min-h-[100px]"
+                        className="min-h-25"
                         {...field}
                       />
                     </FormControl>

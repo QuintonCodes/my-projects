@@ -28,10 +28,10 @@ export default function SearchBar({ className }: SearchBarProps) {
     defaultValues: { search: "" },
   });
 
-  const onSubmit = (values: SearchFormValues) => {
+  function onSubmit(values: SearchFormValues) {
     router.push(`/products?search=${encodeURIComponent(values.search.trim())}`);
     form.reset();
-  };
+  }
 
   return (
     <div className={cn("flex-1", className)}>

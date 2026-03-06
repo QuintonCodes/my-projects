@@ -1,7 +1,8 @@
 "use client";
 
-import { useProductList } from "@/hooks/use-product-list";
 import { motion } from "motion/react";
+
+import { useProductList } from "@/hooks/use-product-list";
 import { ProductCard } from "./product-card";
 import { Skeleton } from "./ui/skeleton";
 
@@ -13,7 +14,7 @@ export default function ProductGrid() {
     return (
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="h-[340px] w-full rounded-lg" />
+          <Skeleton key={i} className="h-85 w-full rounded-lg" />
         ))}
       </div>
     );

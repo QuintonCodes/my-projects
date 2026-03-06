@@ -16,7 +16,6 @@ import { Slider } from "@/components/ui/slider";
 import { MAX_PRICE, useProductFilters } from "@/hooks/use-product-filters";
 import { conditionOptions } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
-// import PriceRangeHistogram from "./price-range-histogram";
 
 import {
   Bar,
@@ -79,7 +78,7 @@ export default function FilterContent({
           <AccordionContent>
             <div className="space-y-4">
               {showPriceDistribution && (
-                <div className="h-[120px] w-full mb-4">
+                <div className="h-30 w-full mb-4">
                   <ResponsiveContainer
                     width="100%"
                     height={120}
@@ -188,7 +187,7 @@ export default function FilterContent({
                         } else {
                           setValue(
                             "conditions",
-                            currentConditions.filter((c) => c !== option.value)
+                            currentConditions.filter((c) => c !== option.value),
                           );
                         }
                       }}

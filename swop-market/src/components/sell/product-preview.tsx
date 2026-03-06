@@ -79,7 +79,7 @@ export default function ProductPreview() {
       </div>
 
       <div className="overflow-hidden bg-white border rounded-lg shadow-sm">
-        <div className="p-4 border-b bg-gradient-to-r from-teal-50 to-blue-50">
+        <div className="p-4 border-b bg-linear-to-r from-teal-50 to-blue-50">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
             <h3 className="text-lg font-semibold text-teal-800">

@@ -1,5 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+
 import { FilterState, useFilterPersistence } from "./use-filter-persistence";
 import { useProducts } from "./use-products";
 
@@ -34,7 +35,7 @@ export function useProductList() {
     if (filters.category) {
       list = list.filter(
         (product) =>
-          product.category.toLowerCase() === filters.category!.toLowerCase()
+          product.category.toLowerCase() === filters.category!.toLowerCase(),
       );
     }
 
@@ -43,7 +44,7 @@ export function useProductList() {
       list = list.filter(
         (product) =>
           product.name.toLowerCase().includes(query) ||
-          product.description.toLowerCase().includes(query)
+          product.description.toLowerCase().includes(query),
       );
     }
 
@@ -63,7 +64,7 @@ export function useProductList() {
 
     if (filters.conditions?.length) {
       list = list.filter((product) =>
-        filters.conditions!.includes(product.condition)
+        filters.conditions!.includes(product.condition),
       );
     }
 
@@ -78,14 +79,14 @@ export function useProductList() {
         list.sort(
           (a, b) =>
             new Date(b.createdAt || "").getTime() -
-            new Date(a.createdAt || "").getTime()
+            new Date(a.createdAt || "").getTime(),
         );
         break;
       default:
         list.sort(
           (a, b) =>
             new Date(b.createdAt || "").getTime() -
-            new Date(a.createdAt || "").getTime()
+            new Date(a.createdAt || "").getTime(),
         );
     }
 

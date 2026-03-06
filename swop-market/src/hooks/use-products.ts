@@ -1,6 +1,7 @@
-import { ProductWithSeller } from "@/lib/types/product";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+
+import { ProductWithSeller } from "@/lib/types/product";
 
 export function useProducts() {
   const {

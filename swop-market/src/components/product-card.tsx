@@ -240,7 +240,7 @@ export function ProductCard({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
           transition={{ duration: 0.2 }}
-          className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent"
+          className="absolute bottom-0 left-0 right-0 p-4 bg-linear-to-t from-background to-transparent"
         >
           <Button
             className={`w-full ${

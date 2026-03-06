@@ -1,6 +1,7 @@
+import { useEffect, useMemo } from "react";
+
 import { useReviewsStore } from "@/lib/stores/reviews-store";
 import { Review } from "@/lib/types/product";
-import { useEffect, useMemo } from "react";
 import { useProducts } from "./use-products";
 
 export function useProductReviews(productId: string) {
@@ -9,7 +10,7 @@ export function useProductReviews(productId: string) {
 
   const product = useMemo(
     () => products.find((p) => p.id === productId),
-    [products, productId]
+    [products, productId],
   );
 
   useEffect(() => {
