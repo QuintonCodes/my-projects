@@ -1,8 +1,9 @@
 "use server";
 
-import { getSession } from "@/lib/auth";
-import { db } from "@/lib/prisma";
 import { z } from "zod";
+
+import { db } from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 
 type SellerPayload = {
   storeName: string;

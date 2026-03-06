@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserWithSeller } from "@/context/auth-provider";
-import { deleteSession } from "@/lib/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 type UserMenuProps = {
@@ -27,7 +26,6 @@ export default function UserMenu({ user, logout: logoutStore }: UserMenuProps) {
 
   async function handleLogout() {
     try {
-      await deleteSession();
       await logoutStore(); // local store update
       toast.success("You have logged out.");
       router.refresh();

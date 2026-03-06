@@ -2,12 +2,8 @@
 
 import { z } from "zod";
 
-import {
-  createSession,
-  createUser,
-  getUserByEmail,
-  verifyPassword,
-} from "@/lib/auth";
+import { createUser, getUserByEmail, verifyPassword } from "@/lib/auth";
+import { createSession } from "@/lib/session";
 import { loginSchema, registerSchema } from "@/lib/types/auth";
 
 export async function registerUser(formData: FormData) {

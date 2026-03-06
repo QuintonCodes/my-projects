@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 
-import { getSession } from "@/lib/auth";
 import { db } from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 
 const productSchema = z.object({
   name: z.string().min(3),
