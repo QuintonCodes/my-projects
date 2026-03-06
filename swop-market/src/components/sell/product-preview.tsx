@@ -27,9 +27,10 @@ type ImageType = {
 };
 
 export default function ProductPreview() {
-  const { watch } = useFormContext();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { user } = useAuthStore();
+  const { watch } = useFormContext();
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Get form values
   const name = watch("name");
@@ -48,22 +49,25 @@ export default function ProductPreview() {
   const location = watch("location");
   const deliveryOptions = watch("deliveryOptions") || [];
 
-  const getDeliveryLabel = (id: string) =>
-    deliveryOptions.find((opt: typeof deliveryOptions) => opt.id === id)
-      ?.label || id;
-
-  const handlePrevImage = () => {
-    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNextImage = () => {
-    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
   const hasDiscount = originalPrice && originalPrice > price;
   const discountPercentage = hasDiscount
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
+
+  function getDeliveryLabel(id: string) {
+    return (
+      deliveryOptions.find((opt: typeof deliveryOptions) => opt.id === id)
+        ?.label || id
+    );
+  }
+
+  function handlePrevImage() {
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }
+
+  function handleNextImage() {
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }
 
   return (
     <div className="space-y-6">
@@ -201,12 +205,12 @@ export default function ProductPreview() {
                         condition === "new"
                           ? "bg-green-600"
                           : condition === "used_new"
-                          ? "bg-teal-700"
-                          : condition === "used_good"
-                          ? "bg-amber-500"
-                          : condition === "used_fair"
-                          ? "bg-orange-500"
-                          : "bg-red-500"
+                            ? "bg-teal-700"
+                            : condition === "used_good"
+                              ? "bg-amber-500"
+                              : condition === "used_fair"
+                                ? "bg-orange-500"
+                                : "bg-red-500"
                       }
                     >
                       {condition}
@@ -269,7 +273,7 @@ export default function ProductPreview() {
                       <AvatarFallback className="text-teal-700 bg-teal-100">
                         {user?.sellerProfile?.storeName
                           ?.split(" ")
-                          .map((n) => n[0])
+                          .map((n: string) => n[0])
                           .join("")
                           .toUpperCase() || "U"}
                       </AvatarFallback>

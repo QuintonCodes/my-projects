@@ -1,15 +1,16 @@
 "use client";
 
-import { ProductCard } from "@/components/product-card";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useProductList } from "@/hooks/use-product-list";
-import { useFavouritesStore } from "@/lib/stores/favourites-store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
 import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { ProductCard } from "@/components/product-card";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useProductList } from "@/hooks/use-product-list";
+import { useFavouritesStore } from "@/lib/stores/favourites-store";
 
 const searchSchema = z.object({
   search: z.string().min(1, "Please enter a search term"),
@@ -35,7 +36,7 @@ export default function FavouritesPage() {
   const filteredProducts = favouriteProducts.filter(
     (product) =>
       product?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product?.description.toLowerCase().includes(searchQuery.toLowerCase())
+      product?.description.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   function onSubmit() {

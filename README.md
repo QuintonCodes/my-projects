@@ -39,17 +39,6 @@ Welcome to My Projects, a collection of personal web development projects showca
   - Tailwind CSS & shadcn/ui
   - Spotify Web API
 
-### 3. ASP.NET Core API
-
-- **Description**:
-  This is a backend API built using ASP.NET Core, serving as the backend for the Spotify API Website. It provides RESTful endpoints for interacting with the Spotify API and acts as the middleware to manage API calls and handle authentication.
-- **Features**:
-  - Provides data endpoints for the Spotify API Website
-  - Implements SOLID principles
-- **Technologies**:
-  - ASP.NET Core (C#)
-  - SQL Server
-
 ## Getting Started
 
 To run these projects locally, follow these steps:

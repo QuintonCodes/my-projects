@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-interface OrderConfirmationProps {
+type OrderConfirmationProps = {
   orderNumber: string;
   shippingDetails: {
     fullName: string;
@@ -20,7 +20,7 @@ interface OrderConfirmationProps {
   };
   paymentMethod: string;
   onContinueShopping: () => void;
-}
+};
 
 export default function OrderConfirmation({
   orderNumber,
@@ -29,7 +29,7 @@ export default function OrderConfirmation({
   onContinueShopping,
 }: OrderConfirmationProps) {
   // Format payment method for display
-  const getPaymentMethodDisplay = (method: string) => {
+  function getPaymentMethodDisplay(method: string) {
     switch (method) {
       case "credit-card":
         return "Credit/Debit Card";
@@ -40,10 +40,10 @@ export default function OrderConfirmation({
       default:
         return method;
     }
-  };
+  }
 
   // Get estimated delivery date (7 days from now)
-  const getEstimatedDeliveryDate = () => {
+  function getEstimatedDeliveryDate() {
     const date = new Date();
     date.setDate(date.getDate() + 7);
     return date.toLocaleDateString("en-ZA", {
@@ -52,7 +52,7 @@ export default function OrderConfirmation({
       month: "long",
       day: "numeric",
     });
-  };
+  }
 
   return (
     <div className="max-w-2xl mx-auto">

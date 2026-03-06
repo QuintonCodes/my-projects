@@ -1,10 +1,11 @@
 "use client";
 
+import { Bell, Check, Trash2 } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNotificationsStore } from "@/lib/stores/notification-store";
-import { Bell, Check, Trash2 } from "lucide-react";
 
 export default function NotificationsPage() {
   const { notifications, markAsRead, markAllAsRead, removeNotification } =

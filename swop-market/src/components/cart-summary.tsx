@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ShoppingBag } from "lucide-react";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -26,7 +27,6 @@ import {
 import { Input } from "@/components/ui/input";
 import type { CartItem } from "@/lib/types/cart";
 import { formatCurrency } from "@/lib/utils";
-import { ShoppingBag } from "lucide-react";
 
 const promoCodeSchema = z.object({
   code: z.string().min(1, "Promo code is required"),
@@ -51,7 +51,7 @@ export default function CartSummary({ items }: { items: CartItem[] }) {
 
   const subtotal = items.reduce(
     (total, item) => total + (Number(item.price) || 0),
-    0
+    0,
   );
   const itemCount = items.length;
   const shipping = 0; // Free shipping for now

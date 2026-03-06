@@ -22,7 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/context/cart-provider";
 
 // Handle form submissions
-interface ShippingFormValues {
+type ShippingFormValues = {
   fullName: string;
   email: string;
   phone: string;
@@ -31,16 +31,16 @@ interface ShippingFormValues {
   province: string;
   postalCode: string;
   country: string;
-}
+};
 
 type PaymentMethod = "credit-card" | "paypal" | "eft";
-interface PaymentFormValues {
+type PaymentFormValues = {
   method: PaymentMethod;
   cardNumber?: string;
   cardName?: string;
   expiryDate?: string;
   cvv?: string;
-}
+};
 
 // Define checkout steps
 const CHECKOUT_STEPS = [
@@ -85,45 +85,45 @@ export default function CheckoutPage() {
   }, [items.length, router, currentStep]);
 
   // Handle step navigation
-  const goToNextStep = () => {
+  function goToNextStep() {
     const currentIndex = CHECKOUT_STEPS.findIndex(
-      (step) => step.id === currentStep
+      (step) => step.id === currentStep,
     );
     if (currentIndex < CHECKOUT_STEPS.length - 1) {
       setCurrentStep(CHECKOUT_STEPS[currentIndex + 1].id);
       window.scrollTo(0, 0);
     }
-  };
+  }
 
-  const goToPreviousStep = () => {
+  function goToPreviousStep() {
     const currentIndex = CHECKOUT_STEPS.findIndex(
-      (step) => step.id === currentStep
+      (step) => step.id === currentStep,
     );
     if (currentIndex > 0) {
       setCurrentStep(CHECKOUT_STEPS[currentIndex - 1].id);
       window.scrollTo(0, 0);
     }
-  };
+  }
 
-  const handleShippingSubmit = (data: ShippingFormValues) => {
+  function handleShippingSubmit(data: ShippingFormValues) {
     setShippingData(data);
     goToNextStep();
-  };
+  }
 
-  const handlePaymentSubmit = (data: PaymentFormValues) => {
+  function handlePaymentSubmit(data: PaymentFormValues) {
     setPaymentData(data);
     processOrder();
-  };
+  }
 
   // Process order (mock implementation)
-  const processOrder = () => {
+  function processOrder() {
     setIsProcessing(true);
 
     // Simulate API call to process order
     setTimeout(() => {
       // Generate random order number
       const randomOrderNumber = `ORD-${Math.floor(
-        100000 + Math.random() * 900000
+        100000 + Math.random() * 900000,
       )}`;
       setOrderNumber(randomOrderNumber);
 
@@ -134,12 +134,12 @@ export default function CheckoutPage() {
       setCurrentStep("confirmation");
       setIsProcessing(false);
     }, 2000);
-  };
+  }
 
   // Handle continue shopping
-  const handleContinueShopping = () => {
+  function handleContinueShopping() {
     router.push("/products");
-  };
+  }
 
   return (
     <div className="w-full px-4 py-8 md:px-6">

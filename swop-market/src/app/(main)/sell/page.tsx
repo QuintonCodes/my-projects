@@ -26,8 +26,8 @@ const productSchema = z.object({
   condition: z.enum(
     ["new", "used_new", "used_good", "used_fair", "for_parts"],
     {
-      errorMap: () => ({ message: "Please select a valid condition" }),
-    }
+      error: () => ({ message: "Please select a valid condition" }),
+    },
   ),
   brand: z.string().optional(),
   model: z.string().optional(),
@@ -39,7 +39,7 @@ const productSchema = z.object({
         id: z.string(),
         url: z.string(),
         file: z.any().optional(),
-      })
+      }),
     )
     .min(1, "Please add at least one image"),
 
@@ -116,21 +116,21 @@ export default function SellPage() {
     }
   }
 
-  const handleTabChange = (value: string) => {
+  function handleTabChange(value: string) {
     setActiveTab(value);
-  };
+  }
 
-  const goToNextTab = () => {
+  function goToNextTab() {
     if (activeTab === "details") setActiveTab("images");
     else if (activeTab === "images") setActiveTab("pricing");
     else if (activeTab === "pricing") setActiveTab("preview");
-  };
+  }
 
-  const goToPreviousTab = () => {
+  function goToPreviousTab() {
     if (activeTab === "preview") setActiveTab("pricing");
     else if (activeTab === "pricing") setActiveTab("images");
     else if (activeTab === "images") setActiveTab("details");
-  };
+  }
 
   return (
     <div className="container px-4 py-8 md:px-6">

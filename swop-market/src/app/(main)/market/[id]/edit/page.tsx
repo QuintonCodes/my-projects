@@ -76,22 +76,6 @@ export default function EditProductPage() {
     control,
   } = editForm;
 
-  if (!product) {
-    return (
-      <div className="container px-4 py-8 md:px-6">
-        <div className="py-12 text-center">
-          <h2 className="mb-4 text-2xl font-bold">Product Not Found</h2>
-          <p className="mb-6 text-muted-foreground">
-            The product you&apos;re trying to edit doesn&apos;t exist.
-          </p>
-          <Link href="/market">
-            <Button>Back to Market</Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   async function onSubmit(data: EditProductValues) {
     try {
       const formData = new FormData();
@@ -116,6 +100,22 @@ export default function EditProductPage() {
           "There was an error updating your product. Please try again.",
       });
     }
+  }
+
+  if (!product) {
+    return (
+      <div className="container px-4 py-8 md:px-6">
+        <div className="py-12 text-center">
+          <h2 className="mb-4 text-2xl font-bold">Product Not Found</h2>
+          <p className="mb-6 text-muted-foreground">
+            The product you&apos;re trying to edit doesn&apos;t exist.
+          </p>
+          <Link href="/market">
+            <Button>Back to Market</Button>
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -322,7 +322,7 @@ export default function EditProductPage() {
                                   field.onChange(
                                     e.target.value
                                       ? Number(e.target.value)
-                                      : undefined
+                                      : undefined,
                                   )
                                 }
                               />

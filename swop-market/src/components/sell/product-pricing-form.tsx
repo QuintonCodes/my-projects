@@ -1,5 +1,6 @@
 "use client";
 
+import { DollarSign, MapPin, Truck } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
 import {
@@ -20,7 +21,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { deliveryOptions } from "@/lib/data";
-import { DollarSign, MapPin, Truck } from "lucide-react";
 
 export default function ProductPricingForm() {
   const { control } = useFormContext();
@@ -83,7 +83,7 @@ export default function ProductPricingForm() {
                         {...field}
                         onChange={(e) =>
                           field.onChange(
-                            e.target.value ? Number(e.target.value) : undefined
+                            e.target.value ? Number(e.target.value) : undefined,
                           )
                         }
                       />
@@ -168,8 +168,9 @@ export default function ProductPricingForm() {
                                       ])
                                     : field.onChange(
                                         field.value?.filter(
-                                          (value: string) => value !== option.id
-                                        )
+                                          (value: string) =>
+                                            value !== option.id,
+                                        ),
                                       );
                                 }}
                               />

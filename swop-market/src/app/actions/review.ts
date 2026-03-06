@@ -1,7 +1,8 @@
 "use server";
 
-import { db } from "@/lib/prisma";
 import { z } from "zod";
+
+import { db } from "@/lib/prisma";
 
 const reviewSchema = z.object({
   productId: z.string().min(1, "Product ID is required"),
@@ -23,7 +24,7 @@ export async function registerReview(formData: FormData) {
   const parsed = reviewSchema.safeParse(raw);
 
   if (!parsed.success) {
-    throw new Error(parsed.error.errors.map((e) => e.message).join(", "));
+    throw new Error(parsed.error.message);
   }
 
   const { productId, comment, rating, user, buyerId } = parsed.data;

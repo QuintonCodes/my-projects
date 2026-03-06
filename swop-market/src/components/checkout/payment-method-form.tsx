@@ -69,17 +69,17 @@ const paymentFormSchema = z
     {
       message: "Please complete all credit card fields",
       path: ["method"],
-    }
+    },
   );
 
 type PaymentFormValues = z.infer<typeof paymentFormSchema>;
 
-interface PaymentMethodFormProps {
+type PaymentMethodFormProps = {
   defaultValues: Partial<PaymentFormValues>;
   onSubmit: (data: PaymentFormValues) => void;
   onBack: () => void;
   isProcessing: boolean;
-}
+};
 
 export default function PaymentMethodForm({
   defaultValues,
@@ -88,7 +88,7 @@ export default function PaymentMethodForm({
   isProcessing,
 }: PaymentMethodFormProps) {
   const [paymentMethod, setPaymentMethod] = useState(
-    defaultValues.method || "credit-card"
+    defaultValues.method || "credit-card",
   );
 
   const form = useForm<PaymentFormValues>({
@@ -104,7 +104,7 @@ export default function PaymentMethodForm({
   });
 
   // Format credit card number with spaces
-  const formatCardNumber = (value: string) => {
+  function formatCardNumber(value: string) {
     const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     const matches = v.match(/\d{4,16}/g);
     const match = (matches && matches[0]) || "";
@@ -119,10 +119,10 @@ export default function PaymentMethodForm({
     } else {
       return value;
     }
-  };
+  }
 
   // Format expiry date
-  const formatExpiryDate = (value: string) => {
+  function formatExpiryDate(value: string) {
     const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
 
     if (v.length >= 2) {
@@ -130,13 +130,13 @@ export default function PaymentMethodForm({
     }
 
     return v;
-  };
+  }
 
   // Handle payment method change
-  const handlePaymentMethodChange = (value: string) => {
+  function handlePaymentMethodChange(value: string) {
     setPaymentMethod(value as "credit-card" | "paypal" | "eft");
     form.setValue("method", value as "credit-card" | "paypal" | "eft");
-  };
+  }
 
   return (
     <Form {...form}>

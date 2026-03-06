@@ -18,7 +18,7 @@ const sellerSchema = z.object({
     .string()
     .min(10, "Store description must be at least 10 characters"),
   storeLocation: z.string().min(2, "Store location is required"),
-  contactEmail: z.string().email("Please enter a valid email address"),
+  contactEmail: z.email("Please enter a valid email address"),
   contactNumber: z.string().min(10, "Please enter a valid phone number"),
 });
 

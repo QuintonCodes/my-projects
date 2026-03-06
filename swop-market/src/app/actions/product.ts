@@ -1,8 +1,9 @@
 "use server";
 
+import { z } from "zod";
+
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/prisma";
-import { z } from "zod";
 
 const productSchema = z.object({
   name: z.string().min(3),
@@ -11,8 +12,8 @@ const productSchema = z.object({
   condition: z.enum(
     ["new", "used_new", "used_good", "used_fair", "for_parts"],
     {
-      errorMap: () => ({ message: "Please select a valid condition" }),
-    }
+      error: () => ({ message: "Please select a valid condition" }),
+    },
   ),
   brand: z.string().optional(),
   model: z.string().optional(),
@@ -21,7 +22,7 @@ const productSchema = z.object({
       z.object({
         id: z.string(),
         url: z.string(),
-      })
+      }),
     )
     .min(1),
   price: z.coerce.number().min(1),
@@ -78,13 +79,13 @@ export async function createProduct(formData: FormData) {
     if (!parsed.success) {
       return {
         success: false,
-        error: parsed.error.errors.map((e) => e.message).join(", "),
+        error: parsed.error.message,
       };
     }
     const data = parsed.data;
 
     const condition = validConditions.includes(
-      data.condition as (typeof validConditions)[number]
+      data.condition as (typeof validConditions)[number],
     )
       ? (data.condition as (typeof validConditions)[number])
       : undefined;
@@ -95,8 +96,8 @@ export async function createProduct(formData: FormData) {
     const deliveryOptions = (data.deliveryOptions as string[]).filter(
       (opt): opt is (typeof validDeliveryOptions)[number] =>
         validDeliveryOptions.includes(
-          opt as (typeof validDeliveryOptions)[number]
-        )
+          opt as (typeof validDeliveryOptions)[number],
+        ),
     );
     if (!deliveryOptions.length) {
       return { success: false, error: "No valid delivery options selected" };
@@ -130,7 +131,7 @@ export async function createProduct(formData: FormData) {
     return { success: true, product };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { error: error.errors[0].message };
+      return { error: error.message };
     }
     return { success: false, error: "Failed to create product" };
   }
@@ -146,7 +147,7 @@ export async function updateProduct(productId: string, formData: FormData) {
     if (!parsed.success) {
       return {
         success: false,
-        error: parsed.error.errors.map((e) => e.message).join(", "),
+        error: parsed.error.message,
       };
     }
     const data = parsed.data;
@@ -169,7 +170,7 @@ export async function updateProduct(productId: string, formData: FormData) {
     return { success: true, product: updated };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { error: error.errors[0].message };
+      return { error: error.message };
     }
     return { success: false, error: "Failed to update product" };
   }

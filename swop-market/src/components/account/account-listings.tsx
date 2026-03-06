@@ -90,25 +90,25 @@ const listings = [
 export default function AccountListings() {
   const [userListings, setUserListings] = useState(listings);
 
-  const handleDeleteListing = (id: string) => {
+  function handleDeleteListing(id: string) {
     setUserListings(userListings.filter((listing) => listing.id !== id));
 
     toast.success("Listing deleted", {
       description: "Your listing has been deleted successfully.",
     });
-  };
+  }
 
-  const handleStatusChange = (id: string, status: string) => {
+  function handleStatusChange(id: string, status: string) {
     setUserListings(
       userListings.map((listing) =>
-        listing.id === id ? { ...listing, status } : listing
-      )
+        listing.id === id ? { ...listing, status } : listing,
+      ),
     );
 
     toast.success("Status updated", {
       description: `Listing has been marked as ${status}.`,
     });
-  };
+  }
 
   return (
     <Card>
@@ -160,8 +160,8 @@ export default function AccountListings() {
                             listing.status === "active"
                               ? "bg-green-600"
                               : listing.status === "sold"
-                              ? "bg-amber-500"
-                              : "bg-muted"
+                                ? "bg-amber-500"
+                                : "bg-muted"
                           }
                         >
                           {listing.status.charAt(0).toUpperCase() +

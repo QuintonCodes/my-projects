@@ -1,6 +1,7 @@
+import { NextResponse } from "next/server";
+
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
@@ -43,7 +44,7 @@ export async function GET() {
   } catch {
     return NextResponse.json(
       { error: "Failed to fetch products" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,5 +1,7 @@
 "use server";
 
+import { z } from "zod";
+
 import {
   createSession,
   createUser,
@@ -7,7 +9,6 @@ import {
   verifyPassword,
 } from "@/lib/auth";
 import { loginSchema, registerSchema } from "@/lib/types/auth";
-import { z } from "zod";
 
 export async function registerUser(formData: FormData) {
   const data = {
@@ -38,7 +39,7 @@ export async function registerUser(formData: FormData) {
     return { success: true, user };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { error: error.errors[0].message };
+      return { error: error.message };
     }
     return { error: "Registration failed. Please try again." };
   }
@@ -60,7 +61,7 @@ export async function loginUser(formData: FormData) {
 
     const isValidPassword = await verifyPassword(
       validatedData.password,
-      user.password
+      user.password,
     );
 
     if (!isValidPassword) {
@@ -72,7 +73,7 @@ export async function loginUser(formData: FormData) {
     return { success: true, user };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { error: error.errors[0].message };
+      return { error: error.message };
     }
     return { error: "Login failed. Please try again." };
   }

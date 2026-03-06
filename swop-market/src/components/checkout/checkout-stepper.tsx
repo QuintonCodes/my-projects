@@ -3,16 +3,16 @@
 import { CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
 
-interface CheckoutStep {
+type CheckoutStep = {
   id: string;
   label: string;
   icon: React.ElementType;
-}
+};
 
-interface CheckoutStepperProps {
+type CheckoutStepperProps = {
   steps: CheckoutStep[];
   currentStep: string;
-}
+};
 
 export default function CheckoutStepper({
   steps,
@@ -53,15 +53,15 @@ export default function CheckoutStepper({
                     isCompleted
                       ? "bg-teal-700 border-teal-700 text-white"
                       : isCurrent
-                      ? "bg-white border-teal-700 text-teal-700"
-                      : "bg-white border-muted text-muted-foreground"
+                        ? "bg-white border-teal-700 text-teal-700"
+                        : "bg-white border-muted text-muted-foreground"
                   }`}
                   animate={{
                     backgroundColor: isCompleted
                       ? "rgb(15 118 110)"
                       : isCurrent
-                      ? "rgb(255 255 255)"
-                      : "rgb(255 255 255)",
+                        ? "rgb(255 255 255)"
+                        : "rgb(255 255 255)",
                     borderColor:
                       isCompleted || isCurrent
                         ? "rgb(15 118 110)"
@@ -69,8 +69,8 @@ export default function CheckoutStepper({
                     color: isCompleted
                       ? "rgb(255 255 255)"
                       : isCurrent
-                      ? "rgb(15 118 110)"
-                      : "rgb(148 163 184)",
+                        ? "rgb(15 118 110)"
+                        : "rgb(148 163 184)",
                   }}
                   transition={{ duration: 0.3 }}
                 >
@@ -109,8 +109,8 @@ export default function CheckoutStepper({
                   isCurrent
                     ? "bg-teal-700 text-white"
                     : isCompleted
-                    ? "text-teal-700"
-                    : "text-muted-foreground"
+                      ? "text-teal-700"
+                      : "text-muted-foreground"
                 }`}
               >
                 {step.label}

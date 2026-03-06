@@ -10,10 +10,10 @@ import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/context/cart-provider";
 import { formatCurrency } from "@/lib/utils";
 
-interface OrderSummaryProps {
+type OrderSummaryProps = {
   editable?: boolean;
   condensed?: boolean;
-}
+};
 
 export default function OrderSummary({
   editable = false,
@@ -29,7 +29,7 @@ export default function OrderSummary({
   useEffect(() => {
     const calculatedSubtotal = items.reduce(
       (sum, item) => sum + (Number(item.price) || 0),
-      0
+      0,
     );
 
     // Calculate shipping (free for orders over R1000, otherwise R150)
@@ -49,9 +49,9 @@ export default function OrderSummary({
   }, [items]);
 
   // Handle item removal
-  const handleRemoveItem = (id: string) => {
+  function handleRemoveItem(id: string) {
     removeItem(id);
-  };
+  }
 
   if (items.length === 0) {
     return (

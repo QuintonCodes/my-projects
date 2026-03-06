@@ -83,9 +83,9 @@ const orders = [
 export default function AccountOrders() {
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
 
-  const toggleOrderDetails = (orderId: string) => {
+  function toggleOrderDetails(orderId: string) {
     setExpandedOrder(expandedOrder === orderId ? null : orderId);
-  };
+  }
 
   return (
     <Card>
@@ -124,8 +124,8 @@ export default function AccountOrders() {
                         order.status === "delivered"
                           ? "bg-green-600"
                           : order.status === "shipped"
-                          ? "bg-amber-500"
-                          : "bg-teal-700"
+                            ? "bg-amber-500"
+                            : "bg-teal-700"
                       }
                     >
                       {order.status.charAt(0).toUpperCase() +
@@ -202,10 +202,10 @@ export default function AccountOrders() {
                             <p className="mt-1 text-sm">
                               {order.status === "delivered"
                                 ? `Delivered on ${new Date(
-                                    order.deliveryDate
+                                    order.deliveryDate,
                                   ).toLocaleDateString()}`
                                 : `Expected delivery by ${new Date(
-                                    order.deliveryDate
+                                    order.deliveryDate,
                                   ).toLocaleDateString()}`}
                             </p>
                           )}

@@ -24,10 +24,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const generateId = () =>
-  typeof crypto !== "undefined" && crypto.randomUUID
+function generateId() {
+  return typeof crypto !== "undefined" && crypto.randomUUID
     ? crypto.randomUUID()
     : Math.random().toString(36).slice(2, 11);
+}
 
 type Image = {
   id: string;
@@ -105,13 +106,13 @@ export default function ProductImagesForm() {
     }
   }
 
-  const removeImage = (imageId: string) => {
+  function removeImage(imageId: string) {
     const currentImages = getValues("images") || [];
     const updatedImages = currentImages.filter(
-      (img: Image) => img.id !== imageId
+      (img: Image) => img.id !== imageId,
     );
     setValue("images", updatedImages);
-  };
+  }
 
   return (
     <Card>

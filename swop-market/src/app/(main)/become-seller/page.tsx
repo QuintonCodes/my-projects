@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, CheckCircle, Store } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { register } from "@/app/actions/seller";
@@ -27,7 +28,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuthStore } from "@/context/auth-provider";
-import { toast } from "sonner";
 
 const sellerRegistrationSchema = z.object({
   storeName: z.string().min(2, "Store name must be at least 2 characters"),
@@ -60,7 +60,7 @@ export default function BecomeSellerPage() {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit = async (data: SellerRegistrationForm) => {
+  async function onSubmit(data: SellerRegistrationForm) {
     try {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
@@ -91,7 +91,7 @@ export default function BecomeSellerPage() {
         description: "Something went wrong. Please try again.",
       });
     }
-  };
+  }
 
   if (!user) {
     return (

@@ -1,5 +1,6 @@
-import { getSession, getUserByEmail } from "@/lib/auth";
 import { NextResponse } from "next/server";
+
+import { getSession, getUserByEmail } from "@/lib/auth";
 
 export async function GET() {
   const session = await getSession();
@@ -7,7 +8,7 @@ export async function GET() {
   if (!session?.email) {
     return NextResponse.json(
       { user: null, isAuthenticated: false },
-      { status: 401 }
+      { status: 401 },
     );
   }
 

@@ -31,7 +31,7 @@ import { UserWithSeller } from "@/context/auth-provider";
 
 const profileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email"),
+  email: z.email("Please enter a valid email"),
   phoneNumber: z.string().optional(),
   username: z.string().optional(),
 
@@ -39,7 +39,6 @@ const profileSchema = z.object({
   storeDescription: z.string().optional(),
   storeLocation: z.string().optional(),
   contactEmail: z
-    .string()
     .email("Please enter a valid email address")
     .optional()
     .or(z.literal("")),

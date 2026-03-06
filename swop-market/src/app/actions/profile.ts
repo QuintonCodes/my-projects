@@ -1,12 +1,13 @@
 "use server";
 
+import { z } from "zod";
+
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/prisma";
-import { z } from "zod";
 
 const profileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email"),
+  email: z.email("Please enter a valid email"),
   phoneNumber: z.string().optional(),
   username: z.string().optional(),
 
@@ -14,7 +15,6 @@ const profileSchema = z.object({
   storeDescription: z.string().optional(),
   storeLocation: z.string().optional(),
   contactEmail: z
-    .string()
     .email("Please enter a valid email address")
     .optional()
     .or(z.literal("")),
@@ -91,7 +91,7 @@ export async function updateProfile(formData: FormData) {
     return { success: true, user: userWithSeller };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, error: error.errors[0].message };
+      return { success: false, error: error.message };
     }
     return {
       success: false,

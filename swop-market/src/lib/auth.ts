@@ -1,7 +1,8 @@
 import { User } from "@prisma/client";
-import * as bcrypt from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+
 import { db } from "./prisma";
 
 const secretKey = process.env.JWT_SECRET_KEY;
@@ -22,14 +23,14 @@ type RegisterPayload = {
 };
 
 export async function hashPassword(password: string): Promise<string> {
-  return bcrypt.hash(password, 12);
+  return hash(password, 12);
 }
 
 export async function verifyPassword(
   password: string,
-  hash: string
+  hash: string,
 ): Promise<boolean> {
-  return bcrypt.compare(password, hash);
+  return compare(password, hash);
 }
 
 export async function encrypt(payload: SessionPayload) {
